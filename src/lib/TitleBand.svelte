@@ -14,7 +14,7 @@
 	const { title, introduction, width, bandWidth = 'max-w-6xl' }: Props = $props();
 </script>
 
-<!-- The top of a tool page: a slim graphite band holding the title and what the tool does, and
+<!-- The top of a tool page: a slim band holding the title and what the tool does, and
      nothing above the title. It's slim so the tool's first field stays on a phone's first screen. -->
 <section class="px-3 sm:px-5">
 	<div class="band mx-auto {bandWidth} rounded-3xl">
