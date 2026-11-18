@@ -86,7 +86,7 @@ not just taken on trust.
 
 ## Evidence on Hand
 
-- The source code is public: https://github.com/itriumid/website-tools.
+- The source code is public: https://github.com/itriumid/flint.
 - Two real receipts, as text recognition read them and made anonymous, are in the receipt
   tests. They are test material, not marketing material.
 - There are no testimonials, user counts, usage statistics or press, and there can't be any

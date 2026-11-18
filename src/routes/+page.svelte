@@ -9,6 +9,7 @@
 		ELSEWHERE,
 		ELSEWHERE_HEADING,
 		HEADING,
+		KICKER,
 		PROMISE,
 		PROMISE_HEADING,
 		SOURCE_LABEL,
@@ -60,7 +61,10 @@
 		<!-- On a short phone (667px tall) the panel and the gap under it tighten, so the first card's
 		     action is still on the first screen. -->
 		<div class="mx-auto max-w-5xl px-6 py-8 sm:px-8 sm:py-16 [@media(max-height:44rem)]:py-6">
+			<!-- The name, and what it is right under it in muted text: a name alone says nothing to a
+			     first visit. The two jobs follow in the text color. -->
 			<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">{HEADING}</h1>
+			<p class="mt-2 text-lg font-medium text-muted sm:text-xl">{KICKER}</p>
 			<!-- The two jobs, in the text color: the first pink a visitor meets is something to press. -->
 			<p
 				class="mt-4 max-w-2xl text-xl leading-snug font-medium sm:mt-5 sm:text-3xl [@media(max-height:44rem)]:mt-3"
