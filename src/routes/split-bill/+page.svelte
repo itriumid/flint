@@ -198,8 +198,11 @@
 	// it, not under the empty form all the time: at rest it was noise, and as a live region it was
 	// read out again after every add, like an error right after a success.
 	let explainPerson = $state(false);
-	/** Looks like a disabled button but can still be pressed or reached, to say why it can't add. */
-	const unavailable = 'aria-disabled:cursor-not-allowed aria-disabled:opacity-50';
+	/**
+	 * Looks like a disabled button but can still be pressed or reached, to say why it can't add. Its
+	 * words go muted rather than the whole button fading, which took them under 4.5:1.
+	 */
+	const unavailable = 'aria-disabled:cursor-not-allowed aria-disabled:text-muted';
 	let explainItem = $state(false);
 
 	function addPerson() {

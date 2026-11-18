@@ -395,8 +395,10 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
 - **Small:** the secondary's look at 2.25rem tall with 1rem of padding (2.75rem on touch screens).
   For actions inside a card or the running total.
 - **Hover:** the primary fades to 85% opacity. Secondary and small fill with the page color.
-- **Disabled:** 50% opacity and a not-allowed cursor, with a line beside it saying why
-  (`SPLIT_BILL.missing`).
+- **Disabled:** a not-allowed cursor, with a line beside it saying why (`SPLIT_BILL.missing`).
+  Small buttons keep their edge and turn their words muted, which stays above 4.5:1, including
+  "Add person" and "Add item" while they're unavailable (`aria-disabled`); fading them to 50% took
+  the words down to 3:1. The primary and secondary still fade to 50%.
 - **Focus:** a 2 px outline 3 px away, pastel pink on graphite and graphite on light backgrounds.
 - **Text actions:** small actions that aren't the point, such as "Everyone", "Nobody" and
   "Remove", are muted, underlined 4 px below the text, and turn to the text color on hover. They
