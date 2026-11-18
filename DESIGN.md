@@ -385,7 +385,9 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
 
 - **Shape:** fully rounded (`full`), 0.75rem by 1.5rem of padding, label and icon centered with a
   0.5rem gap.
-- **Primary:** pastel pink with graphite text, semibold. One per view: "Read the receipt", "Add to
+- **Primary:** pastel pink with graphite text, semibold, and a 1 px `--accent-edge` border: deep
+  rose in light mode, where pastel pink alone is 1.5:1 on paper and the pill had no shape, and the
+  fill itself in dark mode, where it doesn't show. One per view: "Read the receipt", "Add to
   the bill", "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link"
   beside it is secondary).
 - **Secondary:** transparent, with a 1 px control-edge border and medium weight. Every other
