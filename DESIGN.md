@@ -13,6 +13,7 @@ colors:
   pastel-pink: '#febfca'
   paper: '#fafafa'
   paper-surface: '#ffffff'
+  paper-elevated: '#f1f1f1'
   paper-border: '#e4e4e4'
   muted-gray-on-light: '#6b6b6b'
   control-edge-on-light: '#767676'
@@ -165,7 +166,8 @@ the body and pink marks what a visitor should find. Here the specimen leaves the
 goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and
 paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn
 arrow. Only the job changes. itrium.id persuades; a tool gets out of the way. On the index the
-stone is on show, with full graphite slabs, big type and cards that lift. On a tool page the slab
+stone is on show, with full slabs (graphite surface in dark mode, a paper step in light), big
+type and cards that lift. On a tool page the slab
 shrinks to a slim title band and the work starts directly under it, because the person using it
 is at a restaurant table with a phone in one hand and a group waiting.
 
@@ -186,9 +188,10 @@ screen, and state shown by color alone.
 **Key Characteristics:**
 
 - One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.
-- The index opens and closes with full graphite panels. A tool page opens with a slim title band,
-  then the tool.
-- Light and dark are equal, and both follow the system. There's no toggle.
+- The index opens and closes with full panels. A tool page opens with a slim title band, then the
+  tool. Both follow the theme: a step off the page, never the other theme's color.
+- Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
+  footer.
 - Flat surfaces with tonal steps. The only shadow is under the open searchable list.
 - Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch
   screens, and 16px text on touch screens so iOS doesn't zoom.
@@ -217,13 +220,16 @@ dark default and `prefers-color-scheme: light`. The binding rules are in the han
 
 ### Neutral
 
-- **Graphite** (`graphite`): the dark page, the field fill and inset lists in dark mode, the
-  graphite panels in both themes, light mode's text, and the text on pink, always.
+- **Graphite** (`graphite`): the dark page, the field fill and inset lists in dark mode, light
+  mode's text, and the text on pink, always.
 - **Graphite surface** (`graphite-surface`) and **graphite border** (`graphite-border`): cards and
   their dividing lines in dark mode, and the running total's bar. Inside a panel in dark mode, the
   panel steps up to graphite surface and its cards to **graphite raised** (`graphite-raised`) with
   **graphite raised border** (`graphite-raised-border`), as on itrium.id.
 - **Off-white** (`off-white`): text on graphite.
+- **Paper elevated** (`paper-elevated`, `--elevated`): the panels and title bands in light mode,
+  from `@itrium/palettes`. A step down from paper, where everything a band holds still passes:
+  text 12.5:1, muted 4.7:1, rose text 4.8:1, control edge 4.0:1, focus 12.5:1.
 - **Muted gray on dark** (`muted-gray-on-dark`) and **muted gray on light**
   (`muted-gray-on-light`): secondary text such as introductions, hints, legends, the footer and the
   navigation. The lighter one stays at 4.6:1 even on graphite raised.
@@ -261,7 +267,7 @@ in sentence case and plain, readable working text. It's served from the site its
 
 ### Hierarchy
 
-- **Display** (`display`): the index's title in its graphite panel. 3rem on phones, the token size
+- **Display** (`display`): the index's title in its panel. 3rem on phones, the token size
   from 640 px. The error page's heading uses it too.
 - **Headline** (`headline`): a tool's title in its title band. 1.875rem on phones, the token size
   from 640 px.
@@ -327,7 +333,7 @@ small uppercase heading or back link sits above it. Nothing here is set in upper
 - **Breakpoints:** Tailwind's defaults, 640, 768 and 1024 px, plus `pointer-coarse` for touch
   sizing.
 
-**The Slab Rule, for tools.** The index opens and closes with a graphite panel. A tool page opens
+**The Slab Rule, for tools.** The index opens and closes with a panel. A tool page opens
 with a title band and never closes with one: on a phone, the tool comes before the frame.
 
 **The First Screen Rule.** On a phone, the first field of a tool is visible without scrolling.
@@ -379,7 +385,9 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
 
 - **Shape:** fully rounded (`full`), 0.75rem by 1.5rem of padding, label and icon centered with a
   0.5rem gap.
-- **Primary:** pastel pink with graphite text, semibold. One per view: "Read the receipt", "Add to
+- **Primary:** pastel pink with graphite text, semibold, and a 1 px `--accent-edge` border: deep
+  rose in light mode, where pastel pink alone is 1.5:1 on paper and the pill had no shape, and the
+  fill itself in dark mode, where it doesn't show. One per view: "Read the receipt", "Add to
   the bill", "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link"
   beside it is secondary).
 - **Secondary:** transparent, with a 1 px control-edge border and medium weight. Every other
@@ -387,8 +395,10 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
 - **Small:** the secondary's look at 2.25rem tall with 1rem of padding (2.75rem on touch screens).
   For actions inside a card or the running total.
 - **Hover:** the primary fades to 85% opacity. Secondary and small fill with the page color.
-- **Disabled:** 50% opacity and a not-allowed cursor, with a line beside it saying why
-  (`SPLIT_BILL.missing`).
+- **Disabled:** a not-allowed cursor, with a line beside it saying why (`SPLIT_BILL.missing`).
+  Small buttons keep their edge and turn their words muted, which stays above 4.5:1, including
+  "Add person" and "Add item" while they're unavailable (`aria-disabled`); fading them to 50% took
+  the words down to 3:1. The primary and secondary still fade to 50%.
 - **Focus:** a 2 px outline 3 px away, pastel pink on graphite and graphite on light backgrounds.
 - **Text actions:** small actions that aren't the point, such as "Everyone", "Nobody" and
   "Remove", are muted, underlined 4 px below the text, and turn to the text color on hover. They
@@ -548,7 +558,8 @@ with the split's heading focused, scrolled to on a phone.
 
 Someone who opens a shared bill that wasn't shared from their own device sees the split on its own,
 centered. The title band says what this bill is instead of how to make one ("A bill shared with you:
-Rp 459.250 in all, paid by Budi."), and one line above the split says where to look ("Find your
+Rp 459.250 in all, paid by Budi."), in the text color at medium weight, not muted: for someone
+who arrived from a link, it's the only context there is, and one line above the split says where to look ("Find your
 name, and tap it to see what's in your share."). A small "Make changes", with a muted note that
 changes stay on the device until the bill is shared again, waits under the split, so the friend's own
 row is on a phone's first screen. Who paid and rounding show only as their result in the rows;
@@ -622,10 +633,13 @@ that's gone or a server out of reach, carry the warning sign in medium weight. A
 one that opened in the same tab clears the bill it showed, so the old one isn't left under the
 error still headed as shared; someone's own bill stays.
 
-### Graphite panel and title band
+### Panel and title band
 
-The `.band` from itrium.id: the dark tokens in either theme (stepping up to graphite surface in
-dark mode), rounded 1.5rem, inset and wider than the content. On the index it's a full panel that
+The `.band`, a step off the page in either theme: graphite surface in dark mode (its cards step up
+to graphite raised), paper elevated in light mode. It was graphite in both themes, like
+itrium.id's, until that made the title the heaviest shape on every light page, above the pink
+action and with dark mode's pink focus ring inside it. Rounded 1.5rem, inset and wider than the
+content. On the index it's a full panel that
 holds the title and the tagline and nothing above the title, and a closing panel ends the page.
 The error page is one panel: its heading in display type and a ruled list of where to go instead,
 each row with the arrow. On a tool
