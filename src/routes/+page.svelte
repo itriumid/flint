@@ -4,175 +4,208 @@
 	import Arrow from '#lib/Arrow.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import {
+		CLOSING,
 		DESCRIPTION,
+		EXAMPLE,
 		IN_PROGRESS,
 		ELSEWHERE,
 		ELSEWHERE_HEADING,
 		HEADING,
 		KICKER,
-		PROMISE,
 		PROMISE_HEADING,
+		PROMISE_ROWS,
 		SOURCE_LABEL,
 		SOURCE_URL,
 		SPLIT_BILL,
 		TAGLINE,
 		TITLE,
-		TOOLS
+		TOOLS,
+		TOOLS_LABEL
 	} from '#lib/content.js';
-	import { actionLine, secondaryButton, sectionHeading } from '#lib/styles.js';
+	import { actionLine, primaryButton, secondaryButton } from '#lib/styles.js';
 	import { loadDraft } from '#lib/draft.js';
+	import { calculateBill, formatMoney } from '#lib/split-bill.js';
 	import { sharedFromHere } from '#lib/share.js';
 
 	// A bill this visitor was in the middle of: the draft in this tab, or else the bills this
 	// device shared. Read from what the browser already keeps, after the page loads: nothing new is
 	// kept, and nothing is sent anywhere. The page is the same for everyone until then.
-	// A draft is just said: the Split bill card right under it already opens it, and a second way
-	// to the same place was noise. A shared bill gets its own way in, since it opens that bill.
-	let inProgress: { text: string; action?: string; href?: string } | undefined = $state();
-	// With a draft in this tab, Split bill's card is the way back to it, and says so.
-	let hasDraft = $state(false);
+	// A draft becomes the strip's first row as a line item: the bill itself, its people and items,
+	// and what it comes to, set right; the whole row goes back to it. A shared bill is said, with
+	// its own way in, since it opens that bill.
+	let draft: { detail: string; total?: string } | undefined = $state();
+	let shared: { text: string; action: string; href: string } | undefined = $state();
 	onMount(() => {
-		if (loadDraft()) {
-			inProgress = { text: IN_PROGRESS.draft };
-			hasDraft = true;
+		const kept = loadDraft();
+		if (kept) {
+			const { bill } = kept;
+			draft = {
+				detail: IN_PROGRESS.draftDetail(bill.people.length, bill.items.length),
+				total: bill.items.length
+					? formatMoney(calculateBill(bill).grandTotal, bill.currencyCode)
+					: undefined
+			};
 			return;
 		}
-		const shared = sharedFromHere();
-		if (shared.length) {
-			inProgress = {
-				text: IN_PROGRESS.shared(shared.length),
-				action: shared.length === 1 ? IN_PROGRESS.openIt : IN_PROGRESS.openLatest,
-				href: `${resolve('/split-bill')}#bill=${shared[0]}`
+		const ids = sharedFromHere();
+		if (ids.length) {
+			shared = {
+				text: IN_PROGRESS.shared(ids.length),
+				action: ids.length === 1 ? IN_PROGRESS.openIt : IN_PROGRESS.openLatest,
+				href: `${resolve('/split-bill')}#bill=${ids[0]}`
 			};
 		}
 	});
 
-	// A card that is a link: it lifts and takes a pink edge when a pointer touches it, and its
-	// arrow moves on. The lift and the move wait for people who haven't asked for less motion.
-	const cardLink =
-		'group block h-full rounded-2xl border border-border bg-surface p-6 transition duration-200 hover:border-accent-edge motion-safe:hover:-translate-y-1';
+	// The strip's grammar: groups split by a dashed rule, each a small heading over its rows, and a
+	// row is a name on the left with its value set on the right, in tabular figures.
+	const group = 'border-t-2 border-dashed border-muted/55 px-5 py-6 sm:px-8';
+	const groupHeading = 'mb-3 text-lg font-bold';
+	const row = 'flex items-baseline justify-between gap-4';
+	// A row that is a link: the whole row takes the press, fills with the ground on hover, and its
+	// arrow moves on, for people who haven't asked for less motion.
+	const rowLink =
+		'group -mx-3 block rounded-lg px-3 py-3 transition-colors hover:bg-bg pointer-coarse:py-3.5';
 	const arrowMove = 'transition-transform duration-200 motion-safe:group-hover:translate-x-1';
 </script>
 
 <Seo title={TITLE} description={DESCRIPTION} path="/" />
 
-<section class="px-3 sm:px-5">
-	<div class="band mx-auto max-w-6xl rounded-3xl">
-		<!-- On a short phone (667px tall) the panel and the gap under it tighten, so the first card's
-		     action is still on the first screen. -->
-		<div class="mx-auto max-w-5xl px-6 py-8 sm:px-8 sm:py-16 [@media(max-height:44rem)]:py-6">
-			<!-- The name, and what it is right under it in muted text: a name alone says nothing to a
-			     first visit. The two jobs follow in the text color. -->
-			<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">{HEADING}</h1>
-			<p class="mt-2 text-lg font-medium text-muted sm:text-xl">{KICKER}</p>
-			<!-- The two jobs, in the text color: the first pink a visitor meets is something to press. -->
-			<p
-				class="mt-4 max-w-2xl text-xl leading-snug font-medium sm:mt-5 sm:text-3xl [@media(max-height:44rem)]:mt-3"
-			>
-				{TAGLINE}
-			</p>
+<!-- The index is one strip of line items down a quiet ground: the tools, what stays on your device
+     and the point itself, each as a row with its value on the right. On the header's own grid: on
+     wide screens the name sits under the logo and the strip ends under "About Itrium"; on phones
+     the name is above the strip. -->
+<div class="bg-elevated dark:bg-bg">
+	<div class="mx-auto max-w-5xl px-3 sm:px-8 lg:grid lg:grid-cols-[1fr_34rem] lg:gap-x-12">
+		<div class="px-2 pt-6 pb-6 sm:px-0 sm:pt-10 lg:pt-14">
+			<div class="lg:sticky lg:top-10">
+				<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">{HEADING}</h1>
+				<p class="mt-2 text-lg font-medium text-muted sm:text-xl">{KICKER}</p>
+			</div>
 		</div>
-	</div>
-</section>
 
-<div class="mx-auto max-w-5xl px-5 pb-16 sm:px-8 sm:pb-20">
-	<!-- The space above the cards is this line's: it's there for everyone, and a returning visitor's
-	     line appears in it after the page loads, so the cards never move under a finger reaching for
-	     one. Up to two lines fit on a phone; on a short one the space is kept for the first card. -->
-	<div
-		class="flex min-h-16 items-center py-2 sm:min-h-20 [@media(max-height:44rem)]:min-h-8 [@media(max-height:44rem)]:py-1"
-	>
-		{#if inProgress}
-			<p class="flex flex-wrap items-center gap-x-3">
-				{inProgress.text}
-				{#if inProgress.href}<a href={inProgress.href} class="group {actionLine}"
-						>{inProgress.action}<Arrow class={arrowMove} /></a
-					>{/if}
-			</p>
-		{/if}
-	</div>
-	<ul class="grid gap-5 sm:grid-cols-2">
-		{#each TOOLS as tool (tool.path)}
-			{@const continuing = hasDraft && tool.path === SPLIT_BILL.path}
-			<li>
-				<a href={resolve(tool.path)} class={cardLink}>
-					<h2 class="text-xl font-semibold">{tool.name}</h2>
-					<p class="mt-2 text-muted">{tool.summary}</p>
-					<!-- What the tool makes, as it looks in the tool. It's a picture, so screen readers
-					     skip it: the summary already says it. -->
-					<!-- Under 36rem of height (an iPhone SE in Safari shows about 548px) the sample gives way,
-					     so the card's action is still on the first screen; the summary says the same. With a
-					     bill in progress it gives way too: a made-up bill beside "Continue your bill" reads
-					     as theirs. -->
-					<div
-						class="mt-5 [@media(max-height:36rem)]:hidden {continuing ? 'hidden' : ''}"
-						aria-hidden="true"
-					>
-						<p class="text-sm text-muted">{tool.sampleCaption}</p>
-						<div class="mt-2 divide-y divide-border rounded-xl bg-bg px-4 text-sm tabular-nums">
-							{#each tool.sample as line (line.value)}
-								<div class="flex justify-between gap-4 py-2">
-									{#if line.label}<span>{line.label}</span>{/if}
-									<span class={line.label ? 'font-semibold' : 'min-w-0 truncate'}>{line.value}</span
+		<div class="border-x border-border bg-surface tabular-nums">
+			<!-- The strip's first row: what Flint does, or, for someone in the middle of a bill, that
+			     bill. It's here for everyone and as tall as the two-line tagline, so nothing moves under a
+			     finger when a returning visitor's shorter line arrives after the page loads. -->
+			<div
+				class="flex min-h-28 items-center px-5 py-6 sm:min-h-[7.25rem] sm:px-8 [@media(max-height:44rem)]:min-h-24 [@media(max-height:44rem)]:py-4"
+			>
+				{#if draft}
+					<div class="w-full">
+						<!-- The row link without its own vertical padding: the first row's padding is enough,
+						     and more would make this taller than the tagline it replaces. -->
+						<a
+							href={resolve(SPLIT_BILL.path)}
+							class="group -mx-3 block rounded-lg px-3 py-1 transition-colors hover:bg-bg"
+						>
+							<!-- Two lines, like the tagline it replaces: the bill and the way back to it, then
+							     its people and items with what it comes to set on the right. -->
+							<span class={row}>
+								<span class="text-xl font-semibold sm:text-2xl">{IN_PROGRESS.draftLabel}</span>
+								<Arrow class="{arrowMove} shrink-0 text-accent-text" />
+							</span>
+							<span class="{row} mt-1">
+								<span class="text-muted">{draft.detail}</span>
+								{#if draft.total}<span class="font-semibold">{draft.total}</span>{/if}
+							</span>
+						</a>
+					</div>
+				{:else if shared}
+					<p class="{row} w-full text-lg font-medium">
+						<span>{shared.text}</span>
+						<a href={shared.href} class="group {actionLine} shrink-0"
+							>{shared.action}<Arrow class={arrowMove} /></a
+						>
+					</p>
+				{:else}
+					<p class="text-xl leading-snug font-medium sm:text-2xl">{TAGLINE}</p>
+				{/if}
+			</div>
+
+			<section class={group} aria-label={TOOLS_LABEL}>
+				<ul class="space-y-1">
+					{#each TOOLS as tool (tool.path)}
+						{@const quiet = draft && tool.path === SPLIT_BILL.path}
+						<li>
+							<a href={resolve(tool.path)} class={rowLink}>
+								<span class={row}>
+									<span class="text-lg font-semibold whitespace-nowrap">{tool.name}</span>
+									<span class="flex shrink-0 items-center gap-2 font-semibold"
+										>{tool.yields}<Arrow class="{arrowMove} text-accent-text" /></span
 									>
-								</div>
-							{/each}
+								</span>
+								<span class="mt-1 block text-muted">{tool.line}</span>
+								<!-- What the tool makes, as indented sub-rows of its own line, marked as an example:
+								     a picture, so screen readers skip it, since the line already says it. It gives
+								     way under 36rem of height, and on Split bill while a bill is in progress, where
+								     a made-up bill beside theirs reads as theirs. -->
+								<span
+									class="mt-2 block pl-4 text-sm [@media(max-height:36rem)]:hidden {quiet
+										? 'hidden'
+										: ''}"
+									aria-hidden="true"
+								>
+									<span class="block py-0.5 text-muted">{EXAMPLE}</span>
+									{#each tool.sample as line (line.value)}
+										<span class="{row} py-0.5">
+											{#if line.label}<span class="text-muted">{line.label}</span>{/if}
+											<span class={line.label ? 'font-semibold' : 'min-w-0 truncate'}
+												>{line.value}</span
+											>
+										</span>
+									{/each}
+								</span>
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</section>
+
+			<section class={group} aria-labelledby="promise-heading">
+				<h2 id="promise-heading" class={groupHeading}>{PROMISE_HEADING}</h2>
+				<dl class="space-y-2.5">
+					{#each PROMISE_ROWS as fact (fact.label)}
+						<div class={row}>
+							<dt class="shrink-0 whitespace-nowrap text-muted">{fact.label}</dt>
+							<dd class="text-right font-semibold">{fact.value}</dd>
 						</div>
-					</div>
-					<!-- "Open …" only repeats the card's name to a screen reader; "Continue your bill" says
-					     something the name doesn't, so it's read. -->
-					<span class="mt-5 {actionLine}" aria-hidden={continuing ? undefined : 'true'}
-						>{continuing ? IN_PROGRESS.continue : `Open ${tool.name}`}<Arrow
-							class={arrowMove}
-						/></span
-					>
-				</a>
-			</li>
-		{/each}
-	</ul>
+					{/each}
+				</dl>
+			</section>
 
-	<h2 class="mt-20 text-2xl font-bold tracking-tight sm:text-3xl">{ELSEWHERE_HEADING}</h2>
-	<ul class="mt-8 grid gap-5 sm:grid-cols-2">
-		<!-- While there's only one, it takes the whole row, text on one side and the way onward on the
-		     other, instead of leaving half the row empty. -->
-		{#each ELSEWHERE as app (app.url)}
-			<li class={ELSEWHERE.length === 1 ? 'sm:col-span-2' : ''}>
-				<a
-					href={app.url}
-					rel="external"
-					class="{cardLink} {ELSEWHERE.length === 1
-						? 'sm:flex sm:items-end sm:justify-between sm:gap-10'
-						: ''}"
+			<section class={group} aria-labelledby="elsewhere-heading">
+				<h2 id="elsewhere-heading" class={groupHeading}>{ELSEWHERE_HEADING}</h2>
+				<ul>
+					{#each ELSEWHERE as app (app.url)}
+						<li>
+							<a href={app.url} rel="external" class={rowLink}>
+								<span class={row}>
+									<span class="font-semibold">{app.name}</span>
+									<!-- Where it goes, shown: a site of its own. To a screen reader it only
+									     lengthened the link's name, and the summary already names it. -->
+									<span class="{actionLine} shrink-0 text-sm" aria-hidden="true"
+										>{new URL(app.url).host}<Arrow class={arrowMove} /></span
+									>
+								</span>
+								<span class="mt-1 block text-muted">{app.summary}</span>
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</section>
+
+			<!-- The closing row states the point, heavy, under a solid rule; then the one pink action. -->
+			<section class="px-5 pt-2 pb-10 sm:px-8" aria-label={CLOSING.label}>
+				<div class="{row} border-t-2 border-text pt-5">
+					<span class="text-2xl font-extrabold sm:text-3xl">{CLOSING.label}</span>
+					<span class="text-2xl font-extrabold sm:text-3xl">{CLOSING.value}</span>
+				</div>
+				<a href={resolve(SPLIT_BILL.path)} class="mt-7 w-full {primaryButton}">{CLOSING.action}</a>
+				<a href={SOURCE_URL} rel="external" class="group mt-3 w-full {secondaryButton}"
+					>{SOURCE_LABEL}<Arrow class={arrowMove} /></a
 				>
-					<div>
-						<h3 class="text-xl font-semibold">{app.name}</h3>
-						<p class="mt-2 max-w-2xl text-muted">{app.summary}</p>
-					</div>
-					<!-- Where it goes, shown: a site of its own, so the address is under the action. To a screen
-					     reader it only lengthened the link's name, and the summary already names Amber. -->
-					<span class="mt-5 block shrink-0 {ELSEWHERE.length === 1 ? 'sm:mt-0' : ''}">
-						<span class={actionLine}>{app.label}<Arrow class={arrowMove} /></span>
-						<span class="block text-sm text-muted" aria-hidden="true">{new URL(app.url).host}</span>
-					</span>
-				</a>
-			</li>
-		{/each}
-	</ul>
-</div>
-
-<!-- The closing panel: the promise, and the source that proves it. -->
-<section class="px-3 pb-16 sm:px-5 sm:pb-20">
-	<div class="band mx-auto max-w-6xl rounded-3xl">
-		<div class="mx-auto max-w-5xl px-6 py-14 sm:px-8 sm:py-20">
-			<h2 class={sectionHeading}>{PROMISE_HEADING}</h2>
-			<ul class="mt-8 max-w-2xl divide-y divide-border border-y border-border text-lg">
-				{#each PROMISE as line (line)}
-					<li class="py-4 leading-relaxed">{line}</li>
-				{/each}
-			</ul>
-			<a href={SOURCE_URL} rel="external" class="group mt-10 {secondaryButton}"
-				>{SOURCE_LABEL}<Arrow class={arrowMove} /></a
-			>
+			</section>
 		</div>
 	</div>
-</section>
+</div>
