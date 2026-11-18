@@ -6,6 +6,7 @@
 	import lockupOnDark from '#lib/itrium-lockup-on-dark.svg';
 	import lockupOnLight from '#lib/itrium-lockup-on-light.svg';
 	import mark from '#lib/itrium-mark.svg';
+	import ThemeChoice from '#lib/ThemeChoice.svelte';
 	import {
 		EMAIL,
 		GITHUB_URL,
@@ -81,6 +82,7 @@
 			<!-- On the index, the closing panel says this in full, right above. -->
 			{#if page.url.pathname === resolve('/split-bill')}<p>{NO_TRACKING_BILLS}</p>
 			{:else if page.url.pathname !== '/'}<p>{NO_TRACKING}</p>{/if}
+			<ThemeChoice />
 		</div>
 		<ul class="flex shrink-0 gap-5 sm:flex-col sm:gap-2 sm:text-right">
 			<li><a href="mailto:{EMAIL}" class={link}>{EMAIL}</a></li>

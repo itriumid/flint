@@ -16,6 +16,9 @@ export const HEADING = 'Free tools';
 // The two jobs, said plainly: what's free and private is the closing panel's to say.
 export const TAGLINE = "Split a bill fairly, or message a number you haven't saved.";
 
+/** The footer's theme choice. */
+export const THEME = { legend: 'Theme', system: 'System', light: 'Light', dark: 'Dark' };
+
 // Above the tools, for someone who was in the middle of a bill: from what this browser already
 // keeps (the draft in this tab, the bills this device shared). Nothing new is kept.
 export const IN_PROGRESS = {
