@@ -1,7 +1,7 @@
 # Flint
 
 [Itrium](https://itrium.id)'s free web tools, named after the stone people made their first
-tools from. Live at [tools.itrium.id](https://tools.itrium.id):
+tools from. Live at [flint.itrium.id](https://flint.itrium.id):
 
 - **WhatsApp click-to-chat**: make a link that opens a WhatsApp chat with any phone number.
 - **Split bill**: split a bill fairly, with tax and service, and share it as a short link.

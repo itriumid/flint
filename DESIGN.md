@@ -1,5 +1,5 @@
 ---
-name: tools.itrium.id
+name: flint.itrium.id
 description: The Rhodonite Specimen, put to work. Itrium's free tools, in the same stone as itrium.id.
 colors:
   graphite: '#2b2b2b'
@@ -154,7 +154,7 @@ components:
     padding: '0.5rem 1rem'
 ---
 
-# Design System: tools.itrium.id
+# Design System: flint.itrium.id
 
 ## Overview
 

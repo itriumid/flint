@@ -82,6 +82,8 @@ async function placeFor(code: string): Promise<Place> {
 		({
 			name: 'HKDF',
 			hash: 'SHA-256',
+			// Not an address: a fixed constant every bill's name and key come from. It keeps the
+			// site's old name on purpose; changing it would lose every bill shared so far.
 			salt: text('tools.itrium.id split bill'),
 			info: text(info)
 		}) as const;

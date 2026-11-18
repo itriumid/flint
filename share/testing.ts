@@ -24,7 +24,7 @@ export function memory() {
 export function server(now = Date.now) {
 	const bills = new Map<string, Storage>();
 	return async (input: string, init?: RequestInit): Promise<Response> => {
-		const request = new Request(new URL(input, 'https://tools.itrium.id'), init);
+		const request = new Request(new URL(input, 'https://flint.itrium.id'), init);
 		const match = ADDRESS.exec(new URL(request.url).pathname);
 		if (!match || !NAME.test(match[1])) return new Response(null, { status: 404 });
 		let storage = bills.get(match[1]);

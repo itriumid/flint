@@ -1011,8 +1011,8 @@ describe('the split as text', () => {
 	});
 
 	it('ends with the link when there is one', () => {
-		expect(billAsText(state, 'https://tools.itrium.id/split-bill#bill=X').split('\n').at(-1)).toBe(
-			'https://tools.itrium.id/split-bill#bill=X'
+		expect(billAsText(state, 'https://flint.itrium.id/split-bill#bill=X').split('\n').at(-1)).toBe(
+			'https://flint.itrium.id/split-bill#bill=X'
 		);
 	});
 

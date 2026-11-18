@@ -71,7 +71,7 @@ conventions above.
 
 ## This repository
 
-Flint, Itrium's free web tools at tools.itrium.id: prerendered pages (`/`,
+Flint, Itrium's free web tools at flint.itrium.id: prerendered pages (`/`,
 `/whatsapp-click-to-chat`, `/split-bill`), SvelteKit 3 with TypeScript and Tailwind CSS v4, on
 Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers Builds deploys
 `main`, so **anything merged ships.**
@@ -126,7 +126,10 @@ Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers 
   code (80 bits; `src/lib/share.ts`). Long links are `#data=` plus the bill compressed with
   `lz-string` (`src/lib/split-bill.ts`): still made when the server can't be reached, and links
   made on zakir.id before the tools moved here exist in the wild; the test with one of them must
-  keep passing.
+  keep passing. The owner removed tools.itrium.id on 2026-11-18 without a redirect, by decision,
+  so links on it no longer open there; the same link on flint.itrium.id still does. Keep both
+  formats, and the salt in `src/lib/share.ts` (which still says tools.itrium.id), exactly as they
+  are.
 - **Rules apart from pages.** What a tool decides (dividing a bill, building a chat link) lives
   in `src/lib/*.ts` with tests, not in the `.svelte` files.
 - **Level AA of the Web Content Accessibility Guidelines**, per
