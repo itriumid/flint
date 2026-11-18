@@ -19,7 +19,8 @@ export const DESCRIPTION =
 export const HEADING = NAME;
 /** Under the name, what Flint is. */
 export const KICKER = 'Free tools from Itrium';
-// The two jobs, said plainly: what's free and private is the closing panel's to say.
+// The two jobs, said plainly, as the index strip's first row: what's free and private is the
+// strip's promise group and closing row to say.
 export const TAGLINE = "Split a bill fairly, or message a number you haven't saved.";
 
 /** The header's link to the main site, and the footer's lockup, for screen readers. */
@@ -32,27 +33,37 @@ export const THEME = { legend: 'Theme', system: 'System', light: 'Light', dark: 
 // Above the tools, for someone who was in the middle of a bill: from what this browser already
 // keeps (the draft in this tab, the bills this device shared). Nothing new is kept.
 export const IN_PROGRESS = {
-	draft: 'You have a bill in progress in this tab.',
-	/** Split bill's card's action while there's a draft: the line above says why. */
-	continue: 'Continue your bill',
 	shared: (count: number) =>
 		count === 1
 			? 'You shared a bill from this device in the last 30 days.'
 			: `You shared ${count} bills from this device in the last 30 days.`,
 	openIt: 'Open it',
-	openLatest: 'Open the latest'
+	openLatest: 'Open the latest',
+	/** The index's first row while a bill is in progress in this tab: the bill, as a line item. */
+	draftLabel: 'Your bill in progress',
+	draftDetail: (people: number, items: number) =>
+		`${people} ${people === 1 ? 'person' : 'people'}, ${items} ${items === 1 ? 'item' : 'items'}`
 };
 
-// The index's closing panel: what happens to what people type, said plainly, with the source as
-// the proof.
+// The index strip's promise group: what happens to what people type, said plainly, with the
+// source as the proof.
 export const PROMISE_HEADING = 'What stays on your device';
-export const PROMISE = [
-	"What you type stays in your browser. It isn't sent to us.",
-	"A bill you share reaches us encrypted, with a key that's only in the link, so we can't read it. We delete it 30 days after it was last shared.",
-	'No cookies, no analytics, no trackers, and nothing loaded from anywhere else.',
-	'Flint keeps its own pages on your device, so it opens without a connection. Only sharing a bill needs one.'
-];
 export const SOURCE_LABEL = 'Read the source';
+
+// The index as one strip of line items: each promise as a short fact, its answer set on the right.
+export const PROMISE_ROWS = [
+	{ label: 'What you type', value: 'Stays in your browser' },
+	{ label: 'A bill you share', value: 'Encrypted, even from us' },
+	{ label: 'Kept after the last share', value: '30 days' },
+	{ label: 'Cookies and trackers', value: 'None' },
+	{ label: 'With no connection', value: 'Still opens' }
+];
+/** Over a tool's sample on the index: it's made up, not anyone's bill or number. */
+export const EXAMPLE = 'For example';
+/** The name of the strip's group of tools, for screen readers: the rows say the rest. */
+export const TOOLS_LABEL = 'Tools';
+/** The strip's heavy closing row, then its one pink action. */
+export const CLOSING = { label: 'Cost', value: 'Nothing', action: 'Split a bill' };
 
 export const NO_TRACKING =
 	'This site has no cookies, no analytics and no trackers. What you type stays in your browser.';
@@ -71,9 +82,11 @@ export const WHATSAPP = {
 	description:
 		'Make a WhatsApp click-to-chat link from any phone number, with a message already typed if you like. Spaces and symbols are removed for you.',
 	introduction: 'Paste a phone number as it is, and get a link that opens a chat with it.',
+	/** On the index, the tool's line: what it yields, set on the right, and one line under it. */
+	yields: 'A chat link',
+	line: 'Message a number without saving it.',
 	/** On the index, a glimpse of what the tool makes. */
 	sample: [{ value: 'wa.me/6281200000000' }] as Sample,
-	sampleCaption: 'The link it makes',
 	hint: 'A number that starts with + or 00 already has its country, so we use it as it is.',
 	/**
 	 * In the empty number field, for Indonesia: the shape people write, leading 0 included (it can
@@ -143,13 +156,15 @@ export const SPLIT_BILL = {
 		'Split a bill fairly: add the people and the items, tag who had what, add tax and service, and share the result as a short link. Shared bills are encrypted, and only people with the link can open them.',
 	introduction:
 		'Tag who had what, and we work out a fair share for each person, tax and service included.',
+	/** On the index, the tool's line: what it yields, set on the right, and one line under it. */
+	yields: "Each person's share",
+	line: 'Tag who had what; tax and service included.',
 	/** On the index, a glimpse of what the tool makes: each person's share. */
 	sample: [
 		{ label: 'Ayu', value: 'Rp 86.500' },
 		{ label: 'Budi', value: 'Rp 112.000' },
 		{ label: 'Citra', value: 'Rp 64.500' }
 	] as Sample,
-	sampleCaption: "Each person's share",
 	privacy:
 		"A shared bill waits on our server for 30 days after it was last shared, encrypted with a key that is only in the link, so we can't read it. Whoever shared it can update it or delete it, on the same device.",
 	sharing: {
