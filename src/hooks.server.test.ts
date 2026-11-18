@@ -13,7 +13,7 @@ const share = vi.hoisted(() => {
 const { handle } = await import('./hooks.server');
 
 const run = (path: string) => {
-	const url = new URL(path, 'https://tools.itrium.id');
+	const url = new URL(path, 'https://flint.itrium.id');
 	const resolve = vi.fn(async () => new Response('page'));
 	const event = { url, request: new Request(url) } as Parameters<typeof handle>[0]['event'];
 	return { response: handle({ event, resolve }), resolve };

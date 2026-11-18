@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://tools.itrium.id/sitemap.xml
+Sitemap: https://flint.itrium.id/sitemap.xml

@@ -11,7 +11,7 @@ async function send(
 	{ body, token, now = 1_000 }: { body?: string | Uint8Array; token?: string; now?: number } = {}
 ): Promise<{ status: number; text: string }> {
 	const headers = token ? { authorization: `Bearer ${token}` } : undefined;
-	const request = new Request('https://tools.itrium.id/', { method, body, headers });
+	const request = new Request('https://flint.itrium.id/', { method, body, headers });
 	const response = await handle(request, storage, now);
 	return { status: response.status, text: await response.text() };
 }

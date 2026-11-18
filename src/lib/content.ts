@@ -1,7 +1,7 @@
 // Everything the site says, in one place, so the copy can be reviewed without reading markup.
 // It's public copy in Itrium's voice: "we", plain words, no abbreviations. See the brand brief.
 
-export const SITE_URL = 'https://tools.itrium.id';
+export const SITE_URL = 'https://flint.itrium.id';
 export const MAIN_SITE_URL = 'https://itrium.id';
 export const EMAIL = 'hello@itrium.id';
 export const SECURITY_EMAIL = 'security@itrium.id';

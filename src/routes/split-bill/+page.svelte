@@ -14,7 +14,7 @@
 		type ScannedAdjustment,
 		type ScannedReceipt
 	} from '#lib/receipt.js';
-	import { SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
+	import { SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
 	import { CURRENCIES, searchNames } from '#lib/countries.js';
 	import {
 		DEFAULT_CURRENCY_CODE,
@@ -1248,7 +1248,7 @@
 		'@type': 'WebApplication',
 		name: SPLIT_BILL.name,
 		description: SPLIT_BILL.description,
-		url: `https://tools.itrium.id${SPLIT_BILL.path}`,
+		url: `${SITE_URL}${SPLIT_BILL.path}`,
 		applicationCategory: 'FinanceApplication',
 		operatingSystem: 'Any',
 		isAccessibleForFree: true,

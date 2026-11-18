@@ -2,7 +2,7 @@
 	import SearchableSelect, { type Choice } from '#lib/SearchableSelect.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import TitleBand from '#lib/TitleBand.svelte';
-	import { TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
+	import { SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
 	import { COUNTRIES, DEFAULT_COUNTRY_NAME, searchNames } from '#lib/countries.js';
 	import {
 		card,
@@ -172,7 +172,7 @@
 		'@type': 'WebApplication',
 		name: WHATSAPP.name,
 		description: WHATSAPP.description,
-		url: `https://tools.itrium.id${WHATSAPP.path}`,
+		url: `${SITE_URL}${WHATSAPP.path}`,
 		applicationCategory: 'UtilitiesApplication',
 		operatingSystem: 'Any',
 		isAccessibleForFree: true,
