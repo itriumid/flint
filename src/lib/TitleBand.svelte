@@ -9,9 +9,20 @@
 		 * column narrows it, or on a wide screen it's a slab with a small form lost under it.
 		 */
 		bandWidth?: string;
+		/**
+		 * The introduction is what someone needs to know, not a description: a bill shared with them,
+		 * opened from a link with no other context. It takes the text color, not muted.
+		 */
+		essential?: boolean;
 	}
 
-	const { title, introduction, width, bandWidth = 'max-w-6xl' }: Props = $props();
+	const {
+		title,
+		introduction,
+		width,
+		bandWidth = 'max-w-6xl',
+		essential = false
+	}: Props = $props();
 </script>
 
 <!-- The top of a tool page: a slim band holding the title and what the tool does, and
@@ -20,7 +31,9 @@
 	<div class="band mx-auto {bandWidth} rounded-3xl">
 		<div class="mx-auto {width} px-5 py-8 sm:px-8 sm:py-12">
 			<h1 class="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
-			<p class="mt-3 leading-relaxed text-muted">{introduction}</p>
+			<p class="mt-3 leading-relaxed {essential ? 'font-medium' : 'text-muted'}">
+				{introduction}
+			</p>
 		</div>
 	</div>
 </section>

@@ -558,7 +558,8 @@ with the split's heading focused, scrolled to on a phone.
 
 Someone who opens a shared bill that wasn't shared from their own device sees the split on its own,
 centered. The title band says what this bill is instead of how to make one ("A bill shared with you:
-Rp 459.250 in all, paid by Budi."), and one line above the split says where to look ("Find your
+Rp 459.250 in all, paid by Budi."), in the text color at medium weight, not muted: for someone
+who arrived from a link, it's the only context there is, and one line above the split says where to look ("Find your
 name, and tap it to see what's in your share."). A small "Make changes", with a muted note that
 changes stay on the device until the bill is shared again, waits under the split, so the friend's own
 row is on a phone's first screen. Who paid and rounding show only as their result in the rows;

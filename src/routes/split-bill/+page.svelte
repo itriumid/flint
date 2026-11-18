@@ -1266,6 +1266,7 @@
 	introduction={viewing
 		? SPLIT_BILL.sharedWithYou.band(money(totals.grandTotal), payerName)
 		: SPLIT_BILL.introduction}
+	essential={viewing}
 	width="max-w-2xl lg:max-w-6xl"
 />
 
