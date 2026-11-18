@@ -33,6 +33,9 @@ export default defineConfig({
 					'img-src': ['self', 'blob:'],
 					'manifest-src': ['self'],
 					'connect-src': ['self'],
+					// The service worker (src/service-worker), which keeps the site's own files for
+					// opening with no connection.
+					'worker-src': ['self'],
 					'base-uri': ['none'],
 					'form-action': ['none']
 				}
