@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { SITE_URL } from '#lib/content.js';
+	import { NAME, SITE_URL } from '#lib/content.js';
 
 	interface SeoProps {
 		title: string;
@@ -28,7 +28,7 @@
 	<meta name="description" content={description} />
 	<link rel="canonical" href={url} />
 	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="Itrium" />
+	<meta property="og:site_name" content={NAME} />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:url" content={url} />

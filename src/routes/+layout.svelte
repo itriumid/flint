@@ -3,13 +3,18 @@
 	import { onNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
+	import flintMark from '#lib/flint-mark.svg';
+	import flintMarkOnDark from '#lib/flint-mark-on-dark.svg';
 	import lockupOnDark from '#lib/itrium-lockup-on-dark.svg';
 	import lockupOnLight from '#lib/itrium-lockup-on-light.svg';
-	import mark from '#lib/itrium-mark.svg';
+	import ThemeChoice from '#lib/ThemeChoice.svelte';
 	import {
+		ABOUT_ITRIUM,
 		EMAIL,
 		GITHUB_URL,
+		MADE_BY,
 		MAIN_SITE_URL,
+		NAME,
 		NO_TRACKING,
 		NO_TRACKING_BILLS,
 		SOURCE_URL
@@ -43,25 +48,20 @@
 </a>
 
 <header class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-6 sm:px-8">
-	<a href={MAIN_SITE_URL} class="shrink-0" aria-label="Itrium's main site">
-		<!-- Under 360px the lockup and both links don't fit on one line (the links broke onto two
-		     each at 320): there, the mark alone, which is the same tile in either theme. -->
-		<picture>
-			<source srcset={mark} media="(max-width: 359.98px)" />
-			<source srcset={lockupOnDark} media="(prefers-color-scheme: dark)" />
-			<img src={lockupOnLight} alt="" width="131" height="40" class="h-10 w-auto" />
-		</picture>
+	<!-- Flint's mark and name: the way back to every tool from any one of them. The mark is the same
+	     tile in either theme; on a page as dark as the tile, the one with a faint rim keeps its edge. -->
+	<a
+		href={resolve('/')}
+		aria-current={page.url.pathname === '/' ? 'page' : undefined}
+		class="flex shrink-0 items-center gap-2.5 text-xl font-bold tracking-tight"
+	>
+		<img src={flintMark} alt="" width="40" height="40" class="size-10 dark:hidden" />
+		<img src={flintMarkOnDark} alt="" width="40" height="40" class="hidden size-10 dark:block" />
+		{NAME}
 	</a>
 	<nav aria-label="Main">
 		<ul class="flex items-center gap-5 text-sm font-medium whitespace-nowrap text-muted sm:gap-7">
-			<li>
-				<a
-					href={resolve('/')}
-					aria-current={page.url.pathname === '/' ? 'page' : undefined}
-					class="{link} aria-[current=page]:text-text">Free tools</a
-				>
-			</li>
-			<li><a href={MAIN_SITE_URL} class={link}>About Itrium</a></li>
+			<li><a href={MAIN_SITE_URL} class={link}>{ABOUT_ITRIUM}</a></li>
 		</ul>
 	</nav>
 </header>
@@ -76,11 +76,23 @@
 	<div
 		class="mx-auto flex max-w-5xl flex-col gap-6 px-5 py-10 text-sm text-muted sm:flex-row sm:justify-between sm:px-8"
 	>
-		<div class="space-y-2">
+		<div class="space-y-4">
+			<!-- Who makes Flint: Itrium's lockup, drawn for whichever theme is in use. -->
+			<a href={MAIN_SITE_URL} class="inline-block" aria-label={MADE_BY}>
+				<img src={lockupOnLight} alt="" width="131" height="40" class="h-10 w-auto dark:hidden" />
+				<img
+					src={lockupOnDark}
+					alt=""
+					width="131"
+					height="40"
+					class="hidden h-10 w-auto dark:block"
+				/>
+			</a>
 			<p>© {new Date().getFullYear()} Itrium</p>
 			<!-- On the index, the closing panel says this in full, right above. -->
 			{#if page.url.pathname === resolve('/split-bill')}<p>{NO_TRACKING_BILLS}</p>
 			{:else if page.url.pathname !== '/'}<p>{NO_TRACKING}</p>{/if}
+			<ThemeChoice />
 		</div>
 		<ul class="flex shrink-0 gap-5 sm:flex-col sm:gap-2 sm:text-right">
 			<li><a href="mailto:{EMAIL}" class={link}>{EMAIL}</a></li>

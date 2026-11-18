@@ -6,15 +6,28 @@ export const MAIN_SITE_URL = 'https://itrium.id';
 export const EMAIL = 'hello@itrium.id';
 export const SECURITY_EMAIL = 'security@itrium.id';
 export const GITHUB_URL = 'https://github.com/itriumid';
-export const SOURCE_URL = 'https://github.com/itriumid/website-tools';
+export const SOURCE_URL = 'https://github.com/itriumid/flint';
 
-export const TITLE = 'Free tools · Itrium';
+/** The collection's name: flint was what people made their first tools from. */
+export const NAME = 'Flint';
+/** After each page's own name in its title. */
+export const TITLE_SUFFIX = ` · ${NAME}`;
+export const TITLE = `${NAME}: free tools from Itrium`;
 export const DESCRIPTION =
-	'Small, free web tools from Itrium. No account, no advertisements, and what you type stays on your device unless you share it.';
+	'Flint is a set of small, free tools from Itrium. No account, no advertisements, it works offline, and what you type stays on your device unless you share it.';
 
-export const HEADING = 'Free tools';
+export const HEADING = NAME;
+/** Under the name, what Flint is. */
+export const KICKER = 'Free tools from Itrium';
 // The two jobs, said plainly: what's free and private is the closing panel's to say.
 export const TAGLINE = "Split a bill fairly, or message a number you haven't saved.";
+
+/** The header's link to the main site, and the footer's lockup, for screen readers. */
+export const ABOUT_ITRIUM = 'About Itrium';
+export const MADE_BY = 'Flint is made by Itrium';
+
+/** The footer's theme choice. */
+export const THEME = { legend: 'Theme', system: 'System', light: 'Light', dark: 'Dark' };
 
 // Above the tools, for someone who was in the middle of a bill: from what this browser already
 // keeps (the draft in this tab, the bills this device shared). Nothing new is kept.
@@ -36,7 +49,8 @@ export const PROMISE_HEADING = 'What stays on your device';
 export const PROMISE = [
 	"What you type stays in your browser. It isn't sent to us.",
 	"A bill you share reaches us encrypted, with a key that's only in the link, so we can't read it. We delete it 30 days after it was last shared.",
-	'No cookies, no analytics, no trackers, and nothing loaded from anywhere else.'
+	'No cookies, no analytics, no trackers, and nothing loaded from anywhere else.',
+	'Flint keeps its own pages on your device, so it opens without a connection. Only sharing a bill needs one.'
 ];
 export const SOURCE_LABEL = 'Read the source';
 

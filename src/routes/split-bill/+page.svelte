@@ -14,7 +14,7 @@
 		type ScannedAdjustment,
 		type ScannedReceipt
 	} from '#lib/receipt.js';
-	import { SPLIT_BILL } from '#lib/content.js';
+	import { SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
 	import { CURRENCIES, searchNames } from '#lib/countries.js';
 	import {
 		DEFAULT_CURRENCY_CODE,
@@ -1240,7 +1240,7 @@
 </script>
 
 <Seo
-	title="{SPLIT_BILL.name} · Itrium"
+	title="{SPLIT_BILL.name}{TITLE_SUFFIX}"
 	description={SPLIT_BILL.description}
 	path={SPLIT_BILL.path}
 	structuredData={{
