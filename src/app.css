@@ -1,68 +1,37 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/plus-jakarta-sans';
+/* Rhodonite's tokens, light and dark, from Itrium's own package: the same colors as every other
+   Itrium application, kept and checked in one place (see .handbook/itrium/decisions/0001). It
+   follows data-theme, which static/theme.js sets before the page is drawn. */
+@import '@itrium/palettes/palettes.css';
 
 /*
- * Rhodonite: graphite with pastel pink running through it. The same tokens as Honk's interface;
- * see .handbook/itrium/brand.md for the rules. In short: pink marks the primary
- * action and focus, nothing else, and text on pink is always graphite. In light mode, focus is
- * outlined in graphite: pink is too faint to see as a line on white.
+ * Rhodonite: graphite with pastel pink running through it; see .handbook/itrium/brand.md for the
+ * rules. In short: pink marks the primary action and focus, nothing else, and text on pink is
+ * always graphite. In light mode, focus is outlined in graphite: pink is too faint to see as a
+ * line on white. The package gives every token but these two, which only Itrium's sites use.
  */
 :root {
-	--bg: #2b2b2b;
-	--surface: #343434;
-	--border: #474747;
-	--text: #f2f2f2;
-	--muted: #aaaaaa;
-	--accent: #febfca;
-	--on-accent: #2b2b2b;
-	/* A step off the page, from @itrium/palettes: the band's surface in light mode. */
-	--elevated: #3e3e3e;
-	/* Pink as a line. Light mode deepens it to deep rose, which reaches 3:1 on white. */
-	--accent-edge: #febfca;
 	/* The edge of a field or button, which people need to see to find it: 3:1 against both the page
 	   and a card. The softer --border is for dividing lines that nothing depends on. */
 	--control-border: #8a8a8a;
 	/* Pink as text: pastel on graphite, rose on light backgrounds (5.2:1 on the page, 5.4:1 on white,
 	   4.8:1 on a band). */
 	--accent-text: #febfca;
-	/* The focus outline: pink on graphite, graphite on light backgrounds, where pink is 1.5:1. */
-	--focus: #febfca;
-	color-scheme: dark;
 }
 
-/* Light: the device's setting, unless Dark was chosen in the footer (data-theme, set by
-   static/theme.js before the page is drawn). */
+/* Light: the device's setting, unless Dark was chosen in the footer. */
 @media (prefers-color-scheme: light) {
 	:root:not([data-theme='dark']) {
-		--bg: #fafafa;
-		--surface: #ffffff;
-		--elevated: #f1f1f1;
-		--border: #e4e4e4;
-		--text: #2b2b2b;
-		/* #AAAAAA is too faint to read on white, so light mode uses a darker gray. */
-		--muted: #6b6b6b;
-		--accent-edge: #c46475;
-		--accent-text: #a84d60;
 		--control-border: #767676;
-		--focus: #2b2b2b;
-		color-scheme: light;
+		--accent-text: #a84d60;
 	}
 }
 
 /* Chosen in the footer: light whatever the device says. */
 :root[data-theme='light'] {
-	--bg: #fafafa;
-	--surface: #ffffff;
-	--elevated: #f1f1f1;
-	--border: #e4e4e4;
-	--text: #2b2b2b;
-	/* #AAAAAA is too faint to read on white, so light mode uses a darker gray. */
-	--muted: #6b6b6b;
-	--accent-edge: #c46475;
-	--accent-text: #a84d60;
 	--control-border: #767676;
-	--focus: #2b2b2b;
-	color-scheme: light;
+	--accent-text: #a84d60;
 }
 
 /* `dark:` follows the theme in use, not only the device: dark by the device's setting unless Light

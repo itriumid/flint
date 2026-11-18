@@ -139,8 +139,12 @@ Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers 
 - **The copy is public, in Itrium's voice.** The text lives in `src/lib/content.ts`; read
   `.handbook/itrium/brand.md` first, and show any wording change to the user
   before committing it. Rhodonite only: this site has no palette picker.
-- **Colors come from the tokens in `src/app.css`,** the same as itrium.id's, plus
-  `--control-border`. Pink marks the primary action and focus, nothing else.
+- **Colors come from `@itrium/palettes`,** pinned to an exact version, imported at the top of
+  `src/app.css`: Rhodonite, the same as itrium.id's and every Itrium application's. The site adds
+  only `--control-border` and `--accent-text`. `src/palettes.test.ts` runs the package's checker
+  on them in every theme state; it normalizes our single-quoted selectors first, and checks
+  Tailwind's pink line classes itself, since the checker reads neither. A color change belongs in
+  the package, then a version bump here. Pink marks the primary action and focus, nothing else.
 - **`static/.well-known/security.txt` expires.** A test fails a month before its `Expires` date;
   push it out another year when it does.
 - **Brand files** (`src/lib/*.svg`, the icons and `og-image.png` in `static/`) are copies from
