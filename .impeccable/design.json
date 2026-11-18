@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 2,
-	"generatedAt": "2026-11-11T09:53:41.080Z",
-	"title": "Design System: tools.itrium.id",
+	"generatedAt": "2026-11-18T10:26:35.000Z",
+	"title": "Design System: flint.itrium.id",
 	"extensions": {
 		"colorMeta": {
 			"graphite": {
@@ -169,6 +169,21 @@
 					"#eeeeee"
 				]
 			},
+			"paper-elevated": {
+				"role": "neutral",
+				"displayName": "Paper elevated",
+				"canonical": "#f1f1f1",
+				"tonalRamp": [
+					"#0b0b0b",
+					"#262626",
+					"#454545",
+					"#666666",
+					"#898989",
+					"#aeaeae",
+					"#d1d1d1",
+					"#eeeeee"
+				]
+			},
 			"paper-border": {
 				"role": "neutral",
 				"displayName": "Paper Border",
@@ -248,27 +263,39 @@
 		"typographyMeta": {
 			"display": {
 				"displayName": "Display",
-				"purpose": "The index's title in its graphite panel."
+				"purpose": "Flint's name at the top of the index, and the error page's heading."
+			},
+			"name-line": {
+				"displayName": "Name line",
+				"purpose": "The muted line under the index's name, saying what Flint is."
 			},
 			"headline": {
 				"displayName": "Headline",
 				"purpose": "A tool's title in its title band."
 			},
-			"card-title": {
-				"displayName": "Card title",
-				"purpose": "A tool's name on the index card."
+			"closing-row": {
+				"displayName": "Closing row",
+				"purpose": "The index strip's last row; the only extrabold on the site."
+			},
+			"strip-lead": {
+				"displayName": "Strip lead",
+				"purpose": "The strip's first row: the tagline, or a bill in progress in semibold."
 			},
 			"title": {
 				"displayName": "Title",
-				"purpose": "A section card's heading inside a tool."
+				"purpose": "A section card's heading inside a tool, and a tool's name on its strip row."
 			},
-			"lead": {
-				"displayName": "Lead",
-				"purpose": "The index introduction, muted."
+			"strip-heading": {
+				"displayName": "Strip heading",
+				"purpose": "A group's heading inside the index strip."
+			},
+			"row-value": {
+				"displayName": "Row value",
+				"purpose": "The value set right on a strip row, in tabular figures."
 			},
 			"body": {
 				"displayName": "Body",
-				"purpose": "A tool's introduction and running prose."
+				"purpose": "A tool's introduction, running prose, and a strip row's muted line."
 			},
 			"control": {
 				"displayName": "Control",
@@ -297,13 +324,13 @@
 				"purpose": "Color, opacity and fill changes on hover."
 			},
 			{
-				"name": "card-lift",
-				"value": "translate 0 -4px, 200ms ease, motion-safe",
-				"purpose": "Index tool cards on hover, with the arrow moving 4px right."
+				"name": "arrow-nudge",
+				"value": "translate 4px 0, 200ms ease, motion-safe",
+				"purpose": "The drawn arrow on a link row or action line, on hover."
 			},
 			{
 				"name": "page-cross-fade",
-				"value": "@view-transition { navigation: auto }, no-preference only",
+				"value": "document.startViewTransition on navigation, no-preference only",
 				"purpose": "Between pages, as on itrium.id."
 			}
 		],
@@ -368,12 +395,12 @@
 			"css": ".ds-chips{display:flex;flex-wrap:wrap;gap:.5rem}.ds-chip{min-height:2.25rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:var(--text);padding:0 .875rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:background-color .15s}.ds-chip:hover{background:var(--surface)}.ds-chip-on,.ds-chip-on:hover{border-color:var(--accent-edge);background:var(--accent);color:var(--on-accent);font-weight:500}.ds-chip:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-chip{min-height:2.75rem}}"
 		},
 		{
-			"name": "Tool Card",
-			"kind": "card",
-			"refersTo": "tool-card",
-			"description": "A tool on the index: the whole card is the link, it lifts and takes a pink edge on hover.",
-			"html": "<a class=\"ds-tool-card\" href=\"#\"><span class=\"ds-tool-name\">Split bill</span><span class=\"ds-tool-summary\">Split a bill fairly, with tax and service, and share it as a link.</span><span class=\"ds-tool-action\">Open the tool <svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.5 10h13M11 4.5 16.5 10 11 15.5\"/></svg></span></a>",
-			"css": ".ds-tool-card{display:block;max-width:24rem;border:1px solid var(--border);border-radius:1rem;background:var(--surface);color:var(--text);padding:1.5rem;text-decoration:none;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;transition:border-color .2s,translate .2s}.ds-tool-name{display:block;font-size:1.25rem;font-weight:600}.ds-tool-summary{display:block;margin-top:.5rem;color:var(--muted);line-height:1.5}.ds-tool-action{display:inline-flex;align-items:center;gap:.375rem;margin-top:1.25rem;font-weight:500;color:var(--accent-text,var(--accent-edge))}.ds-tool-action svg{width:1em;height:1em;transition:translate .2s}.ds-tool-card:hover{border-color:var(--accent-edge)}@media (prefers-reduced-motion:no-preference){.ds-tool-card:hover{translate:0 -4px}.ds-tool-card:hover svg{translate:4px 0}}.ds-tool-card:focus-visible{outline:2px solid var(--focus);outline-offset:3px}"
+			"name": "Index Strip",
+			"kind": "custom",
+			"refersTo": "strip",
+			"description": "The index: one strip of line items on a quiet ground, name left and value right in tabular figures, dashed group rules, a heavy closing row and the one pink pill.",
+			"html": "<div class=\"ds-strip-ground\"><div class=\"ds-strip\"><div class=\"ds-strip-first\"><p>Split a bill fairly, or message a number you haven't saved.</p></div><div class=\"ds-strip-group\"><a class=\"ds-strip-link\" href=\"#\"><span class=\"ds-strip-row\"><span class=\"ds-strip-name\">Split bill</span><span class=\"ds-strip-yield\">Each person's share<svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.5 10h13M11 4.5 16.5 10 11 15.5\"/></svg></span></span><span class=\"ds-strip-line\">Tag who had what; tax and service included.</span></a></div><div class=\"ds-strip-group\"><h2 class=\"ds-strip-heading\">What stays on your device</h2><dl class=\"ds-strip-facts\"><div class=\"ds-strip-row\"><dt>What you type</dt><dd>Stays in your browser</dd></div><div class=\"ds-strip-row\"><dt>Kept after the last share</dt><dd>30 days</dd></div></dl></div><div class=\"ds-strip-close\"><div class=\"ds-strip-row ds-strip-total\"><span>Cost</span><span>Nothing</span></div><a class=\"ds-strip-pill\" href=\"#\">Split a bill</a></div></div></div>",
+			"css": ".ds-strip-ground{background:var(--elevated);padding:0 .75rem;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-strip{max-width:34rem;margin:0 auto;background:var(--surface);color:var(--text);border-inline:1px solid var(--border);font-variant-numeric:tabular-nums}.ds-strip-first{display:flex;align-items:center;min-height:7.25rem;padding:1.5rem 2rem}.ds-strip-first p{margin:0;font-size:1.5rem;font-weight:500;line-height:1.375}.ds-strip-group{border-top:2px dashed color-mix(in srgb,var(--muted) 55%,transparent);padding:1.5rem 2rem}.ds-strip-heading{margin:0 0 .75rem;font-size:1.125rem;font-weight:700}.ds-strip-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}.ds-strip-link{display:block;margin:0 -.75rem;padding:.75rem;border-radius:.5rem;color:inherit;text-decoration:none;transition:background-color .15s}.ds-strip-link:hover{background:var(--bg)}.ds-strip-link:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-strip-name{font-size:1.125rem;font-weight:600;white-space:nowrap}.ds-strip-yield{display:inline-flex;align-items:center;gap:.5rem;flex-shrink:0;font-weight:600}.ds-strip-yield svg{width:1em;height:1em;color:var(--accent-text,var(--accent-edge));transition:translate .2s}@media (prefers-reduced-motion:no-preference){.ds-strip-link:hover svg{translate:4px 0}}.ds-strip-line{display:block;margin-top:.25rem;color:var(--muted)}.ds-strip-facts{margin:0;display:grid;gap:.625rem}.ds-strip-facts dt{color:var(--muted);white-space:nowrap}.ds-strip-facts dd{margin:0;text-align:right;font-weight:600}.ds-strip-close{padding:.5rem 2rem 2.5rem}.ds-strip-total{border-top:2px solid var(--text);padding-top:1.25rem;font-size:1.875rem;font-weight:800;line-height:1.2}.ds-strip-pill{display:flex;justify-content:center;margin-top:1.75rem;padding:.75rem 1.5rem;border-radius:9999px;border:1px solid var(--accent-edge);background:var(--accent);color:var(--on-accent);font-size:.875rem;font-weight:600;text-decoration:none;transition:opacity .15s}.ds-strip-pill:hover{opacity:.85}.ds-strip-pill:focus-visible{outline:2px solid var(--focus);outline-offset:3px}"
 		},
 		{
 			"name": "Note",
@@ -402,11 +429,11 @@
 	],
 	"narrative": {
 		"northStar": "The Rhodonite Specimen, put to work",
-		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way. On the index the stone is on show, with full graphite slabs, big type and cards that lift. On a tool page the slab shrinks to a slim title band and the work starts directly under it, because the person using it is at a restaurant table with a phone in one hand and a group waiting.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density is calm but working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It also refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone.",
+		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way. The index is one narrow strip of line items down a quiet ground: each tool, each promise and the point itself as a row, the name on the left and its value set right in tabular figures, groups split by dashed rules, and one heavy closing row over the one pink pill. It reads like the slip a table is used to, without dressing as one: no torn edges, no prices, no shop header. On a tool page the stone keeps its earlier form for now, a slim title band with the work directly under it, because the person using it is at a restaurant table with a phone in one hand and a group waiting. The strip was proven on the index first; the tool pages are to follow it.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density is calm but working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It also refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone.",
 		"keyCharacteristics": [
 			"One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.",
-			"The index opens and closes with full graphite panels. A tool page opens with a slim title band, then the tool.",
-			"Light and dark are equal, and both follow the system. There's no toggle.",
+			"The index is one strip of rows, name left and value right in tabular figures, ending in a heavy closing row and the one pink pill. A tool page opens with a slim title band, then the tool. Strip, ground and band follow the theme: a step off the page, never the other theme's color.",
+			"Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the footer.",
 			"Flat surfaces with tonal steps. The only shadow is under the open searchable list.",
 			"Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch screens, and 16px text on touch screens so iOS doesn't zoom.",
 			"Pink marks the primary action, focus, what's selected, and the way onward, and nothing else.",
@@ -415,7 +442,7 @@
 		"rules": [
 			{
 				"name": "The Vein Rule",
-				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. In a tool, one pink button per view.",
+				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. In a tool, one pink button per view; on the index, one pink pill at the strip's end, with the rows' arrows in rose text as their way onward and nothing else pink.",
 				"section": "colors"
 			},
 			{
@@ -430,7 +457,7 @@
 			},
 			{
 				"name": "The Every-Surface Rule",
-				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note and running total, in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1.",
+				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, running total, the index's strip and its ground, in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1.",
 				"section": "colors"
 			},
 			{
@@ -440,12 +467,22 @@
 			},
 			{
 				"name": "The No Kicker Rule",
-				"body": "A heading is the first thing in its block. No eyebrow, category label, small uppercase heading or back link sits above it. Nothing here is set in uppercase.",
+				"body": "A heading is the first thing in its block. No eyebrow, category label, small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that says more about a heading goes under it, as the index's name line does.",
 				"section": "typography"
 			},
 			{
+				"name": "The One Strip Rule",
+				"body": "The index is a single strip: no cards, no bands, no second column of content. Anything new on it is a row, name left and value right, or a group of rows under a dashed rule. The closing row stays last, and the pink pill stays under it.",
+				"section": "layout"
+			},
+			{
+				"name": "The Fixed First Row Rule",
+				"body": "The strip's first row keeps its height whatever fills it, so what the browser remembers can arrive late without moving anything under a finger.",
+				"section": "layout"
+			},
+			{
 				"name": "The Slab Rule, for tools",
-				"body": "The index opens and closes with a graphite panel. A tool page opens with a title band and never closes with one: on a phone, the tool comes before the frame.",
+				"body": "A tool page opens with a title band and never closes with one: on a phone, the tool comes before the frame.",
 				"section": "layout"
 			},
 			{
@@ -460,8 +497,13 @@
 			},
 			{
 				"name": "The Only Floating Things Cast Shadows Rule",
-				"body": "Cards, buttons, chips, bands and the running total never get a drop shadow. A card responds by lifting 4 px and taking a pink edge. A control responds by filling with the next tonal step.",
+				"body": "Cards, buttons, chips, bands, the strip and the running total never get a drop shadow. A control or a strip row responds by filling with the next tonal step, and its arrow moves 4 px on.",
 				"section": "elevation"
+			},
+			{
+				"name": "The Value Right Rule",
+				"body": "On the strip, what something gives you is set right, where the eye looks for the amount; what it is stays left. Never swap them, and never center a row.",
+				"section": "components"
 			},
 			{
 				"name": "The Whole Edge Rule",
@@ -470,25 +512,27 @@
 			}
 		],
 		"dos": [
-			"**Do** take tokens, radii, button shapes, the arrow and type roles from itrium.id's DESIGN.md before inventing anything. A difference between the two sites needs a reason a tool has and a page doesn't.",
-			"**Do** keep a tool's first field on the first phone screen.",
-			"**Do** give every field, button and chip a `--control-border` edge and a touch target at least 2.75rem tall on touch screens.",
-			"**Do** show every state in two ways: a check mark with the pink fill, words with the pink edge, and a reason beside a disabled button.",
-			"**Do** design and check every new pairing in light and dark, on every surface it sits on.",
-			"**Do** use the drawn arrow wherever a link points onward.",
-			"**Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the 4 px card lift and arrow nudge, and the loading spinner. Nothing in a tool rises or reveals as it scrolls.",
-			"**Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`, never raw hex values in markup."
+			"Do take tokens, radii, button shapes, the arrow and type roles from itrium.id's DESIGN.md before inventing anything. A difference between the two sites needs a reason a tool has and a page doesn't.",
+			"Do keep a tool's first field on the first phone screen.",
+			"Do give every field, button and chip a `--control-border` edge and a touch target at least 2.75rem tall on touch screens.",
+			"Do show every state in two ways: a check mark with the pink fill, words with the pink edge, and the reason a button can't be pressed yet, said under it when someone presses or reaches it (not at rest, and not read out again after every add).",
+			"Do design and check every new pairing in light and dark, on every surface it sits on.",
+			"Do use the drawn arrow wherever a link points onward.",
+			"Do keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing in a tool rises or reveals as it scrolls.",
+			"Do add to the index as a row of the strip: a name on the left, its value set right in tabular figures, inside a group under a dashed rule.",
+			"Do use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`, never raw hex values in markup."
 		],
 		"donts": [
-			"**Don't** use pink as decoration, or put two pink buttons in one view.",
-			"**Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.",
-			"**Don't** type arrows or chevrons as characters.",
-			"**Don't** give cards, buttons, chips, bands or the running total a drop shadow.",
-			"**Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.",
-			"**Don't** put pastel pink text or lines on a light background.",
-			"**Don't** use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
-			"**Don't** add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
-			"**Don't** set field text below 16px on touch screens."
+			"Don't use pink as decoration, or put two pink buttons in one view.",
+			"Don't put a small uppercase heading, eyebrow, kicker or back link above a heading.",
+			"Don't type arrows or chevrons as characters.",
+			"Don't give cards, buttons, chips, bands or the running total a drop shadow.",
+			"Don't use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.",
+			"Don't put pastel pink text or lines on a light background.",
+			"Don't use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
+			"Don't add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
+			"Don't set field text below 16px on touch screens.",
+			"Don't put cards, bands or a hero on the index, or dress the strip as a receipt: no torn edges, prices, \"TOTAL\", shop header or thank-you line."
 		]
 	}
 }
