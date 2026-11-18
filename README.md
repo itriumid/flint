@@ -1,12 +1,16 @@
-# tools.itrium.id
+# Flint
 
-[Itrium](https://itrium.id)'s free web tools, live at [tools.itrium.id](https://tools.itrium.id):
+[Itrium](https://itrium.id)'s free web tools, named after the stone people made their first
+tools from. Live at [tools.itrium.id](https://tools.itrium.id):
 
 - **WhatsApp click-to-chat**: make a link that opens a WhatsApp chat with any phone number.
 - **Split bill**: split a bill fairly, with tax and service, and share it as a short link.
 
 They run in your browser. There's no account, no cookies, no analytics, and nothing you type is
-sent to a server, except a bill you share, and that only encrypted. Split bill keeps a draft of
+sent to a server, except a bill you share, and that only encrypted. Once opened, they work
+offline: a service worker keeps the site's own files on your device (never anything you type, and
+never a shared bill). The footer's theme choice (System, Light or Dark) is kept in
+`localStorage`. Split bill keeps a draft of
 the bill you're making in `sessionStorage`, so it's still there after you switch to the camera and
 back: it stays on your device, is cleared when the tab closes, and is never sent anywhere. A strict
 Content-Security-Policy (set in [`vite.config.ts`](vite.config.ts) and [`_headers`](_headers))
@@ -77,5 +81,5 @@ keep working: a Split Bill link made there opens the same bill here.
 
 ## License
 
-The code is [MIT](LICENSE). The Itrium name and logo aren't covered by it: please don't use
-them for your own work.
+The code is [MIT](LICENSE). The Itrium and Flint names and logos aren't covered by it: please
+don't use them for your own work.
