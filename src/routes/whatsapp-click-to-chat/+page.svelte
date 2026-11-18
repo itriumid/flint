@@ -2,7 +2,7 @@
 	import SearchableSelect, { type Choice } from '#lib/SearchableSelect.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import TitleBand from '#lib/TitleBand.svelte';
-	import { WHATSAPP } from '#lib/content.js';
+	import { TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
 	import { COUNTRIES, DEFAULT_COUNTRY_NAME, searchNames } from '#lib/countries.js';
 	import {
 		card,
@@ -156,7 +156,7 @@
 </script>
 
 <Seo
-	title="{WHATSAPP.name} · Itrium"
+	title="{WHATSAPP.name}{TITLE_SUFFIX}"
 	description={WHATSAPP.description}
 	path={WHATSAPP.path}
 	structuredData={{

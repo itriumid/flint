@@ -1,14 +1,30 @@
 {
-	"name": "Itrium Tools",
-	"short_name": "Tools",
-	"description": "Small, free web tools from Itrium. No account, no advertisements, and nothing you type leaves your device.",
+	"id": "/",
+	"name": "Flint",
+	"short_name": "Flint",
+	"description": "Small, free tools from Itrium. No account, no advertisements, it works offline, and what you type stays on your device unless you share it.",
 	"start_url": "/",
-	"display": "browser",
+	"scope": "/",
+	"lang": "en",
+	"display": "standalone",
 	"background_color": "#2B2B2B",
 	"theme_color": "#2B2B2B",
 	"icons": [
-		{ "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-		{ "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
-		{ "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+		{
+			"src": "/icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		},
+		{
+			"src": "/icon-maskable-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
 	]
 }
