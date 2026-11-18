@@ -71,10 +71,10 @@ conventions above.
 
 ## This repository
 
-The web tools of tools.itrium.id: prerendered pages (`/`, `/whatsapp-click-to-chat`,
-`/split-bill`), SvelteKit 3 with TypeScript and Tailwind CSS v4, on Cloudflare Workers through
-`@sveltejs/adapter-cloudflare`. Cloudflare's Workers Builds deploys `main`, so **anything merged
-ships.**
+Flint, Itrium's free web tools at tools.itrium.id: prerendered pages (`/`,
+`/whatsapp-click-to-chat`, `/split-bill`), SvelteKit 3 with TypeScript and Tailwind CSS v4, on
+Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers Builds deploys
+`main`, so **anything merged ships.**
 
 - **The tools run in the browser, and nothing leaves it unencrypted.** No cookies, no analytics,
   nothing loaded from another domain (fonts, images, scripts), and no network requests except
@@ -82,12 +82,23 @@ ships.**
   encrypted with a key from the link's code. The only storage is the tokens of bills shared from
   this device (`localStorage`, so whoever shared a bill can delete it), and Split Bill's draft of
   the bill being made (`sessionStorage`, approved by the owner: on the device only, cleared when
-  the tab closes, never sent anywhere; `src/lib/draft.ts`). The
-  Content-Security-Policy in `vite.config.ts` (a `<meta>` tag on each page, with script hashes
-  SvelteKit adds) and `_headers` (`frame-ancestors`) keeps every connection on the site itself,
-  and the footer's promise has to stay true. Don't add another connection, and don't loosen the
+  the tab closes, never sent anywhere; `src/lib/draft.ts`). Two more, approved by the owner: the
+  theme chosen in the footer (`localStorage`, `flint-theme`; `src/lib/theme.ts`, applied before
+  drawing by `static/theme.js`), and the site's own files, kept by the service worker in Cache
+  Storage so Flint opens offline. The Content-Security-Policy in `vite.config.ts` (a `<meta>` tag
+  on each page, with script hashes SvelteKit adds) and `_headers` (`frame-ancestors`) keeps every
+  connection on the site itself, and the footer's promise has to stay true. Don't add another connection, and don't loosen the
   policy to make something work. `img-src` allows `blob:` for one thing, approved by the owner: a
   receipt photo picked in Split bill, shown on the device so Live Text can read it.
+- **Offline, but never the bills.** `src/service-worker` stores the build's files, the static
+  files and the prerendered pages, and answers only those from its cache. It never stores or
+  answers `/api/`: a shared bill always comes from the server, and with no connection sharing falls
+  back to the long link. A new version takes over once installed (`skipWaiting`), so nothing
+  waits for every tab to close.
+- **The theme choice is a radio group in the footer** (System, Light, Dark). The light tokens in
+  `src/app.css` apply by the device's setting unless `data-theme` says otherwise, and `dark:` is a
+  custom variant that follows the same rule. A theme-dependent picture uses `dark:hidden` and
+  `dark:block`, never `<picture media="(prefers-color-scheme)">`, which can't see the choice.
 - **Never a native `<select>`.** WebKit's own styling for it breaks `style-src 'self'` (a policy
   refusal in the console on every page that has one). Use `SearchableSelect` or radio buttons.
 - **Receipts are read in the browser** by `src/lib/receipt.ts`, from text the phone's own text
@@ -130,7 +141,13 @@ ships.**
 - **`static/.well-known/security.txt` expires.** A test fails a month before its `Expires` date;
   push it out another year when it does.
 - **Brand files** (`src/lib/*.svg`, the icons and `og-image.png` in `static/`) are copies from
-  `~/Itrium/Assets`. Regenerate them there, never edit them here.
+  `~/Itrium/Assets`: Flint's mark, icons and link preview from `source/flint.py` (into `flint/`),
+  Itrium's lockups from `source/build.py`. Regenerate them there, never edit them here.
+- **Worker names.** The site's Worker is `itrium-website-flint`; the share Worker keeps
+  `itrium-backend-tools`, its name from before Flint was named, because it holds the shared bills
+  and a new name would mean a new Worker without them. Workers Builds deploys to the Worker it's
+  connected to, whatever `name` says (a preview built with the two apart), so a rename belongs in
+  the dashboard too, or the two disagree.
 - **SvelteKit 3:** configuration is passed to `sveltekit()` in `vite.config.ts` (there's no
   `svelte.config.js`), and `#lib` replaces `$lib`.
 

@@ -636,16 +636,18 @@ isn't a small card under a long slab.
 
 ### Navigation
 
-Two text links in the header beside the lockup, "Free tools" and "About Itrium", muted, turning to
-the text color on hover. On the index, "Free tools" carries `aria-current="page"` and stays in
-the text color. It's the way back from a tool. The lockup leads to itrium.id and is named
-"Itrium's main site". Under 360px wide the lockup gives way to the mark alone, so the header
-stays one line. A pink skip link sits off screen and drops in from the top on focus. The footer is muted
-small text: the no-tracking promise on the left (except on the index, where the closing panel
-says it in full; only Split bill's mentions sharing a bill, the one thing that reaches us), contact
-and source links on the right. On the index, where the closing panel links the source just above, the footer leaves its own
-source link out. The header's and footer's links stay small text but are 2.75rem
-tall on touch screens, like every other control: "Free tools" is the only way back from a tool.
+The header holds Flint's mark and name on the left, one link, the way back to the index from any
+tool (`aria-current="page"` on the index), and "About Itrium" on the right, muted, turning to the
+text color on hover. The mark is the same tile in either theme; on a dark page it's the one with a
+faint rim. Itrium's lockup sits in the footer and leads to itrium.id, named "Flint is made by
+Itrium", in the version for the theme in use. A pink skip link sits off screen and drops in from
+the top on focus. The footer is muted small text: the lockup, the no-tracking promise (except on
+the index, where the closing panel says it in full; only Split bill's mentions sharing a bill, the
+one thing that reaches us) and the theme choice on the left, contact and source links on the
+right. On the index, where the closing panel links the source just above, the footer leaves its
+own source link out. The theme choice is one control: three options in a pill-edged group, the
+chosen one filled in the text color, so the choice shows by more than color. The header's and
+footer's links stay small text but are 2.75rem tall on touch screens, like every other control.
 
 ## Do's and Don'ts
 
