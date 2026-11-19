@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { onMount } from 'svelte';
 	import { onNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
@@ -8,6 +9,7 @@
 	import lockupOnDark from '#lib/itrium-lockup-on-dark.svg';
 	import lockupOnLight from '#lib/itrium-lockup-on-light.svg';
 	import ThemeChoice from '#lib/ThemeChoice.svelte';
+	import { updates } from '#lib/updates.svelte.js';
 	import {
 		ABOUT_ITRIUM,
 		EMAIL,
@@ -17,13 +19,18 @@
 		NAME,
 		NO_TRACKING,
 		NO_TRACKING_BILLS,
-		SOURCE_URL
+		SOURCE_URL,
+		UPDATE
 	} from '#lib/content.js';
+	import { smallButton } from '#lib/styles.js';
 
 	const { children } = $props();
 
 	/** The header's and footer's links: small text, but 44px tall to a finger. */
 	const link = 'inline-flex items-center transition-colors hover:text-text pointer-coarse:min-h-11';
+
+	// A new version of Flint, installed and waiting, is offered rather than switched to silently.
+	onMount(() => updates.watch());
 
 	// Pages cross-fade into each other, like itrium.id's, for people who haven't asked for less
 	// motion and in browsers that can.
@@ -39,6 +46,31 @@
 		});
 	});
 </script>
+
+<!-- The offer of a new version sits over the header at the top of the page, so nothing on the page
+     moves when it appears, and scrolls away with the header, so it never covers a field being
+     filled in (Split bill's running total holds the bottom of a phone's screen). Its button is
+     outlined: pink stays for the page's own main action. -->
+<div class="absolute inset-x-3 top-3 z-30 mx-auto max-w-md" role="status">
+	{#if updates.ready && !updates.later}
+		<div
+			class="flex items-center justify-between gap-4 rounded-2xl border border-control-border bg-surface py-2.5 pr-2.5 pl-4 text-sm"
+		>
+			<p>{UPDATE.ready}</p>
+			<!-- Later puts it away until Flint is next opened, so the header it covers is reachable. -->
+			<div class="flex shrink-0 items-center gap-1">
+				<button
+					type="button"
+					class="inline-flex min-h-9 items-center rounded-full px-3 font-medium text-muted hover:text-text pointer-coarse:min-h-11"
+					onclick={() => (updates.later = true)}>{UPDATE.later}</button
+				>
+				<button type="button" class={smallButton} onclick={() => updates.apply()}
+					>{UPDATE.action}</button
+				>
+			</div>
+		</div>
+	{/if}
+</div>
 
 <a
 	href="#main"

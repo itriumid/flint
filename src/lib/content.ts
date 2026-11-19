@@ -40,6 +40,13 @@ export const IN_PROGRESS = {
 	continue: 'Continue your bill'
 };
 
+/** When a new version of Flint is installed and waiting: said at the top, with the way to it. */
+export const UPDATE = {
+	ready: 'A new version of Flint is ready.',
+	action: 'Update',
+	later: 'Later'
+};
+
 // The index map's legend: what happens to what people type, said plainly, with the source as the
 // proof.
 export const PROMISE_HEADING = 'What stays on your device';
@@ -51,8 +58,9 @@ export const MAP = {
 	intro:
 		'Free tools that live on your device. What you type leaves it only by the roads drawn here.',
 	region: 'Your device',
-	/** The pink action at the Split bill place. */
+	/** The pink actions at the two places: each tool's start, equal, since the tools are peers. */
 	start: 'Split a bill',
+	chatStart: 'Chat with a number',
 	roads: {
 		share: {
 			label: 'A bill you share, encrypted. Deleted 30 days after the last share.',
@@ -186,8 +194,8 @@ export const SPLIT_BILL = {
 	},
 	// For someone who opened a bill shared with them: their share first, the editor one press away.
 	sharedWithYou: {
-		/** In the title band, in place of how to make a bill: what this one is. */
-		band: (total: string, payer?: string) =>
+		/** In the place mark, in place of how to make a bill: what this one is. */
+		placeMark: (total: string, payer?: string) =>
 			`A bill shared with you: ${total} in all${payer ? `, paid by ${payer}` : ''}.`,
 		line: "Find your name, and tap it to see what's in your share.",
 		makeChanges: 'Make changes',

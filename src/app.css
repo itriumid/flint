@@ -128,9 +128,15 @@ html {
  * (#F1F1F1), where every text and line color still passes: text 12.5:1, muted 4.7:1, rose text
  * 4.8:1, control edge 4.0:1, focus 12.5:1. It was graphite in both themes, like itrium.id's, until
  * that made light mode's heaviest shape on every page the title. In dark mode it steps up to the
- * card gray, and cards on it step up again: muted gray on them (#3D3D3D) is 4.6:1, and the control
- * edge 3.1:1.
+ * palette's surface, and cards on it step up again to its elevated gray: muted gray on them
+ * (#3E3E3E) is 4.6:1, and the control edge 3.1:1. The palette's values are taken at the root
+ * (--band-bg, --band-raised), since a band can't read --surface while redefining it.
  */
+:root {
+	--band-bg: var(--surface);
+	--band-raised: var(--elevated);
+}
+
 .band {
 	--bg: var(--elevated);
 	background-color: var(--bg);
@@ -139,14 +145,15 @@ html {
 
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme='light']) .band {
-		--bg: #343434;
-		--surface: #3d3d3d;
+		--bg: var(--band-bg);
+		--surface: var(--band-raised);
+		/* Not in the palette: a dividing line on the raised gray, a step above it. */
 		--border: #4f4f4f;
 	}
 }
 
 :root[data-theme='dark'] .band {
-	--bg: #343434;
-	--surface: #3d3d3d;
+	--bg: var(--band-bg);
+	--surface: var(--band-raised);
 	--border: #4f4f4f;
 }

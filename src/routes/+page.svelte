@@ -59,7 +59,7 @@
 	const road = 'border-l-[3px] border-dashed border-text';
 	const placeColumn = 'flex w-4 shrink-0 flex-col items-center';
 	const dot = 'mt-3 size-4 shrink-0 rounded-full bg-text sm:mt-4';
-	const stagger = 'ml-16 sm:ml-40';
+	const stagger = 'ml-12 sm:ml-40';
 	const roadLabel = 'py-4 text-sm font-semibold max-w-64';
 	// Where a road ends: a node outside the line, in the page's color, outlined in muted gray.
 	const node =
@@ -128,6 +128,9 @@
 						<div class="min-w-0 flex-1 pb-10">
 							<h3><a href={resolve(WHATSAPP.path)} class={placeName}>{WHATSAPP.name}</a></h3>
 							<p class="mt-2 max-w-xs text-muted">{WHATSAPP.line}</p>
+							<a href={resolve(WHATSAPP.path)} class="mt-4 whitespace-nowrap {primaryButton}"
+								>{MAP.chatStart}</a
+							>
 						</div>
 					</div>
 				</div>
@@ -145,7 +148,7 @@
 				<span class={roadColumn} aria-hidden="true"><span class="flex-1 {road}"></span></span>
 				<div class="min-w-0 flex-1 pb-8 sm:flex sm:gap-4 sm:pb-4">
 					<div class="hidden w-36 shrink-0 sm:block">{@render shareLabel(false)}</div>
-					<div class="ml-16 sm:ml-0">
+					<div class="ml-12 sm:ml-0">
 						<div class="flex gap-4">
 							<span class={roadColumn} aria-hidden="true"><span class="flex-1 {road}"></span></span>
 							<p class={roadLabel}>{MAP.roads.chat.label}</p>
