@@ -58,8 +58,9 @@ export const MAP = {
 	intro:
 		'Free tools that live on your device. What you type leaves it only by the roads drawn here.',
 	region: 'Your device',
-	/** The pink action at the Split bill place. */
+	/** The pink actions at the two places: each tool's start, equal, since the tools are peers. */
 	start: 'Split a bill',
+	chatStart: 'Chat with a number',
 	roads: {
 		share: {
 			label: 'A bill you share, encrypted. Deleted 30 days after the last share.',
