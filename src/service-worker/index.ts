@@ -8,9 +8,11 @@
 // anyone types is here. Shared bills (/api/) are never stored or answered from here; with no
 // connection, sharing falls back to the long link that holds the whole bill.
 //
-// A new version takes over as soon as it's installed, and the old files go. A page still open
-// with the old version keeps the code it has; if it then needs a file that's gone, SvelteKit
-// loads the page afresh, with the new version.
+// A new version installs alongside and waits. It takes over only when the page asks (someone
+// pressed Update, src/lib/updates.svelte.ts) or when no window has Flint open, so the code never
+// changes under a bill being made, and an installed Flint says when it has something new instead
+// of switching silently. A bill in progress lives in the tab's sessionStorage, so it survives the
+// reload that follows.
 
 import { version } from '$app/env';
 import { assets, immutable, prerendered } from '$app/manifest';
@@ -22,12 +24,7 @@ const at = (path: string) => new URL(path, self.registration.scope).pathname;
 const KEPT = new Set([...immutable, ...assets, ...prerendered].map((file) => at(file.path)));
 
 self.addEventListener('install', (event) => {
-	event.waitUntil(
-		caches
-			.open(CACHE)
-			.then((cache) => cache.addAll([...KEPT]))
-			.then(() => self.skipWaiting())
-	);
+	event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll([...KEPT])));
 });
 
 self.addEventListener('activate', (event) => {
@@ -37,8 +34,11 @@ self.addEventListener('activate', (event) => {
 			.then((keys) =>
 				Promise.all(keys.filter((key) => key !== CACHE).map((key) => caches.delete(key)))
 			)
-			.then(() => self.clients.claim())
 	);
+});
+
+self.addEventListener('message', (event) => {
+	if (event.data === 'update') void self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {

@@ -40,6 +40,13 @@ export const IN_PROGRESS = {
 	continue: 'Continue your bill'
 };
 
+/** When a new version of Flint is installed and waiting: said at the top, with the way to it. */
+export const UPDATE = {
+	ready: 'A new version of Flint is ready.',
+	action: 'Update',
+	later: 'Later'
+};
+
 // The index map's legend: what happens to what people type, said plainly, with the source as the
 // proof.
 export const PROMISE_HEADING = 'What stays on your device';

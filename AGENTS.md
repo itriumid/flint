@@ -93,8 +93,10 @@ Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers 
 - **Offline, but never the bills.** `src/service-worker` stores the build's files, the static
   files and the prerendered pages, and answers only those from its cache. It never stores or
   answers `/api/`: a shared bill always comes from the server, and with no connection sharing falls
-  back to the long link. A new version takes over once installed (`skipWaiting`), so nothing
-  waits for every tab to close.
+  back to the long link. A new version installs and waits, like Amber's: the page offers it
+  ("A new version of Flint is ready. Later / Update", `src/lib/updates.svelte.ts`; Later is kept in
+  memory only) and switches only when someone presses Update, so an installed Flint never changes
+  silently or under a bill being made.
 - **The theme choice is a radio group in the footer** (System, Light, Dark). The light tokens in
   `src/app.css` apply by the device's setting unless `data-theme` says otherwise, and `dark:` is a
   custom variant that follows the same rule. A theme-dependent picture uses `dark:hidden` and
