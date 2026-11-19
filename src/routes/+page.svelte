@@ -17,7 +17,7 @@
 		TITLE,
 		WHATSAPP
 	} from '#lib/content.js';
-	import { actionLine, primaryButton, secondaryButton } from '#lib/styles.js';
+	import { actionLine, primaryButton, secondaryButtonOnPage } from '#lib/styles.js';
 	import { loadDraft } from '#lib/draft.js';
 	import { calculateBill, formatMoney } from '#lib/split-bill.js';
 	import { sharedFromHere } from '#lib/share.js';
@@ -206,7 +206,7 @@
 				</p>
 			{/each}
 		</div>
-		<a href={SOURCE_URL} rel="external" class="group {secondaryButton}"
+		<a href={SOURCE_URL} rel="external" class="group {secondaryButtonOnPage}"
 			>{SOURCE_LABEL}<Arrow class={arrowMove} /></a
 		>
 	</div>
