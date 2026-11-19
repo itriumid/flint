@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 2,
-	"generatedAt": "2026-11-18T10:26:35.000Z",
+	"generatedAt": "2026-11-19T03:43:21.000Z",
 	"title": "Design System: flint.itrium.id",
 	"extensions": {
 		"colorMeta": {
@@ -269,37 +269,33 @@
 				"displayName": "Name line",
 				"purpose": "The muted line under the index's name, saying what Flint is."
 			},
+			"place-name": {
+				"displayName": "Place name",
+				"purpose": "A tool's name at its place on the index map, always underlined: the ways in."
+			},
 			"headline": {
 				"displayName": "Headline",
 				"purpose": "A tool's title in its title band."
 			},
-			"closing-row": {
-				"displayName": "Closing row",
-				"purpose": "The index strip's last row; the only extrabold on the site."
-			},
-			"strip-lead": {
-				"displayName": "Strip lead",
-				"purpose": "The strip's first row: the tagline, or a bill in progress in semibold."
-			},
 			"title": {
 				"displayName": "Title",
-				"purpose": "A section card's heading inside a tool, and a tool's name on its strip row."
+				"purpose": "A section card's heading inside a tool."
 			},
-			"strip-heading": {
-				"displayName": "Strip heading",
-				"purpose": "A group's heading inside the index strip."
+			"map-heading": {
+				"displayName": "Map heading",
+				"purpose": "The territory's name, the legend's heading and the heading of the tools elsewhere."
 			},
-			"row-value": {
-				"displayName": "Row value",
-				"purpose": "The value set right on a strip row, in tabular figures."
+			"road-label": {
+				"displayName": "Road label",
+				"purpose": "What a road on the index map carries, beside the road."
 			},
 			"body": {
 				"displayName": "Body",
-				"purpose": "A tool's introduction, running prose, and a strip row's muted line."
+				"purpose": "A tool's introduction, running prose, a place's line on the map, and the legend's facts."
 			},
 			"control": {
 				"displayName": "Control",
-				"purpose": "Field text, chips, notes, hints and amounts; 1rem on touch screens."
+				"purpose": "Field text, chips, notes, hints, amounts and the map's road boxes; 1rem on touch screens."
 			},
 			"label": {
 				"displayName": "Label",
@@ -326,12 +322,17 @@
 			{
 				"name": "arrow-nudge",
 				"value": "translate 4px 0, 200ms ease, motion-safe",
-				"purpose": "The drawn arrow on a link row or action line, on hover."
+				"purpose": "The drawn arrow on an action line or link, on hover."
 			},
 			{
 				"name": "page-cross-fade",
 				"value": "document.startViewTransition on navigation, no-preference only",
 				"purpose": "Between pages, as on itrium.id."
+			},
+			{
+				"name": "underline-thicken",
+				"value": "text-decoration-thickness 2px to 3px on hover",
+				"purpose": "A place name on the index map, on hover."
 			}
 		],
 		"breakpoints": [
@@ -360,7 +361,7 @@
 			"refersTo": "button-primary",
 			"description": "The one main action in a view: pastel pink, graphite text.",
 			"html": "<button class=\"ds-btn-primary\">Copy link</button>",
-			"css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:0;border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:opacity .15s}.ds-btn-primary:hover{opacity:.85}.ds-btn-primary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-btn-primary:disabled{opacity:.5;cursor:not-allowed}"
+			"css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:opacity .15s}.ds-btn-primary:hover{opacity:.85}.ds-btn-primary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-btn-primary:disabled{opacity:.5;cursor:not-allowed}"
 		},
 		{
 			"name": "Secondary Button",
@@ -395,12 +396,20 @@
 			"css": ".ds-chips{display:flex;flex-wrap:wrap;gap:.5rem}.ds-chip{min-height:2.25rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:var(--text);padding:0 .875rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:background-color .15s}.ds-chip:hover{background:var(--surface)}.ds-chip-on,.ds-chip-on:hover{border-color:var(--accent-edge);background:var(--accent);color:var(--on-accent);font-weight:500}.ds-chip:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-chip{min-height:2.75rem}}"
 		},
 		{
-			"name": "Index Strip",
+			"name": "Device Map",
 			"kind": "custom",
-			"refersTo": "strip",
-			"description": "The index: one strip of line items on a quiet ground, name left and value right in tabular figures, dashed group rules, a heavy closing row and the one pink pill.",
-			"html": "<div class=\"ds-strip-ground\"><div class=\"ds-strip\"><div class=\"ds-strip-first\"><p>Split a bill fairly, or message a number you haven't saved.</p></div><div class=\"ds-strip-group\"><a class=\"ds-strip-link\" href=\"#\"><span class=\"ds-strip-row\"><span class=\"ds-strip-name\">Split bill</span><span class=\"ds-strip-yield\">Each person's share<svg viewBox=\"0 0 20 20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3.5 10h13M11 4.5 16.5 10 11 15.5\"/></svg></span></span><span class=\"ds-strip-line\">Tag who had what; tax and service included.</span></a></div><div class=\"ds-strip-group\"><h2 class=\"ds-strip-heading\">What stays on your device</h2><dl class=\"ds-strip-facts\"><div class=\"ds-strip-row\"><dt>What you type</dt><dd>Stays in your browser</dd></div><div class=\"ds-strip-row\"><dt>Kept after the last share</dt><dd>30 days</dd></div></dl></div><div class=\"ds-strip-close\"><div class=\"ds-strip-row ds-strip-total\"><span>Cost</span><span>Nothing</span></div><a class=\"ds-strip-pill\" href=\"#\">Split a bill</a></div></div></div>",
-			"css": ".ds-strip-ground{background:var(--elevated);padding:0 .75rem;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-strip{max-width:34rem;margin:0 auto;background:var(--surface);color:var(--text);border-inline:1px solid var(--border);font-variant-numeric:tabular-nums}.ds-strip-first{display:flex;align-items:center;min-height:7.25rem;padding:1.5rem 2rem}.ds-strip-first p{margin:0;font-size:1.5rem;font-weight:500;line-height:1.375}.ds-strip-group{border-top:2px dashed color-mix(in srgb,var(--muted) 55%,transparent);padding:1.5rem 2rem}.ds-strip-heading{margin:0 0 .75rem;font-size:1.125rem;font-weight:700}.ds-strip-row{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}.ds-strip-link{display:block;margin:0 -.75rem;padding:.75rem;border-radius:.5rem;color:inherit;text-decoration:none;transition:background-color .15s}.ds-strip-link:hover{background:var(--bg)}.ds-strip-link:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-strip-name{font-size:1.125rem;font-weight:600;white-space:nowrap}.ds-strip-yield{display:inline-flex;align-items:center;gap:.5rem;flex-shrink:0;font-weight:600}.ds-strip-yield svg{width:1em;height:1em;color:var(--accent-text,var(--accent-edge));transition:translate .2s}@media (prefers-reduced-motion:no-preference){.ds-strip-link:hover svg{translate:4px 0}}.ds-strip-line{display:block;margin-top:.25rem;color:var(--muted)}.ds-strip-facts{margin:0;display:grid;gap:.625rem}.ds-strip-facts dt{color:var(--muted);white-space:nowrap}.ds-strip-facts dd{margin:0;text-align:right;font-weight:600}.ds-strip-close{padding:.5rem 2rem 2.5rem}.ds-strip-total{border-top:2px solid var(--text);padding-top:1.25rem;font-size:1.875rem;font-weight:800;line-height:1.2}.ds-strip-pill{display:flex;justify-content:center;margin-top:1.75rem;padding:.75rem 1.5rem;border-radius:9999px;border:1px solid var(--accent-edge);background:var(--accent);color:var(--on-accent);font-size:.875rem;font-weight:600;text-decoration:none;transition:opacity .15s}.ds-strip-pill:hover{opacity:.85}.ds-strip-pill:focus-visible{outline:2px solid var(--focus);outline-offset:3px}"
+			"refersTo": "territory",
+			"description": "The index: the visitor's device as one territory inside a 2px text-color border with irregular corners, the tools as places (dot and underlined bold name), dashed roads crossing the border to outlined boxes, each labelled with what it carries, and the one pink pill at the Split bill place.",
+			"html": "<section class=\"ds-map\"><div class=\"ds-territory\"><h2 class=\"ds-map-h\">Your device</h2><div class=\"ds-place\"><span class=\"ds-col\"><span class=\"ds-dot\"></span><span class=\"ds-road\"></span></span><div class=\"ds-place-body\"><h3><a class=\"ds-place-name\" href=\"#\">Split bill</a></h3><p class=\"ds-place-line\">Split a bill fairly, with tax and service.</p><a class=\"ds-pill\" href=\"#\">Split a bill</a><div class=\"ds-place ds-stagger\"><span class=\"ds-col\"><span class=\"ds-dot\"></span><span class=\"ds-road\"></span></span><div class=\"ds-place-body ds-last\"><h3><a class=\"ds-place-name\" href=\"#\">WhatsApp click-to-chat</a></h3><p class=\"ds-place-line\">Message a number without saving it.</p></div></div></div></div></div><div class=\"ds-outside\"><div class=\"ds-place\"><span class=\"ds-col\"><span class=\"ds-road\"></span></span><p class=\"ds-road-label\">A bill you share, encrypted. Deleted 30 days after the last share.</p></div><div class=\"ds-place\"><p class=\"ds-node\">Our server</p></div></div></section>",
+			"css": ".ds-map{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text);max-width:34rem}.ds-territory{border:2px solid var(--text);border-radius:4rem 2rem 4.5rem 2.5rem;background:var(--elevated);padding:1.5rem 2rem 0}.ds-map-h{font-size:1rem;font-weight:700;margin:0}.ds-place{display:flex;gap:1rem;margin-top:1.5rem}.ds-col{display:flex;flex-direction:column;align-items:center;width:1rem;flex-shrink:0}.ds-dot{width:1rem;height:1rem;border-radius:9999px;background:var(--text);margin-top:1rem;flex-shrink:0}.ds-road{flex:1;margin-top:.5rem;border-left:3px dashed var(--text);min-height:1rem}.ds-place-body{flex:1;min-width:0}.ds-place-body h3{margin:0}.ds-place-name{font-size:1.875rem;font-weight:700;letter-spacing:-.025em;line-height:1.2;color:var(--text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}.ds-place-name:hover{text-decoration-thickness:3px}.ds-place-name:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}.ds-place-line{margin:.5rem 0 0;max-width:20rem;color:var(--muted)}.ds-pill{display:inline-flex;margin-top:1rem;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font-size:.875rem;font-weight:600;text-decoration:none}.ds-pill:hover{opacity:.85}.ds-stagger{margin-left:10rem;margin-top:2.5rem}.ds-last{padding-bottom:2.5rem}.ds-outside{padding:0 2rem;border:0 solid transparent;border-width:0 2px}.ds-outside .ds-place{margin-top:0}.ds-road-label{font-size:.875rem;font-weight:600;padding:1rem 0;max-width:16rem;margin:0}.ds-node{display:flex;align-items:center;justify-content:center;width:7rem;height:4rem;flex-shrink:0;border:2px solid var(--muted);border-radius:.5rem;background:var(--bg);color:var(--muted);font-size:.875rem;margin:0}"
+		},
+		{
+			"name": "Map Legend",
+			"kind": "custom",
+			"refersTo": "territory",
+			"description": "The index map's legend in the margin column: each mark drawn as a swatch beside the fact it stands for, under a 2px text-color rule.",
+			"html": "<section class=\"ds-legend\"><h2>What stays on your device</h2><ul><li><span class=\"ds-sw ds-sw-land\"></span>Inside the line: what you type, your bill in progress, your theme.</li><li><span class=\"ds-sw ds-sw-road\"></span>A road out, taken only when you choose it.</li><li><span class=\"ds-sw ds-sw-none\"></span>No road at all: cookies, analytics, trackers.</li></ul></section>",
+			"css": ".ds-legend{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text);border-top:2px solid var(--text);padding-top:1rem;max-width:24rem}.ds-legend h2{font-size:1rem;font-weight:700;margin:0}.ds-legend ul{list-style:none;padding:0;margin:1rem 0 0;display:grid;gap:.75rem}.ds-legend li{display:grid;grid-template-columns:2.5rem 1fr;align-items:center;gap:.75rem}.ds-sw-land{height:1.5rem;border:2px solid var(--text);border-radius:.375rem;background:var(--elevated)}.ds-sw-road{border-top:3px dashed var(--text)}.ds-sw-none{border-top:2px solid var(--muted)}"
 		},
 		{
 			"name": "Note",
@@ -429,10 +438,10 @@
 	],
 	"narrative": {
 		"northStar": "The Rhodonite Specimen, put to work",
-		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way. The index is one narrow strip of line items down a quiet ground: each tool, each promise and the point itself as a row, the name on the left and its value set right in tabular figures, groups split by dashed rules, and one heavy closing row over the one pink pill. It reads like the slip a table is used to, without dressing as one: no torn edges, no prices, no shop header. On a tool page the stone keeps its earlier form for now, a slim title band with the work directly under it, because the person using it is at a restaurant table with a phone in one hand and a group waiting. The strip was proven on the index first; the tool pages are to follow it.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density is calm but working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It also refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone.",
+		"overview": "**Creative North Star: \"The Rhodonite Specimen, put to work\"**\n\nThe tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way. The index is The Device Map, one calm atlas plate: the visitor's device drawn as a single territory inside one border line in the text color, the two tools as places in it (a filled dot and an underlined bold name), and the only ways out drawn as dashed roads that cross the border to small outlined boxes, each labelled with what it carries. A legend in the margin column says the same as facts. Privacy is shown as geography, not claimed in a list. On a tool page the stone keeps its earlier form, a slim title band with the work directly under it, because the person using it is at a restaurant table with a phone in one hand and a group waiting.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density is calm but working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It also refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone.",
 		"keyCharacteristics": [
 			"One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.",
-			"The index is one strip of rows, name left and value right in tabular figures, ending in a heavy closing row and the one pink pill. A tool page opens with a slim title band, then the tool. Strip, ground and band follow the theme: a step off the page, never the other theme's color.",
+			"The index is one map: the device as a territory with an irregular soft border, the tools as places in it, the roads out as dashed lines to outlined boxes, and the one pink pill at the Split bill place. A tool page opens with a slim title band, then the tool. Territory and band follow the theme: a step off the page, never the other theme's color.",
 			"Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the footer.",
 			"Flat surfaces with tonal steps. The only shadow is under the open searchable list.",
 			"Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch screens, and 16px text on touch screens so iOS doesn't zoom.",
@@ -442,7 +451,7 @@
 		"rules": [
 			{
 				"name": "The Vein Rule",
-				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. In a tool, one pink button per view; on the index, one pink pill at the strip's end, with the rows' arrows in rose text as their way onward and nothing else pink.",
+				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. In a tool, one pink button per view; on the index, one pink pill, at the Split bill place, with rose-text action lines for the tools elsewhere and a shared bill as their way onward, and nothing else pink. The map's places, roads and border are never pink.",
 				"section": "colors"
 			},
 			{
@@ -457,7 +466,7 @@
 			},
 			{
 				"name": "The Every-Surface Rule",
-				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, running total, the index's strip and its ground, in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1.",
+				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, running total, the index's territory and the page around it, in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1.",
 				"section": "colors"
 			},
 			{
@@ -467,17 +476,17 @@
 			},
 			{
 				"name": "The No Kicker Rule",
-				"body": "A heading is the first thing in its block. No eyebrow, category label, small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that says more about a heading goes under it, as the index's name line does.",
+				"body": "A heading is the first thing in its block. No eyebrow, category label, small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that says more about a heading goes under it, as the index's name line and a place's line do.",
 				"section": "typography"
 			},
 			{
-				"name": "The One Strip Rule",
-				"body": "The index is a single strip: no cards, no bands, no second column of content. Anything new on it is a row, name left and value right, or a group of rows under a dashed rule. The closing row stays last, and the pink pill stays under it.",
+				"name": "The One Map Rule",
+				"body": "The index is one map: the device as one territory, the tools as places in it, and every way out as a road crossing the border to an outlined box, labelled with what it carries. No cards, no bands, no rows of entries. A new tool is a new place; a new connection is a new road, drawn only when the site really makes one.",
 				"section": "layout"
 			},
 			{
-				"name": "The Fixed First Row Rule",
-				"body": "The strip's first row keeps its height whatever fills it, so what the browser remembers can arrive late without moving anything under a finger.",
+				"name": "The Kept Space Rule",
+				"body": "What the browser remembers arrives into a space already kept for it (the place's line holds three lines, 4.5rem, and the shared mark on phones 2.5rem), so nothing moves under a finger when it appears.",
 				"section": "layout"
 			},
 			{
@@ -497,12 +506,12 @@
 			},
 			{
 				"name": "The Only Floating Things Cast Shadows Rule",
-				"body": "Cards, buttons, chips, bands, the strip and the running total never get a drop shadow. A control or a strip row responds by filling with the next tonal step, and its arrow moves 4 px on.",
+				"body": "Cards, buttons, chips, bands, the territory, the road boxes and the running total never get a drop shadow. A control responds by filling with the next tonal step, a place name by thickening its underline, and an arrow by moving 4 px on.",
 				"section": "elevation"
 			},
 			{
-				"name": "The Value Right Rule",
-				"body": "On the strip, what something gives you is set right, where the eye looks for the amount; what it is stays left. Never swap them, and never center a row.",
+				"name": "The Inside The Line Rule",
+				"body": "Whatever stays on the device is drawn inside the territory, and whatever leaves it is drawn on a road outside it. Never put something that reaches a server inside the line, or draw a road the site doesn't take.",
 				"section": "components"
 			},
 			{
@@ -519,7 +528,7 @@
 			"Do design and check every new pairing in light and dark, on every surface it sits on.",
 			"Do use the drawn arrow wherever a link points onward.",
 			"Do keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing in a tool rises or reveals as it scrolls.",
-			"Do add to the index as a row of the strip: a name on the left, its value set right in tabular figures, inside a group under a dashed rule.",
+			"Do add to the index as the map: a tool as a place inside the territory, a connection as a labelled road out to an outlined box, a fact as a line of the legend with its drawn swatch.",
 			"Do use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`, never raw hex values in markup."
 		],
 		"donts": [
@@ -532,7 +541,7 @@
 			"Don't use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
 			"Don't add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
 			"Don't set field text below 16px on touch screens.",
-			"Don't put cards, bands or a hero on the index, or dress the strip as a receipt: no torn edges, prices, \"TOTAL\", shop header or thank-you line."
+			"Don't put cards, bands, a hero or rows of entries on the index, or color the map's border, places or roads pink."
 		]
 	}
 }

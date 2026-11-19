@@ -89,7 +89,7 @@
 				/>
 			</a>
 			<p>© {new Date().getFullYear()} Itrium</p>
-			<!-- On the index, the closing panel says this in full, right above. -->
+			<!-- On the index, the map's legend says this in full, right above. -->
 			{#if page.url.pathname === resolve('/split-bill')}<p>{NO_TRACKING_BILLS}</p>
 			{:else if page.url.pathname !== '/'}<p>{NO_TRACKING}</p>{/if}
 			<ThemeChoice />
@@ -99,7 +99,7 @@
 			<li>
 				<a href={GITHUB_URL} rel="external" class={link}>GitHub</a>
 			</li>
-			<!-- On the index, the closing panel's "Read the source" is right above. -->
+			<!-- On the index, the map's "Read the source" is right above. -->
 			{#if page.url.pathname !== '/'}
 				<li>
 					<a href={SOURCE_URL} rel="external" class={link}> This site's source </a>

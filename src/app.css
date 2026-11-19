@@ -123,7 +123,7 @@ html {
 }
 
 /*
- * A band: the title at the top of a page, and the index's closing panel. It follows the theme, a
+ * A band: the title at the top of a tool page, and the error page. It follows the theme, a
  * step off the page either way. In light mode it steps down to the palette's elevated off-white
  * (#F1F1F1), where every text and line color still passes: text 12.5:1, muted 4.7:1, rose text
  * 4.8:1, control edge 4.0:1, focus 12.5:1. It was graphite in both themes, like itrium.id's, until

@@ -4,48 +4,39 @@
 	import Arrow from '#lib/Arrow.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import {
-		CLOSING,
 		DESCRIPTION,
-		EXAMPLE,
-		IN_PROGRESS,
 		ELSEWHERE,
 		ELSEWHERE_HEADING,
 		HEADING,
-		KICKER,
+		IN_PROGRESS,
+		MAP,
 		PROMISE_HEADING,
-		PROMISE_ROWS,
 		SOURCE_LABEL,
 		SOURCE_URL,
 		SPLIT_BILL,
-		TAGLINE,
 		TITLE,
-		TOOLS,
-		TOOLS_LABEL
+		WHATSAPP
 	} from '#lib/content.js';
-	import { actionLine, primaryButton, secondaryButton } from '#lib/styles.js';
+	import { actionLine, primaryButton, secondaryButtonOnPage } from '#lib/styles.js';
 	import { loadDraft } from '#lib/draft.js';
 	import { calculateBill, formatMoney } from '#lib/split-bill.js';
 	import { sharedFromHere } from '#lib/share.js';
 
-	// A bill this visitor was in the middle of: the draft in this tab, or else the bills this
-	// device shared. Read from what the browser already keeps, after the page loads: nothing new is
-	// kept, and nothing is sent anywhere. The page is the same for everyone until then.
-	// A draft becomes the strip's first row as a line item: the bill itself, its people and items,
-	// and what it comes to, set right; the whole row goes back to it. A shared bill is said, with
-	// its own way in, since it opens that bill.
-	let draft: { detail: string; total?: string } | undefined = $state();
+	// What this visitor already has, read from what the browser keeps, after the page loads:
+	// nothing new is kept, and nothing is sent anywhere. The page is the same for everyone until
+	// then. A bill in progress lives on the device, so it appears inside the territory, at the Split
+	// bill place; a bill shared from this device took the road out, so it is marked on that road.
+	// The two are independent: someone can have both.
+	let draft: string | undefined = $state();
 	let shared: { text: string; action: string; href: string } | undefined = $state();
 	onMount(() => {
 		const kept = loadDraft();
 		if (kept) {
 			const { bill } = kept;
-			draft = {
-				detail: IN_PROGRESS.draftDetail(bill.people.length, bill.items.length),
-				total: bill.items.length
-					? formatMoney(calculateBill(bill).grandTotal, bill.currencyCode)
-					: undefined
-			};
-			return;
+			const total = bill.items.length
+				? formatMoney(calculateBill(bill).grandTotal, bill.currencyCode)
+				: undefined;
+			draft = IN_PROGRESS.draft(bill.people.length, bill.items.length, total);
 		}
 		const ids = sharedFromHere();
 		if (ids.length) {
@@ -57,155 +48,166 @@
 		}
 	});
 
-	// The strip's grammar: groups split by a dashed rule, each a small heading over its rows, and a
-	// row is a name on the left with its value set on the right, in tabular figures.
-	const group = 'border-t-2 border-dashed border-muted/55 px-5 py-6 sm:px-8';
-	const groupHeading = 'mb-3 text-lg font-bold';
-	const row = 'flex items-baseline justify-between gap-4';
-	// A row that is a link: the whole row takes the press, fills with the ground on hover, and its
-	// arrow moves on, for people who haven't asked for less motion.
-	const rowLink =
-		'group -mx-3 block rounded-lg px-3 py-3 transition-colors hover:bg-bg pointer-coarse:py-3.5';
+	// The map's drawing. Every road is a dashed line in a 1rem column, the same column as its place's
+	// dot, so it runs unbroken from the place, across the border, to what it reaches. WhatsApp's
+	// place sits down and to the right of Split bill's (a stagger, as on a map), so Split bill's road
+	// passes beside it. The place names are always underlined: they're the ways in.
+	const placeName =
+		'text-2xl font-bold tracking-tight underline decoration-2 underline-offset-[6px] hover:decoration-[3px] sm:text-3xl';
+	// The same column as a place's dot, so a road keeps one line where it crosses the border.
+	const roadColumn = 'flex w-4 shrink-0 flex-col items-center';
+	const road = 'border-l-[3px] border-dashed border-text';
+	const placeColumn = 'flex w-4 shrink-0 flex-col items-center';
+	const dot = 'mt-3 size-4 shrink-0 rounded-full bg-text sm:mt-4';
+	const stagger = 'ml-16 sm:ml-40';
+	const roadLabel = 'py-4 text-sm font-semibold max-w-64';
+	// Where a road ends: a node outside the line, in the page's color, outlined in muted gray.
+	const node =
+		'flex h-16 w-28 shrink-0 items-center justify-center rounded-lg border-2 border-muted bg-bg text-sm text-muted';
 	const arrowMove = 'transition-transform duration-200 motion-safe:group-hover:translate-x-1';
 </script>
 
 <Seo title={TITLE} description={DESCRIPTION} path="/" />
 
-<!-- The index is one strip of line items down a quiet ground: the tools, what stays on your device
-     and the point itself, each as a row with its value on the right. On the header's own grid: on
-     wide screens the name sits under the logo and the strip ends under "About Itrium"; on phones
-     the name is above the strip. -->
-<div class="bg-elevated dark:bg-bg">
-	<div class="mx-auto max-w-5xl px-3 sm:px-8 lg:grid lg:grid-cols-[1fr_34rem] lg:gap-x-12">
-		<div class="px-2 pt-6 pb-6 sm:px-0 sm:pt-10 lg:pt-14">
-			<div class="lg:sticky lg:top-10">
-				<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">{HEADING}</h1>
-				<p class="mt-2 text-lg font-medium text-muted sm:text-xl">{KICKER}</p>
-			</div>
-		</div>
+<!-- Split bill's road label. On phones the bill shared from this device is marked under it, in
+     a space kept for everyone so nothing below moves when it appears; from small screens up it sits
+     beside our server instead, where the room is to the side, not below. -->
+{#snippet shareLabel(withMark: boolean)}
+	<div class={roadLabel}>
+		<p>{MAP.roads.share.label}</p>
+		{#if withMark}
+			<p class="mt-2 min-h-10 font-normal">{@render sharedMark()}</p>
+		{/if}
+	</div>
+{/snippet}
 
-		<div class="border-x border-border bg-surface tabular-nums">
-			<!-- The strip's first row: what Flint does, or, for someone in the middle of a bill, that
-			     bill. It's here for everyone and as tall as the two-line tagline, so nothing moves under a
-			     finger when a returning visitor's shorter line arrives after the page loads. -->
-			<div
-				class="flex min-h-28 items-center px-5 py-6 sm:min-h-[7.25rem] sm:px-8 [@media(max-height:44rem)]:min-h-24 [@media(max-height:44rem)]:py-4"
-			>
-				{#if draft}
-					<div class="w-full">
-						<!-- The row link without its own vertical padding: the first row's padding is enough,
-						     and more would make this taller than the tagline it replaces. -->
-						<a
-							href={resolve(SPLIT_BILL.path)}
-							class="group -mx-3 block rounded-lg px-3 py-1 transition-colors hover:bg-bg"
-						>
-							<!-- Two lines, like the tagline it replaces: the bill and the way back to it, then
-							     its people and items with what it comes to set on the right. -->
-							<span class={row}>
-								<span class="text-xl font-semibold sm:text-2xl">{IN_PROGRESS.draftLabel}</span>
-								<Arrow class="{arrowMove} shrink-0 text-accent-text" />
-							</span>
-							<span class="{row} mt-1">
-								<span class="text-muted">{draft.detail}</span>
-								{#if draft.total}<span class="font-semibold">{draft.total}</span>{/if}
-							</span>
-						</a>
-					</div>
-				{:else if shared}
-					<p class="{row} w-full text-lg font-medium">
-						<span>{shared.text}</span>
-						<a href={shared.href} class="group {actionLine} shrink-0"
-							>{shared.action}<Arrow class={arrowMove} /></a
-						>
-					</p>
-				{:else}
-					<p class="text-xl leading-snug font-medium sm:text-2xl">{TAGLINE}</p>
-				{/if}
-			</div>
+{#snippet sharedMark()}
+	{#if shared}
+		{shared.text}
+		<a href={shared.href} class="group {actionLine}">{shared.action}<Arrow class={arrowMove} /></a>
+	{/if}
+{/snippet}
 
-			<section class={group} aria-label={TOOLS_LABEL}>
-				<ul class="space-y-1">
-					{#each TOOLS as tool (tool.path)}
-						{@const quiet = draft && tool.path === SPLIT_BILL.path}
-						<li>
-							<a href={resolve(tool.path)} class={rowLink}>
-								<span class={row}>
-									<span class="text-lg font-semibold whitespace-nowrap">{tool.name}</span>
-									<span class="flex shrink-0 items-center gap-2 font-semibold"
-										>{tool.yields}<Arrow class="{arrowMove} text-accent-text" /></span
-									>
-								</span>
-								<span class="mt-1 block text-muted">{tool.line}</span>
-								<!-- What the tool makes, as indented sub-rows of its own line, marked as an example:
-								     a picture, so screen readers skip it, since the line already says it. It gives
-								     way under 36rem of height, and on Split bill while a bill is in progress, where
-								     a made-up bill beside theirs reads as theirs. -->
-								<span
-									class="mt-2 block pl-4 text-sm [@media(max-height:36rem)]:hidden {quiet
-										? 'hidden'
-										: ''}"
-									aria-hidden="true"
-								>
-									<span class="block py-0.5 text-muted">{EXAMPLE}</span>
-									{#each tool.sample as line (line.value)}
-										<span class="{row} py-0.5">
-											{#if line.label}<span class="text-muted">{line.label}</span>{/if}
-											<span class={line.label ? 'font-semibold' : 'min-w-0 truncate'}
-												>{line.value}</span
-											>
-										</span>
-									{/each}
-								</span>
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</section>
+<!-- The index is one atlas plate: the visitor's device as a territory inside one border, the tools
+     as places in it, and the only ways out drawn as roads, each labelled with what it carries; a
+     legend says the same as facts. On the header's own grid: on wide screens the name and the
+     legend sit on the left and the plate on the right; on phones, name, plate, then legend. -->
+<div
+	class="mx-auto grid max-w-5xl px-5 pt-6 pb-16 sm:px-8 sm:pt-10 lg:grid-cols-[minmax(0,1fr)_34rem] lg:grid-rows-[auto_1fr_auto] lg:gap-x-16 lg:pt-14 lg:pb-24"
+>
+	<div class="lg:col-start-1 lg:row-start-1">
+		<h1 class="text-5xl font-bold tracking-tight sm:text-7xl">{HEADING}</h1>
+		<p class="mt-3 max-w-sm text-lg leading-snug text-muted sm:text-xl">{MAP.intro}</p>
+	</div>
 
-			<section class={group} aria-labelledby="promise-heading">
-				<h2 id="promise-heading" class={groupHeading}>{PROMISE_HEADING}</h2>
-				<dl class="space-y-2.5">
-					{#each PROMISE_ROWS as fact (fact.label)}
-						<div class={row}>
-							<dt class="shrink-0 whitespace-nowrap text-muted">{fact.label}</dt>
-							<dd class="text-right font-semibold">{fact.value}</dd>
-						</div>
-					{/each}
-				</dl>
-			</section>
-
-			<section class={group} aria-labelledby="elsewhere-heading">
-				<h2 id="elsewhere-heading" class={groupHeading}>{ELSEWHERE_HEADING}</h2>
-				<ul>
-					{#each ELSEWHERE as app (app.url)}
-						<li>
-							<a href={app.url} rel="external" class={rowLink}>
-								<span class={row}>
-									<span class="font-semibold">{app.name}</span>
-									<!-- Where it goes, shown: a site of its own. To a screen reader it only
-									     lengthened the link's name, and the summary already names it. -->
-									<span class="{actionLine} shrink-0 text-sm" aria-hidden="true"
-										>{new URL(app.url).host}<Arrow class={arrowMove} /></span
-									>
-								</span>
-								<span class="mt-1 block text-muted">{app.summary}</span>
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</section>
-
-			<!-- The closing row states the point, heavy, under a solid rule; then the one pink action. -->
-			<section class="px-5 pt-2 pb-10 sm:px-8" aria-label={CLOSING.label}>
-				<div class="{row} border-t-2 border-text pt-5">
-					<span class="text-2xl font-extrabold sm:text-3xl">{CLOSING.label}</span>
-					<span class="text-2xl font-extrabold sm:text-3xl">{CLOSING.value}</span>
-				</div>
-				<a href={resolve(SPLIT_BILL.path)} class="mt-7 w-full {primaryButton}">{CLOSING.action}</a>
-				<a href={SOURCE_URL} rel="external" class="group mt-3 w-full {secondaryButton}"
-					>{SOURCE_LABEL}<Arrow class={arrowMove} /></a
+	<section
+		class="mt-10 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:mt-0"
+		aria-labelledby="map-heading"
+	>
+		<!-- The territory: one border line around everything that stays on the device. -->
+		<div
+			class="rounded-[4rem_2rem_4.5rem_2.5rem] border-2 border-text bg-elevated px-6 pt-6 sm:px-8 dark:bg-surface"
+		>
+			<h2 id="map-heading" class="font-bold">{MAP.region}</h2>
+			<div class="mt-6 flex gap-4">
+				<span class={placeColumn} aria-hidden="true"
+					><span class={dot}></span><span class="mt-2 flex-1 {road}"></span></span
 				>
-			</section>
+				<div class="min-w-0 flex-1">
+					<h3><a href={resolve(SPLIT_BILL.path)} class={placeName}>{SPLIT_BILL.name}</a></h3>
+					<!-- With a bill in progress, the place says that bill: it lives here, on the device.
+					     The same three-line space either way, so nothing moves when it arrives. -->
+					<p class="mt-2 min-h-18 max-w-xs text-muted">{draft ?? SPLIT_BILL.line}</p>
+					<a href={resolve(SPLIT_BILL.path)} class="mt-4 {primaryButton}"
+						>{draft ? IN_PROGRESS.continue : MAP.start}</a
+					>
+					<div class="mt-10 flex gap-4 {stagger}">
+						<span class={placeColumn} aria-hidden="true"
+							><span class={dot}></span><span class="mt-2 flex-1 {road}"></span></span
+						>
+						<div class="min-w-0 flex-1 pb-10">
+							<h3><a href={resolve(WHATSAPP.path)} class={placeName}>{WHATSAPP.name}</a></h3>
+							<p class="mt-2 max-w-xs text-muted">{WHATSAPP.line}</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<!-- Outside the line: the roads go on to what they reach, each labelled beside the line with
+		     what it carries. WhatsApp's road ends first; Split bill's runs on past it to our server.
+		     From small screens up, Split bill's label sits beside its road level with WhatsApp's
+		     (the 9rem between the two roads holds it), so our server stays in the first viewport; on
+		     phones, where that gap is too narrow, it follows WhatsApp's node. -->
+		<!-- A transparent border as wide as the territory's, so the roads keep their line across it. -->
+		<div class="border-x-2 border-transparent px-6 sm:px-8">
+			<div class="flex gap-4">
+				<span class={roadColumn} aria-hidden="true"><span class="flex-1 {road}"></span></span>
+				<div class="min-w-0 flex-1 pb-8 sm:flex sm:gap-4 sm:pb-4">
+					<div class="hidden w-36 shrink-0 sm:block">{@render shareLabel(false)}</div>
+					<div class="ml-16 sm:ml-0">
+						<div class="flex gap-4">
+							<span class={roadColumn} aria-hidden="true"><span class="flex-1 {road}"></span></span>
+							<p class={roadLabel}>{MAP.roads.chat.label}</p>
+						</div>
+						<p class={node}>{MAP.roads.chat.to}</p>
+					</div>
+				</div>
+			</div>
+			<div class="flex gap-4 sm:hidden">
+				<span class={roadColumn} aria-hidden="true"><span class="flex-1 {road}"></span></span>
+				{@render shareLabel(true)}
+			</div>
+			<div class="flex items-center gap-4">
+				<p class={node}>{MAP.roads.share.to}</p>
+				<p class="hidden max-w-sm text-sm sm:block">{@render sharedMark()}</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- The legend, in the margin column: the drawing's marks, said as facts. -->
+	<section
+		class="mt-12 border-t-2 border-text pt-4 lg:col-start-1 lg:row-start-2 lg:mt-14 lg:self-start"
+		aria-labelledby="legend-heading"
+	>
+		<h2 id="legend-heading" class="font-bold">{PROMISE_HEADING}</h2>
+		<ul class="mt-4 space-y-3">
+			<li class="grid grid-cols-[2.5rem_1fr] items-center gap-3">
+				<span
+					class="h-6 rounded-md border-2 border-text bg-elevated dark:bg-surface"
+					aria-hidden="true"
+				></span>
+				{MAP.legend.inside}
+			</li>
+			<li class="grid grid-cols-[2.5rem_1fr] items-center gap-3">
+				<span class="border-t-[3px] border-dashed border-text" aria-hidden="true"></span>
+				{MAP.legend.road}
+			</li>
+			<li class="grid grid-cols-[2.5rem_1fr] items-center gap-3">
+				<span class="border-t-2 border-muted" aria-hidden="true"></span>
+				{MAP.legend.none}
+			</li>
+		</ul>
+		<p class="mt-4 text-muted">{MAP.offline}</p>
+	</section>
+
+	<!-- Off the map: the bigger tools on sites of their own, and the source that proves the map. -->
+	<div
+		class="mt-12 flex flex-wrap items-end justify-between gap-x-10 gap-y-6 border-t border-border pt-6 lg:col-span-2 lg:row-start-3 lg:mt-16"
+	>
+		<div>
+			<h2 class="font-bold">{ELSEWHERE_HEADING}</h2>
+			{#each ELSEWHERE as app (app.url)}
+				<p class="mt-2">
+					<a href={app.url} rel="external" class="group {actionLine}"
+						>{app.label}<Arrow class={arrowMove} /></a
+					>
+					<span class="block text-sm text-muted">{new URL(app.url).host}</span>
+				</p>
+			{/each}
+		</div>
+		<a href={SOURCE_URL} rel="external" class="group {secondaryButtonOnPage}"
+			>{SOURCE_LABEL}<Arrow class={arrowMove} /></a
+		>
 	</div>
 </div>
