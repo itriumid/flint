@@ -1,8 +1,9 @@
 <script lang="ts">
 	import SearchableSelect, { type Choice } from '#lib/SearchableSelect.svelte';
 	import Seo from '#lib/Seo.svelte';
-	import TitleBand from '#lib/TitleBand.svelte';
-	import { SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
+	import RoadOut from '#lib/RoadOut.svelte';
+	import PlaceMark from '#lib/PlaceMark.svelte';
+	import { MAP, SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
 	import { COUNTRIES, DEFAULT_COUNTRY_NAME, searchNames } from '#lib/countries.js';
 	import {
 		card,
@@ -181,12 +182,7 @@
 	}}
 />
 
-<TitleBand
-	title={WHATSAPP.name}
-	introduction={WHATSAPP.introduction}
-	width="max-w-xl"
-	bandWidth="max-w-lg"
-/>
+<PlaceMark title={WHATSAPP.name} introduction={WHATSAPP.introduction} width="max-w-xl" />
 
 <section class="mx-auto max-w-xl px-5 pt-6 pb-20 sm:px-8">
 	<form class="{card} space-y-5" onsubmit={(event) => event.preventDefault()}>
@@ -293,6 +289,8 @@
 							{copied === 'yes' ? WHATSAPP.result.copied : WHATSAPP.result.copy}
 						</button>
 					</div>
+					<!-- Opening the chat is this tool's one road out of the device, drawn as on the index. -->
+					<RoadOut label={MAP.roads.chat.label} to={MAP.roads.chat.to} />
 					<p class="mt-3 font-mono text-xs break-all text-muted select-all">{target.link}</p>
 					<!-- For someone making a link for their own number: where it goes, and a check before
 					     it's printed, since a printed mistake can't be fixed. -->

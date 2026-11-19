@@ -194,8 +194,8 @@ export const SPLIT_BILL = {
 	},
 	// For someone who opened a bill shared with them: their share first, the editor one press away.
 	sharedWithYou: {
-		/** In the title band, in place of how to make a bill: what this one is. */
-		band: (total: string, payer?: string) =>
+		/** In the place mark, in place of how to make a bill: what this one is. */
+		placeMark: (total: string, payer?: string) =>
 			`A bill shared with you: ${total} in all${payer ? `, paid by ${payer}` : ''}.`,
 		line: "Find your name, and tap it to see what's in your share.",
 		makeChanges: 'Make changes',

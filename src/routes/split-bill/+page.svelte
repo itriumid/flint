@@ -6,7 +6,8 @@
 	import Check from '#lib/Check.svelte';
 	import Step from '#lib/Step.svelte';
 	import Seo from '#lib/Seo.svelte';
-	import TitleBand from '#lib/TitleBand.svelte';
+	import RoadOut from '#lib/RoadOut.svelte';
+	import PlaceMark from '#lib/PlaceMark.svelte';
 	import Toggletip from '#lib/Toggletip.svelte';
 	import {
 		readReceipt,
@@ -14,7 +15,7 @@
 		type ScannedAdjustment,
 		type ScannedReceipt
 	} from '#lib/receipt.js';
-	import { SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
+	import { MAP, SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
 	import { CURRENCIES, searchNames } from '#lib/countries.js';
 	import {
 		DEFAULT_CURRENCY_CODE,
@@ -1260,11 +1261,11 @@
 	}}
 />
 
-<!-- For a friend who opened a link, the band says what this bill is, not how to make one. -->
-<TitleBand
+<!-- For a friend who opened a link, the place mark says what this bill is, not how to make one. -->
+<PlaceMark
 	title={SPLIT_BILL.name}
 	introduction={viewing
-		? SPLIT_BILL.sharedWithYou.band(money(totals.grandTotal), payerName)
+		? SPLIT_BILL.sharedWithYou.placeMark(money(totals.grandTotal), payerName)
 		: SPLIT_BILL.introduction}
 	essential={viewing}
 	width="max-w-2xl lg:max-w-6xl"
@@ -2840,18 +2841,25 @@
 								>{SPLIT_BILL.sharedWithYou.copyLink}</button
 							>
 						{:else}
-							<!-- aria-disabled while the server answers, not disabled: a disabled button loses focus,
-							     and a keyboard or screen reader's place with it. -->
-							<button
-								id="copy-link"
-								type="button"
-								onclick={copyLink}
-								aria-disabled={sharing || undefined}
-								class="{primaryButton} whitespace-nowrap aria-disabled:cursor-wait aria-disabled:opacity-50 sm:grow-[2]"
-								>{linkJustCopied
-									? SPLIT_BILL.sharing.copiedButton
-									: 'Copy a link to this bill'}</button
-							>
+							<!-- The link button with its road under it, as one piece: sharing a link is this tool's
+							     one road out of the device, drawn as on the index, and it hangs from this button
+							     alone, wherever the buttons wrap. Copy as text and Share hand text to the device's
+							     own apps and send nothing to us. -->
+							<div class="flex flex-col sm:grow-[2]">
+								<!-- aria-disabled while the server answers, not disabled: a disabled button loses focus,
+								     and a keyboard or screen reader's place with it. -->
+								<button
+									id="copy-link"
+									type="button"
+									onclick={copyLink}
+									aria-disabled={sharing || undefined}
+									class="{primaryButton} whitespace-nowrap aria-disabled:cursor-wait aria-disabled:opacity-50"
+									>{linkJustCopied
+										? SPLIT_BILL.sharing.copiedButton
+										: 'Copy a link to this bill'}</button
+								>
+								<RoadOut label={MAP.roads.share.label} to={MAP.roads.share.to} />
+							</div>
 						{/if}
 						{#if items.length && people.length}
 							<button
