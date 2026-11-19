@@ -5,7 +5,7 @@ colors:
   graphite: '#2b2b2b'
   graphite-surface: '#343434'
   graphite-border: '#474747'
-  graphite-raised: '#3d3d3d'
+  graphite-raised: '#3e3e3e'
   graphite-raised-border: '#4f4f4f'
   off-white: '#f2f2f2'
   muted-gray-on-dark: '#aaaaaa'
@@ -95,11 +95,15 @@ spacing:
   section: '5rem'
   plate-width: '34rem'
   plate-gap: '4rem'
-  place-stagger-phone: '4rem'
+  place-stagger-phone: '3rem'
   place-stagger: '10rem'
   dot: '1rem'
   node-width: '7rem'
   node-height: '4rem'
+  node-height-tool: '3rem'
+  road-label-width: '16rem'
+  road-label-width-tool: '18rem'
+  road-out-indent: '1.5rem'
   control-compact: '2.25rem'
   touch-target: '2.75rem'
   form-width: '36rem'
@@ -166,6 +170,7 @@ components:
     rounded: '{rounded.full}'
   road-label:
     typography: '{typography.road-label}'
+    width: '{spacing.road-label-width}'
   node:
     backgroundColor: '{colors.paper}'
     textColor: '{colors.muted-gray-on-light}'
@@ -176,18 +181,37 @@ components:
   node-dark:
     backgroundColor: '{colors.graphite}'
     textColor: '{colors.muted-gray-on-dark}'
+  road-out-label:
+    typography: '{typography.road-label}'
+    width: '{spacing.road-label-width-tool}'
+  road-out-node:
+    backgroundColor: '{colors.paper}'
+    textColor: '{colors.muted-gray-on-light}'
+    rounded: '{rounded.sm}'
+    width: '{spacing.node-width}'
+    height: '{spacing.node-height-tool}'
+    typography: '{typography.control}'
   panel:
     backgroundColor: '{colors.graphite-surface}'
     textColor: '{colors.off-white}'
     rounded: '{rounded.xl}'
     width: '{spacing.panel-width}'
-  title-band:
+  panel-light:
+    backgroundColor: '{colors.paper-elevated}'
+    textColor: '{colors.graphite}'
+  place-mark:
+    textColor: '{colors.graphite}'
+    typography: '{typography.headline}'
+  place-mark-dark:
+    textColor: '{colors.off-white}'
+  update-notice:
     backgroundColor: '{colors.graphite-surface}'
     textColor: '{colors.off-white}'
-    rounded: '{rounded.xl}'
-    typography: '{typography.headline}'
-  title-band-light:
-    backgroundColor: '{colors.paper-elevated}'
+    rounded: '{rounded.lg}'
+    padding: '0.625rem 0.625rem 0.625rem 1rem'
+    typography: '{typography.control}'
+  update-notice-light:
+    backgroundColor: '{colors.paper-surface}'
     textColor: '{colors.graphite}'
   running-total:
     backgroundColor: '{colors.graphite-surface}'
@@ -214,9 +238,10 @@ Device Map, one calm atlas plate: the visitor's device drawn as a single territo
 border line in the text color, the two tools as places in it (a filled dot and an underlined bold
 name), and the only ways out drawn as dashed roads that cross the border to small outlined boxes,
 each labelled with what it carries. A legend in the margin column says the same as facts. Privacy
-is shown as geography, not claimed in a list. On a tool page the stone keeps its earlier form, a
-slim title band with the work directly under it, because the person using it is at a restaurant
-table with a phone in one hand and a group waiting.
+is shown as geography, not claimed in a list. A tool page carries the map lightly: its title is a
+place mark (the place's dot beside the tool's name, no band), the work comes directly under it, and
+the tool's one road out hangs from the control that takes it, because the person using it is at a
+restaurant table with a phone in one hand and a group waiting.
 
 Components are soft and sure-footed, and tactile without being playful. Every control has a
 round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge
@@ -236,9 +261,10 @@ screen, and state shown by color alone.
 
 - One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.
 - The index is one map: the device as a territory with an irregular soft border, the tools as
-  places in it, the roads out as dashed lines to outlined boxes, and the one pink pill at the
-  Split bill place. A tool page opens with a slim title band, then the tool. Territory and band
-  follow the theme: a step off the page, never the other theme's color.
+  places in it, the roads out as dashed lines to outlined boxes, and a pink pill at each place,
+  the two tools' equal starts. A tool page opens with a place mark, then the tool, with its one
+  road out drawn under the control that takes it. The territory and the error page's band follow
+  the theme: a step off the page, never the other theme's color.
 - Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
   footer.
 - Flat surfaces with tonal steps. The only shadow is under the open searchable list.
@@ -273,16 +299,17 @@ dark default and `prefers-color-scheme: light`. The binding rules are in the han
   mode's text, and the text on pink, always.
 - **Graphite surface** (`graphite-surface`) and **graphite border** (`graphite-border`): cards and
   their dividing lines in dark mode, and the running total's bar. Inside a panel in dark mode, the
-  panel steps up to graphite surface and its cards to **graphite raised** (`graphite-raised`) with
-  **graphite raised border** (`graphite-raised-border`), as on itrium.id.
+  panel steps up to graphite surface and its cards to **graphite raised** (`graphite-raised`, the
+  palette's elevated gray) with **graphite raised border** (`graphite-raised-border`), as on
+  itrium.id. The raised border is the one gray here that isn't in the palette.
 - **Off-white** (`off-white`): text on graphite.
-- **Paper elevated** (`paper-elevated`, `--elevated`): the panels and title bands in light mode,
-  and the index's territory, from `@itrium/palettes`. A step down from paper, where everything a
+- **Paper elevated** (`paper-elevated`, `--elevated`): the error page's panel in light mode, and
+  the index's territory, from `@itrium/palettes`. A step down from paper, where everything a
   band or the territory holds still passes: text 12.5:1, muted 4.7:1, rose text 4.8:1, control
   edge 4.0:1, focus 12.5:1. In dark mode the territory is graphite surface, a step up from the page.
 - **The map's lines** are all in the text color (graphite in light mode, off-white in dark): the
-  territory's 2 px border, the 3 px dashed roads, the dots and the legend's 2 px top rule. The
-  boxes the roads reach are outlined in muted gray instead, since they are outside the device and
+  territory's 2 px border, the 3 px dashed roads, the dots and the legend's 2 px top rule, and on a
+  tool page the place mark's dot and the road out. The boxes the roads reach are outlined in muted gray instead, since they are outside the device and
   are not ours.
 - **Muted gray on dark** (`muted-gray-on-dark`) and **muted gray on light**
   (`muted-gray-on-light`): secondary text such as introductions, hints, legends, the footer and the
@@ -298,10 +325,12 @@ dark default and `prefers-color-scheme: light`. The binding rules are in the han
 ### Named Rules
 
 **The Vein Rule.** Pink marks something: the primary action, focus, what's selected, or the way
-onward. If you can't say what a pink element marks, it should be gray. In a tool, one pink button
-per view; on the index, one pink pill, at the Split bill place, with rose-text action lines for
-the tools elsewhere and a shared bill as their way onward, and nothing else pink. The map's
-places, roads and border are never pink.
+onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a
+time, which is not the same as one element. In a tool, one pink button per view. On the index, a
+pink pill at each place, the two tools' equal starts ("Split a bill", "Chat with a number"): two
+pills, one meaning, the primary action. Rose-text action lines serve the tools elsewhere and a
+shared bill as their way onward, and nothing else is pink. The map's places, roads and border, a
+tool page's place mark and its road out are never pink.
 
 **The Two Borders Rule.** `--border` is for lines nothing depends on, such as card edges and
 dividers. Anything a person has to find in order to use it gets `--control-border`.
@@ -310,7 +339,8 @@ dividers. Anything a person has to find in order to use it gets `--control-borde
 is rose text and pink lines are deep rose. Pastel pink is never text or a line there.
 
 **The Every-Surface Rule.** Contrast is checked on every surface text sits on: page, card, inset
-list, note, running total, the index's territory and the page around it, in both themes. Text needs 4.5:1. Focus outlines, control edges and
+list, note, running total, update notice, the index's territory and the page around it, in both
+themes. Text needs 4.5:1. Focus outlines, control edges and
 state lines need 3:1.
 
 ## Typography
@@ -329,16 +359,19 @@ in sentence case and plain, readable working text. It's served from the site its
   page's heading uses it too.
 - **Name line** (`name-line`): the muted line under the index's name, saying what Flint is. 1.125rem
   on phones, the token size from 640 px. It sits under the name, never above it.
-- **Headline** (`headline`): a tool's title in its title band. 1.875rem on phones, the token size
-  from 640 px.
+- **Headline** (`headline`): a tool's title in its place mark, 1rem right of the place's 1rem dot,
+  with the introduction under it. 1.875rem on phones, the token size from 640 px.
 - **Place name** (`place-name`): a tool's name at its place on the map, bold, tightly tracked and
   always underlined (2 px, 6 px below the text, 3 px on hover): the place names are the ways in.
   1.5rem on phones, the token size from 640 px.
 - **Title** (`title`): a section card's heading inside a tool (`cardHeading`), semibold.
 - **Map heading** (`map-heading`): the region's name inside the territory ("Your device"), the
   legend's heading and the heading of the tools elsewhere, bold at body size.
-- **Road label** (`road-label`): what a road carries, semibold beside the road, at most 16rem wide.
-- **Body** (`body`): a tool's introduction (at 1.625 line height in the title band), running prose,
+- **Road label** (`road-label`): what a road carries, semibold beside the road, at most 16rem wide
+  on the index (`road-label-width`, where it shares the plate with the boxes and the stagger) and
+  18rem under a tool's control (`road-label-width-tool`, where it has the column to itself).
+- **Body** (`body`): a tool's introduction (at 1.625 line height under the place mark, muted, or in
+  the text color at medium weight in a friend's view of a shared bill), running prose,
   the muted line under a place's name, and the legend's facts.
 - **Control** (`control`): field text, chips, notes, hints, amounts and the boxes the roads reach,
   at 0.875rem. On touch
@@ -361,8 +394,8 @@ says more about a heading goes under it, as the index's name line and a place's 
 ## Layout
 
 - **Widths:** header, footer and the index sit in the 64rem content column (`content-width`). The
-  index's map plate is 34rem (`plate-width`) from 1024 px and the column's full width under it. Panels
-  and title bands are wider, at 72rem (`panel-width`), and inset from the viewport by 0.75 to
+  index's map plate is 34rem (`plate-width`) from 1024 px and the column's full width under it. The
+  error page's panel is wider, at 72rem (`panel-width`), and inset from the viewport by 0.75 to
   1.25rem (`gutter-panel`). A tool sits in a narrow working column: 36rem (`form-width`) for a
   single form like WhatsApp click-to-chat, 42rem (`tool-width`) for Split bill.
 - **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`).
@@ -376,8 +409,9 @@ says more about a heading goes under it, as the index's name line and a place's 
 - **The plate:** the territory first, 1.5rem in on phones and 2rem from 640 px, open at the bottom
   so its roads run straight out. Inside it, the region's name, then Split bill's place: a 1rem dot
   (`dot`) in a 1rem column with the road starting under it, 1rem from the name, its line (or the
-  bill in progress) and the pink "Split a bill". WhatsApp click-to-chat's place sits 2.5rem lower
-  and staggered right, 4rem on phones (`place-stagger-phone`) and 10rem from 640 px
+  bill in progress) and the pink "Split a bill". WhatsApp click-to-chat's place, with its own line
+  and the pink "Chat with a number", sits 2.5rem lower and staggered right, 3rem on phones
+  (`place-stagger-phone`) and 10rem from 640 px
   (`place-stagger`), so Split bill's road passes beside it, as on a map. Outside the border, a
   transparent border as wide as the territory's keeps each road on its own line across it.
   WhatsApp's road ends first at its box; Split bill's runs on past it to "Our server". From 640 px
@@ -386,13 +420,13 @@ says more about a heading goes under it, as the index's name line and a place's 
 - **What the browser remembers:** read after the page loads from what the browser already keeps,
   never stored or sent. A bill in progress in this tab lives on the device, so it appears inside
   the territory, at the Split bill place, in place of the place's line ("Your bill in progress: 3
-  people, 5 items, Rp 459.250."), and the pink pill says "Continue your bill". A bill shared from
+  people, 5 items, Rp 459.250."), and the place's pink pill says "Continue your bill". A bill shared from
   this device took the road out, so it is marked on that road with an action line to it: under
   the road's label on phones, beside "Our server" from 640 px. Both arrive into space already kept
   for them.
-- **Tool page:** a slim title band (title and introduction only, about 2rem of padding on phones),
-  then the tool immediately. No closing panel, because the running total owns the bottom of the
-  screen.
+- **Tool page:** a place mark (the dot, the title and the introduction, nothing else), lined up
+  with the tool's own column, 1rem under the header on phones and 2rem from 640 px, then the tool
+  2rem under it. No closing panel, because the running total owns the bottom of the screen.
 - **Split bill from 1024 px:** two columns in the 72rem width. The bill on the left; the split on
   the right in a 26rem column that stays in view (sticky, scrolling on its own when it's taller than
   the screen) and updates as the bill changes. Before any item, the column holds one muted line
@@ -413,8 +447,9 @@ new road, drawn only when the site really makes one.
 place's line holds three lines, 4.5rem, and the shared mark on phones 2.5rem), so nothing moves
 under a finger when it appears.
 
-**The Slab Rule, for tools.** A tool page opens with a title band and never closes with one: on
-a phone, the tool comes before the frame.
+**The Slab Rule, for tools.** A tool page has no slab at either end: it opens with a place mark,
+a dot and the tool's name, and never closes with a panel. On a phone, the tool comes before the
+frame.
 
 **The First Screen Rule.** On a phone, the first field of a tool is visible without scrolling.
 If a new element would push it down, it belongs lower on the page.
@@ -448,8 +483,8 @@ next tonal step, a place name by thickening its underline, and an arrow by movin
 Soft and rounded, with the radius growing with the size of the object, on the same scale as
 itrium.id. Buttons, chips and the info button are pills (`full`). Fields, notes and floating lists
 get 0.5rem (`sm`), and options inside a list a little less (0.375rem). Inset lists, receipt lines
-and the receipt photo get 0.75rem (`md`). Cards get 1rem (`lg`). Panels and title bands get 1.5rem
-(`xl`). The focus outline is 2 px at 4 px radius (`focus`), 3 px away from the element. Headings and
+and the receipt photo get 0.75rem (`md`). Cards and the update notice get 1rem (`lg`). The error
+page's panel gets 1.5rem (`xl`). The focus outline is 2 px at 4 px radius (`focus`), 3 px away from the element. Headings and
 cards that the page itself moves focus to (`tabindex="-1"`) show none: focus still moves and is
 announced, but a ring there read as a stray selection box, pink in dark mode. Edges are
 1 px hairlines, notes included.
@@ -457,10 +492,11 @@ announced, but a ring there read as a stray selection box, pink in dark mode. Ed
 The index's map has its own shapes. The territory is the one irregular shape on the site: a
 soft region with four different corners (`territory`: 4rem, 2rem, 4.5rem, 2.5rem from the top
 left), bounded by a 2 px line in the text color, open of padding at the bottom so the roads leave
-it. Places are 1rem filled dots in the text color. Roads are 3 px dashed lines in the text color,
+it. Places are 1rem filled dots in the text color, and so is a tool page's place mark. Roads are 3 px dashed lines in the text color,
 running unbroken from a dot across the border. The boxes they reach are 7 by 4rem (`node-width`,
 `node-height`), 0.5rem (`sm`) corners, a 2 px muted-gray outline and the page's fill: square and
-plain against the territory's soft edge, because they're outside it. The legend draws the same
+plain against the territory's soft edge, because they're outside it. Under a tool's control the
+same box is 7 by 3rem (`node-height-tool`). The legend draws the same
 marks as swatches in a 2.5rem column: a small territory (0.375rem corners), a dashed road, and a
 plain muted line for "no road at all". Dashed lines elsewhere mean something else: the place a
 removed item was, and an empty state in WhatsApp click-to-chat.
@@ -479,7 +515,8 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   0.5rem gap.
 - **Primary:** pastel pink with graphite text, semibold, and a 1 px `--accent-edge` border: deep
   rose in light mode, where pastel pink alone is 1.5:1 on paper and the pill had no shape, and the
-  fill itself in dark mode, where it doesn't show. One per view: "Read the receipt", "Add to
+  fill itself in dark mode, where it doesn't show. One per view in a tool, one per place on the
+  index: "Read the receipt", "Add to
   the bill", "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link"
   beside it is secondary).
 - **Secondary:** transparent, with a 1 px control-edge border and medium weight. Every other
@@ -555,12 +592,13 @@ roads. Privacy shown as geography, not claimed in a list.
   heading type at its top left. No shadow, no fill pattern, no second border.
 - **Place:** a filled 1rem dot in the text color, 1rem left of the place's name, which is the link
   to the tool: place-name type, always underlined, the underline thickening from 2 to 3 px on
-  hover. Under the name, the place's line in muted body text, at most 20rem wide. The Split bill
-  place holds the one pink pill, 1rem under its line.
+  hover. Under the name, the place's line in muted body text, at most 20rem wide. Each place holds
+  its pink pill 1rem under its line, the two tools' equal starts: "Split a bill" and "Chat with a
+  number".
 - **Road:** a 3 px dashed line in the text color, in the same 1rem column as its place's dot, from
   just under the dot, down through the territory, across its border, to the box it reaches. Its
-  label sits beside it in road-label type ("A bill you share, encrypted. Deleted 30 days after
-  the last share.").
+  label sits beside it in road-label type, at most 16rem wide ("A bill you share, encrypted.
+  Deleted 30 days after the last share.").
 - **Box:** where a road ends, outside the line: 7 by 4rem, the page's fill, a 2 px muted-gray
   outline at 0.5rem corners, its name centered in muted control type ("Our server", "WhatsApp").
 - **Legend:** in the margin column, under a 2 px rule in the text color: the heading, then each
@@ -573,6 +611,26 @@ roads. Privacy shown as geography, not claimed in a list.
 **The Inside The Line Rule.** Whatever stays on the device is drawn inside the territory, and
 whatever leaves it is drawn on a road outside it. Never put something that reaches a server
 inside the line, or draw a road the site doesn't take.
+
+### Road out (on a tool page)
+
+The map's road, carried into the tool: each tool's one way out of the device, drawn under the
+control that takes it, with the same words as its road on the index (`src/lib/RoadOut.svelte`).
+
+- **Place:** indented 1.5rem from the controls (`road-out-indent`), with about 1.5rem before the
+  next control, so it reads as a note on the control, not as another button.
+- **Road:** a 3 px dashed line in the text color, in a 1rem column, starting flush at the control's
+  bottom edge and running down beside its label.
+- **Label:** road-label type, at most 18rem wide (`road-label-width-tool`), 0.75rem right of the
+  line.
+- **Box:** under the label, 7 by 3rem, the page's fill, a 2 px muted-gray outline at 0.5rem
+  corners, its name centered in muted control type ("Our server", "WhatsApp").
+- **Where:** under "Copy a link to this bill" in Split bill, and under "Open in WhatsApp" in
+  WhatsApp click-to-chat. The line is hidden from screen readers; the label and the box are read.
+
+**The Hanging Road Rule.** A road out hangs from the one control that takes it, and only where the
+site really makes the connection. A friend's "Copy the link" copies the link they opened, which
+goes nowhere new, so no road is drawn under it.
 
 ### Notes
 
@@ -600,7 +658,7 @@ Split bill, in a slot two lines tall that the hint and any problem share, so the
 it never moves: on a phone the keyboard covers the result while the number is typed, and this is the
 line to check it against. Then anything decided on the person's behalf, each with the drawn warning sign in medium weight (letters
 left out, an extension WhatsApp can't dial, a number at the short end for its country). Then "Open
-in WhatsApp" and "Copy link" side by side, neither ever breaking onto two lines (on the narrowest
+in WhatsApp" and "Copy link" side by side, with the road out to WhatsApp under them, neither ever breaking onto two lines (on the narrowest
 phones Copy moves under Open); Copy says "Copied" for three seconds after a press, where the
 press was, as well as in the status line under the result, and the raw link in small muted monospace, selectable.
 Under it, one muted line on using the link: in a profile or a message, or as a QR code checked once
@@ -671,15 +729,15 @@ with the split's heading focused, scrolled to on a phone.
 ### A bill shared with you
 
 Someone who opens a shared bill that wasn't shared from their own device sees the split on its own,
-centered. The title band says what this bill is instead of how to make one ("A bill shared with you:
+centered. The introduction under the place mark says what this bill is instead of how to make one ("A bill shared with you:
 Rp 459.250 in all, paid by Budi."), in the text color at medium weight, not muted: for someone
 who arrived from a link, it's the only context there is, and one line above the split says where to look ("Find your
 name, and tap it to see what's in your share."). A small "Make changes", with a muted note that
 changes stay on the device until the bill is shared again, waits under the split, so the friend's own
 row is on a phone's first screen. Who paid and rounding show only as their result in the rows;
 there's no running total, since the split is already in view. "Copy the link", which copies the
-link they opened, is secondary: reading their row and paying is the friend's job, and there's no
-pink on the page. The note on what sharing keeps on our server is left out, since a long link keeps
+link they opened, is secondary and has no road under it: reading their row and paying is the
+friend's job, and there's no pink on the page. The note on what sharing keeps on our server is left out, since a long link keeps
 nothing there. "Make changes" brings back the whole editor, focused on its first card. Whoever shared
 the bill gets the editor straight away, as before.
 
@@ -747,19 +805,21 @@ that's gone or a server out of reach, carry the warning sign in medium weight. A
 one that opened in the same tab clears the bill it showed, so the old one isn't left under the
 error still headed as shared; someone's own bill stays.
 
-### Panel and title band
+### Place mark and panel
 
-The `.band`, a step off the page in either theme: graphite surface in dark mode (its cards step up
-to graphite raised), paper elevated in light mode. It was graphite in both themes, like
-itrium.id's, until that made the title the heaviest shape on every light page, above the pink
-action and with dark mode's pink focus ring inside it. Rounded 1.5rem, inset and wider than the
-content. The index has none: its map replaced the opening and closing panels.
-The error page is one panel: its heading in display type and a ruled list of where to go instead,
-each row with the arrow. On a tool
-page it's a title band holding just the title and the introduction. The band is a little wider than the
-tool under it: Split bill's goes to 72rem, where the split has its own column, and WhatsApp
-click-to-chat's to its form card's 32rem, so their edges line up and on a wide screen the form
-isn't a small card under a long slab.
+A tool page's title is a place mark (`src/lib/PlaceMark.svelte`): the place's 1rem dot in the text
+color beside the tool's name in headline type, and the introduction under it, 0.5rem down and at
+most 36rem wide, muted, or in the text color at medium weight in a friend's view of a shared bill.
+It lines up with the tool's column: 42rem for Split bill (72rem from 1024 px, where the split has
+its own column) and 36rem for WhatsApp click-to-chat. No band, no fill and nothing above the name.
+Tool pages had a title band until the owner chose to carry the map onto them (2026-11-19).
+
+The `.band` panel remains only on the error page, a step off the page in either theme: graphite
+surface in dark mode (its cards step up to graphite raised), paper elevated in light mode, both
+taken from the palette at the root (`--band-bg`, `--band-raised`), since a band can't read
+`--surface` while redefining it. Rounded 1.5rem, inset and wider than the content. It holds the
+heading in display type and a ruled list of where to go instead, each row with the arrow. The
+index has none: its map replaced the opening and closing panels.
 
 ### Navigation
 
@@ -775,6 +835,19 @@ right. On the index, where the page ends with "Read the source" just above, the 
 own source link out. The theme choice is one control: three options in a pill-edged group, the
 chosen one filled in the text color, so the choice shows by more than color. The header's and
 footer's links stay small text but are 2.75rem tall on touch screens, like every other control.
+
+### Update notice
+
+When a new version of Flint is installed and waiting, one line offers it: "A new version of Flint
+is ready.", with a small outlined "Update" button (the small button). It sits over the header at
+the top of the page, at most 28rem wide and 0.75rem in from the edges, so nothing on the page
+moves when it appears, and it scrolls away with the header, so it never covers a field being
+filled in. The surface color, a 1 px control-edge border, 1rem corners (`lg`), control-size text,
+and no shadow: it is part of the top of the page, not floating over the work. Its button is
+outlined, because pink stays for the page's own main action. Beside it, a muted text button,
+"Later", puts the offer away until Flint is next opened, kept in memory only: on a phone the notice
+covers the header's logo and "About Itrium", and Later is the way past it. It's a status region,
+so it's announced once.
 
 ## Do's and Don'ts
 
@@ -795,14 +868,18 @@ footer's links stay small text but are 2.75rem tall on touch screens, like every
 - **Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`:
   page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing in a tool
   rises or reveals as it scrolls.
-- **Do** add to the index as the map: a tool as a place inside the territory, a connection as a
-  labelled road out to an outlined box, a fact as a line of the legend with its drawn swatch.
+- **Do** add to the index as the map: a tool as a place inside the territory with its pink start,
+  a connection as a labelled road out to an outlined box, a fact as a line of the legend with its
+  drawn swatch.
+- **Do** open a tool page with its place mark, and hang the tool's road out from the control that
+  takes it, in the same words as its road on the index.
 - **Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`,
   never raw hex values in markup.
 
 ### Don't:
 
-- **Don't** use pink as decoration, or put two pink buttons in one view.
+- **Don't** use pink as decoration, or give pink two meanings in one view: a tool has one pink
+  button, and the index's two pills are both the primary action, one at each place.
 - **Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.
 - **Don't** type arrows or chevrons as characters.
 - **Don't** give cards, buttons, chips, bands or the running total a drop shadow.
@@ -814,3 +891,4 @@ footer's links stay small text but are 2.75rem tall on touch screens, like every
 - **Don't** set field text below 16px on touch screens.
 - **Don't** put cards, bands, a hero or rows of entries on the index, or color the map's
   border, places or roads pink.
+- **Don't** put a band behind a tool's title: the band is the error page's alone.
