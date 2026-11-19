@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import Arrow from '#lib/Arrow.svelte';
-	import { SPLIT_BILL, WHATSAPP } from '#lib/content.js';
+	import { SPLIT_BILL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
 
 	// Where to go instead, as a ruled list in the panel, the same as itrium.id's error page.
 	const destinations = [
@@ -13,7 +13,7 @@
 </script>
 
 <svelte:head>
-	<title>{page.status === 404 ? 'Page not found' : 'Something went wrong'} · Itrium</title>
+	<title>{page.status === 404 ? 'Page not found' : 'Something went wrong'}{TITLE_SUFFIX}</title>
 </svelte:head>
 
 <section class="px-3 pb-16 sm:px-5 sm:pb-20">
