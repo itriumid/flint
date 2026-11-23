@@ -15,7 +15,7 @@
 		type ScannedAdjustment,
 		type ScannedReceipt
 	} from '#lib/receipt.js';
-	import { MAP, SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
+	import { ROADS_OUT, SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
 	import { CURRENCIES, searchNames } from '#lib/countries.js';
 	import {
 		DEFAULT_CURRENCY_CODE,
@@ -2858,7 +2858,7 @@
 										? SPLIT_BILL.sharing.copiedButton
 										: 'Copy a link to this bill'}</button
 								>
-								<RoadOut label={MAP.roads.share.label} to={MAP.roads.share.to} />
+								<RoadOut label={ROADS_OUT.share.label} to={ROADS_OUT.share.to} />
 							</div>
 						{/if}
 						{#if items.length && people.length}

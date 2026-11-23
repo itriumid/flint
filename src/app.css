@@ -20,11 +20,25 @@
 	--accent-text: #febfca;
 }
 
+/*
+ * The index's rantang: graphite enamel in both themes. On a dark page the tiers step up to the
+ * palette's elevated gray so they still read as an object; the frame (handle and rails) and the
+ * rim along each tier's top edge are a step above the tier.
+ */
+:root {
+	--tier: #3e3e3e;
+	--tier-rim: #575757;
+	--frame: #575757;
+}
+
 /* Light: the device's setting, unless Dark was chosen in the footer. */
 @media (prefers-color-scheme: light) {
 	:root:not([data-theme='dark']) {
 		--control-border: #767676;
 		--accent-text: #a84d60;
+		--tier: #2b2b2b;
+		--tier-rim: #474747;
+		--frame: #2b2b2b;
 	}
 }
 
@@ -32,6 +46,30 @@
 :root[data-theme='light'] {
 	--control-border: #767676;
 	--accent-text: #a84d60;
+	--tier: #2b2b2b;
+	--tier-rim: #474747;
+	--frame: #2b2b2b;
+}
+
+/*
+ * Inside a tier: dark mode's colors whatever the theme, since the enamel is graphite either way.
+ * On the lighter tier of dark mode (#3E3E3E): text 12.5:1, muted 4.6:1, pink 8.0:1, the control
+ * edge 3.1:1, the pink focus outline 8.0:1.
+ */
+.enamel {
+	--bg: var(--tier);
+	--surface: var(--tier);
+	--border: var(--tier-rim);
+	--text: #f2f2f2;
+	--muted: #aaaaaa;
+	--accent: #febfca;
+	--on-accent: #2b2b2b;
+	--accent-edge: #febfca;
+	--accent-text: #febfca;
+	--focus: #febfca;
+	--control-border: #8a8a8a;
+	background-color: var(--bg);
+	color: var(--text);
 }
 
 /* `dark:` follows the theme in use, not only the device: dark by the device's setting unless Light
@@ -60,6 +98,9 @@
 	--color-accent-edge: var(--accent-edge);
 	--color-accent-text: var(--accent-text);
 	--color-control-border: var(--control-border);
+	--color-tier: var(--tier);
+	--color-tier-rim: var(--tier-rim);
+	--color-frame: var(--frame);
 }
 
 html {
