@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 2,
-	"generatedAt": "2026-11-19T04:22:29.000Z",
+	"generatedAt": "2026-11-23T00:00:00.000Z",
 	"title": "Design System: flint.itrium.id",
 	"extensions": {
 		"colorMeta": {
@@ -68,6 +68,21 @@
 				"role": "neutral",
 				"displayName": "Graphite Raised Border",
 				"canonical": "oklch(42.8% 0.000 89.9)",
+				"tonalRamp": [
+					"#0b0b0b",
+					"#262626",
+					"#454545",
+					"#666666",
+					"#898989",
+					"#aeaeae",
+					"#d1d1d1",
+					"#eeeeee"
+				]
+			},
+			"enamel-rim-on-dark": {
+				"role": "neutral",
+				"displayName": "Enamel Rim",
+				"canonical": "oklch(45.7% 0.000 89.9)",
 				"tonalRamp": [
 					"#0b0b0b",
 					"#262626",
@@ -261,45 +276,69 @@
 			}
 		},
 		"typographyMeta": {
+			"lid-name": {
+				"displayName": "Lid name",
+				"purpose": "Flint on the index's lid, 96px extra-bold at -0.04em (3.75rem on phones)."
+			},
 			"display": {
 				"displayName": "Display",
-				"purpose": "Flint's name at the top of the index, and the error page's heading."
+				"purpose": "The error page's heading."
 			},
-			"name-line": {
-				"displayName": "Name line",
-				"purpose": "The muted line under the index's name, saying what Flint is."
-			},
-			"place-name": {
-				"displayName": "Place name",
-				"purpose": "A tool's name at its place on the index map, always underlined: the ways in."
+			"tier-name": {
+				"displayName": "Tier name",
+				"purpose": "A tool's name on its tier, 48px extra-bold (2.25rem on phones)."
 			},
 			"headline": {
 				"displayName": "Headline",
 				"purpose": "A tool's title in its place mark, beside the place's dot."
 			},
+			"lid-line": {
+				"displayName": "Lid line",
+				"purpose": "The muted line beside Flint's name on the lid, saying what Flint is."
+			},
+			"base-heading": {
+				"displayName": "Base heading",
+				"purpose": "\"Nothing else leaves\", heading the base tier."
+			},
+			"tier-line": {
+				"displayName": "Tier line",
+				"purpose": "What a tool does and what leaves it, on its tier."
+			},
+			"latch": {
+				"displayName": "Latch",
+				"purpose": "The label of a tier's pink start, bold, never wrapping."
+			},
 			"title": {
 				"displayName": "Title",
 				"purpose": "A section card's heading inside a tool."
 			},
-			"map-heading": {
-				"displayName": "Map heading",
-				"purpose": "The territory's name, the legend's heading and the heading of the tools elsewhere."
+			"nav": {
+				"displayName": "Nav",
+				"purpose": "The header's links to the tools, each with its symbol."
 			},
-			"road-label": {
-				"displayName": "Road label",
-				"purpose": "What a road carries, beside the road: at most 16rem wide on the index map, 18rem under a tool's control."
+			"minor-heading": {
+				"displayName": "Minor heading",
+				"purpose": "The heading of the tools on sites of their own, under the carrier."
 			},
 			"body": {
 				"displayName": "Body",
-				"purpose": "A tool's introduction under its place mark, running prose, a place's line on the map, and the legend's facts."
+				"purpose": "A tool's introduction under its place mark, running prose, and the base tier's facts."
+			},
+			"leaves-heading": {
+				"displayName": "Leaves heading",
+				"purpose": "\"What leaves it\", bold and muted, over the fact on each tool tier."
 			},
 			"control": {
 				"displayName": "Control",
-				"purpose": "Field text, chips, notes, hints, amounts and the map's road boxes; 1rem on touch screens."
+				"purpose": "Field text, chips, notes, hints, amounts and a road out's box; 1rem on touch screens."
+			},
+			"road-label": {
+				"displayName": "Road label",
+				"purpose": "What a road out carries, beside its line under a tool's control, at most 18rem wide."
 			},
 			"label": {
 				"displayName": "Label",
-				"purpose": "Field labels, secondary and small buttons, navigation."
+				"purpose": "Field labels, secondary and small buttons."
 			},
 			"button": {
 				"displayName": "Button",
@@ -320,6 +359,11 @@
 				"purpose": "Color, opacity and fill changes on hover."
 			},
 			{
+				"name": "rim-lift",
+				"value": "translateY(-4px), 300ms ease-out, motion-safe",
+				"purpose": "A tool tier's rim, while its latch is hovered or focused: half the 8px seam, so the seam still shows."
+			},
+			{
 				"name": "arrow-nudge",
 				"value": "translate 4px 0, 200ms ease, motion-safe",
 				"purpose": "The drawn arrow on an action line or link, on hover."
@@ -328,11 +372,6 @@
 				"name": "page-cross-fade",
 				"value": "document.startViewTransition on navigation, no-preference only",
 				"purpose": "Between pages, as on itrium.id."
-			},
-			{
-				"name": "underline-thicken",
-				"value": "text-decoration-thickness 2px to 3px on hover",
-				"purpose": "A place name on the index map, on hover."
 			}
 		],
 		"breakpoints": [
@@ -362,6 +401,14 @@
 			"description": "The one main action in a view: pastel pink, graphite text.",
 			"html": "<button class=\"ds-btn-primary\">Copy link</button>",
 			"css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:opacity .15s}.ds-btn-primary:hover{opacity:.85}.ds-btn-primary:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-btn-primary:disabled{opacity:.5;cursor:not-allowed}"
+		},
+		{
+			"name": "Latch",
+			"kind": "button",
+			"refersTo": "latch",
+			"description": "A tool tier's pink start: the primary button at the tier's scale, one per tool tier, never wrapping.",
+			"html": "<div class=\"ds-latch-tier\"><a class=\"ds-latch\" href=\"#\">Split a bill</a></div>",
+			"css": ".ds-latch-tier{--text:#f2f2f2;--muted:#aaaaaa;--focus:#febfca;--accent:#febfca;--accent-edge:#febfca;--on-accent:#2b2b2b;--control-border:#8a8a8a;background:var(--tier);padding:1.5rem;border-radius:1.5rem}.ds-latch{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:1rem 1.75rem;font:700 1.125rem/1.55 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;text-decoration:none;transition:opacity .15s}.ds-latch:hover{opacity:.85}.ds-latch:focus-visible{outline:2px solid var(--focus);outline-offset:3px}"
 		},
 		{
 			"name": "Secondary Button",
@@ -396,20 +443,20 @@
 			"css": ".ds-chips{display:flex;flex-wrap:wrap;gap:.5rem}.ds-chip{min-height:2.25rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:var(--text);padding:0 .875rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:background-color .15s}.ds-chip:hover{background:var(--surface)}.ds-chip-on,.ds-chip-on:hover{border-color:var(--accent-edge);background:var(--accent);color:var(--on-accent);font-weight:500}.ds-chip:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-chip{min-height:2.75rem}}"
 		},
 		{
-			"name": "Device Map",
+			"name": "The Rantang",
 			"kind": "custom",
-			"refersTo": "territory",
-			"description": "The index: the visitor's device as one territory inside a 2px text-color border with irregular corners, the tools as places (dot and underlined bold name), dashed roads crossing the border to outlined boxes, each labelled with what it carries, and a pink pill at each place, the two tools' equal starts.",
-			"html": "<section class=\"ds-map\"><div class=\"ds-territory\"><h2 class=\"ds-map-h\">Your device</h2><div class=\"ds-place\"><span class=\"ds-col\"><span class=\"ds-dot\"></span><span class=\"ds-road\"></span></span><div class=\"ds-place-body\"><h3><a class=\"ds-place-name\" href=\"#\">Split bill</a></h3><p class=\"ds-place-line\">Split a bill fairly, with tax and service.</p><a class=\"ds-pill\" href=\"#\">Split a bill</a><div class=\"ds-place ds-stagger\"><span class=\"ds-col\"><span class=\"ds-dot\"></span><span class=\"ds-road\"></span></span><div class=\"ds-place-body ds-last\"><h3><a class=\"ds-place-name\" href=\"#\">WhatsApp click-to-chat</a></h3><p class=\"ds-place-line\">Message a number without saving it.</p><a class=\"ds-pill\" href=\"#\">Chat with a number</a></div></div></div></div></div><div class=\"ds-outside\"><div class=\"ds-place\"><span class=\"ds-col\"><span class=\"ds-road\"></span></span><p class=\"ds-road-label\">A bill you share, encrypted. Deleted 30 days after the last share.</p></div><div class=\"ds-place\"><p class=\"ds-node\">Our server</p></div></div></section>",
-			"css": ".ds-map{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text);max-width:34rem}.ds-territory{border:2px solid var(--text);border-radius:4rem 2rem 4.5rem 2.5rem;background:var(--elevated);padding:1.5rem 2rem 0}.ds-map-h{font-size:1rem;font-weight:700;margin:0}.ds-place{display:flex;gap:1rem;margin-top:1.5rem}.ds-col{display:flex;flex-direction:column;align-items:center;width:1rem;flex-shrink:0}.ds-dot{width:1rem;height:1rem;border-radius:9999px;background:var(--text);margin-top:1rem;flex-shrink:0}.ds-road{flex:1;margin-top:.5rem;border-left:3px dashed var(--text);min-height:1rem}.ds-place-body{flex:1;min-width:0}.ds-place-body h3{margin:0}.ds-place-name{font-size:1.875rem;font-weight:700;letter-spacing:-.025em;line-height:1.2;color:var(--text);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}.ds-place-name:hover{text-decoration-thickness:3px}.ds-place-name:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}.ds-place-line{margin:.5rem 0 0;max-width:20rem;color:var(--muted)}.ds-pill{display:inline-flex;margin-top:1rem;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font-size:.875rem;font-weight:600;text-decoration:none}.ds-pill:hover{opacity:.85}.ds-stagger{margin-left:10rem;margin-top:2.5rem}.ds-last{padding-bottom:2.5rem}.ds-outside{padding:0 2rem;border:0 solid transparent;border-width:0 2px}.ds-outside .ds-place{margin-top:0}.ds-road-label{font-size:.875rem;font-weight:600;padding:1rem 0;max-width:16rem;margin:0}.ds-node{display:flex;align-items:center;justify-content:center;width:7rem;height:4rem;flex-shrink:0;border:2px solid var(--muted);border-radius:.5rem;background:var(--bg);color:var(--muted);font-size:.875rem;margin:0}"
+			"refersTo": "tier",
+			"description": "The index: the handle arc, two rails 2px off the tiers, and graphite enamel tiers on one 18.5rem module, 8px apart, each with an 8px rolled rim that lifts 4px when its latch is hovered or focused. Graphite in both themes, with dark mode's colors inside.",
+			"html": "<div class=\"ds-carrier\"><span class=\"ds-handle\" aria-hidden=\"true\"></span><span class=\"ds-rail ds-rail-l\" aria-hidden=\"true\"></span><span class=\"ds-rail ds-rail-r\" aria-hidden=\"true\"></span><div class=\"ds-stack\"><div class=\"ds-tier ds-lid\"><span class=\"ds-rim\" aria-hidden=\"true\"></span><h1 class=\"ds-lid-name\">Flint</h1><p class=\"ds-lid-line\">Free tools that work on your device and keep what you type there.</p></div><section class=\"ds-tier ds-tool\"><span class=\"ds-rim\" aria-hidden=\"true\"></span><div class=\"ds-left\"><svg class=\"ds-sym\" viewBox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"16\"/><path d=\"M20 4a16 16 0 0 0 0 32Z\" fill=\"currentColor\"/></svg><h2 class=\"ds-tier-name\">Split bill</h2><p class=\"ds-tier-line ds-does\">Split a bill fairly, with tax and service.</p></div><div class=\"ds-right\"><h3 class=\"ds-leaves-h\">What leaves it</h3><p class=\"ds-tier-line\">Only a bill you share, encrypted. Deleted 30 days after the last share.</p><a class=\"ds-latch\" href=\"#\">Split a bill</a></div></section><section class=\"ds-tier ds-base\"><span class=\"ds-rim\" aria-hidden=\"true\"></span><h2 class=\"ds-base-h\">Nothing else leaves</h2><ul class=\"ds-facts\"><li>What you type, your bill in progress and your theme stay on this device.</li><li>No cookies, no analytics, no trackers.</li><li>With no connection, both tools still open.</li></ul></section></div></div>",
+			"css": ".ds-carrier{position:relative;max-width:64rem;padding:2.5rem 2rem 0;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-handle{position:absolute;left:2rem;right:2rem;top:0;height:2.5rem;border:14px solid var(--frame);border-bottom:0;border-radius:50% 50% 0 0/100% 100% 0 0}.ds-rail{position:absolute;top:2.5rem;bottom:-.75rem;width:14px;background:var(--frame);border-radius:0 0 9999px 9999px}.ds-rail-l{left:2rem}.ds-rail-r{right:2rem}.ds-stack{display:flex;flex-direction:column;gap:.5rem;padding:1.5rem 1rem 0}.ds-tier{--text:#f2f2f2;--muted:#aaaaaa;--focus:#febfca;--accent:#febfca;--accent-edge:#febfca;--on-accent:#2b2b2b;--control-border:#8a8a8a;position:relative;background:var(--tier);color:var(--text);border-radius:1.5rem;padding:2.25rem 3rem 1.75rem}.ds-rim{pointer-events:none;position:absolute;inset:0;border-radius:inherit;border-top:8px solid var(--tier-rim);transition:transform .3s ease-out}@media (prefers-reduced-motion:no-preference){.ds-tool:has(a:hover) .ds-rim,.ds-tool:has(a:focus-visible) .ds-rim{transform:translateY(-4px)}}.ds-lid{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 3rem}.ds-lid-name{margin:0;font-size:6rem;font-weight:800;line-height:1;letter-spacing:-.04em}.ds-lid-line{margin:0;max-width:28rem;font-size:1.5rem;line-height:1.375;color:var(--muted)}.ds-tool{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:1.5rem 3rem;min-height:18.5rem;padding-top:1.75rem;padding-bottom:1.75rem}.ds-left,.ds-right{display:flex;flex-direction:column}.ds-right{border-left:2px solid var(--tier-rim);padding-left:2.5rem}.ds-sym{width:2.75rem;height:2.75rem}.ds-tier-name{margin:1rem 0 0;font-size:3rem;font-weight:800;line-height:1;letter-spacing:-.035em}.ds-tier-line{margin:.5rem 0 0;font-size:1.25rem;line-height:1.375}.ds-does{margin-top:auto;padding-top:1.5rem}.ds-leaves-h{margin:0;font-size:.875rem;font-weight:700;color:var(--muted)}.ds-latch{align-self:flex-start;margin-top:auto;white-space:nowrap;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:1rem 1.75rem;font:700 1.125rem/1.55 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;text-decoration:none;transition:opacity .15s}.ds-latch:hover{opacity:.85}.ds-latch:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-base{border-radius:1.5rem 1.5rem 2.5rem 2.5rem;padding:2.25rem 3rem}.ds-base-h{margin:0;font-size:1.5rem;font-weight:700}.ds-facts{margin:1rem 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem 2.5rem;font-size:1.125rem;line-height:1.375}"
 		},
 		{
-			"name": "Map Legend",
+			"name": "Tool Symbol",
 			"kind": "custom",
-			"refersTo": "territory",
-			"description": "The index map's legend in the margin column: each mark drawn as a swatch beside the fact it stands for, under a 2px text-color rule.",
-			"html": "<section class=\"ds-legend\"><h2>What stays on your device</h2><ul><li><span class=\"ds-sw ds-sw-land\"></span>Inside the line: what you type, your bill in progress, your theme.</li><li><span class=\"ds-sw ds-sw-road\"></span>A road out, taken only when you choose it.</li><li><span class=\"ds-sw ds-sw-none\"></span>No road at all: cookies, analytics, trackers.</li></ul></section>",
-			"css": ".ds-legend{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text);border-top:2px solid var(--text);padding-top:1rem;max-width:24rem}.ds-legend h2{font-size:1rem;font-weight:700;margin:0}.ds-legend ul{list-style:none;padding:0;margin:1rem 0 0;display:grid;gap:.75rem}.ds-legend li{display:grid;grid-template-columns:2.5rem 1fr;align-items:center;gap:.75rem}.ds-sw-land{height:1.5rem;border:2px solid var(--text);border-radius:.375rem;background:var(--elevated)}.ds-sw-road{border-top:3px dashed var(--text)}.ds-sw-none{border-top:2px solid var(--muted)}"
+			"refersTo": "tool-symbol",
+			"description": "Each tool's one fixed symbol, a 4-unit stroke on a 40-unit square in the text color: a half-filled circle for Split bill, a speech mark for WhatsApp. 1.25rem in the header, 2.75rem on a tier.",
+			"html": "<div class=\"ds-syms\"><svg class=\"ds-sym\" viewBox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"16\"/><path d=\"M20 4a16 16 0 0 0 0 32Z\" fill=\"currentColor\"/></svg><svg class=\"ds-sym\" viewBox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" aria-hidden=\"true\"><path d=\"M20 4a16 16 0 1 1-8.6 29.5L4 36l2.5-7.4A16 16 0 0 1 20 4Z\" stroke-linejoin=\"round\"/></svg></div>",
+			"css": ".ds-syms{display:flex;gap:1.5rem;color:var(--text)}.ds-syms .ds-sym{width:2.75rem;height:2.75rem}"
 		},
 		{
 			"name": "Note",
@@ -431,7 +478,7 @@
 			"name": "Place Mark",
 			"kind": "custom",
 			"refersTo": "place-mark",
-			"description": "A tool page's title, drawn as a place on the index map: the 1rem dot in the text color beside the tool's name, the introduction under it. No band.",
+			"description": "A tool page's title: the 1rem dot in the text color beside the tool's name, the introduction under it. No band. Kept on the tool pages until the owner decides whether they take the Rantang.",
 			"html": "<section class=\"ds-place-mark\"><span class=\"ds-pm-dot\" aria-hidden=\"true\"></span><div><h1 class=\"ds-pm-title\">WhatsApp click-to-chat</h1><p class=\"ds-pm-intro\">Paste a phone number as it is, and get a link that opens a chat with it.</p></div></section>",
 			"css": ".ds-place-mark{display:flex;gap:1rem;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-pm-dot{width:1rem;height:1rem;flex-shrink:0;border-radius:9999px;background:var(--text);margin-top:.75rem}.ds-pm-title{margin:0;font-size:1.875rem;font-weight:700;line-height:1.1;letter-spacing:-.025em}.ds-pm-intro{margin:.5rem 0 0;max-width:36rem;line-height:1.625;color:var(--muted)}@media (min-width:640px){.ds-pm-title{font-size:2.25rem}.ds-pm-dot{margin-top:1rem}}"
 		},
@@ -439,7 +486,7 @@
 			"name": "Road Out",
 			"kind": "custom",
 			"refersTo": "road-out-label",
-			"description": "A tool's one road out of the device, hanging from the control that takes it: a dashed line from the control's bottom edge, its label, and the box it reaches.",
+			"description": "A tool's one road out of the device, hanging from the control that takes it: a dashed line from the control's bottom edge, its label (the same fact as its tier's \"What leaves it\"), and the box it reaches. Tool pages only.",
 			"html": "<div class=\"ds-ro-wrap\"><button class=\"ds-ro-btn\">Open in WhatsApp</button><div class=\"ds-road-out\"><div class=\"ds-ro-row\"><span class=\"ds-ro-col\" aria-hidden=\"true\"><span class=\"ds-ro-line\"></span></span><p class=\"ds-ro-label\">A chat you open, with the number and message you typed.</p></div><p class=\"ds-ro-node\">WhatsApp</p></div></div>",
 			"css": ".ds-ro-wrap{display:flex;flex-direction:column;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-ro-btn{display:inline-flex;justify-content:center;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer}.ds-ro-btn:hover{opacity:.85}.ds-ro-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-road-out{margin:0 0 .75rem 1.5rem}.ds-ro-row{display:flex;gap:.75rem}.ds-ro-col{display:flex;flex-direction:column;align-items:center;width:1rem;flex-shrink:0}.ds-ro-line{flex:1;border-left:3px dashed var(--text)}.ds-ro-label{margin:0;max-width:18rem;padding:.5rem 0;font-size:.875rem;font-weight:600;line-height:1.43}.ds-ro-node{display:flex;align-items:center;justify-content:center;width:7rem;height:3rem;margin:0;border:2px solid var(--muted);border-radius:.5rem;background:var(--bg);color:var(--muted);font-size:.875rem}"
 		},
@@ -454,28 +501,35 @@
 		{
 			"name": "Navigation",
 			"kind": "nav",
-			"refersTo": "skip-link",
-			"description": "Two muted text links beside the lockup; the way back from a tool.",
-			"html": "<nav class=\"ds-nav\"><a href=\"#\">Free tools</a><a href=\"#\">About Itrium</a></nav>",
-			"css": ".ds-nav{display:flex;gap:1.75rem;font:500 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-nav a{color:var(--muted);text-decoration:none;transition:color .15s}.ds-nav a:hover{color:var(--text)}.ds-nav a:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}"
+			"refersTo": "nav-link",
+			"description": "The header's links to the tools, on every page: each tool's symbol and short name, the current page underlined. On the index the header sits under the handle arc.",
+			"html": "<nav class=\"ds-nav\" aria-label=\"Tools\"><ul><li><a href=\"#\" aria-current=\"page\"><svg class=\"ds-sym\" viewBox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"16\"/><path d=\"M20 4a16 16 0 0 0 0 32Z\" fill=\"currentColor\"/></svg>Split bill</a></li><li><a href=\"#\"><svg class=\"ds-sym\" viewBox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" aria-hidden=\"true\"><path d=\"M20 4a16 16 0 1 1-8.6 29.5L4 36l2.5-7.4A16 16 0 0 1 20 4Z\" stroke-linejoin=\"round\"/></svg>WhatsApp</a></li></ul></nav>",
+			"css": ".ds-nav ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none;font:600 1rem/1.5 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;white-space:nowrap}.ds-nav a{display:inline-flex;align-items:center;gap:.5rem;min-height:2.75rem;color:var(--text);text-decoration:none;text-underline-offset:6px;text-decoration-thickness:2px}.ds-nav a:hover,.ds-nav a[aria-current=page]{text-decoration-line:underline}.ds-nav .ds-sym{width:1.25rem;height:1.25rem;flex-shrink:0}.ds-nav a:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}"
 		}
 	],
 	"narrative": {
 		"northStar": "The Rhodonite Specimen, put to work",
-		"overview": "**Creative North Star: \"The Rhodonite Specimen, put to work\"**\n\nThe tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way. The index is The Device Map, one calm atlas plate: the visitor's device drawn as a single territory inside one border line in the text color, the two tools as places in it (a filled dot and an underlined bold name), and the only ways out drawn as dashed roads that cross the border to small outlined boxes, each labelled with what it carries. A legend in the margin column says the same as facts. Privacy is shown as geography, not claimed in a list. A tool page carries the map lightly: its title is a place mark (the place's dot beside the tool's name, no band), the work comes directly under it, and the tool's one road out hangs from the control that takes it, because the person using it is at a restaurant table with a phone in one hand and a group waiting.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density is calm but working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It also refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone.",
+		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way.\n\nThe index is The Rantang: a stacked enamel food carrier seen from the front. Graphite enamel owns the page in both themes. The header's thick arc is the carrying handle, its two ends run down into the rails that frame the tiers, and the tiers stack on one measured module with a lighter rolled rim along each top edge. The lid carries Flint's name and one line. Each tool is a tier: its symbol, its name at display size, what it does, and, before anyone presses, what leaves it, with its pink start, the latch. The base tier says what never leaves. Privacy is the object's construction, said on the tier it concerns, not claimed in a list. A tool page keeps the header (the handle's links, without the arc) and below it is unchanged from the map that came before: a place mark for a title, the work directly under it, and the tool's one road out hanging from the control that takes it, because the person using it is at a restaurant table with a phone in one hand and a group waiting. Whether the tool pages take the Rantang too is an open decision for the owner.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density on the index is bold and wide, a carrier you hold; inside a tool it is calm and working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system unless the footer says otherwise, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone. And on the index it refuses anything that reads as a receipt: the owner turned down the line-item strip (#70) and the Device Map (#71) for dashed lines, gray-on-paper monochrome, a narrow stacked column, and the feel as a whole.",
 		"keyCharacteristics": [
 			"One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.",
-			"The index is one map: the device as a territory with an irregular soft border, the tools as places in it, the roads out as dashed lines to outlined boxes, and a pink pill at each place, the two tools' equal starts. A tool page opens with a place mark, then the tool, with its one road out drawn under the control that takes it. The territory and the error page's band follow the theme: a step off the page, never the other theme's color.",
+			"The index is one carrier: a handle arc (the page's only arc), two rails, and graphite tiers on an 18.5rem module, 8px apart, each with a rolled rim. Graphite in both themes, with dark mode's text colors inside it.",
+			"Each tool has one fixed symbol, drawn in the text color, the same in the header and on its tier.",
+			"Pink only at the two latches on the index (equal starts), and at one primary action per tool view.",
+			"A tool page opens with a place mark, then the tool, with its one road out drawn under the control that takes it.",
 			"Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the footer.",
 			"Flat surfaces with tonal steps. The only shadow is under the open searchable list.",
 			"Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch screens, and 16px text on touch screens so iOS doesn't zoom.",
-			"Pink marks the primary action, focus, what's selected, and the way onward, and nothing else.",
 			"Motion is CSS only and off under reduced motion."
 		],
 		"rules": [
 			{
 				"name": "The Vein Rule",
-				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a time, which is not the same as one element. In a tool, one pink button per view. On the index, a pink pill at each place, the two tools' equal starts (\"Split a bill\", \"Chat with a number\"): two pills, one meaning, the primary action. Rose-text action lines serve the tools elsewhere and a shared bill as their way onward, and nothing else is pink. The map's places, roads and border, a tool page's place mark and its road out are never pink.",
+				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a time, which is not the same as one element. In a tool, one pink button per view. On the index, one pink latch on each tool's tier, the two tools' equal starts (\"Split a bill\", \"Chat with a number\"): one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their way onward, and nothing else is pink. The handle, rails, rims, tool symbols, a tool page's place mark and its road out are never pink.",
+				"section": "colors"
+			},
+			{
+				"name": "The Enamel Rule",
+				"body": "Inside a tier (the `.enamel` scope), dark mode's colors apply in both themes: off-white text, muted gray on dark, pink focus and pink edges, and the dark control edge. The enamel is graphite either way, so its contents never take light mode's graphite text, rose text or deep-rose edges.",
 				"section": "colors"
 			},
 			{
@@ -490,7 +544,7 @@
 			},
 			{
 				"name": "The Every-Surface Rule",
-				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, running total, update notice, the index's territory and the page around it, in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1.",
+				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, running total, update notice, each tier and the page around the carrier, in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. Dark mode's tier (`graphite-raised`) is the tightest: text 12.5:1, muted 4.6:1, pink 8.0:1, control edge 3.1:1.",
 				"section": "colors"
 			},
 			{
@@ -500,17 +554,17 @@
 			},
 			{
 				"name": "The No Kicker Rule",
-				"body": "A heading is the first thing in its block. No eyebrow, category label, small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that says more about a heading goes under it, as the index's name line and a place's line do.",
+				"body": "A heading is the first thing in its block. No eyebrow, category label, small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that says more about a heading goes under it or beside it, as the lid's line does. A tier's symbol sits above its name, but it is the tool's picture, not a label.",
 				"section": "typography"
 			},
 			{
-				"name": "The One Map Rule",
-				"body": "The index is one map: the device as one territory, the tools as places in it, and every way out as a road crossing the border to an outlined box, labelled with what it carries. No cards, no bands, no rows of entries. A new tool is a new place; a new connection is a new road, drawn only when the site really makes one.",
+				"name": "The One Carrier Rule",
+				"body": "The index is one carrier: a handle, two rails, and tiers on one module. A new tool is a new tier, the same height as the others, with its symbol, its name, what it does, what leaves it and its own pink latch. No cards, no rows of entries, no hero over equal tiers.",
 				"section": "layout"
 			},
 			{
 				"name": "The Kept Space Rule",
-				"body": "What the browser remembers arrives into a space already kept for it (the place's line holds three lines, 4.5rem, and the shared mark on phones 2.5rem), so nothing moves under a finger when it appears.",
+				"body": "What the browser remembers arrives into a space already kept for it (what a tool does keeps two lines, 3.5rem; the shared bill's line keeps 3rem on phones and 2.5rem from 768 px), so nothing moves under a finger when it appears.",
 				"section": "layout"
 			},
 			{
@@ -520,7 +574,7 @@
 			},
 			{
 				"name": "The First Screen Rule",
-				"body": "On a phone, the first field of a tool is visible without scrolling. If a new element would push it down, it belongs lower on the page.",
+				"body": "On a phone, the first field of a tool is visible without scrolling, and on the index the first tier's latch is. If a new element would push either down, it belongs lower on the page.",
 				"section": "layout"
 			},
 			{
@@ -530,12 +584,17 @@
 			},
 			{
 				"name": "The Only Floating Things Cast Shadows Rule",
-				"body": "Cards, buttons, chips, bands, the territory, the road boxes and the running total never get a drop shadow. A control responds by filling with the next tonal step, a place name by thickening its underline, and an arrow by moving 4 px on.",
+				"body": "Tiers, rims, the handle, cards, buttons, chips, bands, the road boxes and the running total never get a drop shadow. A control responds by filling with the next tonal step, a tier by lifting its rim, a header link by its underline, and an arrow by moving 4 px on.",
 				"section": "elevation"
 			},
 			{
-				"name": "The Inside The Line Rule",
-				"body": "Whatever stays on the device is drawn inside the territory, and whatever leaves it is drawn on a road outside it. Never put something that reaches a server inside the line, or draw a road the site doesn't take.",
+				"name": "The One Arc Rule",
+				"body": "The handle is the index's only arc. Corners are rounded and the rails have rounded feet, but no other element on the page sweeps a curve.",
+				"section": "shapes"
+			},
+			{
+				"name": "The Pinned Fact Rule",
+				"body": "What leaves a tool is said on that tool's tier, beside its latch, before anyone presses it. What never leaves is said once, on the base. Never collect them into a legend or a list apart from the tools they concern.",
 				"section": "components"
 			},
 			{
@@ -551,27 +610,32 @@
 		],
 		"dos": [
 			"Do take tokens, radii, button shapes, the arrow and type roles from itrium.id's DESIGN.md before inventing anything. A difference between the two sites needs a reason a tool has and a page doesn't.",
-			"Do keep a tool's first field on the first phone screen.",
+			"Do add to the index as the Rantang: a new tool is a new tier on the same 18.5rem module, 8px from the next, with its symbol, its name, what it does, what leaves it, and its own pink latch.",
+			"Do keep the enamel graphite in both themes, with dark mode's text, muted, focus and control edge colors inside it (`.enamel`).",
+			"Do give every tool one symbol and use it wherever the tool is named in the frame: the header and its tier.",
+			"Do keep the rim's lift to 4px, motion-safe only, on a tier whose latch is hovered or focused.",
+			"Do keep a tool's first field, and the index's first latch, on the first phone screen.",
 			"Do give every field, button and chip a `--control-border` edge and a touch target at least 2.75rem tall on touch screens.",
-			"Do show every state in two ways: a check mark with the pink fill, words with the pink edge, and the reason a button can't be pressed yet, said under it when someone presses or reaches it (not at rest, and not read out again after every add).",
+			"Do show every state in two ways: a check mark with the pink fill, words with the pink edge, an underline on the current page's link, and the reason a button can't be pressed yet, said under it when someone presses or reaches it (not at rest, and not read out again after every add).",
 			"Do design and check every new pairing in light and dark, on every surface it sits on.",
 			"Do use the drawn arrow wherever a link points onward.",
-			"Do keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing in a tool rises or reveals as it scrolls.",
-			"Do add to the index as the map: a tool as a place inside the territory with its pink start, a connection as a labelled road out to an outlined box, a fact as a line of the legend with its drawn swatch.",
-			"Do open a tool page with its place mark, and hang the tool's road out from the control that takes it, in the same words as its road on the index.",
+			"Do keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the rim's lift, the 4 px arrow nudge, and the loading spinner. Nothing rises or reveals as it scrolls.",
+			"Do open a tool page with its place mark, and hang the tool's road out from the control that takes it, saying the same fact as its tier on the index.",
 			"Do use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`, never raw hex values in markup."
 		],
 		"donts": [
-			"Don't use pink as decoration, or give pink two meanings in one view: a tool has one pink button, and the index's two pills are both the primary action, one at each place.",
+			"Don't make the index read as a receipt, on any cue: no dashed lines, no gray-on-paper monochrome, no narrow stacked column, no rows of entries, ledgers, departure boards or maps. The owner turned down the line-item strip (#70) and the Device Map (#71) for exactly this.",
+			"Don't put cards, a legend, a hero over equal tiers, or a second arc on the index.",
+			"Don't use pink as decoration, or give pink two meanings in one view: a tool has one pink button, and the index's two latches are both the primary action, one on each tool's tier. The handle, rails, rims and symbols are never pink.",
+			"Don't add a structural gray outside the palette. Its two exceptions, the band's raised border (#4f4f4f) and the enamel's rim and frame in dark mode (#575757), are each a structural step above a palette gray; a new one needs the same reason, and a color change otherwise belongs in `@itrium/palettes`.",
 			"Don't put a small uppercase heading, eyebrow, kicker or back link above a heading.",
 			"Don't type arrows or chevrons as characters.",
-			"Don't give cards, buttons, chips, bands or the running total a drop shadow.",
+			"Don't give tiers, cards, buttons, chips, bands or the running total a drop shadow.",
 			"Don't use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.",
-			"Don't put pastel pink text or lines on a light background.",
+			"Don't put pastel pink text or lines on a light background, or rose text and deep-rose lines inside a tier.",
 			"Don't use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
 			"Don't add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
 			"Don't set field text below 16px on touch screens.",
-			"Don't put cards, bands, a hero or rows of entries on the index, or color the map's border, places or roads pink.",
 			"Don't put a band behind a tool's title: the band is the error page's alone."
 		]
 	}

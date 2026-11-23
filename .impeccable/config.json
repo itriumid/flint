@@ -1,0 +1,15 @@
+{
+	"detector": {
+		"ignoreRules": [],
+		"ignoreFiles": [],
+		"ignoreValues": [
+			{
+				"rule": "border-accent-on-rounded",
+				"value": "*",
+				"files": ["src/routes/+page.svelte"],
+				"createdAt": "2026-11-23T10:23:11.759Z",
+				"reason": "The Rantang's rolled rim: a tonal step of the tier (not an accent hue) on every tier, lifting at the latch; the finish review (2026-11-23) read it as the rim, not the slop pattern."
+			}
+		]
+	}
+}

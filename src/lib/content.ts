@@ -47,33 +47,38 @@ export const UPDATE = {
 	later: 'Later'
 };
 
-// The index map's legend: what happens to what people type, said plainly, with the source as the
-// proof.
-export const PROMISE_HEADING = 'What stays on your device';
+/** The header's links between the tools, on every page. */
+export const NAV = { label: 'Tools', splitBill: 'Split bill', whatsapp: 'WhatsApp' };
+
+// The index as a rantang, a stacked food carrier: each tool a latched tier, and what leaves a tier
+// said on it, before anyone presses its start. The base tier says what never leaves.
+export const INDEX = {
+	intro: 'Free tools that work on your device and keep what you type there.',
+	/** The pink starts, one on each tool's tier: equal, since the tools are peers. */
+	starts: { splitBill: 'Split a bill', whatsapp: 'Chat with a number' },
+	leavesHeading: 'What leaves it',
+	leaves: {
+		splitBill: 'Only a bill you share, encrypted. Deleted 30 days after the last share.',
+		whatsapp: 'A chat you open, sent to WhatsApp with the number and message you typed.'
+	},
+	stays: {
+		heading: 'Nothing else leaves',
+		facts: [
+			'What you type, your bill in progress and your theme stay on this device.',
+			'No cookies, no analytics, no trackers.',
+			'With no connection, both tools still open.'
+		]
+	}
+};
 export const SOURCE_LABEL = 'Read the source';
 
-// The index as a map of the visitor's device: the tools inside one border, and the only roads out,
-// each labelled with what it carries. The legend says the same as facts.
-export const MAP = {
-	intro:
-		'Free tools that live on your device. What you type leaves it only by the roads drawn here.',
-	region: 'Your device',
-	/** The pink actions at the two places: each tool's start, equal, since the tools are peers. */
-	start: 'Split a bill',
-	chatStart: 'Chat with a number',
-	roads: {
-		share: {
-			label: 'A bill you share, encrypted. Deleted 30 days after the last share.',
-			to: 'Our server'
-		},
-		chat: { label: 'A chat you open, with the number and message you typed.', to: 'WhatsApp' }
+// On a tool page, the one way out of the device, hanging from the control that takes it.
+export const ROADS_OUT = {
+	share: {
+		label: 'A bill you share, encrypted. Deleted 30 days after the last share.',
+		to: 'Our server'
 	},
-	legend: {
-		inside: 'Inside the line: what you type, your bill in progress, your theme.',
-		road: 'A road out, taken only when you choose it.',
-		none: 'No road at all: cookies, analytics, trackers.'
-	},
-	offline: 'With no connection, everything inside the line still opens.'
+	chat: { label: 'A chat you open, with the number and message you typed.', to: 'WhatsApp' }
 };
 
 export const NO_TRACKING =
@@ -88,7 +93,7 @@ export const WHATSAPP = {
 	description:
 		'Make a WhatsApp click-to-chat link from any phone number, with a message already typed if you like. Spaces and symbols are removed for you.',
 	introduction: 'Paste a phone number as it is, and get a link that opens a chat with it.',
-	/** On the index map, the line under the tool's place. */
+	/** On the index, what the tool does, on its tier. */
 	line: 'Message a number without saving it.',
 	hint: 'A number that starts with + or 00 already has its country, so we use it as it is.',
 	/**
@@ -157,7 +162,7 @@ export const SPLIT_BILL = {
 		'Split a bill fairly: add the people and the items, tag who had what, add tax and service, and share the result as a short link. Shared bills are encrypted, and only people with the link can open them.',
 	introduction:
 		'Tag who had what, and we work out a fair share for each person, tax and service included.',
-	/** On the index map, the line under the tool's place. */
+	/** On the index, what the tool does, on its tier. */
 	line: 'Tag who had what; tax and service included.',
 	privacy:
 		"A shared bill waits on our server for 30 days after it was last shared, encrypted with a key that is only in the link, so we can't read it. Whoever shared it can update it or delete it, on the same device.",
