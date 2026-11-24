@@ -23,3 +23,13 @@ export function barColor(theme: Theme, media: string | null): string {
 	const light = theme === 'light' || (theme === 'system' && Boolean(media?.includes('light')));
 	return light ? BAR_COLOR.light : BAR_COLOR.dark;
 }
+
+/**
+ * The look on screen: the chosen theme, or with System, the device's. The page holds it on the
+ * root even with System, so when the device switches, the page can still be photographed as it
+ * was before the switch and the two cross-faded (see theme.svelte.ts).
+ */
+export function shownTheme(theme: Theme, deviceDark: boolean): 'light' | 'dark' {
+	if (theme !== 'system') return theme;
+	return deviceDark ? 'dark' : 'light';
+}

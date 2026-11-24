@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { BAR_COLOR, THEME_KEY, barColor, readTheme } from './theme';
+import { BAR_COLOR, THEME_KEY, barColor, readTheme, shownTheme } from './theme';
 
 describe('readTheme', () => {
 	it('keeps Light and Dark', () => {
@@ -24,6 +24,18 @@ describe('barColor', () => {
 	it("gives each tag its own scheme's color with System", () => {
 		expect(barColor('system', '(prefers-color-scheme: light)')).toBe(BAR_COLOR.light);
 		expect(barColor('system', '(prefers-color-scheme: dark)')).toBe(BAR_COLOR.dark);
+	});
+});
+
+describe('shownTheme', () => {
+	it('shows the chosen theme whatever the device says', () => {
+		expect(shownTheme('light', true)).toBe('light');
+		expect(shownTheme('dark', false)).toBe('dark');
+	});
+
+	it("shows the device's look with System", () => {
+		expect(shownTheme('system', true)).toBe('dark');
+		expect(shownTheme('system', false)).toBe('light');
 	});
 });
 
