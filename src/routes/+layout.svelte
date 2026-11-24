@@ -92,35 +92,26 @@
 </a>
 
 <!-- Flint's mark and the tools, on every page, so a person can go from one tool to the other in
-     one press. On the index the header is the rantang's carrying handle: centred, under the arc
-     whose two ends become the page's rails. -->
+     one press. The page you're on is underlined. -->
 <header
-	class="relative mx-auto flex max-w-5xl items-center gap-x-6 px-5 sm:gap-x-10 sm:px-8 {home
-		? 'justify-center pt-9 pb-3 sm:pt-11'
-		: 'justify-between py-6'}"
+	class="mx-auto flex max-w-6xl items-center justify-between gap-x-4 px-5 py-6 sm:gap-x-6 sm:px-8"
 >
-	{#if home}
-		<span
-			class="pointer-events-none absolute inset-x-2 top-3 bottom-0 rounded-[50%_50%_0_0/100%_100%_0_0] border-[10px] border-b-0 border-frame sm:inset-x-8 sm:border-[14px] sm:border-b-0"
-			aria-hidden="true"
-		></span>
-	{/if}
 	<!-- The mark is the same tile in either theme; on a page as dark as the tile, the one with a
 	     faint rim keeps its edge. -->
 	<a
 		href={resolve('/')}
 		aria-current={home ? 'page' : undefined}
-		class="relative flex shrink-0 items-center gap-2.5 text-xl font-bold tracking-tight"
+		class="flex shrink-0 items-center gap-2.5 text-xl font-bold tracking-tight"
 	>
 		<img src={flintMark} alt="" width="40" height="40" class="size-10 dark:hidden" />
 		<img src={flintMarkOnDark} alt="" width="40" height="40" class="hidden size-10 dark:block" />
-		<span
-			class={home ? 'sr-only decoration-2 underline-offset-[6px] sm:not-sr-only sm:underline' : ''}
+		<!-- On the narrowest phones the name gives way to the tools; the mark still says Flint. -->
+		<span class="max-[23rem]:sr-only {home ? 'underline decoration-2 underline-offset-[6px]' : ''}"
 			>{NAME}</span
 		>
 	</a>
-	<nav aria-label={NAV.label} class="relative">
-		<ul class="flex items-center gap-5 font-semibold whitespace-nowrap sm:gap-8">
+	<nav aria-label={NAV.label}>
+		<ul class="flex items-center gap-4 font-semibold whitespace-nowrap sm:gap-8">
 			{#each tools as tool (tool.path)}
 				<li>
 					<a
@@ -142,7 +133,7 @@
 
 <footer class="border-t border-border">
 	<div
-		class="mx-auto flex max-w-5xl flex-col gap-6 px-5 py-10 text-sm text-muted sm:flex-row sm:justify-between sm:px-8"
+		class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 text-sm text-muted sm:flex-row sm:justify-between sm:px-8"
 	>
 		<div class="space-y-4">
 			<!-- Who makes Flint: Itrium's lockup, drawn for whichever theme is in use. -->
@@ -157,7 +148,7 @@
 				/>
 			</a>
 			<p>© {new Date().getFullYear()} Itrium</p>
-			<!-- On the index, the rantang's base tier says this in full, right above. -->
+			<!-- On the index, the facts under the two halves say this in full, right above. -->
 			{#if page.url.pathname === resolve('/split-bill')}<p>{NO_TRACKING_BILLS}</p>
 			{:else if page.url.pathname !== '/'}<p>{NO_TRACKING}</p>{/if}
 			<ThemeChoice />
