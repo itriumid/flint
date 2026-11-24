@@ -100,11 +100,6 @@ typography:
     fontSize: '0.875rem'
     fontWeight: 400
     lineHeight: 1.43
-  road-label:
-    fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
-    fontSize: '0.875rem'
-    fontWeight: 600
-    lineHeight: 1.43
   label:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '0.875rem'
@@ -127,8 +122,6 @@ spacing:
   gutter-panel: '0.75rem'
   gutter-phone: '1.25rem'
   gutter-wide: '2rem'
-  card: '1.25rem'
-  card-wide: '1.5rem'
   part: '2rem'
   part-wide: '2.5rem'
   bar-clearance: '6.5rem'
@@ -145,10 +138,9 @@ spacing:
   symbol-title: '2rem'
   symbol-half-phone: '2rem'
   symbol-half: '2.5rem'
-  node-width: '7rem'
-  node-height-tool: '3rem'
-  road-label-width-tool: '18rem'
-  road-out-indent: '1.5rem'
+  print-width-phone: '9rem'
+  print-width-tablet: '11rem'
+  print-width: '14rem'
   control-compact: '2.25rem'
   touch-target: '2.75rem'
   form-width: '36rem'
@@ -197,10 +189,6 @@ components:
     backgroundColor: '{colors.pastel-pink}'
     textColor: '{colors.graphite}'
     rounded: '{rounded.full}'
-  card:
-    backgroundColor: '{colors.graphite-surface}'
-    rounded: '{rounded.lg}'
-    padding: '{spacing.card}'
   inset-list:
     backgroundColor: '{colors.graphite}'
     rounded: '{rounded.md}'
@@ -229,16 +217,14 @@ components:
   nav-link:
     typography: '{typography.nav}'
     height: '{spacing.touch-target}'
-  road-out-label:
-    typography: '{typography.road-label}'
-    width: '{spacing.road-label-width-tool}'
-  road-out-node:
-    backgroundColor: '{colors.paper}'
-    textColor: '{colors.muted-gray-on-light}'
-    rounded: '{rounded.sm}'
-    width: '{spacing.node-width}'
-    height: '{spacing.node-height-tool}'
-    typography: '{typography.control}'
+  print:
+    backgroundColor: '{colors.paper-surface}'
+    textColor: '{colors.graphite}'
+    rounded: '{rounded.none}'
+    width: '{spacing.print-width}'
+  print-empty-dark:
+    backgroundColor: '{colors.graphite-surface}'
+    textColor: '{colors.muted-gray-on-dark}'
   panel:
     backgroundColor: '{colors.graphite-surface}'
     textColor: '{colors.off-white}'
@@ -309,20 +295,22 @@ It replaced the Rantang (#73), which replaced the Device Map (#71), which replac
 strip (#70).
 
 A tool page follows the index. It opens with the tool's title, said as its half says it: the
-tool's symbol and its name in the same extra-bold type, the introduction under it. Split bill is
-the first tool redrawn in this world (the owner's three-step round, 2026-11-24): no cards, its
-parts divided by plain lines under extra-bold headings, items as rows between lines, and below
-1024px the bill made in three steps, one on screen at a time, with a graphite bar fixed to the
-bottom of the screen holding the step's count or total and the way on. The person using it is at a
+tool's symbol and its name in the same extra-bold type, the introduction under it. Both tools are
+now drawn in this world (the owner's rounds of 2026-11-24), with no cards. Split bill's parts are
+divided by plain lines under extra-bold headings, items as rows between lines, and below 1024px
+the bill is made in three steps, one on screen at a time, with a graphite bar fixed to the bottom
+of the screen holding the step's count or total and the way on. The person using it is at a
 restaurant table with a phone in one hand and a group waiting, so they do one job at a time and the
-answer is one tap away. WhatsApp click-to-chat has the new title but still its card and its road
-out, from the Device Map, until its own design round; that page is open.
+answer is one tap away. WhatsApp click-to-chat is the fields, then under a plain line the answer
+shown as what it becomes: the QR code as it will print, in the open beside "Your link", with "Open
+in WhatsApp" and "Copy link" under it. From 1024px each tool's answer has its own column.
 
 Components are soft and sure-footed, and tactile without being playful. Every control has a round,
 generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see
-(3:1 against the page and the card). They feel good to press but never perform. Density on the
-index is bold and wide; inside a tool it is calm and working: forms sit in a narrow column of 36 to
-42rem, and the few things that really are boxes (receipt lines, the adjustments list, a note) sit
+(3:1 against every surface they sit on). They feel good to press but never perform. Density on the
+index is bold and wide; inside a tool it is calm and working: below 1024px forms sit in a narrow
+column of 36 to 42rem, from 1024px a tool takes the 72rem column with its answer beside the form,
+and the few things that really are boxes (receipt lines, the adjustments list, a note) sit
 one step back with a hairline round them.
 
 Light and dark are equal. Each follows the visitor's system unless the footer says otherwise, and
@@ -349,6 +337,8 @@ stacked rounded boxes. On Split bill the owner turned down the same stack: "too 
   half, and the introduction under it.
 - Split bill has no cards: parts between plain lines, items as rows, three steps below 1024px with a
   graphite bar at the bottom, and two columns from 1024px.
+- WhatsApp click-to-chat has no card: the fields, a plain line, then the answer shown as the print
+  it makes, in its own column beside a vertical line from 1024px.
 - Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
   footer.
 - Flat surfaces with tonal steps. The only shadow is under the open searchable list.
@@ -374,7 +364,7 @@ mode's for Split bill's bottom bar on a light page. The binding rules are in the
   (including Split bill's half on a light page) it's also the focus outline, the line of a state,
   and pink text.
 - **Deep rose** (`deep-rose`): pink as a line on light backgrounds (`--accent-edge`). The edge of
-  a selected chip, an unsure receipt line, a note's edge, the checked box or radio button, and the
+  a selected chip, an unsure receipt line, a note's edge, and the
   start's edge in any light field (including Split bill's half on a dark page). It reaches 3:1 on
   white.
 - **Rose text** (`rose-text`): pink as text on light backgrounds (`--accent-text`). Action lines
@@ -386,9 +376,10 @@ mode's for Split bill's bottom bar on a light page. The binding rules are in the
 - **Graphite** (`graphite`): the dark page, the field fill and inset lists in dark mode, light
   mode's text, and the text on pink, always. On a light page it is also Split bill's half and Split
   bill's bottom bar.
-- **Graphite surface** (`graphite-surface`) and **graphite border** (`graphite-border`): cards and
-  their dividing lines in dark mode, Split bill's bottom bar on a dark page, the error page's panel
-  in dark mode, and WhatsApp's half on a dark page.
+- **Graphite surface** (`graphite-surface`) and **graphite border** (`graphite-border`): in dark
+  mode, the floating list, the update notice, dividing lines, Split bill's bottom bar on a dark
+  page, the error page's panel, WhatsApp's half, and the empty print on WhatsApp click-to-chat,
+  which waits in this gray rather than glaring white.
 - **Graphite raised** (`graphite-raised`, the palette's elevated gray) and **graphite raised
   border** (`graphite-raised-border`): inside the error page's panel in dark mode, what steps up
   from it and its dividing lines. The raised border (#4f4f4f) is the one structural gray outside the
@@ -399,18 +390,21 @@ mode's for Split bill's bottom bar on a light page. The binding rules are in the
   hints, the footer. Each half takes the one for its own ground, not the page's.
 - **Control edge on dark** (`control-edge-on-dark`) and **control edge on light**
   (`control-edge-on-light`): the border of every field, button, chip and floating list
-  (`--control-border`). They reach 3:1 against both the page and a card, where the softer border
-  colors don't.
+  (`--control-border`). They reach 3:1 against the page and every surface on it, where the softer
+  border colors don't.
 - **Paper elevated** (`paper-elevated`, `--elevated`): a step down from paper. WhatsApp's half on
   a light page, Split bill's half on a dark page, and the error page's panel in light mode. Every
   text and line color still passes on it: text 12.5:1, muted 4.7:1, rose text 4.8:1, control edge
   4.0:1.
 - **Paper** (`paper`), **paper surface** (`paper-surface`) and **paper border** (`paper-border`):
-  light mode's page (and field fill, and the fill of a road out's box), cards, and dividing lines,
-  including the lines between Split bill's parts and items and under its step bar.
-- **The text color as a line:** the current step's 3 px underline, and WhatsApp click-to-chat's
-  road out (a 3 px dashed line). The box a road reaches is outlined in muted gray, since it is
-  outside the device and not ours.
+  light mode's page (and field fill), the floating list and the update notice, and dividing lines,
+  including the lines between Split bill's parts and items, under its step bar, and between
+  WhatsApp click-to-chat's fields and its answer.
+- **The print:** WhatsApp click-to-chat's QR code is a white sheet with graphite on it in both
+  themes (`print`), the one white surface on the site, because scanners read dark on light and that
+  is what prints. Until there is a number, in dark mode it waits in graphite surface with muted text
+  (`print-empty-dark`).
+- **The text color as a line:** the current step's 3 px underline.
 
 ### Named Rules
 
@@ -420,7 +414,7 @@ time, which is not the same as one element. In a tool, one pink button per view.
 pink start in each tool's half, the two tools' equal starts ("Split a bill", "Chat with a number"):
 one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their
 way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool's title, the
-step bar and a road out are never pink. On Split bill below 1024px the bar's "Next" counts toward
+step bar and the print are never pink. On Split bill below 1024px the bar's "Next" counts toward
 the view: it is outlined until the step's own work has started (nobody added on step 1, nothing on
 the bill on step 2), so the step's own pink action ("Scan or paste a receipt") isn't doubled.
 
@@ -439,14 +433,15 @@ focus and edges, the dark control edge), like Split bill's half. On a dark page 
 it stays dark, a step up to graphite surface, because a bright band held under the thumb at a dim
 table is too much.
 
-**The Two Borders Rule.** `--border` is for lines nothing depends on, such as card edges and
-dividers. Anything a person has to find in order to use it gets `--control-border`.
+**The Two Borders Rule.** `--border` is for lines nothing depends on, such as dividing lines and
+the edges of inset lists and the print. Anything a person has to find in order to use it gets `--control-border`.
 
 **The Graphite Text Rule.** Text on pink is graphite, never white. On light backgrounds pink text
-is rose text and pink lines are deep rose. Pastel pink is never text or a line there.
+is rose text and pink lines are deep rose. Pastel pink is never text or a line there. A checked box
+or radio button takes the text color, not pink, so it never competes with the next action.
 
-**The Every-Surface Rule.** Contrast is checked on every surface text sits on: page, card, inset
-list, note, the bottom bar, update notice, the error page's panel, and each half in both themes.
+**The Every-Surface Rule.** Contrast is checked on every surface text sits on: page, inset
+list, note, the print, the bottom bar, update notice, the error page's panel, and each half in both themes.
 Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split
 bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).
 
@@ -473,8 +468,8 @@ served from the site itself.
   -0.04em and 0.95 line height like its name in its half, 0.75rem under its symbol, with the
   introduction 0.75rem under it. 2.25rem (36px) on phones, the token size (48px) from 640 px.
 - **Part heading** (`part-heading`): the heading of each of Split bill's parts ("The bill",
-  "People", "Items", "Charges and adjustments", "The split"), extra-bold at -0.03em, 1rem above
-  the part. A count beside it ("People (4)") is muted and regular weight.
+  "People", "Items", "Charges and adjustments", "The split") and "Your link" on WhatsApp
+  click-to-chat, extra-bold at -0.03em, 1rem above the part (0.5rem above "Your link"). A count beside it ("People (4)") is muted and regular weight.
 - **Lead line** (`lead-line`): Flint's muted line beside its name (under it when they don't fit),
   at most 36rem wide; and what a tool does, in its half. 1.125rem on phones, the token size from
   640 px.
@@ -492,11 +487,9 @@ served from the site itself.
   the text color at medium weight in a friend's view of a shared bill), and running prose.
 - **Leaves heading** (`leaves-heading`): "What leaves it", bold and muted at 0.875rem, heading the
   fact it sits over in each tool's half.
-- **Control** (`control`): field text, chips, notes, hints, amounts, the bottom bar's lines, a road
-  out's box and the shared bill's line in Split bill's half, at 0.875rem. On touch screens field
+- **Control** (`control`): field text, chips, notes, hints, amounts, the bottom bar's lines and
+  the shared bill's line in Split bill's half, at 0.875rem. On touch screens field
   text rises to 1rem (`pointer-coarse:text-base`) so iOS Safari doesn't zoom the page.
-- **Road label** (`road-label`): what a road out carries, semibold beside its line under WhatsApp
-  click-to-chat's "Open in WhatsApp", at most 18rem wide (`road-label-width-tool`).
 - **Label** (`label`): field labels, secondary and small button labels.
 - **Button** (`button`): the primary button's label, semibold.
 
@@ -521,13 +514,15 @@ above the tool's name, but it is the tool's picture, not a label.
 
 - **Widths:** the header, the footer, Flint's name above the halves and the facts below them sit in
   the 72rem content column (`content-width`). The error page's panel is the same width, inset from
-  the viewport by 0.75 to 1.25rem (`gutter-panel`). A tool sits in a narrow working column: 36rem
-  (`form-width`) for a single form like WhatsApp click-to-chat, 42rem (`tool-width`) for Split bill.
+  the viewport by 0.75 to 1.25rem (`gutter-panel`). Below 1024 px a tool sits in a narrow working
+  column: 36rem (`form-width`) for WhatsApp click-to-chat, 42rem (`tool-width`) for Split bill. From
+  1024 px both take the 72rem column, the answer in its own column beside the form.
 - **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`).
 - **Rhythm:** a tool page ends with 5rem of space (`section`); the index with 4rem on phones and
   6rem from 1024 px. Split bill's parts are 2rem above and below their dividing line (`part`),
-  2.5rem from 1024 px (`part-wide`), the first with none above; WhatsApp click-to-chat's card is one
-  card. Fields and their hints step in 0.5rem to 1rem.
+  2.5rem from 1024 px (`part-wide`), the first with none above. WhatsApp click-to-chat's fields sit 1rem
+  apart, with its answer 1.25rem under the line below them. Fields and their hints step in 0.5rem to
+  1rem.
 - **The halves (index):** two fields, one per tool, Split bill first. On phones they stack full
   width, edge to edge, with no gap between them. From 768 px they sit side by side in two equal
   columns, at least 35rem tall (`half-height`), meeting on the seam. The fields run to the screen's
@@ -572,6 +567,14 @@ above the tool's name, but it is the tool's picture, not a label.
   the right in a 26rem column that stays in view (sticky, scrolling on its own when it's taller than
   the screen) and updates as the bill changes. Before any item, the column holds one muted line
   saying the split will show there.
+- **WhatsApp click-to-chat:** below 1024 px, the fields (country, number, and "Add a message" or
+  the message), then a hairline, then the answer: the print on the left (9rem wide on phones, 11rem
+  from 640 px, `print-width-phone`, `print-width-tablet`) and "Your link" beside it, then the
+  checkbox when there is a message, then the two actions. On a 390 by 844 phone the fields, the
+  print and both actions are on the first screen. From 1024 px, two equal columns in the 72rem
+  width, lined up with the header: the fields on the left, 4rem clear of a vertical hairline, and
+  the answer on the right, 4rem in from it, with a 14rem print (`print-width`) and 2rem between the
+  print and "Your link".
 - **A friend's view:** someone opening a bill shared with them sees only the split, with no steps
   and no bars, at every width.
 - **Phones:** every control is at least 2.75rem tall on touch screens (`touch-target`), and
@@ -589,7 +592,9 @@ column of boxes.
 
 **The Kept Space Rule.** What the browser remembers arrives into a space already kept for it (what
 a tool does keeps two lines, 2.75em; the shared bill's line keeps 3rem, `kept-line`, in both halves),
-so nothing moves under a finger when it appears.
+so nothing moves under a finger when it appears. The same holds inside a tool: the empty print keeps
+its place, the line under the number keeps two lines, "Copy link" keeps its width when it says
+"Copied", and what the code holds is said in one line that swaps its words when the box is ticked.
 
 **The Slab Rule, for tools.** A tool page has no slab at either end: it opens with the tool's
 title, its symbol and its name, and never closes with a panel. On a phone, the tool comes before
@@ -605,14 +610,17 @@ on the index Split bill's start is. If a new element would push either down, it 
 the page.
 
 **The Answer In Reach Rule.** Wherever a tool is being filled in, its answer is one glance or one
-tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above. Someone opening a shared
+tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above; on
+WhatsApp click-to-chat, the line reading the number back under its field, and the answer right
+under the fields, nothing floating over it. Someone opening a shared
 result lands on it, not on the form that made it.
 
 ## Elevation & Depth
 
-Surfaces are flat. Depth comes from tonal steps (page, then card, then an inset list or note one
-step back down inside the card, then raised inside a panel) and from borders. The index has no
-depth at all: its halves are two flat fields side by side, told apart by tone. Split bill has
+Surfaces are flat. Depth comes from tonal steps (page, then the floating list and the update
+notice a step up, then raised inside the error page's panel) and from borders. The index has no
+depth at all: its halves are two flat fields side by side, told apart by tone. WhatsApp click-to-chat has none: its fields and its answer lie on the page,
+divided by a hairline, and its print is a flat sheet with a hairline edge. Split bill has
 almost none: its parts lie on the page between hairlines, and its bottom bar is told apart by tone
 alone (graphite, or graphite surface on a dark page), with no line and no shadow over the page. The one shadow is
 the floating list of the searchable select, which genuinely sits above the content and has to be
@@ -626,8 +634,8 @@ read against it. There are no glows, in either theme.
 
 ### Named Rules
 
-**The Only Floating Things Cast Shadows Rule.** Halves, cards, buttons, chips, the error page's
-panel, the road boxes and the bottom bar never get a drop shadow. A control responds by filling
+**The Only Floating Things Cast Shadows Rule.** Halves, buttons, chips, the error page's panel,
+the print and the bottom bar never get a drop shadow. A control responds by filling
 with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.
 
 ## Shapes
@@ -636,9 +644,10 @@ Soft and rounded, with the radius growing with the size of the object, on the sa
 itrium.id. Buttons, starts, chips and the info button are pills (`full`). Fields, notes and
 floating lists get 0.5rem (`sm`), and so do the undo line and the inset under an opened share;
 options inside a list a little less (0.375rem). Inset lists, receipt lines and the receipt photo
-get 0.75rem (`md`). WhatsApp click-to-chat's card and the update notice get 1rem (`lg`).
+get 0.75rem (`md`). The update notice gets 1rem (`lg`). WhatsApp click-to-chat's print has square
+corners (`none`), as a printed sheet does.
 The error page's panel gets 1.5rem (`xl`). The focus outline is 2 px at 4 px radius (`focus`), 3 px
-away from the element. Headings and cards that the page itself moves focus to (`tabindex="-1"`)
+away from the element. Headings and items that the page itself moves focus to (`tabindex="-1"`)
 show none: focus still moves and is announced, but a ring there read as a stray selection box. Edges
 are 1 px hairlines, notes included.
 
@@ -655,12 +664,11 @@ with its left half filled for Split bill, a speech mark for WhatsApp click-to-ch
 Split bill is drawn with lines, not boxes: 1 px `--border` hairlines between its parts and between
 its items, a hairline on top of "How it adds up", and the step bar's hairline with the current
 step's 3 px underline sitting on it. An item that "Show it" points to takes a 2 px deep-rose
-outline, 4 px out, for three seconds. Split bill has no dashed line.
+outline, 4 px out, for three seconds.
 
-WhatsApp click-to-chat, until its own round, keeps the Device Map's road out: a 3 px dashed line in
-the text color to a 7 by 3rem box (`node-width`, `node-height-tool`) with 0.5rem corners, a 2 px
-muted-gray outline and the page's fill, and a dashed edge round its empty state. The index has no
-dashed line.
+WhatsApp click-to-chat is drawn with lines too: a 1 px `--border` hairline between the fields and
+the answer below 1024 px, turning into a vertical one between the two columns from 1024 px. Nothing
+on the site is dashed.
 
 The arrow is drawn, not typed: one SVG, the same as itrium.id's `Arrow.svelte`, with a 2-unit
 round-capped stroke in the current color, sized to the text beside it. A selected chip carries a
@@ -691,10 +699,11 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   action beside the primary. On the page itself ("Read the source") it fills with the elevated
   step on hover.
 - **Small:** the secondary's look at 2.25rem tall with 1rem of padding (2.75rem on touch screens).
-  For actions inside a part or a card, "Next" before a step's work has started, and the update
-  notice.
+  For actions inside a part, "Next" before a step's work has started, "Add a message" and "Save
+  the QR code" on WhatsApp click-to-chat, and the update notice.
 - **Hover:** the primary and the start fade to 85% opacity. Secondary and small fill with the page
-  color.
+  color on a surface; on the page itself (`secondaryButtonOnPage`, `smallButtonOnPage`) they fill
+  with paper elevated, or graphite surface in dark mode.
 - **Disabled:** a not-allowed cursor, with a line beside it saying why (`SPLIT_BILL.missing`).
   Small buttons keep their edge and turn their words muted, which stays above 4.5:1, including
   "Add person" and "Add item" while they're unavailable (`aria-disabled`); fading them to 50% took
@@ -724,8 +733,8 @@ The people on a bill, tapped to say who had what.
 
 ### Fields
 
-- **Style:** a 1 px control-edge border, 0.5rem radius (`sm`), filled with the page color: one
-  step back inside a card, and on the page itself (Split bill) shaped by its edge alone. 0.625rem by 0.75rem of padding, and 0.875rem text that
+- **Style:** a 1 px control-edge border, 0.5rem radius (`sm`), filled with the page color: on
+  the page itself, in both tools, shaped by its edge alone. 0.625rem by 0.75rem of padding, and 0.875rem text that
   rises to 1rem on touch screens.
 - **Label:** above, medium weight, 0.375rem away.
 - **Feedback:** what we read or why we can't goes under the field, muted, as it's typed
@@ -747,10 +756,11 @@ nothing to say why ("uk" in "Luksemburg").
 
 ### Cards
 
-- **WhatsApp click-to-chat's card (open):** its form in one card, 1rem radius (`lg`), the surface
-  color with a 1 px `--border` edge, 1.25rem of padding (1.5rem from 640 px). It doesn't respond
-  to hover, because it isn't a link. It stays until that page's own design round; the index and
-  Split bill have no cards.
+No page has a card. The index's halves, Split bill's parts and WhatsApp click-to-chat's form and
+answer all lie on the page.
+
+- **WhatsApp click-to-chat:** no card. The fields, a hairline, then the answer, as Split bill's
+  parts are; from 1024 px a vertical hairline between them instead.
 - **Split bill's parts:** no card. Each part is a stretch of the page under a part heading, 2rem
   above and below the hairline that divides it from the next (2.5rem from 1024 px). Items are rows
   between hairlines, 1rem above and below each, not boxes.
@@ -788,28 +798,6 @@ legend or a list apart from the tools they concern.
 Neither tool is a hero over the other; the inverse field gives Split bill the stronger tone only so
 the seam shows, not to rank it.
 
-### Road out (WhatsApp click-to-chat, open)
-
-The tool's one way out of the device, drawn under the control that takes it, saying the same fact
-as "What leaves it" in the tool's half on the index (`src/lib/RoadOut.svelte`, words from
-`ROADS_OUT`). It is the Device Map's road, kept on WhatsApp click-to-chat until that page's own
-design round. Split bill's was removed with its words (the owner approved, 2026-11-24): the privacy
-note under the share buttons says it in full.
-
-- **Place:** indented 1.5rem from the controls (`road-out-indent`), with about 1.5rem before the
-  next control, so it reads as a note on the control, not as another button.
-- **Road:** a 3 px dashed line in the text color, in a 1rem column, starting flush at the control's
-  bottom edge and running down beside its label.
-- **Label:** road-label type, at most 18rem wide (`road-label-width-tool`), 0.75rem right of the
-  line.
-- **Box:** under the label, 7 by 3rem, the page's fill, a 2 px muted-gray outline at 0.5rem
-  corners, its name centered in muted control type ("Our server", "WhatsApp").
-- **Where:** under "Open in WhatsApp" only. The line is hidden from screen readers; the label and
-  the box are read.
-
-**The Hanging Road Rule.** Where a road out is drawn, it hangs from the one control that takes it,
-and only where the site really makes the connection.
-
 ### Notes
 
 An aside for what someone should know right now: an unchecked receipt, a total that doesn't
@@ -827,41 +815,66 @@ opens the explanation as a gray-barred note on the next line, never as a floatin
 
 ### Chat result (WhatsApp click-to-chat)
 
-The form asks for the country, the number and then the optional message, all before the result:
-the message goes into the link, so typed after it, it changed a link and a QR code out of sight.
-The answer is the number, as people read it, in groups: "+62 811-2345-678" in bold 1.5rem (written the way numbers are where they're from, for the
-countries people most often message: Japan's "90-1234-5678", the United Kingdom's "7700-900123"), in an
-inset with a hairline, with the country it's for in muted text under it. The same number is read
-back in one muted line right under the field ("= +62 811-2345-678, Indonesia"), like an amount in
-Split bill, in a slot two lines tall that the hint and any problem share, so the result under
-it never moves: on a phone the keyboard covers the result while the number is typed, and this is the
-line to check it against. Then anything decided on the person's behalf, each with the drawn warning sign in medium weight (letters
-left out, an extension WhatsApp can't dial, a number at the short end for its country). Then "Open
-in WhatsApp" and "Copy link" side by side, with the road out to WhatsApp under them, neither ever breaking onto two lines (on the narrowest
-phones Copy moves under Open); Copy says "Copied" for three seconds after a press, where the
-press was, as well as in the status line under the result, and the raw link in small muted monospace, selectable.
-Under it, one muted line on using the link: in a profile or a message, or as a QR code checked once
-before it's printed. Everything about the answer sits together, right under the field it comes from:
-nothing floats over it, so nothing can cover it on a short phone. A number too short or too long for
-its country is a problem in words, never a link. The problem starts with the drawn warning sign, and the
-field takes the deep-rose edge, as a Split bill line to check does. A number with its country code
-typed twice gets a button under the problem, "Use +62 812-3456-7890", when the number with the code
-once works. "Too short" and "add the area code" wait until the
-typing stops: every number is too short halfway through it.
+No card: the fields, then under a plain line the answer, as Split bill's parts are. The form asks
+for the country and the number, then offers "Add a message", a small button, since most people
+don't send one. Pressed, it gives way to the message field and moves focus into it, and the field
+stays once it has words in it. The message comes before the answer because it goes into the link:
+typed after it, it changed a link and a code out of sight.
+
+The number is read back in one muted line right under its field ("= +62 811-2345-678, Indonesia"),
+written the way numbers are where they're from for the countries people most often message
+(Japan's "90-1234-5678", the United Kingdom's "7700-900123"), like an amount in Split bill. It sits
+in a slot two lines tall that the hint and any problem share, so nothing under it moves: on a phone
+the keyboard covers the answer while the number is typed, and this is the line to check it against.
+A number too short or too long for its country is a problem in words, never a link. The problem
+starts with the drawn warning sign, and the field takes the deep-rose edge, as a Split bill line to
+check does. A number with its country code typed twice gets a button under the problem, "Use +62
+812-3456-7890", when the number with the code once works. "Too short" and "add the area code" wait
+until the typing stops: every number is too short halfway through it.
+
+The answer, under the hairline (beside a vertical one from 1024 px): the print on the left and,
+beside it, "Your link" in part-heading type. Under the heading, anything decided on the person's
+behalf, each with the drawn warning sign in medium weight (letters left out, an extension WhatsApp
+can't dial, a number at the short end for its country); then one muted line, "Opens a chat with
+this number. Scan the code once before you print it."; then "Save the QR code", a small button.
+Before there is a number, the heading has one muted line saying the link appears there, and the
+print holds its place with an empty sheet.
+
+With a message, the checkbox comes first, "Leave the message out of the code", and one muted line
+under it says what the code holds. Ticking the box swaps the line's words ("This code includes your
+message" becomes "This code leaves your message out: whoever scans it starts a chat with nothing
+typed.") in the same single line, so nothing under the finger moves.
+
+Then "Open in WhatsApp" (pink) and "Copy link" side by side, each growing to share the row, at 1rem
+text with 0.875rem of padding above and below, neither ever breaking onto two lines (on the
+narrowest phones Copy moves under Open). Copy says "Copied" for three seconds where the press was,
+and keeps its width while it does: both words share one cell. Under the actions, one status line
+says what a press did, where nothing below it can be pushed away: "Link copied.", that copying
+failed, or after Save the file's name ("Look for whatsapp-6281234567890.png in your downloads."),
+since a download can land with nothing on screen saying so. The link itself is never shown as raw
+text, except when copying fails: then the status line reads "We couldn't copy it. Here's the link
+to select and copy yourself:" and a read-only field under it holds the link, selected when focused.
 
 ### QR code to print (WhatsApp click-to-chat)
 
-Under the line on using the link, "QR code to print" is a disclosure with the drawn arrow, closed by
-default since most people came to message a number. Open, it shows the code drawn in the browser
-(`src/lib/qr.ts`, encoded by qrcode-generator): graphite on white with its four-module margin in
-both themes, because scanners read dark on light and that's what prints. "Save the QR code" hands
-it over as a PNG made on the device, 24 pixels a module, with "Chat on WhatsApp" and the number
-under the code, below its white margin, in Plus Jakarta Sans: a printed code can be checked by eye,
-and used by someone without a camera. Nothing is sent anywhere to make either.
-With a message, a muted line says the code includes it ("whoever scans it starts with it typed"),
-with a "Leave the message out of the code" checkbox: a shop printing one code for everyone may not
-want one customer's message on it, and a shorter link makes a coarser code that scans better. After Save, a line under it names the file ("Look for whatsapp-6281234567890.png in your
-downloads."), since a download can land with nothing on screen saying so.
+The answer is shown as what it becomes: the code as it will print, in the open beside "Your link",
+not behind a disclosure. The print is a white sheet with a 1 px `--border` edge and square corners
+(`print`), padded 0.5rem with 0.75rem under its lines, 9rem wide on phones, 11rem from 640 px and
+14rem from 1024 px. On it, the code drawn in the browser (`src/lib/qr.ts`, encoded by
+qrcode-generator), graphite on white with its four-module margin in both themes, because scanners
+read dark on light and that's what prints; under the code, the saved image's two lines, "Chat on
+WhatsApp" in semibold 0.75rem and the number in extra-bold (0.875rem from 1024 px). Those lines are
+hidden from screen readers: the code is already named ("QR code that opens a chat with …").
+
+The code redraws as the number and message are typed, so the code on screen is always the one Save
+hands over; leaving the message out of the code redraws it coarser, since a shorter link makes a
+code that scans better and a shop printing one code for everyone may not want one customer's
+message on it. "Save the QR code" hands it over as a PNG made on the device, 24 pixels a module,
+with "Chat on WhatsApp" and the number under the code, below its white margin, in Plus Jakarta
+Sans: a printed code can be checked by eye, and used by someone without a camera. Nothing is sent
+anywhere to make either. Empty, the sheet keeps its size with a faint square where the code will
+be, and in dark mode it waits in graphite surface with muted lines (`print-empty-dark`) rather than
+a white sheet with nothing on it.
 
 ### Step bar (signature, Split bill)
 
@@ -1007,8 +1020,9 @@ A tool page's title (`src/lib/ToolTitle.svelte`, used by both tools) says the to
 the index does: its symbol in the text color, then its name in tool-title type 0.75rem under it,
 then the introduction 0.75rem under that, at most 36rem wide, muted, or in the text color at
 medium weight in a friend's view of a shared bill. Its padding sits inside the tool's width, so the
-title lines up with the header and the content: 42rem for Split bill (72rem from 1024 px, where the
-split has its own column) and 36rem for WhatsApp click-to-chat. No band, no fill and nothing above
+title lines up with the header and the content: 42rem for Split bill and 36rem for WhatsApp
+click-to-chat on phones and tablets, and 72rem for both from 1024 px, where each tool's answer has
+its own column. No band, no fill and nothing above
 the symbol. It replaced the place mark, the Device Map's dot beside a smaller bold name.
 
 The `.band` panel remains only on the error page, a step off the page in either theme: graphite
@@ -1113,9 +1127,11 @@ it's announced once.
   reason, and a color change otherwise belongs in `@itrium/palettes`.
 - **Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.
 - **Don't** type arrows or chevrons as characters.
-- **Don't** give halves, cards, buttons, chips, the error panel or the bottom bar a drop shadow.
+- **Don't** give halves, buttons, chips, the print, the error panel or the bottom bar a drop shadow.
 - **Don't** put Split bill's parts back in cards, or stack rounded boxes in a tool: the owner turned
   that down as "too many boxes".
+- **Don't** put WhatsApp click-to-chat back in a card, hide its code behind a disclosure, draw a
+  dashed road under its actions, or show its link as raw monospace text.
 - **Don't** gate Split bill's steps, number them, or mark one done: they are free, in any order.
 - **Don't** invert the bottom bar on a dark page: it stays dark.
 - **Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.
