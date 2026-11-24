@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 2,
-	"generatedAt": "2026-11-24T12:00:00.000Z",
+	"generatedAt": "2026-11-24T18:00:00.000Z",
 	"title": "Design System: flint.itrium.id",
 	"extensions": {
 		"colorMeta": {
@@ -307,11 +307,7 @@
 			},
 			"control": {
 				"displayName": "Control",
-				"purpose": "Field text, chips, notes, hints, amounts, a road out's box and the shared bill's line; 16px on touch screens for fields."
-			},
-			"road-label": {
-				"displayName": "Road label",
-				"purpose": "What a road out carries, beside its line under a control on a tool page."
+				"purpose": "Field text, chips, notes, hints, amounts and the shared bill's line; 16px on touch screens for fields."
 			},
 			"label": {
 				"displayName": "Label",
@@ -327,7 +323,7 @@
 			},
 			"part-heading": {
 				"displayName": "Part heading",
-				"purpose": "The heading of each of Split bill's parts, extra-bold at -0.03em, 1rem above the part. A count beside it is muted and regular weight."
+				"purpose": "The heading of each of Split bill's parts and of \"Your link\" on WhatsApp click-to-chat, extra-bold at -0.03em. A count beside it is muted and regular weight."
 			},
 			"step-tab": {
 				"displayName": "Step tab",
@@ -420,7 +416,7 @@
 			"name": "Small Button",
 			"kind": "button",
 			"refersTo": "button-small",
-			"description": "Actions inside a part or a card, \"Next\" before a step's work has started, and the update notice.",
+			"description": "Actions inside a part, \"Next\" before a step's work has started, \"Add a message\" and \"Save the QR code\" on WhatsApp click-to-chat, and the update notice.",
 			"html": "<button class=\"ds-btn-small\">Next</button>",
 			"css": ".ds-btn-small{display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:var(--text);padding:0 1rem;font:500 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:background-color .15s}.ds-btn-small:hover{background:var(--bg)}.ds-btn-small:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-btn-small{min-height:2.75rem}}"
 		},
@@ -428,7 +424,7 @@
 			"name": "Field",
 			"kind": "input",
 			"refersTo": "field",
-			"description": "A labelled text field, one tonal step back inside a card.",
+			"description": "A labelled text field on the page itself, filled with the page color and shaped by its control edge.",
 			"html": "<label class=\"ds-label\" for=\"ds-f\">Phone number</label><input id=\"ds-f\" class=\"ds-field\" placeholder=\"0812-xxxx-xxxx\">",
 			"css": ".ds-label{display:block;margin-bottom:.375rem;font:500 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-field{width:100%;border:1px solid var(--control-border);border-radius:.5rem;background:var(--bg);color:var(--text);padding:.625rem .75rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-field::placeholder{color:var(--muted)}.ds-field:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-field{font-size:1rem}}"
 		},
@@ -467,7 +463,6 @@
 		{
 			"name": "Note",
 			"kind": "custom",
-			"refersTo": "card",
 			"description": "An aside to act on now, marked by a pink edge all round.",
 			"html": "<p class=\"ds-note\">The items add up to Rp 12.000 less than the receipt's subtotal. Check the marked prices.</p>",
 			"css": ".ds-note{border:1px solid var(--accent-edge);border-radius:.5rem;background:var(--bg);color:var(--text);padding:.75rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}"
@@ -497,12 +492,12 @@
 			"css": ".ds-tool-title{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-tt-sym{display:block;width:1.75rem;height:1.75rem}.ds-tt-name{margin:.75rem 0 0;font-size:2.25rem;font-weight:800;line-height:.95;letter-spacing:-.04em}.ds-tt-intro{margin:.75rem 0 0;max-width:36rem;line-height:1.625;color:var(--muted)}@media (min-width:640px){.ds-tt-sym{width:2rem;height:2rem}.ds-tt-name{font-size:3rem}}"
 		},
 		{
-			"name": "Road Out",
+			"name": "Print",
 			"kind": "custom",
-			"refersTo": "road-out-label",
-			"description": "WhatsApp click-to-chat's one road out of the device, hanging from \"Open in WhatsApp\": a dashed line from the button's bottom edge, its label, and the box it reaches. Kept from the Device Map until that page's own design round (open); Split bill no longer has one.",
-			"html": "<div class=\"ds-ro-wrap\"><button class=\"ds-ro-btn\">Open in WhatsApp</button><div class=\"ds-road-out\"><div class=\"ds-ro-row\"><span class=\"ds-ro-col\" aria-hidden=\"true\"><span class=\"ds-ro-line\"></span></span><p class=\"ds-ro-label\">A chat you open, with the number and message you typed.</p></div><p class=\"ds-ro-node\">WhatsApp</p></div></div>",
-			"css": ".ds-ro-wrap{display:flex;flex-direction:column;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-ro-btn{display:inline-flex;justify-content:center;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer}.ds-ro-btn:hover{opacity:.85}.ds-ro-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-road-out{margin:0 0 .75rem 1.5rem}.ds-ro-row{display:flex;gap:.75rem}.ds-ro-col{display:flex;flex-direction:column;align-items:center;width:1rem;flex-shrink:0}.ds-ro-line{flex:1;border-left:3px dashed var(--text)}.ds-ro-label{margin:0;max-width:18rem;padding:.5rem 0;font-size:.875rem;font-weight:600;line-height:1.43}.ds-ro-node{display:flex;align-items:center;justify-content:center;width:7rem;height:3rem;margin:0;border:2px solid var(--muted);border-radius:.5rem;background:var(--bg);color:var(--muted);font-size:.875rem}"
+			"refersTo": "print",
+			"description": "WhatsApp click-to-chat's answer shown as what it becomes: the QR code as it will print, a white sheet with a hairline and square corners in both themes, with \"Chat on WhatsApp\" and the number under the code, beside \"Your link\".",
+			"html": "<div class=\"ds-pr-wrap\"><div class=\"ds-print\" role=\"img\" aria-label=\"QR code that opens a chat with +62 812-3456-7890\"><svg class=\"ds-pr-code\" viewBox=\"0 0 29 29\" shape-rendering=\"crispEdges\" aria-hidden=\"true\"><path fill=\"currentColor\" d=\"M4 4h7v7H4zM5 5v5h5V5zM6 6h3v3H6zM18 4h7v7h-7zM19 5v5h5V5zM20 6h3v3h-3zM4 18h7v7H4zM5 19v5h5v-5zM6 20h3v3H6zM12 4h2v2h-2zM15 5h2v3h-2zM12 8h3v2h-3zM13 12h3v2h-3zM4 12h2v3H4zM8 13h3v2H8zM17 12h2v4h-2zM20 13h5v2h-5zM12 16h2v3h-2zM15 18h3v2h-3zM19 17h2v3h-2zM22 18h3v2h-3zM12 21h3v4h-3zM16 22h2v3h-2zM19 21h3v2h-3zM23 22h2v3h-2z\"/></svg><p class=\"ds-pr-label\">Chat on WhatsApp</p><p class=\"ds-pr-number\">+62 812-3456-7890</p></div><div class=\"ds-pr-side\"><h2 class=\"ds-pr-heading\">Your link</h2><p class=\"ds-pr-line\">Opens a chat with this number. Scan the code once before you print it.</p><button class=\"ds-pr-save\">Save the QR code</button></div></div>",
+			"css": ".ds-pr-wrap{display:flex;align-items:flex-start;gap:1.25rem;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-print{width:9rem;flex-shrink:0;box-sizing:border-box;border:1px solid var(--border);border-radius:0;background:#fff;color:#2b2b2b;padding:.5rem .5rem .75rem;text-align:center}.ds-pr-code{display:block;width:100%}.ds-pr-label{margin:0;font-size:.75rem;line-height:1rem;font-weight:600}.ds-pr-number{margin:0;min-height:1rem;font-size:.75rem;line-height:1.25;font-weight:800;font-variant-numeric:tabular-nums}.ds-pr-side{min-width:0}.ds-pr-heading{margin:0 0 .5rem;font-size:1.5rem;line-height:1.33;font-weight:800;letter-spacing:-.03em}.ds-pr-line{margin:0;font-size:.875rem;line-height:1.625;color:var(--muted)}.ds-pr-save{display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;margin-top:.75rem;padding:0 1rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:inherit;font:500 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:background-color .15s}.ds-pr-save:hover{background:var(--elevated)}.ds-pr-save:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-pr-save{min-height:2.75rem}}"
 		},
 		{
 			"name": "Update Notice",
@@ -523,7 +518,7 @@
 	],
 	"narrative": {
 		"northStar": "The Rhodonite Specimen, put to work",
-		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way.\n\nThe index is Two halves: the two tools, split edge to edge, one half of the screen each. No metaphor, no cards, no rounded boxes: the halves are the page. Two full-bleed fields with square edges meet on one vertical seam. Split bill's half is always the inverse of the page (graphite on a light page, paper elevated on a dark one), and WhatsApp click-to-chat's half is a tonal step off the page, so the seam reads strongly in both themes. Each half carries its tool's symbol, its name at poster scale, what it does, what leaves it, and one large pink start. Flint's name and its line sit above the halves, a step below the tools' names, and what never leaves sits on the page below them. It replaced the Rantang (#73), which replaced the Device Map (#71), which replaced the line-item strip (#70).\n\nA tool page follows the index. It opens with the tool's title, said as its half says it: the tool's symbol and its name in the same extra-bold type, the introduction under it. Split bill is the first tool redrawn in this world (the owner's three-step round, 2026-11-24): no cards, its parts divided by plain lines under extra-bold headings, items as rows between lines, and below 1024px the bill made in three steps, one on screen at a time, with a graphite bar fixed to the bottom of the screen holding the step's count or total and the way on. The person using it is at a restaurant table with a phone in one hand and a group waiting, so they do one job at a time and the answer is one tap away. WhatsApp click-to-chat has the new title but still its card and its road out, from the Device Map, until its own design round; that page is open.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density on the index is bold and wide; inside a tool it is calm and working: forms sit in a narrow column of 36 to 42rem, and the few things that really are boxes (receipt lines, the adjustments list, a note) sit one step back with a hairline round them.\n\nLight and dark are equal. Each follows the visitor's system unless the footer says otherwise, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone. And on the index it refuses what the owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper monochrome, a narrow column, rows of entries), any metaphor (a map, a food carrier), and a column of stacked rounded boxes. On Split bill the owner turned down the same stack: \"too many boxes\".",
+		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way.\n\nThe index is Two halves: the two tools, split edge to edge, one half of the screen each. No metaphor, no cards, no rounded boxes: the halves are the page. Two full-bleed fields with square edges meet on one vertical seam. Split bill's half is always the inverse of the page (graphite on a light page, paper elevated on a dark one), and WhatsApp click-to-chat's half is a tonal step off the page, so the seam reads strongly in both themes. Each half carries its tool's symbol, its name at poster scale, what it does, what leaves it, and one large pink start. Flint's name and its line sit above the halves, a step below the tools' names, and what never leaves sits on the page below them. It replaced the Rantang (#73), which replaced the Device Map (#71), which replaced the line-item strip (#70).\n\nA tool page follows the index. It opens with the tool's title, said as its half says it: the tool's symbol and its name in the same extra-bold type, the introduction under it. Both tools are now drawn in this world (the owner's rounds of 2026-11-24), with no cards. Split bill's parts are divided by plain lines under extra-bold headings, items as rows between lines, and below 1024px the bill is made in three steps, one on screen at a time, with a graphite bar fixed to the bottom of the screen holding the step's count or total and the way on. The person using it is at a restaurant table with a phone in one hand and a group waiting, so they do one job at a time and the answer is one tap away. WhatsApp click-to-chat is the fields, then under a plain line the answer shown as what it becomes: the QR code as it will print, in the open beside \"Your link\", with \"Open in WhatsApp\" and \"Copy link\" under it. From 1024px each tool's answer has its own column.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against every surface they sit on). They feel good to press but never perform. Density on the index is bold and wide; inside a tool it is calm and working: below 1024px forms sit in a narrow column of 36 to 42rem, from 1024px a tool takes the 72rem column with its answer beside the form, and the few things that really are boxes (receipt lines, the adjustments list, a note) sit one step back with a hairline round them.\n\nLight and dark are equal. Each follows the visitor's system unless the footer says otherwise, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone. And on the index it refuses what the owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper monochrome, a narrow column, rows of entries), any metaphor (a map, a food carrier), and a column of stacked rounded boxes. On Split bill the owner turned down the same stack: \"too many boxes\".",
 		"keyCharacteristics": [
 			"One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.",
 			"The index is two full-bleed halves, square-edged, meeting on one vertical seam from 768 px, their content lined up with the header's 72rem column.",
@@ -533,6 +528,7 @@
 			"Pink only at the two starts on the index (equal starts), and at one primary action per tool view.",
 			"A tool page opens with its title: the tool's symbol and its name in extra-bold type, as in its half, and the introduction under it.",
 			"Split bill has no cards: parts between plain lines, items as rows, three steps below 1024px with a graphite bar at the bottom, and two columns from 1024px.",
+			"WhatsApp click-to-chat has no card: the fields, a plain line, then the answer shown as the print it makes, in its own column beside a vertical line from 1024px.",
 			"Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the footer.",
 			"Flat surfaces with tonal steps. The only shadow is under the open searchable list.",
 			"Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch screens, and 16px text on touch screens so iOS doesn't zoom.",
@@ -541,7 +537,7 @@
 		"rules": [
 			{
 				"name": "The Vein Rule",
-				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a time, which is not the same as one element. In a tool, one pink button per view. On the index, one pink start in each tool's half, the two tools' equal starts (\"Split a bill\", \"Chat with a number\"): one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool's title, the step bar and a road out are never pink. On Split bill below 1024px the bar's \"Next\" counts toward the view: it is outlined until the step's own work has started (nobody added on step 1, nothing on the bill on step 2), so the step's own pink action (\"Scan or paste a receipt\") isn't doubled.",
+				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a time, which is not the same as one element. In a tool, one pink button per view. On the index, one pink start in each tool's half, the two tools' equal starts (\"Split a bill\", \"Chat with a number\"): one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool's title, the step bar and the print are never pink. On Split bill below 1024px the bar's \"Next\" counts toward the view: it is outlined until the step's own work has started (nobody added on step 1, nothing on the bill on step 2), so the step's own pink action (\"Scan or paste a receipt\") isn't doubled.",
 				"section": "colors"
 			},
 			{
@@ -556,7 +552,7 @@
 			},
 			{
 				"name": "The Two Borders Rule",
-				"body": "`--border` is for lines nothing depends on, such as card edges and dividers. Anything a person has to find in order to use it gets `--control-border`.",
+				"body": "`--border` is for lines nothing depends on, such as dividing lines and the edges of inset lists and the print. Anything a person has to find in order to use it gets `--control-border`.",
 				"section": "colors"
 			},
 			{
@@ -566,7 +562,7 @@
 			},
 			{
 				"name": "The Every-Surface Rule",
-				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, the bottom bar, update notice, the error page's panel, and each half in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).",
+				"body": "Contrast is checked on every surface text sits on: page, inset list, note, the print, the bottom bar, update notice, the error page's panel, and each half in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).",
 				"section": "colors"
 			},
 			{
@@ -591,7 +587,7 @@
 			},
 			{
 				"name": "The Kept Space Rule",
-				"body": "What the browser remembers arrives into a space already kept for it (what a tool does keeps two lines, 2.75em; the shared bill's line keeps 3rem, `kept-line`, in both halves), so nothing moves under a finger when it appears.",
+				"body": "What the browser remembers arrives into a space already kept for it (what a tool does keeps two lines, 2.75em; the shared bill's line keeps 3rem, `kept-line`, in both halves), so nothing moves under a finger when it appears. The same holds inside a tool: the empty print keeps its place, the line under the number keeps two lines, \"Copy link\" keeps its width when it says \"Copied\", and what the code holds is said in one line that swaps its words when the box is ticked.",
 				"section": "layout"
 			},
 			{
@@ -611,12 +607,12 @@
 			},
 			{
 				"name": "The Answer In Reach Rule",
-				"body": "Wherever a tool is being filled in, its answer is one glance or one tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above. Someone opening a shared result lands on it, not on the form that made it.",
+				"body": "Wherever a tool is being filled in, its answer is one glance or one tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above; on WhatsApp click-to-chat, the line reading the number back under its field, and the answer right under the fields, nothing floating over it. Someone opening a shared result lands on it, not on the form that made it.",
 				"section": "layout"
 			},
 			{
 				"name": "The Only Floating Things Cast Shadows Rule",
-				"body": "Halves, cards, buttons, chips, the error page's panel, the road boxes and the bottom bar never get a drop shadow. A control responds by filling with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.",
+				"body": "Halves, buttons, chips, the error page's panel, the print and the bottom bar never get a drop shadow. A control responds by filling with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.",
 				"section": "elevation"
 			},
 			{
@@ -632,11 +628,6 @@
 			{
 				"name": "The Peer Rule",
 				"body": "The two halves are equal: the same type, the same rhythm, the same size of start. Neither tool is a hero over the other; the inverse field gives Split bill the stronger tone only so the seam shows, not to rank it.",
-				"section": "components"
-			},
-			{
-				"name": "The Hanging Road Rule",
-				"body": "Where a road out is drawn, it hangs from the one control that takes it, and only where the site really makes the connection.",
 				"section": "components"
 			},
 			{
@@ -672,8 +663,9 @@
 			"**Don't** add a structural gray outside the palette. Its one exception, the error panel's raised border in dark mode (#4f4f4f), is a structural step above a palette gray; a new one needs the same reason, and a color change otherwise belongs in `@itrium/palettes`.",
 			"**Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.",
 			"**Don't** type arrows or chevrons as characters.",
-			"**Don't** give halves, cards, buttons, chips, the error panel or the bottom bar a drop shadow.",
+			"**Don't** give halves, buttons, chips, the print, the error panel or the bottom bar a drop shadow.",
 			"**Don't** put Split bill's parts back in cards, or stack rounded boxes in a tool: the owner turned that down as \"too many boxes\".",
+			"**Don't** put WhatsApp click-to-chat back in a card, hide its code behind a disclosure, draw a dashed road under its actions, or show its link as raw monospace text.",
 			"**Don't** gate Split bill's steps, number them, or mark one done: they are free, in any order.",
 			"**Don't** invert the bottom bar on a dark page: it stays dark.",
 			"**Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.",
@@ -681,6 +673,7 @@
 			"**Don't** use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
 			"**Don't** add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
 			"**Don't** set field text below 16px on touch screens.",
+			"**Don't** put a band behind a tool's title: the band is the error page's alone.",
 			"**Don't** put a band behind a tool's title: the band is the error page's alone."
 		]
 	}
