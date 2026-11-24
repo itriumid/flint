@@ -35,8 +35,8 @@
 }
 
 /*
- * The index's Split bill half: the inverse of the page, so the two halves always meet on a strong
- * line. On a dark page it is the light theme's elevated paper (#F1F1F1: text 12.5:1, muted 4.7:1,
+ * The index's first featured field: the inverse of the page, so the row of fields always starts on
+ * a strong edge. On a dark page it is the light theme's elevated paper (#F1F1F1: text 12.5:1, muted 4.7:1,
  * rose text 4.8:1, control edge 4.0:1); on a light page it is graphite (text 13.0:1, muted 6.2:1,
  * pink 9.4:1, control edge 3.7:1, the pink focus outline 9.4:1).
  */
@@ -87,8 +87,8 @@
 }
 
 /*
- * Split bill's bar at the bottom of a phone's screen: graphite, like Split bill's half on the
- * index on a light page. On a dark page it stays dark, a step up to the palette's surface: a
+ * Split bill's bar at the bottom of a phone's screen: graphite, like the index's first field on a
+ * light page. On a dark page it stays dark, a step up to the palette's surface: a
  * bright band held under the thumb at a dim table would be too much.
  */
 .graphite-bar {

@@ -9,6 +9,8 @@
 	import lockupOnLight from '#lib/itrium-lockup-on-light.svg';
 	import ThemeChoice from '#lib/ThemeChoice.svelte';
 	import ToolSymbol from '#lib/ToolSymbol.svelte';
+	import ToolsMenu from '#lib/ToolsMenu.svelte';
+	import { featured } from '#lib/tools.js';
 	import { updates } from '#lib/updates.svelte.js';
 	import {
 		ABOUT_ITRIUM,
@@ -21,9 +23,7 @@
 		NO_TRACKING,
 		NO_TRACKING_BILLS,
 		SOURCE_URL,
-		SPLIT_BILL,
-		UPDATE,
-		WHATSAPP
+		UPDATE
 	} from '#lib/content.js';
 	import { smallButton } from '#lib/styles.js';
 
@@ -35,10 +35,6 @@
 	const toolLink =
 		'inline-flex min-h-11 items-center gap-2 underline-offset-[6px] decoration-2 hover:underline aria-[current=page]:underline';
 	const home = $derived(page.url.pathname === '/');
-	const tools = [
-		{ id: 'split-bill', path: SPLIT_BILL.path, label: NAV.splitBill },
-		{ id: 'whatsapp', path: WHATSAPP.path, label: NAV.whatsapp }
-	] as const;
 
 	// A new version of Flint, installed and waiting, is offered rather than switched to silently.
 	onMount(() => updates.watch());
@@ -90,8 +86,9 @@
 	Skip to content
 </a>
 
-<!-- Flint's mark and the tools, on every page, so a person can go from one tool to the other in
-     one press. The page you're on is underlined. -->
+<!-- Flint's mark and the way to every tool, on every page. On a desktop the tools the index leads
+     with are a click away, the page you're on underlined; everywhere, "All tools" opens the whole
+     collection with a search, and the tools opened lately first. -->
 <header
 	class="mx-auto flex max-w-6xl items-center justify-between gap-x-4 px-5 py-6 sm:gap-x-6 sm:px-8"
 >
@@ -103,23 +100,21 @@
 		class="flex shrink-0 items-center gap-2.5 text-xl font-bold tracking-tight"
 	>
 		<img src={flintMark} alt="" width="34" height="36" class="h-9 w-auto" />
-		<!-- On the narrowest phones the name gives way to the tools; the mark still says Flint. -->
-		<span class="max-[23rem]:sr-only {home ? 'underline decoration-2 underline-offset-[6px]' : ''}"
-			>{NAME}</span
-		>
+		<span class={home ? 'underline decoration-2 underline-offset-[6px]' : ''}>{NAME}</span>
 	</a>
-	<nav aria-label={NAV.label}>
-		<ul class="flex items-center gap-4 font-semibold whitespace-nowrap sm:gap-8">
-			{#each tools as tool (tool.path)}
+	<nav aria-label={NAV.label} class="flex items-center gap-8">
+		<ul class="hidden items-center gap-8 font-semibold whitespace-nowrap lg:flex">
+			{#each featured() as tool (tool.id)}
 				<li>
 					<a
-						href={resolve(tool.path)}
-						aria-current={page.url.pathname === resolve(tool.path) ? 'page' : undefined}
-						class={toolLink}><ToolSymbol tool={tool.id} class="size-5 shrink-0" />{tool.label}</a
+						href={resolve(tool.path as '/')}
+						aria-current={page.url.pathname === resolve(tool.path as '/') ? 'page' : undefined}
+						class={toolLink}><ToolSymbol tool={tool.id} class="size-5 shrink-0" />{tool.short}</a
 					>
 				</li>
 			{/each}
 		</ul>
+		<ToolsMenu />
 	</nav>
 </header>
 
@@ -146,7 +141,7 @@
 				/>
 			</a>
 			<p>© {new Date().getFullYear()} Itrium</p>
-			<!-- On the index, the facts under the two halves say this in full, right above. -->
+			<!-- On the index, the facts under the featured fields say this in full, right above. -->
 			{#if page.url.pathname === resolve('/split-bill')}<p>{NO_TRACKING_BILLS}</p>
 			{:else if page.url.pathname !== '/'}<p>{NO_TRACKING}</p>{/if}
 			<ThemeChoice />

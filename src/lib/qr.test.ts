@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { drawnSize, QUIET_ZONE, qrFileName, qrModules, qrPath } from './qr';
+import { bytesIn, drawnSize, pngScale, QUIET_ZONE, qrModules, qrPath, qrSvg } from './qr';
 
 const link = 'https://wa.me/6281234567890';
 
@@ -66,8 +66,28 @@ describe('qrPath', () => {
 	});
 });
 
-describe('qrFileName', () => {
-	it('names the file after the number', () => {
-		expect(qrFileName('6281234567890')).toBe('whatsapp-6281234567890.png');
+describe('qrSvg', () => {
+	it('is the bare code: a white square and the modules, nothing else', () => {
+		const modules = qrModules(link);
+		const svg = qrSvg(modules);
+		expect(svg).toContain(`viewBox="0 0 ${drawnSize(modules)} ${drawnSize(modules)}"`);
+		expect(svg).toContain(`<path d="${qrPath(modules)}" fill="#2b2b2b"/>`);
+		expect(svg).not.toContain('<text');
+	});
+});
+
+describe('pngScale', () => {
+	it('makes a saved image at least 1,024 pixels wide, in whole pixels a module', () => {
+		const modules = qrModules(link);
+		expect(pngScale(modules) * drawnSize(modules)).toBeGreaterThanOrEqual(1024);
+		expect(Number.isInteger(pngScale(modules))).toBe(true);
+		expect(pngScale(qrModules('a'.repeat(2000)))).toBe(8);
+	});
+});
+
+describe('bytesIn', () => {
+	it('counts UTF-8 bytes', () => {
+		expect(bytesIn('abc')).toBe(3);
+		expect(bytesIn('é')).toBe(2);
 	});
 });
