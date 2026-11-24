@@ -101,6 +101,9 @@ Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers 
   `src/app.css` apply by the device's setting unless `data-theme` says otherwise, and `dark:` is a
   custom variant that follows the same rule. A theme-dependent picture uses `dark:hidden` and
   `dark:block`, never `<picture media="(prefers-color-scheme)">`, which can't see the choice.
+  Changing the look cross-fades, whether someone picks a theme or the device switches under
+  System (`src/lib/theme.svelte.ts`): once the page's code runs, `data-theme` always holds the look
+  on screen, System included, so the page can still be photographed before a switch.
 - **Never a native `<select>`.** WebKit's own styling for it breaks `style-src 'self'` (a policy
   refusal in the console on every page that has one). Use `SearchableSelect` or radio buttons.
 - **Receipts are read in the browser** by `src/lib/receipt.ts`, from text the phone's own text

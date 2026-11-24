@@ -978,8 +978,9 @@ it's announced once.
 - **Do** design and check every new pairing in light and dark, on every surface it sits on.
 - **Do** use the drawn arrow wherever a link points onward.
 - **Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`:
-  page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing rises or reveals as it
-  scrolls.
+  page cross-fades, the theme cross-fade (a view transition, when someone picks a theme or the
+  device switches under System), the 4 px arrow nudge, and the loading spinner. Nothing rises or
+  reveals as it scrolls.
 - **Do** open a tool page with its place mark, and hang the tool's road out from the control that
   takes it, saying the same fact as its half on the index.
 - **Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`,
