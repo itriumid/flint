@@ -455,11 +455,12 @@ sets them to dark mode's for Split bill's bottom bar on a light page. The bindin
   lines between Split bill's parts and items, under its step bar, between a tool's fields and its
   answer, and between the rows of a list of tools or kinds.
 - **"All tools":** the page's own colors (`tools-menu`), full screen on a phone and a panel with a
-  `--border` hairline from 640px, over a backdrop of black at 40% that dims the page behind it.
+  `--border` hairline from 640px that steps up to `--surface`, over a backdrop of the page's own
+  color at 85%, which fades the page behind it in either theme. No black, and no dimming.
 - **The code's sheet:** QR code's code is graphite on a white sheet in both themes (`code-sheet`),
   the one white surface on the site, because scanners read dark on light and that is what prints.
   Until there is a code, in dark mode it waits in graphite surface (`code-sheet-empty-dark`) with a
-  faint square where the code will be.
+  square in paper elevated (graphite raised in dark mode) where the code will be.
 - **The text color as a line:** the current step's 3 px underline, and the underline under the
   current page's link.
 
@@ -721,8 +722,8 @@ click-to-chat and QR code have none: their fields and answers lie on the page, d
 hairline, and QR code's sheet is flat with a hairline edge. Split bill has almost none: its parts
 lie on the page between hairlines, and its bottom bar is told apart by tone alone (graphite, or
 graphite surface on a dark page), with no line and no shadow over the page. "All tools" sits over
-the page with no shadow either: the backdrop dims what's behind it (black at 40%), and from 640 px
-its panel has a hairline edge. The one shadow is the floating list of the searchable select, which
+the page with no shadow either: the backdrop fades what's behind it into the page's own color (85%),
+and from 640 px its panel steps up to the surface with a hairline edge. The one shadow is the floating list of the searchable select, which
 genuinely sits above the content and has to be read against it. There are no glows, in either
 theme.
 
@@ -1024,8 +1025,8 @@ website itrium.id.").
 - **Redrawn as typed:** the code redraws with each character, so the code on screen is always the
   one Save hands over. Text is encoded as UTF-8, and what's too long for one code is said at once,
   by about how many characters.
-- **Empty:** the sheet keeps its size with a faint square where the code will be, and in dark mode
-  it waits in graphite surface (`code-sheet-empty-dark`) rather than as a white sheet with nothing
+- **Empty:** the sheet keeps its size with a square in `--elevated` where the code will be, and in
+  dark mode it waits in graphite surface (`code-sheet-empty-dark`) rather than as a white sheet with nothing
   on it.
 - **Saves:** "Save as PNG" (pink) and "Save as SVG" side by side, a pair of answer actions. PNG is
   the bare code drawn on the device, at least 1024 pixels wide and never under 8 pixels a module; SVG is the bare code,
@@ -1056,7 +1057,11 @@ the right. Picking one puts its fields where the first part's are, under its nam
 type, scrolls them into view and focuses the first; the shelf then offers "A link or text" back.
 What was typed in each kind is kept while the page is open, so switching back loses nothing. Fields
 with a problem (an email, a phone number) wait until the typing stops to say so, under the field,
-with the warning sign and the deep-rose edge. Nothing on the shelf is pink: it's an offer, not the
+with the warning sign and the deep-rose edge. A phone number (Phone call, and a contact's) is read
+the way WhatsApp click-to-chat reads one: a country picked from the same searchable list
+(Indonesia first), and under the number the line that says it back as the code will dial it
+("= +62 812-3456-7890, Indonesia"), always in full with its country code, so a printed code dials
+from anywhere. Its problems are said in WhatsApp click-to-chat's words. Nothing on the shelf is pink: it's an offer, not the
 action.
 
 ### Step bar (signature, Split bill)

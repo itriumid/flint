@@ -171,7 +171,8 @@ describe('a contact', () => {
 					(e) =>
 						(e.contact = {
 							name: 'Siti Nurhaliza',
-							phone: '+62 812-3456-7890',
+							country: 'Indonesia',
+							phone: '0812-3456-7890',
 							email: 'siti@example.com',
 							website: 'example.com'
 						})
@@ -217,7 +218,8 @@ describe('a contact', () => {
 				entries((e) => (e.contact.phone = 'call me'))
 			)
 		).toEqual({
-			problem: 'not-a-phone-number'
+			problem: 'phone',
+			phone: 'no-digits'
 		});
 	});
 });
@@ -254,36 +256,53 @@ describe('an email', () => {
 });
 
 describe('a phone call', () => {
-	it('calls the number, without its spaces and dashes', () => {
+	it('calls the number in full, read in the country chosen, so it dials from anywhere', () => {
 		expect(
 			codeFor(
 				'phone',
-				entries((e) => (e.phone.number = '+62 (812) 3456-7890'))
+				entries((e) => (e.phone.number = '0812 3456 7890'))
 			)
 		).toEqual({
 			data: 'tel:+6281234567890',
-			does: { kind: 'phone', number: '+62 (812) 3456-7890' },
+			does: { kind: 'phone', number: '+62 812-3456-7890' },
 			fileStem: '6281234567890'
 		});
+		expect(
+			dataFor(
+				'phone',
+				entries((e) => (e.phone = { country: 'United Kingdom', number: '07700 900123' }))
+			)
+		).toBe('tel:+447700900123');
 	});
 
-	it('says when it is not a number', () => {
+	it('keeps the country of a number typed with its own +', () => {
+		expect(
+			dataFor(
+				'phone',
+				entries((e) => (e.phone.number = '+44 7700 900123'))
+			)
+		).toBe('tel:+447700900123');
+	});
+
+	it('says what is wrong, the way WhatsApp click-to-chat does', () => {
 		expect(
 			codeFor(
 				'phone',
-				entries((e) => (e.phone.number = '0812 abc'))
+				entries((e) => (e.phone.number = '0812 34'))
 			)
 		).toEqual({
-			problem: 'not-a-phone-number'
+			problem: 'phone',
+			phone: 'too-short'
 		});
 	});
 });
 
 describe('waitsForTyping', () => {
 	it('lets a half-typed address or number finish before saying it is wrong', () => {
-		expect(waitsForTyping('not-an-email')).toBe(true);
-		expect(waitsForTyping('not-a-phone-number')).toBe(true);
-		expect(waitsForTyping('too-long')).toBe(false);
+		expect(waitsForTyping({ problem: 'not-an-email' })).toBe(true);
+		expect(waitsForTyping({ problem: 'phone', phone: 'too-short' })).toBe(true);
+		expect(waitsForTyping({ problem: 'phone', phone: 'several' })).toBe(false);
+		expect(waitsForTyping({ problem: 'too-long' })).toBe(false);
 	});
 });
 

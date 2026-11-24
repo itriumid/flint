@@ -23,7 +23,9 @@ function fade(change: () => void) {
 		change();
 		return;
 	}
-	document.startViewTransition(change);
+	// The browser drops the fade, not the change, when something like the window's size changes
+	// halfway through; it says so by rejecting `ready`, which is no error of ours.
+	document.startViewTransition(change).ready.catch(() => {});
 }
 
 class ThemeChoice {

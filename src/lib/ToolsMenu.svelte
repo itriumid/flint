@@ -126,12 +126,13 @@
 	>{NAV.allTools}
 </button>
 
-<!-- Full screen on a phone, a panel over the page from 640px. No shadow: the backdrop sets it apart. -->
+<!-- Full screen on a phone, a panel over the page from 640px. No shadow and no black: the page
+     behind fades into its own color, and the panel steps up to the surface, edged by a hairline. -->
 <dialog
 	bind:this={dialog}
 	onclick={backdrop}
 	aria-labelledby="tools-heading"
-	class="m-0 h-dvh max-h-none w-full max-w-none bg-bg text-text backdrop:bg-black/40 sm:m-auto sm:h-auto sm:max-h-[80dvh] sm:max-w-lg sm:rounded-2xl sm:border sm:border-border"
+	class="m-0 h-dvh max-h-none w-full max-w-none bg-bg text-text backdrop:bg-bg/85 sm:m-auto sm:h-auto sm:max-h-[80dvh] sm:max-w-lg sm:rounded-2xl sm:border sm:border-border sm:bg-surface"
 >
 	<div class="flex h-full flex-col px-5 pt-5 pb-6 sm:px-6">
 		<div class="flex items-center justify-between gap-4">

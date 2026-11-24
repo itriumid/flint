@@ -3,12 +3,16 @@
 	import Caution from '#lib/Caution.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import ToolTitle from '#lib/ToolTitle.svelte';
-	import { QR_CODE, SITE_URL, TITLE_SUFFIX } from '#lib/content.js';
+	import SearchableSelect, { type Choice } from '#lib/SearchableSelect.svelte';
+	import { QR_CODE, SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
+	import { COUNTRIES, searchNames } from '#lib/countries.js';
+	import { countriesWithCode } from '#lib/whatsapp.js';
 	import { drawnSize, pngScale, qrModules, qrPath, qrSvg, QR_CAPACITY } from '#lib/qr.js';
 	import {
 		codeFileName,
 		codeFor,
 		emptyEntries,
+		phoneNumber,
 		KINDS,
 		textFromHash,
 		waitsForTyping,
@@ -22,6 +26,31 @@
 	const entries = $state(emptyEntries());
 
 	const made = $derived(codeFor(kind, entries));
+
+	// A phone number is read the way WhatsApp click-to-chat reads one, in the country chosen, and
+	// said back under its field as the code will dial it: in full, so it works from anywhere.
+	const choices: Choice[] = COUNTRIES.map((country) => ({
+		value: country.name,
+		label: `+${country.phoneCode}${country.areaCodes ? ` ${country.areaCodes.join('/')}` : ''} ${country.name}`,
+		searchTerms: searchNames(country.name)
+	}));
+	const readable = (read: ReturnType<typeof phoneNumber>) =>
+		read && 'display' in read ? { ...read, chosen: '' } : undefined;
+	const phoneRead = $derived.by(() => {
+		const read = readable(phoneNumber(entries.phone.country, entries.phone.number));
+		return read && { ...read, chosen: entries.phone.country };
+	});
+	const contactRead = $derived.by(() => {
+		const read = readable(phoneNumber(entries.contact.country, entries.contact.phone));
+		return read && { ...read, chosen: entries.contact.country };
+	});
+	/** Which country a number is for: the one chosen, or the ones its own code belongs to. */
+	const countryOf = (read: { countryCode: string; chosen: string }) => {
+		const code = COUNTRIES.find((country) => country.name === read.chosen)?.phoneCode;
+		return read.countryCode === code
+			? read.chosen
+			: countriesWithCode(read.countryCode).join(' or ');
+	};
 	const code = $derived(made && 'data' in made ? made : undefined);
 	// Drawn as each character is typed, so the code on screen is always the one Save hands over.
 	const modules = $derived(code ? qrModules(code.data) : undefined);
@@ -41,13 +70,15 @@
 	}
 	const problem = $derived.by(() => {
 		if (!made || !('problem' in made)) return undefined;
-		return waitsForTyping(made.problem) && !typingStopped ? undefined : made;
+		return waitsForTyping(made) && !typingStopped ? undefined : made;
 	});
 	const problemText = $derived(
 		problem
 			? problem.problem === 'too-long'
 				? QR_CODE.problems['too-long']((problem.bytes ?? 0) - QR_CAPACITY)
-				: QR_CODE.problems[problem.problem]
+				: problem.problem === 'phone'
+					? problem.phone && QR_CODE.problems.phone(problem.phone)
+					: QR_CODE.problems[problem.problem]
 			: undefined
 	);
 
@@ -221,6 +252,16 @@
 				/>
 			</div>
 			<div>
+				<label for="contact-country" class={label}>{QR_CODE.fields.country}</label>
+				<SearchableSelect
+					id="contact-country"
+					{choices}
+					value={entries.contact.country}
+					onchange={(value) => (entries.contact.country = value)}
+					placeholder="Type a country or a code"
+				/>
+			</div>
+			<div>
 				<label for="contact-phone" class={label}
 					>{QR_CODE.fields.contactPhone} <span class={optional}>{QR_CODE.optional}</span></label
 				>
@@ -233,18 +274,17 @@
 					onblur={stoppedTyping}
 					autocomplete="off"
 					aria-describedby="contact-phone-problem"
-					aria-invalid={problem?.problem === 'not-a-phone-number' ? true : undefined}
+					aria-invalid={problem?.problem === 'phone' ? true : undefined}
 					class={checked}
 				/>
-				<!-- Always here, so a screen reader hears the problem when it comes. -->
-				<p
-					id="contact-phone-problem"
-					class="mt-1.5 flex gap-2 text-sm font-medium empty:hidden"
-					role="status"
-				>
-					{#if problem?.problem === 'not-a-phone-number'}<Caution
-							class="mt-0.5 shrink-0"
-						/>{problemText}{/if}
+				<!-- Always here, so a screen reader hears the problem when it comes; until then, the number
+				     as the code will dial it, to check against what was typed. -->
+				<p id="contact-phone-problem" class="mt-1.5 flex gap-2 text-sm empty:hidden" role="status">
+					{#if problem?.problem === 'phone'}<span class="flex gap-2 font-medium"
+							><Caution class="mt-0.5 shrink-0" />{problemText}</span
+						>{:else if contactRead}<span class="text-muted tabular-nums"
+							>{WHATSAPP.reads(contactRead.display, countryOf(contactRead))}</span
+						>{/if}
 				</p>
 			</div>
 			<div>
@@ -326,6 +366,16 @@
 			</div>
 		{:else}
 			<div>
+				<label for="phone-country" class={label}>{QR_CODE.fields.country}</label>
+				<SearchableSelect
+					id="phone-country"
+					{choices}
+					value={entries.phone.country}
+					onchange={(value) => (entries.phone.country = value)}
+					placeholder="Type a country or a code"
+				/>
+			</div>
+			<div>
 				<label for="phone-first" class={label}>{QR_CODE.fields.phoneNumber}</label>
 				<input
 					id="phone-first"
@@ -335,20 +385,18 @@
 					oninput={typing}
 					onblur={stoppedTyping}
 					autocomplete="off"
-					aria-describedby="phone-hint phone-first-problem"
+					aria-describedby="phone-first-problem"
 					aria-invalid={problem ? true : undefined}
 					class={checked}
 				/>
-				<p id="phone-hint" class="mt-1.5 text-sm text-muted">{QR_CODE.fields.phoneHint}</p>
-				<!-- Always here, so a screen reader hears the problem when it comes. -->
-				<p
-					id="phone-first-problem"
-					class="mt-1.5 flex gap-2 text-sm font-medium empty:hidden"
-					role="status"
-				>
-					{#if problem?.problem === 'not-a-phone-number'}<Caution
-							class="mt-0.5 shrink-0"
-						/>{problemText}{/if}
+				<!-- Always here, so a screen reader hears the problem when it comes; until then, the number
+				     as the code will dial it, to check against what was typed. -->
+				<p id="phone-first-problem" class="mt-1.5 flex gap-2 text-sm empty:hidden" role="status">
+					{#if problem?.problem === 'phone'}<span class="flex gap-2 font-medium"
+							><Caution class="mt-0.5 shrink-0" />{problemText}</span
+						>{:else if phoneRead}<span class="text-muted tabular-nums"
+							>{WHATSAPP.reads(phoneRead.display, countryOf(phoneRead))}</span
+						>{/if}
 				</p>
 			</div>
 		{/if}
@@ -398,7 +446,7 @@
 						<path d={qrPath(modules)} fill="currentColor" />
 					</svg>
 				{:else}
-					<div class="m-[12%] aspect-square bg-black/5 dark:bg-white/5"></div>
+					<div class="m-[12%] aspect-square bg-elevated"></div>
 				{/if}
 			</div>
 
