@@ -27,6 +27,10 @@ The jobs are:
   piece of text (a menu, a poster, a slide), sometimes a Wi-Fi network for guests, a contact, an
   email or a phone call; saved as a PNG or an SVG to post or print. The code is static and holds
   exactly what was typed, so nothing counts its scans and it never expires.
+- **Resize and convert images:** someone who has to fit a photo, a scan or a screenshot under a
+  size someone else set (a form's "max 200 KB", a site's upload limit), or needs it in another
+  format (JPEG, WebP, PNG), often several at once, on a phone. Nothing is uploaded, and location
+  and camera details are left out unless they choose to keep them.
 
 ## Product Purpose
 
@@ -59,7 +63,7 @@ not just taken on trust.
 
 ## Capabilities and Constraints
 
-- Pages: `/` (the index of tools), `/split-bill`, `/whatsapp-click-to-chat`, `/qr-code`. Bigger tools from
+- Pages: `/` (the index of tools), `/split-bill`, `/whatsapp-click-to-chat`, `/qr-code`, `/resize-and-convert-images`. Bigger tools from
   Itrium that run in the browser, such as Amber, get sites of their own and are linked from
   the index, not built here.
 - Shared bills are kept for 30 days after they were last shared, at most 64 KB, and can be

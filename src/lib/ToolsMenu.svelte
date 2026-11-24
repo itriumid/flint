@@ -9,6 +9,7 @@
 	import {
 		aToZ,
 		findTools,
+		needsLetters,
 		readRecent,
 		RECENT_KEY,
 		recentTools,
@@ -28,6 +29,7 @@
 
 	const current = $derived(toolAt(page.url.pathname)?.id);
 	const found = $derived(findTools(typed));
+	const groups = aToZ();
 	const lately = $derived(typed.trim() ? [] : recentTools(recent, current));
 
 	// The tool opened is noted when its page is reached, by any way: a link, the address bar, a
@@ -173,16 +175,25 @@
 				{#if !found.length}<p class="mt-4 text-sm text-muted">{NAV.noMatch(typed.trim())}</p>{/if}
 			{:else}
 				<h3 class="mt-4 text-sm font-bold text-muted">{NAV.aToZ}</h3>
-				{#each aToZ() as group (group.letter)}
-					<div class="mt-2 flex gap-4 border-t border-border pt-2">
-						<p class="w-6 shrink-0 pt-2 text-xl font-extrabold" aria-hidden="true">
-							{group.letter}
-						</p>
-						<ul class="min-w-0 flex-1">
-							{#each group.tools as tool (tool.id)}{@render row(tool)}{/each}
-						</ul>
-					</div>
-				{/each}
+				<!-- Under their initials only once a letter holds two tools, as on the index. -->
+				{#if needsLetters(groups)}
+					{#each groups as group (group.letter)}
+						<div class="mt-2 flex gap-4 border-t border-border pt-2">
+							<p class="w-6 shrink-0 pt-2 text-xl font-extrabold" aria-hidden="true">
+								{group.letter}
+							</p>
+							<ul class="min-w-0 flex-1">
+								{#each group.tools as tool (tool.id)}{@render row(tool)}{/each}
+							</ul>
+						</div>
+					{/each}
+				{:else}
+					<ul class="mt-2 divide-y divide-border border-t border-border">
+						{#each groups.flatMap((group) => group.tools) as tool (tool.id)}{@render row(
+								tool
+							)}{/each}
+					</ul>
+				{/if}
 			{/if}
 		</div>
 	</div>

@@ -18,7 +18,7 @@
 		TITLE
 	} from '#lib/content.js';
 	import { actionLine, field, primaryButton, secondaryButtonOnPage } from '#lib/styles.js';
-	import { aToZ, featured, findTools, theRest } from '#lib/tools.js';
+	import { aToZ, featured, findTools, needsLetters, theRest, type Tool } from '#lib/tools.js';
 	import { loadDraft } from '#lib/draft.js';
 	import { calculateBill, formatMoney } from '#lib/split-bill.js';
 	import { sharedFromHere } from '#lib/share.js';
@@ -68,6 +68,8 @@
 	);
 	// Once there are more tools than fields, every tool, A to Z, under them.
 	const hasRest = theRest().length > 0;
+	const groups = aToZ();
+	const lettered = needsLetters(groups);
 
 	// The search under Flint's name: the tools that answer it, under the field, as it's typed.
 	let typed = $state('');
@@ -194,36 +196,47 @@
 
 {#if hasRest}
 	<!-- Every tool, A to Z, once there are more than the fields hold: name, what it does and what
-	     leaves it, under its initial. -->
+	     leaves it. Under their initials only once a letter holds two tools; until then a plain list,
+	     where a letter per tool would weigh more than the names. -->
 	<section aria-labelledby="all-heading" class="mx-auto max-w-6xl px-5 pt-12 sm:px-8 lg:pt-16">
 		<h2 id="all-heading" class="text-xl font-bold sm:text-2xl">{NAV.menuHeading}</h2>
-		<div class="mt-4 grid gap-x-10 md:grid-cols-2 lg:grid-cols-3">
-			{#each aToZ() as group (group.letter)}
-				<div class="border-t border-border pt-3 pb-4">
-					<p class="text-3xl font-extrabold tracking-[-0.04em]" aria-hidden="true">
-						{group.letter}
-					</p>
-					<ul>
-						{#each group.tools as tool (tool.id)}
-							<li class="mt-3">
-								<a href={resolve(tool.path as '/')} class="group flex items-start gap-3">
-									<ToolSymbol tool={tool.id} class="mt-1 size-5 shrink-0" />
-									<span>
-										<span class="block text-lg font-bold underline-offset-4 group-hover:underline"
-											>{tool.name}</span
-										>
-										<span class="block text-sm">{tool.line}</span>
-										<span class="block text-sm text-muted">{tool.leaves}</span>
-									</span>
-								</a>
-							</li>
-						{/each}
-					</ul>
-				</div>
-			{/each}
-		</div>
+		{#if lettered}
+			<div class="mt-4 grid gap-x-10 md:grid-cols-2 lg:grid-cols-3">
+				{#each groups as group (group.letter)}
+					<div class="border-t border-border pt-3 pb-4">
+						<p class="text-3xl font-extrabold tracking-[-0.04em]" aria-hidden="true">
+							{group.letter}
+						</p>
+						<ul>
+							{#each group.tools as tool (tool.id)}
+								<li class="mt-3">{@render entry(tool)}</li>
+							{/each}
+						</ul>
+					</div>
+				{/each}
+			</div>
+		{:else}
+			<ul class="mt-4 grid gap-x-10 md:grid-cols-2 lg:grid-cols-3">
+				{#each groups.flatMap((group) => group.tools) as tool (tool.id)}
+					<li class="border-t border-border pt-3 pb-4">{@render entry(tool)}</li>
+				{/each}
+			</ul>
+		{/if}
 	</section>
 {/if}
+
+{#snippet entry(tool: Tool)}
+	<a href={resolve(tool.path as '/')} class="group flex items-start gap-3">
+		<ToolSymbol tool={tool.id} class="mt-1 size-5 shrink-0" />
+		<span>
+			<span class="block text-lg font-bold underline-offset-4 group-hover:underline"
+				>{tool.name}</span
+			>
+			<span class="block text-sm">{tool.line}</span>
+			<span class="block text-sm text-muted">{tool.leaves}</span>
+		</span>
+	</a>
+{/snippet}
 
 <!-- Under the fields: what never leaves the device, then the bigger tools on sites of their own,
      and the source that proves it all. -->

@@ -2,10 +2,10 @@
 // read from here, so a new tool is added once. The words are in content.ts; this file decides the
 // order, which tools the index leads with, and how a search finds them.
 
-import { INDEX, NAV, QR_CODE, SPLIT_BILL, WHATSAPP } from './content';
+import { IMAGES, INDEX, NAV, QR_CODE, SPLIT_BILL, WHATSAPP } from './content';
 import { matchChoices } from './search';
 
-export type ToolId = 'split-bill' | 'whatsapp' | 'qr-code';
+export type ToolId = 'split-bill' | 'whatsapp' | 'qr-code' | 'images';
 
 export interface Tool {
 	id: ToolId;
@@ -54,6 +54,17 @@ export const TOOLS: Tool[] = [
 		leaves: INDEX.leaves.qrCode,
 		start: INDEX.starts.qrCode,
 		searchTerms: 'qr code scan link url wifi wi-fi password menu contact card vcard email print'
+	},
+	{
+		id: 'images',
+		path: IMAGES.path,
+		name: IMAGES.name,
+		short: NAV.images,
+		line: IMAGES.line,
+		leaves: INDEX.leaves.images,
+		start: INDEX.starts.images,
+		searchTerms:
+			'image photo picture compress shrink reduce resize smaller kb mb size jpg jpeg png webp heic convert format exif location metadata'
 	}
 ];
 
@@ -78,6 +89,13 @@ export function aToZ(tools: Tool[] = TOOLS): { letter: string; tools: Tool[] }[]
 	}
 	return groups;
 }
+
+/**
+ * Whether the A to Z needs its letters: only once a letter holds two tools or more. Until then
+ * each letter heads one tool, and the letters weigh more than the names they sort.
+ */
+export const needsLetters = (groups: { tools: Tool[] }[]) =>
+	groups.some((group) => group.tools.length > 1);
 
 /**
  * The tools that answer what's typed, best first: by name, by what they do, or by the words for
