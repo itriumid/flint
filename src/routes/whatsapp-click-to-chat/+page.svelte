@@ -95,6 +95,15 @@
 		await tick();
 		document.getElementById('message')?.focus();
 	}
+	// Taken back out: the field goes, and its words with it, so the link and the code have no message
+	// again. Focus goes to "Add a message", where the field was, rather than back to the page's top.
+	async function removeMessage() {
+		message = '';
+		messageOutOfCode = false;
+		messageShown = false;
+		await tick();
+		document.getElementById('add-message')?.focus();
+	}
 	// A message goes into the code too, unless the person leaves it out: a shop printing one code
 	// for everyone may not want one customer's message on it, and a shorter link scans better.
 	let messageOutOfCode = $state(false);
@@ -258,11 +267,21 @@
 
 		<!-- The message goes in the link, so it comes before the answer: typed after it, it changed a
 		     link (and the code) above the person, out of sight. Most people don't send one, so the
-		     field waits until it's asked for, and stays once it has words in it. -->
+		     field waits until it's asked for, and stays until it's removed. -->
 		{#if messageShown || hasMessage}
 			<div>
-				<label for="message" class={label}>Message <span class="text-muted">(optional)</span></label
-				>
+				<div class="mb-1.5 flex items-center justify-between gap-3">
+					<label for="message" class="{label} mb-0!"
+						>Message <span class="text-muted">(optional)</span></label
+					>
+					<button
+						type="button"
+						onclick={() => void removeMessage()}
+						class="-my-2 min-h-9 text-sm font-medium text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
+					>
+						{WHATSAPP.removeMessage}
+					</button>
+				</div>
 				<textarea
 					id="message"
 					bind:value={message}
@@ -271,7 +290,12 @@
 					class="{field} resize-y"></textarea>
 			</div>
 		{:else}
-			<button type="button" onclick={() => void showMessage()} class={smallButtonOnPage}>
+			<button
+				type="button"
+				id="add-message"
+				onclick={() => void showMessage()}
+				class={smallButtonOnPage}
+			>
 				{WHATSAPP.addMessage}
 			</button>
 		{/if}

@@ -106,6 +106,8 @@ export const WHATSAPP = {
 	},
 	/** Where the message field goes, until it's asked for: most people don't send one. */
 	addMessage: 'Add a message',
+	/** Beside the message field's label: empties it and puts "Add a message" back. */
+	removeMessage: 'Remove the message',
 	/** Under a number typed with its country code twice: puts it in once. */
 	useFixed: (number: string) => `Use ${number}`,
 	/** Under the field, as soon as the number reads as one: the number, as the link will have it. */
