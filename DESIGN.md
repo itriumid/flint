@@ -1037,7 +1037,8 @@ go instead, each row with the arrow.
 The header is the same plain row on every page, in the 72rem column: Flint's mark and name on the
 left, the tools on the right, so a person can go from one tool to the other in one press.
 
-- **Mark:** the same tile in either theme; on a page as dark as the tile, the one with a faint rim.
+- **Mark:** the knapped stone, filled pink with its ripples cut in graphite, and no tile: one file
+  for either theme (the compact one, 36px tall, its ripples heavier).
   Beside it "Flint", bold, underlined on the index (`aria-current="page"`). Below 23rem the name is
   left to screen readers and the tools keep the room; the mark still links home.
 - **Tool links:** each tool's symbol (1.25rem) and its short name ("Split bill", "WhatsApp") in nav
