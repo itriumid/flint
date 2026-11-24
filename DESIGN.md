@@ -1,13 +1,12 @@
 ---
 name: flint.itrium.id
-description: The Rhodonite Specimen, put to work. Itrium's free tools, in the same stone as itrium.id, carried in one graphite rantang.
+description: The Rhodonite Specimen, put to work. Itrium's free tools, in the same stone as itrium.id, the two of them split edge to edge.
 colors:
   graphite: '#2b2b2b'
   graphite-surface: '#343434'
   graphite-border: '#474747'
   graphite-raised: '#3e3e3e'
   graphite-raised-border: '#4f4f4f'
-  enamel-rim-on-dark: '#575757'
   off-white: '#f2f2f2'
   muted-gray-on-dark: '#aaaaaa'
   control-edge-on-dark: '#8a8a8a'
@@ -21,11 +20,11 @@ colors:
   deep-rose: '#c46475'
   rose-text: '#a84d60'
 typography:
-  lid-name:
+  tool-name:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
-    fontSize: '6rem'
+    fontSize: '4.5rem'
     fontWeight: 800
-    lineHeight: 1
+    lineHeight: 0.95
     letterSpacing: '-0.04em'
   display:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
@@ -33,34 +32,34 @@ typography:
     fontWeight: 700
     lineHeight: 1
     letterSpacing: '-0.025em'
-  tier-name:
+  index-name:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
-    fontSize: '3rem'
+    fontSize: '3.75rem'
     fontWeight: 800
     lineHeight: 1
-    letterSpacing: '-0.035em'
+    letterSpacing: '-0.04em'
   headline:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '2.25rem'
     fontWeight: 700
     lineHeight: 1.1
     letterSpacing: '-0.025em'
-  lid-line:
+  lead-line:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '1.5rem'
     fontWeight: 400
     lineHeight: 1.375
-  base-heading:
+  stays-heading:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '1.5rem'
     fontWeight: 700
     lineHeight: 1.33
-  tier-line:
+  fact:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
-    fontSize: '1.25rem'
+    fontSize: '1.125rem'
     fontWeight: 400
     lineHeight: 1.375
-  latch:
+  start:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '1.125rem'
     fontWeight: 700
@@ -111,44 +110,39 @@ typography:
     fontWeight: 600
     lineHeight: 1.43
 rounded:
+  none: '0px'
   focus: '4px'
   sm: '0.5rem'
   md: '0.75rem'
   lg: '1rem'
   xl: '1.5rem'
-  base: '2.5rem'
   full: '9999px'
-  handle: '50% 50% 0 0 / 100% 100% 0 0'
 spacing:
-  rail-gap: '2px'
-  tier-seam: '0.5rem'
-  tier-rim: '0.5rem'
-  rim-lift: '0.25rem'
-  rail-width-phone: '0.625rem'
-  rail-width: '0.875rem'
   gutter-panel: '0.75rem'
   gutter-phone: '1.25rem'
   gutter-wide: '2rem'
   card: '1.25rem'
   card-wide: '1.5rem'
-  tier-inset-phone: '1.5rem'
-  tier-inset: '3rem'
-  latch-rhythm-phone: '3.5rem'
+  half-top-phone: '2.5rem'
+  half-top: '2.5rem'
+  half-seam-gutter: '3rem'
+  half-seam-gutter-wide: '4rem'
+  half-height: '35rem'
+  kept-line: '3rem'
   section: '5rem'
   dot: '1rem'
   symbol-nav: '1.25rem'
-  symbol-tier: '2.75rem'
+  symbol-half-phone: '2rem'
+  symbol-half: '2.5rem'
   node-width: '7rem'
   node-height-tool: '3rem'
   road-label-width-tool: '18rem'
   road-out-indent: '1.5rem'
   control-compact: '2.25rem'
   touch-target: '2.75rem'
-  tier-module: '18.5rem'
   form-width: '36rem'
   tool-width: '42rem'
-  content-width: '64rem'
-  panel-width: '72rem'
+  content-width: '72rem'
 components:
   button-primary:
     backgroundColor: '{colors.pastel-pink}'
@@ -156,12 +150,12 @@ components:
     rounded: '{rounded.full}'
     padding: '0.75rem 1.5rem'
     typography: '{typography.button}'
-  latch:
+  start:
     backgroundColor: '{colors.pastel-pink}'
     textColor: '{colors.graphite}'
     rounded: '{rounded.full}'
     padding: '1rem 1.75rem'
-    typography: '{typography.latch}'
+    typography: '{typography.start}'
   button-secondary:
     backgroundColor: 'transparent'
     textColor: '{colors.off-white}'
@@ -199,38 +193,28 @@ components:
   inset-list:
     backgroundColor: '{colors.graphite}'
     rounded: '{rounded.md}'
-  tier:
-    backgroundColor: '{colors.graphite-raised}'
-    textColor: '{colors.off-white}'
-    rounded: '{rounded.xl}'
-    padding: '2.5rem 3rem 2rem'
-    height: '{spacing.tier-module}'
-  tier-light:
+  half-split-bill:
     backgroundColor: '{colors.graphite}'
     textColor: '{colors.off-white}'
-  tier-rim:
-    backgroundColor: '{colors.enamel-rim-on-dark}'
-    height: '{spacing.tier-rim}'
-  tier-rim-light:
-    backgroundColor: '{colors.graphite-border}'
-  base-tier:
-    backgroundColor: '{colors.graphite-raised}'
+    rounded: '{rounded.none}'
+    padding: '3rem 4rem 3rem 2rem'
+    height: '{spacing.half-height}'
+  half-split-bill-dark:
+    backgroundColor: '{colors.paper-elevated}'
+    textColor: '{colors.graphite}'
+  half-whatsapp:
+    backgroundColor: '{colors.paper-elevated}'
+    textColor: '{colors.graphite}'
+    rounded: '{rounded.none}'
+    padding: '3rem 2rem 3rem 4rem'
+    height: '{spacing.half-height}'
+  half-whatsapp-dark:
+    backgroundColor: '{colors.graphite-surface}'
     textColor: '{colors.off-white}'
-    rounded: '{rounded.base}'
-    padding: '2.25rem 3rem'
-  handle:
-    backgroundColor: '{colors.enamel-rim-on-dark}'
-    rounded: '{rounded.handle}'
-  handle-light:
-    backgroundColor: '{colors.graphite}'
-  rail:
-    backgroundColor: '{colors.enamel-rim-on-dark}'
-    rounded: '{rounded.full}'
-    width: '{spacing.rail-width}'
-  rail-light:
-    backgroundColor: '{colors.graphite}'
+  tool-name:
+    typography: '{typography.tool-name}'
   tool-symbol:
-    size: '{spacing.symbol-tier}'
+    size: '{spacing.symbol-half}'
   nav-link:
     typography: '{typography.nav}'
     height: '{spacing.touch-target}'
@@ -248,7 +232,7 @@ components:
     backgroundColor: '{colors.graphite-surface}'
     textColor: '{colors.off-white}'
     rounded: '{rounded.xl}'
-    width: '{spacing.panel-width}'
+    width: '{spacing.content-width}'
   panel-light:
     backgroundColor: '{colors.paper-elevated}'
     textColor: '{colors.graphite}'
@@ -289,42 +273,45 @@ workbench. The world is the same: Plus Jakarta Sans for everything, graphite and
 with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job
 changes. itrium.id persuades; a tool gets out of the way.
 
-The index is The Rantang: a stacked enamel food carrier seen from the front. Graphite enamel owns
-the page in both themes. The header's thick arc is the carrying handle, its two ends run down into
-the rails that frame the tiers, and the tiers stack on one measured module with a lighter rolled
-rim along each top edge. The lid carries Flint's name and one line. Each tool is a tier: its symbol,
-its name at display size, what it does, and, before anyone presses, what leaves it, with its pink
-start, the latch. The base tier says what never leaves. Privacy is the object's construction, said
-on the tier it concerns, not claimed in a list. A tool page keeps the header (the handle's links,
-without the arc) and below it is unchanged from the map that came before: a place mark for a title,
-the work directly under it, and the tool's one road out hanging from the control that takes it,
-because the person using it is at a restaurant table with a phone in one hand and a group waiting.
-Whether the tool pages take the Rantang too is an open decision for the owner.
+The index is Two halves: the two tools, split edge to edge, one half of the screen each. No
+metaphor, no cards, no rounded boxes: the halves are the page. Two full-bleed fields with square
+edges meet on one vertical seam. Split bill's half is always the inverse of the page (graphite on a
+light page, paper elevated on a dark one), and WhatsApp click-to-chat's half is a tonal step off the
+page, so the seam reads strongly in both themes. Each half carries its tool's symbol, its name at
+poster scale, what it does, what leaves it, and one large pink start. Flint's name and its line sit
+above the halves, a step below the tools' names, and what never leaves sits on the page below them.
+It replaced the Rantang (#73), which replaced the Device Map (#71), which replaced the line-item
+strip (#70). A tool page keeps the same plain header and, below it, the place mark and the road out
+from the Device Map: the person using it is at a restaurant table with a phone in one hand and a
+group waiting. Whether the tool pages follow the index is an open decision for the owner.
 
 Components are soft and sure-footed, and tactile without being playful. Every control has a round,
 generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see
 (3:1 against the page and the card). They feel good to press but never perform. Density on the
-index is bold and wide, a carrier you hold; inside a tool it is calm and working: forms sit in a
-narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the
-running total stays at the bottom of a phone's screen while the bill is made.
+index is bold and wide; inside a tool it is calm and working: forms sit in a narrow column of 36 to
+42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at
+the bottom of a phone's screen while the bill is made.
 
 Light and dark are equal. Each follows the visitor's system unless the footer says otherwise, and
 neither is a courtesy version of the other: every new pairing is designed and checked in both. The
 system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows,
 invented numbers), drop shadows on anything but a floating list, pure black and white, decorative
 pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes
-the tool off a phone screen, and state shown by color alone. And on the index it refuses anything
-that reads as a receipt: the owner turned down the line-item strip (#70) and the Device Map (#71)
-for dashed lines, gray-on-paper monochrome, a narrow stacked column, and the feel as a whole.
+the tool off a phone screen, and state shown by color alone. And on the index it refuses what the
+owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper
+monochrome, a narrow column, rows of entries), any metaphor (a map, a food carrier), and a column of
+stacked rounded boxes.
 
 **Key Characteristics:**
 
 - One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.
-- The index is one carrier: a handle arc (the page's only arc), two rails, and graphite tiers on an
-  18.5rem module, 8px apart, each with a rolled rim. Graphite in both themes, with dark mode's text
-  colors inside it.
-- Each tool has one fixed symbol, drawn in the text color, the same in the header and on its tier.
-- Pink only at the two latches on the index (equal starts), and at one primary action per tool view.
+- The index is two full-bleed halves, square-edged, meeting on one vertical seam from 768 px, their
+  content lined up with the header's 72rem column.
+- Split bill's half is the inverse of the page in both themes; WhatsApp's half is a tonal step off
+  the page.
+- The tools' names lead the page at every width, a step above Flint's own name.
+- Each tool has one fixed symbol, drawn in the text color, the same in the header and in its half.
+- Pink only at the two starts on the index (equal starts), and at one primary action per tool view.
 - A tool page opens with a place mark, then the tool, with its one road out drawn under the control
   that takes it.
 - Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
@@ -336,55 +323,53 @@ for dashed lines, gray-on-paper monochrome, a narrow stacked column, and the fee
 
 ## Colors
 
-Rhodonite, as itrium.id applies it, plus the two edge grays that the tools' controls need and the
-enamel's three tokens. The tokens live in `src/app.css`: the palette's `--bg`, `--surface`,
-`--elevated`, `--border`, `--text`, `--muted`, `--accent`, `--on-accent`, `--accent-edge` and
-`--focus` from `@itrium/palettes`, and the site's own `--control-border`, `--accent-text`, `--tier`,
-`--tier-rim` and `--frame`. Each swaps value between dark and light, by the device's setting unless
-the footer's choice says otherwise. The binding rules are in the handbook's `itrium/brand.md`.
+Rhodonite, as itrium.id applies it, plus the two edge grays that the tools' controls need. The
+tokens live in `src/app.css`: the palette's `--bg`, `--surface`, `--elevated`, `--border`, `--text`,
+`--muted`, `--accent`, `--on-accent`, `--accent-edge` and `--focus` from `@itrium/palettes`, and the
+site's own `--control-border` and `--accent-text`. Each swaps value between dark and light, by the
+device's setting unless the footer's choice says otherwise. The `.inverse-field` scope sets them
+again for Split bill's half, from the other theme. The binding rules are in the handbook's
+`itrium/brand.md`.
 
 ### Primary
 
 - **Pastel pink** (`pastel-pink`): the accent, always as a fill. The primary button, the index's
-  two latches, the selected tag chip, the selection highlight and the skip link. On graphite
-  (including every tier, in both themes) it's also the focus outline, the line of a state, and pink
-  text.
+  two starts, the selected tag chip, the selection highlight and the skip link. On graphite
+  (including Split bill's half on a light page) it's also the focus outline, the line of a state,
+  and pink text.
 - **Deep rose** (`deep-rose`): pink as a line on light backgrounds (`--accent-edge`). The edge of
-  a selected chip, an unsure receipt line, a note's edge, and the checked box or radio button. It
-  reaches 3:1 on white. Never inside a tier: the enamel is graphite.
+  a selected chip, an unsure receipt line, a note's edge, the checked box or radio button, and the
+  start's edge in any light field (including Split bill's half on a dark page). It reaches 3:1 on
+  white.
 - **Rose text** (`rose-text`): pink as text on light backgrounds (`--accent-text`). Action lines
-  with the arrow, such as the tools elsewhere. 4.8:1 on paper, 5.4:1 on white: AA with little
-  headroom, so never put it on a pink tint.
+  with the arrow, such as the tools elsewhere and a bill shared from this device. 4.8:1 on paper
+  elevated, 5.4:1 on white: AA with little headroom, so never put it on a pink tint.
 
 ### Neutral
 
 - **Graphite** (`graphite`): the dark page, the field fill and inset lists in dark mode, light
-  mode's text, and the text on pink, always. In light mode it is also the enamel: every tier, the
-  handle and the rails (`--tier`, `--frame`).
+  mode's text, and the text on pink, always. On a light page it is also Split bill's half.
 - **Graphite surface** (`graphite-surface`) and **graphite border** (`graphite-border`): cards and
-  their dividing lines in dark mode, and the running total's bar. Graphite border is also light
-  mode's tier rim (`--tier-rim`), and the line inside a tier between what a tool does and what
-  leaves it.
-- **Graphite raised** (`graphite-raised`, the palette's elevated gray): dark mode's tiers
-  (`--tier`), a step up from the page so the carrier still reads as an object; and, inside the
-  error page's panel, its cards, with **graphite raised border** (`graphite-raised-border`).
-- **Enamel rim** (`enamel-rim-on-dark`): dark mode's tier rim, handle and rails (`--tier-rim`,
-  `--frame`), a step above the tier. Like the raised border, it is not in the palette: the two
-  are the only structural grays here outside it, each one step above a palette gray.
-- **Off-white** (`off-white`): text on graphite, and all text inside a tier.
+  their dividing lines in dark mode, the running total's bar, the error page's panel in dark mode,
+  and WhatsApp's half on a dark page.
+- **Graphite raised** (`graphite-raised`, the palette's elevated gray) and **graphite raised
+  border** (`graphite-raised-border`): inside the error page's panel in dark mode, what steps up
+  from it and its dividing lines. The raised border (#4f4f4f) is the one structural gray outside the
+  palette, used only there (`.band` in `src/app.css`), a step above graphite raised.
+- **Off-white** (`off-white`): text on graphite, including Split bill's half on a light page.
 - **Muted gray on dark** (`muted-gray-on-dark`) and **muted gray on light**
-  (`muted-gray-on-light`): secondary text such as the lid's line, "What leaves it", introductions,
-  hints, the footer. Inside a tier it is always the dark one: 4.6:1 on dark mode's lighter tier.
+  (`muted-gray-on-light`): secondary text such as Flint's line, "What leaves it", introductions,
+  hints, the footer. Each half takes the one for its own ground, not the page's.
 - **Control edge on dark** (`control-edge-on-dark`) and **control edge on light**
   (`control-edge-on-light`): the border of every field, button, chip and floating list
   (`--control-border`). They reach 3:1 against both the page and a card, where the softer border
-  colors don't. Inside a tier it is always the dark one: 3.1:1 on dark mode's tier.
-- **Paper elevated** (`paper-elevated`, `--elevated`): the error page's panel in light mode, a step
-  down from paper, where everything it holds still passes: text 12.5:1, muted 4.7:1, rose text
-  4.8:1, control edge 4.0:1, focus 12.5:1. In dark mode the panel is graphite surface.
+  colors don't.
+- **Paper elevated** (`paper-elevated`, `--elevated`): a step down from paper. WhatsApp's half on
+  a light page, Split bill's half on a dark page, and the error page's panel in light mode. Every
+  text and line color still passes on it: text 12.5:1, muted 4.7:1, rose text 4.8:1, control edge
+  4.0:1.
 - **Paper** (`paper`), **paper surface** (`paper-surface`) and **paper border** (`paper-border`):
   light mode's page (and field fill, and the fill of a road out's box), cards, and dividing lines.
-  On the index in light mode, paper is only the ground the carrier stands on.
 - **A tool page's map lines** are in the text color: the place mark's dot and the road out's 3 px
   dashed line. The box a road reaches is outlined in muted gray, since it is outside the device and
   not ours.
@@ -394,15 +379,19 @@ the footer's choice says otherwise. The binding rules are in the handbook's `itr
 **The Vein Rule.** Pink marks something: the primary action, focus, what's selected, or the way
 onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a
 time, which is not the same as one element. In a tool, one pink button per view. On the index, one
-pink latch on each tool's tier, the two tools' equal starts ("Split a bill", "Chat with a number"):
+pink start in each tool's half, the two tools' equal starts ("Split a bill", "Chat with a number"):
 one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their
-way onward, and nothing else is pink. The handle, rails, rims, tool symbols, a tool page's place
+way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool page's place
 mark and its road out are never pink.
 
-**The Enamel Rule.** Inside a tier (the `.enamel` scope), dark mode's colors apply in both themes:
-off-white text, muted gray on dark, pink focus and pink edges, and the dark control edge. The enamel
-is graphite either way, so its contents never take light mode's graphite text, rose text or deep-rose
-edges.
+**The Inverse Field Rule.** Split bill's half (the `.inverse-field` scope) takes the colors of the
+theme the page is not in, every one of them: on a light page graphite, with off-white text, muted
+gray on dark, pink focus, pink edges and pink text, and the dark control edge; on a dark page paper
+elevated, with graphite text, muted gray on light, deep-rose edges, rose text, graphite focus, and
+the light control edge. Nothing inside it reads the page's own colors. The owner chose this on
+2026-11-24 and accepted its cost: a bright band across a dark page, in exchange for a seam that
+reads strongly in both themes. The contrast for each pairing is in the comment above the scope in
+`src/app.css`.
 
 **The Two Borders Rule.** `--border` is for lines nothing depends on, such as card edges and
 dividers. Anything a person has to find in order to use it gets `--control-border`.
@@ -411,9 +400,9 @@ dividers. Anything a person has to find in order to use it gets `--control-borde
 is rose text and pink lines are deep rose. Pastel pink is never text or a line there.
 
 **The Every-Surface Rule.** Contrast is checked on every surface text sits on: page, card, inset
-list, note, running total, update notice, each tier and the page around the carrier, in both themes.
-Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. Dark mode's tier
-(`graphite-raised`) is the tightest: text 12.5:1, muted 4.6:1, pink 8.0:1, control edge 3.1:1.
+list, note, running total, update notice, the error page's panel, and each half in both themes.
+Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split
+bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).
 
 ## Typography
 
@@ -421,37 +410,39 @@ Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. Dark m
 **Body Font:** Plus Jakarta Sans Variable, the same file
 
 **Character:** One variable typeface from the Indonesian foundry Tokotype carries every role, the
-same as on itrium.id. Hierarchy comes from weight and size alone: extra-bold, tightly tracked names
-on the enamel, bold headings in sentence case, and plain, readable working text. It's served from
-the site itself.
+same as on itrium.id. Hierarchy comes from weight and size alone: extra-bold, tightly tracked tool
+names at poster scale, bold headings in sentence case, and plain, readable working text. It's
+served from the site itself.
 
 ### Hierarchy
 
-- **Lid name** (`lid-name`): "Flint" on the index's lid, extra-bold at -0.04em. 3.75rem on phones,
-  the token size (96px) from 640 px.
+- **Tool name** (`tool-name`): a tool's name in its half, extra-bold at -0.04em, 0.95 line height,
+  under its symbol. 2.5rem (40px) on phones, 3.75rem (60px) from 640 px, 3rem (48px) from 768 px
+  where the halves sit side by side, 4rem (64px) from 1024 px, and the token size (72px) from 1280 px.
 - **Display** (`display`): the error page's heading. 3rem on phones, the token size from 640 px.
-- **Tier name** (`tier-name`): a tool's name on its tier, extra-bold at -0.035em, under its symbol.
-  2.25rem on phones, the token size (48px) from 640 px.
+- **Index name** (`index-name`): "Flint", the index's `h1`, extra-bold at -0.04em, always one step
+  below the tools' names: 2.25rem (36px) on phones, 3rem (48px) from 640 px, 2.25rem (36px) from
+  768 px, 3rem (48px) from 1024 px, and the token size (60px) from 1280 px.
 - **Headline** (`headline`): a tool's title in its place mark, 1rem right of the place's 1rem dot,
   with the introduction under it. 1.875rem on phones, the token size from 640 px.
-- **Lid line** (`lid-line`): the muted line beside Flint's name (under it on phones), at most 28rem
-  wide, saying what Flint is. 1.125rem on phones, the token size from 640 px.
-- **Base heading** (`base-heading`): "Nothing else leaves", heading the base tier. 1.25rem on
-  phones, the token size from 640 px.
-- **Tier line** (`tier-line`): what a tool does and what leaves it, on its tier. 1.125rem on phones,
+- **Lead line** (`lead-line`): Flint's muted line beside its name (under it when they don't fit),
+  at most 36rem wide; and what a tool does, in its half. 1.125rem on phones, the token size from
+  640 px.
+- **Stays heading** (`stays-heading`): "Nothing else leaves", under the halves. 1.25rem on phones,
   the token size from 640 px.
-- **Latch** (`latch`): the label of a tier's pink start, bold, never wrapping.
+- **Fact** (`fact`): what leaves a tool, in its half, at most 28rem wide, and the three facts under
+  the halves. 1rem on phones, the token size from 640 px.
+- **Start** (`start`): the label of a half's pink start, bold, never wrapping.
 - **Title** (`title`): a section card's heading inside a tool (`cardHeading`), semibold.
 - **Nav** (`nav`): the header's links to the tools, semibold, each with its symbol.
 - **Minor heading** (`minor-heading`): the heading of the tools on sites of their own, under the
-  carrier, bold at body size.
+  facts, bold at body size.
 - **Body** (`body`): a tool's introduction (at 1.625 line height under the place mark, muted, or in
-  the text color at medium weight in a friend's view of a shared bill), running prose, and the base
-  tier's facts (1.125rem from 640 px).
+  the text color at medium weight in a friend's view of a shared bill), and running prose.
 - **Leaves heading** (`leaves-heading`): "What leaves it", bold and muted at 0.875rem, heading the
-  fact it sits over on each tool's tier.
+  fact it sits over in each tool's half.
 - **Control** (`control`): field text, chips, notes, hints, amounts, a road out's box and the shared
-  bill's line on Split bill's tier, at 0.875rem. On touch screens field text rises to 1rem
+  bill's line in Split bill's half, at 0.875rem. On touch screens field text rises to 1rem
   (`pointer-coarse:text-base`) so iOS Safari doesn't zoom the page.
 - **Road label** (`road-label`): what a road out carries, semibold beside its line under a tool's
   control, at most 18rem wide (`road-label-width-tool`).
@@ -465,48 +456,57 @@ Amounts that line up or change in place (counts, the running total) use tabular 
 **The One Typeface Rule.** Plus Jakarta Sans does everything. Never add a second family, and never
 load a font from another domain.
 
+**The Tools Lead Rule.** On the index, the tools' names are the largest type at every width, and
+Flint's own name steps down with them: 40 over 36 on phones, 60 over 48 from 640 px, 48 over 36
+from 768 px, 64 over 48 from 1024 px, 72 over 60 from 1280 px. A new size for one is a new size for
+the other.
+
 **The No Kicker Rule.** A heading is the first thing in its block. No eyebrow, category label,
 small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that
-says more about a heading goes under it or beside it, as the lid's line does. A tier's symbol sits
-above its name, but it is the tool's picture, not a label.
+says more about a heading goes under it or beside it, as Flint's line does. A half's symbol sits
+above the tool's name, but it is the tool's picture, not a label.
 
 ## Layout
 
-- **Widths:** header, footer and the index's carrier sit in the 64rem content column
-  (`content-width`). The error page's panel is wider, at 72rem (`panel-width`), and inset from the
-  viewport by 0.75 to 1.25rem (`gutter-panel`). A tool sits in a narrow working column: 36rem
+- **Widths:** the header, the footer, Flint's name above the halves and the facts below them sit in
+  the 72rem content column (`content-width`). The error page's panel is the same width, inset from
+  the viewport by 0.75 to 1.25rem (`gutter-panel`). A tool sits in a narrow working column: 36rem
   (`form-width`) for a single form like WhatsApp click-to-chat, 42rem (`tool-width`) for Split bill.
-- **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`). The carrier
-  goes nearer the edge: its handle and rails sit 0.5rem in on phones and 2rem from 640 px.
+- **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`).
 - **Rhythm:** a tool page ends with 5rem of space (`section`); the index with 4rem on phones and
   6rem from 1024 px. Within a tool, cards stack 1.25 to 1.5rem apart, and fields and their hints
   step in 0.5rem to 1rem.
-- **The carrier (index):** the header's arc, then the lid, the two tool tiers and the base tier,
-  stacked 8px apart (`tier-seam`), inside two rails that stand 2px off the tiers (`rail-gap`) and run
-  0.75rem past the base. The stack starts 1rem under the handle on phones and 1.5rem from 640 px.
-  Tiers are inset 1.5rem on phones (`tier-inset-phone`) and 3rem from 640 px (`tier-inset`).
-- **A tool tier:** one module, at least 18.5rem tall from 768 px (`tier-module`, about 296px at
-  1440). From 768 px two columns, 1.25 to 1, 3rem apart: on the left the symbol, the name and,
-  pushed to the bottom, what it does; on the right, past a 2 px divider in the rim's color, "What
-  leaves it", the fact, and the latch at the bottom. Under 768 px it stacks full width: symbol,
-  name, what it does, the divider on top, what leaves, then the latch.
-- **The lid:** Flint's name and its line side by side from 768 px, 3rem apart; stacked on phones.
-- **The base tier:** its heading, then the three facts in three columns from 768 px, 2.5rem apart,
-  one under another on phones. Its bottom corners are rounder (`base`).
-- **Phone latch rhythm:** each latch sits 3.5rem under the fact above it (`latch-rhythm-phone`): on
-  WhatsApp's tier as space, on Split bill's as the shared bill's kept line and its margin.
-- **Off the carrier:** the tools on sites of their own and "Read the source" close the page, 3.5rem
-  under the rails (5rem from 1024 px), side by side and wrapping, with no rule above them.
+- **The halves (index):** two fields, one per tool, Split bill first. On phones they stack full
+  width, edge to edge, with no gap between them. From 768 px they sit side by side in two equal
+  columns, at least 35rem tall (`half-height`), meeting on the seam. The fields run to the screen's
+  edges, but their content lines up with the header's column: each half's outer padding is
+  `max(2rem, calc((100cqw - 72rem) / 2 + 2rem))` (`100cqw` is `main`'s width, a size container, so
+  no scrollbar's width spills over), and its inner padding, beside the seam, is 3rem from 768 px
+  (`half-seam-gutter`) and 4rem from 1024 px (`half-seam-gutter-wide`). Each half is padded 2.5rem at
+  the top (`half-top-phone`, `half-top`) and 3rem at the bottom.
+- **Inside a half:** the symbol (2rem on phones, 2.5rem from 640 px), the name 1 to 1.25rem under
+  it, what the tool does, "What leaves it" and the fact, a line kept for a shared bill, then the
+  start. Side by side, each name keeps two lines of room (`min-height: 1.9em`), and "Split bill" is
+  set as narrow as its longest word, so it breaks "Split / bill" and the rows of the two halves meet
+  across the seam. The start drops to the bottom of the half (`margin-top: auto`) from 768 px.
+- **Above and below the halves:** Flint's name and its line share one baseline, 2.5rem apart, and
+  wrap when they don't fit. Under the halves, "Nothing else leaves" and its three facts, in three
+  columns from 768 px, 2.5rem apart; then, past a hairline, the tools on sites of their own and
+  "Read the source", side by side and wrapping.
 - **What the browser remembers:** read after the page loads from what the browser already keeps,
-  never stored or sent. A bill in progress in this tab lives on the device, so it sits packed in
-  Split bill's tier, in place of what the tool does ("Your bill in progress: 3 people, 5 items, Rp
-  459.250."), and the latch says "Continue your bill". A bill shared from this device is what left
-  that tier, so it is said under what leaves it, with a rose-text action line to it. Both arrive into
-  space already kept for them.
-- **Tool page:** the header (mark left, tool links right), then a place mark (the dot, the title and
-  the introduction, nothing else), lined up with the tool's own column, 1rem under the header on
-  phones and 2rem from 640 px, then the tool 2rem under it. No closing panel, because the running
-  total owns the bottom of the screen.
+  never stored or sent. A bill in progress in this tab lives on the device, so it is said in Split
+  bill's half, in place of what the tool does ("Your bill in progress: 3 people, 5 items, Rp
+  459.250."), and the start says "Continue your bill". A bill shared from this device is what left
+  it, so it is said under what leaves it, with a rose-text action line to it. Both arrive into space
+  already kept for them.
+- **First viewport:** at 1440 by 900 and 1280 by 800, the header, Flint and its line, and both
+  halves with both starts are on the first screen. On a phone, Split bill's start is. At 1024 by 768
+  the starts end at 746 px, on the first screen too; Flint and its line sit tighter from 1024 px
+  (1rem above, 2rem below) to make room.
+- **Tool page:** the header, then a place mark (the dot, the title and the introduction, nothing
+  else), lined up with the tool's own column, 1rem under the header on phones and 2rem from 640 px,
+  then the tool 1.5rem under it. No closing panel, because the running total owns the bottom of the
+  screen.
 - **Split bill from 1024 px:** two columns in the 72rem width. The bill on the left; the split on
   the right in a 26rem column that stays in view (sticky, scrolling on its own when it's taller than
   the screen) and updates as the bill changes. Before any item, the column holds one muted line
@@ -515,24 +515,25 @@ above its name, but it is the tool's picture, not a label.
   2.25rem (`control-compact`) with a fine pointer. Split bill's running total is sticky (not
   fixed) at the bottom below 1024 px, padded for the home indicator, and the page scrolls focused
   fields clear of it (`scroll-padding-bottom: 6rem`).
-- **Breakpoints:** Tailwind's defaults, 640, 768 and 1024 px, plus `pointer-coarse` for touch
+- **Breakpoints:** Tailwind's defaults, 640, 768, 1024 and 1280 px, plus `pointer-coarse` for touch
   sizing.
 
-**The One Carrier Rule.** The index is one carrier: a handle, two rails, and tiers on one module. A
-new tool is a new tier, the same height as the others, with its symbol, its name, what it does,
-what leaves it and its own pink latch. No cards, no rows of entries, no hero over equal tiers.
+**The Two Halves Rule.** The index is the tools, one full-bleed field each, side by side from
+768 px and meeting on one seam. A field holds its tool's symbol, name, what it does, what leaves it
+and its own pink start, and nothing else. No cards inside or around them, no hero over them, no
+column of boxes.
 
 **The Kept Space Rule.** What the browser remembers arrives into a space already kept for it (what
-a tool does keeps two lines, 3.5rem; the shared bill's line keeps 3rem on phones and 2.5rem from
-768 px), so nothing moves under a finger when it appears.
+a tool does keeps two lines, 2.75em; the shared bill's line keeps 3rem, `kept-line`, in both halves),
+so nothing moves under a finger when it appears.
 
 **The Slab Rule, for tools.** A tool page has no slab at either end: it opens with a place mark,
 a dot and the tool's name, and never closes with a panel. On a phone, the tool comes before the
 frame.
 
 **The First Screen Rule.** On a phone, the first field of a tool is visible without scrolling, and
-on the index the first tier's latch is. If a new element would push either down, it belongs lower
-on the page.
+on the index Split bill's start is. If a new element would push either down, it belongs lower on
+the page.
 
 **The Answer In Reach Rule.** Wherever a tool is being filled in, its answer is one glance or one
 tap away: the running total below 1024 px, the split's own column above. Someone opening a shared
@@ -541,11 +542,10 @@ result lands on it, not on the form that made it.
 ## Elevation & Depth
 
 Surfaces are flat. Depth comes from tonal steps (page, then card, then an inset list or note one
-step back down inside the card, then raised inside a panel; on the index, page then tier then rim)
-and from borders. The carrier reads as an object by tone alone: dark mode's tiers step up from the
-page, and the rim, handle and rails step up again. The one shadow is the floating list of the
-searchable select, which genuinely sits above the content and has to be read against it. There are
-no glows, in either theme.
+step back down inside the card, then raised inside a panel) and from borders. The index has no
+depth at all: its halves are two flat fields side by side, told apart by tone. The one shadow is
+the floating list of the searchable select, which genuinely sits above the content and has to be
+read against it. There are no glows, in either theme.
 
 ### Shadow Vocabulary
 
@@ -555,34 +555,28 @@ no glows, in either theme.
 
 ### Named Rules
 
-**The Only Floating Things Cast Shadows Rule.** Tiers, rims, the handle, cards, buttons, chips,
-bands, the road boxes and the running total never get a drop shadow. A control responds by filling
-with the next tonal step, a tier by lifting its rim, a header link by its underline, and an arrow by
-moving 4 px on.
+**The Only Floating Things Cast Shadows Rule.** Halves, cards, buttons, chips, the error page's
+panel, the road boxes and the running total never get a drop shadow. A control responds by filling
+with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.
 
 ## Shapes
 
 Soft and rounded, with the radius growing with the size of the object, on the same scale as
-itrium.id. Buttons, latches, chips and the info button are pills (`full`). Fields, notes and
+itrium.id. Buttons, starts, chips and the info button are pills (`full`). Fields, notes and
 floating lists get 0.5rem (`sm`), and options inside a list a little less (0.375rem). Inset lists,
 receipt lines and the receipt photo get 0.75rem (`md`). Cards and the update notice get 1rem (`lg`).
-Tiers and the error page's panel get 1.5rem (`xl`), and the base tier's bottom corners 2.5rem
-(`base`). The focus outline is 2 px at 4 px radius (`focus`), 3 px away from the element. Headings
-and cards that the page itself moves focus to (`tabindex="-1"`) show none: focus still moves and is
-announced, but a ring there read as a stray selection box, pink in dark mode. Edges are 1 px
-hairlines, notes included.
+The error page's panel gets 1.5rem (`xl`). The focus outline is 2 px at 4 px radius (`focus`), 3 px
+away from the element. Headings and cards that the page itself moves focus to (`tabindex="-1"`)
+show none: focus still moves and is announced, but a ring there read as a stray selection box. Edges
+are 1 px hairlines, notes included.
 
-The carrier has its own shapes. The handle is a thick half-ellipse (`handle`) drawn as a 10px border
-on phones and 14px from 640 px, open at the bottom, its two ends landing exactly on the rails, which
-are the same width (`rail-width-phone`, `rail-width`) with rounded feet. Each tier's rim is an 8px
-top edge (`tier-rim`) that follows the tier's rounded top corners: a rolled lip, a tonal step of the
-tier, not an accent color. The finish review read it that way, so the detector's
-`border-accent-on-rounded` rule is set to ignore `src/routes/+page.svelte`
-(`.impeccable/config.json`).
+The index's halves are the one exception to rounding: square edges (`none`), running to the
+screen's edges and meeting on one vertical line, with no border, rim or rule along the seam. The
+change of tone is the line. The detector runs with no ignores (`.impeccable/config.json`).
 
 Each tool has one symbol, drawn as a 4-unit stroke on a 40-unit square in the text color: a circle
 with its left half filled for Split bill, a speech mark for WhatsApp click-to-chat
-(`src/lib/ToolSymbol.svelte`). 1.25rem in the header, 2.25rem on a tier on phones and 2.75rem from
+(`src/lib/ToolSymbol.svelte`). 1.25rem in the header, 2rem in a half on phones and 2.5rem from
 640 px. It repeats the tool's name, so it's hidden from screen readers.
 
 On a tool page, a place mark's dot is a 1rem filled circle in the text color, and a road out is a 3
@@ -595,8 +589,8 @@ The arrow is drawn, not typed: one SVG, the same as itrium.id's `Arrow.svelte`, 
 round-capped stroke in the current color, sized to the text beside it. A selected chip carries a
 check mark, so selection never rests on color alone.
 
-**The One Arc Rule.** The handle is the index's only arc. Corners are rounded and the rails have
-rounded feet, but no other element on the page sweeps a curve.
+**The Square Seam Rule.** The halves have square edges and meet on one straight line. No arcs,
+rails, rims, dashes or shadows on the index.
 
 ## Components
 
@@ -608,25 +602,26 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   0.5rem gap.
 - **Primary:** pastel pink with graphite text, semibold, and a 1 px `--accent-edge` border: deep
   rose in light mode, where pastel pink alone is 1.5:1 on paper and the pill had no shape, and the
-  fill itself in dark mode and on every tier, where it doesn't show. One per view in a tool: "Read
-  the receipt", "Add to the bill", "Open in WhatsApp" (messaging a number is the job most people
-  come for; "Copy link" beside it is secondary).
-- **Latch:** the primary button at the scale of the tier it latches, 1rem by 1.75rem of padding and
-  bold 1.125rem (`latch`), never wrapping, at the bottom of a tool tier's right column. One per tool
-  tier: "Split a bill" (or "Continue your bill") and "Chat with a number".
+  fill itself in dark mode, where it doesn't show. One per view in a tool: "Read the receipt", "Add
+  to the bill", "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link"
+  beside it is secondary).
+- **Start:** the primary button at the scale of its half, 1rem by 1.75rem of padding and bold
+  1.125rem (`start`), never wrapping, at the bottom of the half from 768 px. One per half: "Split a
+  bill" (or "Continue your bill") and "Chat with a number". Its edge follows the half's ground, not
+  the page's: pink on graphite, deep rose on paper elevated.
 - **Secondary:** transparent, with a 1 px control-edge border and medium weight. Every other
   action beside the primary. On the page itself ("Read the source") it fills with the elevated
   step on hover.
 - **Small:** the secondary's look at 2.25rem tall with 1rem of padding (2.75rem on touch screens).
   For actions inside a card, the running total and the update notice.
-- **Hover:** the primary and the latch fade to 85% opacity. Secondary and small fill with the page
+- **Hover:** the primary and the start fade to 85% opacity. Secondary and small fill with the page
   color.
 - **Disabled:** a not-allowed cursor, with a line beside it saying why (`SPLIT_BILL.missing`).
   Small buttons keep their edge and turn their words muted, which stays above 4.5:1, including
   "Add person" and "Add item" while they're unavailable (`aria-disabled`); fading them to 50% took
   the words down to 3:1. The primary and secondary still fade to 50%.
-- **Focus:** a 2 px outline 3 px away, pastel pink on graphite (and on every tier) and graphite on
-  light backgrounds.
+- **Focus:** a 2 px outline 3 px away, pastel pink on graphite and graphite on light backgrounds,
+  by the ground the button sits on (so in Split bill's half, the inverse of the page's).
 - **Text actions:** small actions that aren't the point, such as "Everyone", "Nobody" and
   "Remove", are muted, underlined 4 px below the text, and turn to the text color on hover. They
   keep the touch target height.
@@ -680,46 +675,41 @@ nothing to say why ("uk" in "Luksemburg").
   radius (`md`), divided by hairlines. A receipt line we couldn't check takes a pink edge and a
   "Check this" mark with an icon, not just the color.
 
-### The Rantang (signature, the index)
+### Two halves (signature, the index)
 
-The index as a stacked enamel food carrier: the tools are latched tiers in one frame that you carry,
-and nothing leaves a tier unless you open it. It replaced the Device Map (#71), which replaced the
-line-item strip (#70); the owner turned both down as receipt-like. It shipped after the finish
-review's two rounds of fixes.
+The index as the two tools, split edge to edge: one half of the screen each, with Flint's name
+above and the facts below (`src/routes/+page.svelte`). It replaced the Rantang (#73), a stacked food
+carrier the owner found still "a stack of boxes", whose metaphor got in the way; before that the
+Device Map (#71) and the line-item strip (#70), both turned down as receipt-like.
 
-- **Handle:** the header on the index, drawn as a thick arc in the frame color across the top, with
-  Flint's mark and the two tool links centred under it. On phones the name beside the mark is left
-  to screen readers; from 640 px it shows, underlined as the current page.
-- **Rails:** two upright bars in the frame color, continuing the handle's ends down both sides,
-  2px off the tiers, with rounded feet 0.75rem below the base tier. Decoration, hidden from screen
-  readers.
-- **Tier:** graphite enamel in both themes (`.enamel`, `--tier`), 1.5rem corners, with the rim along
-  its top. Nothing on it is a card: no border, no fill change, no shadow.
-- **Rim:** an 8px top edge in `--tier-rim`, a step lighter than the tier. When a link on the tier,
-  its latch, is hovered or focused, the rim lifts 4px (300ms, easing out), half the seam, so the seam
-  still shows, as a latch lifts a lid. With reduced motion it stays put. It holds nothing, so
-  nothing moves under a finger.
-- **Lid:** the first tier: Flint in lid-name type and the lid line. Its rim never lifts.
-- **Tool tier:** the tool's symbol, its name in tier-name type (the section's heading), what it does
-  in tier-line type; past the divider, "What leaves it" in leaves-heading type, the fact in tier-line
-  type, and the latch. On Split bill's tier, a line kept between the fact and the latch holds a bill
-  shared from this device, with an action line to it.
-- **Base tier:** "Nothing else leaves" in base-heading type, then three facts: what you type, your
-  bill in progress and your theme stay on this device; no cookies, no analytics, no trackers; with
-  no connection, both tools still open.
-- **Ceiling notes, not fixes:** in dark mode the carrier reads gray on gray (graphite raised on
-  graphite, with a lighter frame); and the carrier could take more hardware, such as brackets
-  where the rails meet the tiers, or a foot under the base. Both are open, not rules.
+- **Split bill's half:** the inverse of the page (`.inverse-field`): graphite with dark mode's
+  colors on a light page, paper elevated with light mode's colors on a dark page.
+- **WhatsApp click-to-chat's half:** paper elevated on a light page, graphite surface on a dark
+  page, with the page's own colors.
+- **Contents, top to bottom:** the tool's symbol; its name in tool-name type (the section's
+  heading); what it does in lead-line type, or the bill in progress; "What leaves it" in
+  leaves-heading type and the fact in fact type; a line kept for a bill shared from this device,
+  with an action line to it (empty in WhatsApp's half, which keeps the same space); and the start.
+- **Under the halves:** "Nothing else leaves" in stays-heading type, then three facts: what you
+  type, your bill in progress and your theme stay on this device; no cookies, no analytics, no
+  trackers; with no connection, both tools still open.
+- **Motion:** none of its own. The starts fade on hover like any primary button, and the shared
+  bill's action line nudges its arrow.
 
-**The Pinned Fact Rule.** What leaves a tool is said on that tool's tier, beside its latch, before
-anyone presses it. What never leaves is said once, on the base. Never collect them into a legend or
-a list apart from the tools they concern.
+**The Pinned Fact Rule.** What leaves a tool is said in that tool's half, above its start, before
+anyone presses it. What never leaves is said once, under the halves. Never collect them into a
+legend or a list apart from the tools they concern.
+
+**The Peer Rule.** The two halves are equal: the same type, the same rhythm, the same size of start.
+Neither tool is a hero over the other; the inverse field gives Split bill the stronger tone only so
+the seam shows, not to rank it.
 
 ### Road out (on a tool page)
 
 Each tool's one way out of the device, drawn under the control that takes it, saying the same fact
-as "What leaves it" on the tool's tier (`src/lib/RoadOut.svelte`, words from `ROADS_OUT`). It is
-the Device Map's road, kept on the tool pages until the owner decides whether they take the Rantang.
+as "What leaves it" in the tool's half on the index (`src/lib/RoadOut.svelte`, words from
+`ROADS_OUT`). It is the Device Map's road, kept on the tool pages as they are; whether they follow
+the index is the owner's open decision.
 
 - **Place:** indented 1.5rem from the controls (`road-out-indent`), with about 1.5rem before the
   next control, so it reads as a note on the control, not as another button.
@@ -917,34 +907,36 @@ most 36rem wide, muted, or in the text color at medium weight in a friend's view
 It lines up with the tool's column: 42rem for Split bill (72rem from 1024 px, where the split has
 its own column) and 36rem for WhatsApp click-to-chat. No band, no fill and nothing above the name.
 Tool pages had a title band until the owner chose to carry the Device Map onto them (2026-11-19).
-The index has since become the Rantang; the place mark stays on the tool pages until the owner
-decides whether they take the Rantang too.
+The index has moved on twice since; the place mark stays on the tool pages until the owner decides
+whether they follow it.
 
 The `.band` panel remains only on the error page, a step off the page in either theme: graphite
-surface in dark mode (its cards step up to graphite raised), paper elevated in light mode, both
-taken from the palette at the root (`--band-bg`, `--band-raised`), since a band can't read
-`--surface` while redefining it. Rounded 1.5rem, inset and wider than the content. It holds the
-heading in display type and a ruled list of where to go instead, each row with the arrow.
+surface in dark mode (what steps up inside it is graphite raised, divided by graphite raised
+border), paper elevated in light mode, both taken from the palette at the root (`--band-bg`,
+`--band-raised`), since a band can't read `--surface` while redefining it. Rounded 1.5rem, 72rem
+wide and inset from the viewport. It holds the heading in display type and a ruled list of where to
+go instead, each row with the arrow.
 
 ### Navigation
 
-The header is the same on every page: Flint's mark (and name), then the tools, so a person can go
-from one tool to the other in one press. On the index it is the Rantang's handle, centred under the
-arc; on a tool page the mark sits left and the links right, with no arc.
+The header is the same plain row on every page, in the 72rem column: Flint's mark and name on the
+left, the tools on the right, so a person can go from one tool to the other in one press.
 
+- **Mark:** the same tile in either theme; on a page as dark as the tile, the one with a faint rim.
+  Beside it "Flint", bold, underlined on the index (`aria-current="page"`). Below 23rem the name is
+  left to screen readers and the tools keep the room; the mark still links home.
 - **Tool links:** each tool's symbol (1.25rem) and its short name ("Split bill", "WhatsApp") in nav
   type, 0.5rem apart, at least 2.75rem tall, in a list named "Tools". The page you're on is
   underlined (2 px, 6 px below the text, `aria-current="page"`); the others underline on hover.
-- **Mark:** the same tile in either theme; on a page as dark as the tile, the one with a faint rim.
-  It is the way back to the index (`aria-current="page"` there).
-- **Footer:** muted small text. On the left, Itrium's lockup, leading to itrium.id and named "Flint
-  is made by Itrium", in the version for the theme in use; the year; the no-tracking promise
-  (except on the index, where the base tier says it; only Split bill's mentions sharing a bill,
-  the one thing that reaches us); and the theme choice. On the right, "About Itrium" (moved here
-  from the header, which holds the tools), the email address, GitHub, and the site's source (left
-  out on the index, where "Read the source" is right above). The theme choice is one control: three
-  options in a pill-edged group, the chosen one filled in the text color, so the choice shows by
-  more than color. The footer's links stay small text but are 2.75rem tall on touch screens.
+- **Footer:** muted small text, in the same 72rem column. On the left, Itrium's lockup, leading to
+  itrium.id and named "Flint is made by Itrium", in the version for the theme in use; the year; the
+  no-tracking promise (except on the index, where the facts under the halves say it; only Split
+  bill's mentions sharing a bill, the one thing that reaches us); and the theme choice. On the
+  right, "About Itrium" (here rather than in the header, which holds the tools), the email address,
+  GitHub, and the site's source (left out on the index, where "Read the source" is right above). The
+  theme choice is one control: three options in a pill-edged group, the chosen one filled in the
+  text color, so the choice shows by more than color. The footer's links stay small text but are
+  2.75rem tall on touch screens.
 - **Skip link:** pink, off screen, dropping in from the top on focus.
 
 ### Update notice
@@ -967,14 +959,17 @@ it's announced once.
 - **Do** take tokens, radii, button shapes, the arrow and type roles from itrium.id's DESIGN.md
   before inventing anything. A difference between the two sites needs a reason a tool has and a
   page doesn't.
-- **Do** add to the index as the Rantang: a new tool is a new tier on the same 18.5rem module, 8px
-  from the next, with its symbol, its name, what it does, what leaves it, and its own pink latch.
-- **Do** keep the enamel graphite in both themes, with dark mode's text, muted, focus and control
-  edge colors inside it (`.enamel`).
+- **Do** add to the index as a half: a new tool is a new full-bleed field with square edges, its
+  symbol, its name, what it does, what leaves it, and its own pink start, its content on the
+  header's 72rem column.
+- **Do** keep Split bill's half the inverse of the page in both themes, with every color inside it
+  from the other theme (`.inverse-field`), and check each pairing in it when one is added.
+- **Do** keep the tools' names a step above Flint's at every width, and each name two lines tall
+  side by side, so the rows meet across the seam.
 - **Do** give every tool one symbol and use it wherever the tool is named in the frame: the header
-  and its tier.
-- **Do** keep the rim's lift to 4px, motion-safe only, on a tier whose latch is hovered or focused.
-- **Do** keep a tool's first field, and the index's first latch, on the first phone screen.
+  and its half.
+- **Do** keep a tool's first field, and Split bill's start on the index, on the first phone screen,
+  and both starts on the first screen at 1280 by 800 and 1440 by 900.
 - **Do** give every field, button and chip a `--control-border` edge and a touch target at least
   2.75rem tall on touch screens.
 - **Do** show every state in two ways: a check mark with the pink fill, words with the pink edge,
@@ -983,32 +978,36 @@ it's announced once.
 - **Do** design and check every new pairing in light and dark, on every surface it sits on.
 - **Do** use the drawn arrow wherever a link points onward.
 - **Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`:
-  page cross-fades, the rim's lift, the 4 px arrow nudge, and the loading spinner. Nothing rises or
-  reveals as it scrolls.
+  page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing rises or reveals as it
+  scrolls.
 - **Do** open a tool page with its place mark, and hang the tool's road out from the control that
-  takes it, saying the same fact as its tier on the index.
+  takes it, saying the same fact as its half on the index.
 - **Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`,
   never raw hex values in markup.
 
 ### Don't:
 
 - **Don't** make the index read as a receipt, on any cue: no dashed lines, no gray-on-paper
-  monochrome, no narrow stacked column, no rows of entries, ledgers, departure boards or maps. The
-  owner turned down the line-item strip (#70) and the Device Map (#71) for exactly this.
-- **Don't** put cards, a legend, a hero over equal tiers, or a second arc on the index.
+  monochrome, no narrow column, no rows of entries. The owner turned down the line-item strip (#70)
+  and the Device Map (#71) for exactly this.
+- **Don't** give the index a metaphor: no map, no food carrier, no object for the tools to sit in.
+  The owner turned down the Device Map (#71) and the Rantang (#73) for this.
+- **Don't** draw the index as a column of stacked rounded boxes, or put cards, a legend or a hero
+  over the halves.
+- **Don't** round the halves, inset them from the screen's edges, or draw an arc, rail, rim, dash or
+  shadow on the index.
 - **Don't** use pink as decoration, or give pink two meanings in one view: a tool has one pink
-  button, and the index's two latches are both the primary action, one on each tool's tier. The
-  handle, rails, rims and symbols are never pink.
-- **Don't** add a structural gray outside the palette. Its two exceptions, the band's raised border (#4f4f4f)
-  and the enamel's rim and frame in dark mode (#575757), are each a structural step above a palette
-  gray; a new one needs the same reason, and a color change otherwise belongs in
-  `@itrium/palettes`.
+  button, and the index's two starts are both the primary action, one in each half. The seam, the
+  fields and the symbols are never pink.
+- **Don't** add a structural gray outside the palette. Its one exception, the error panel's raised
+  border in dark mode (#4f4f4f), is a structural step above a palette gray; a new one needs the same
+  reason, and a color change otherwise belongs in `@itrium/palettes`.
 - **Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.
 - **Don't** type arrows or chevrons as characters.
-- **Don't** give tiers, cards, buttons, chips, bands or the running total a drop shadow.
+- **Don't** give halves, cards, buttons, chips, the error panel or the running total a drop shadow.
 - **Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.
-- **Don't** put pastel pink text or lines on a light background, or rose text and deep-rose lines
-  inside a tier.
+- **Don't** put pastel pink text or lines on a light background, including Split bill's half on a
+  dark page; or rose text and deep-rose lines on graphite, including that half on a light page.
 - **Don't** use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.
 - **Don't** add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off
   a phone screen.
