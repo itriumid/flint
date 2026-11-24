@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="48 38 416 435" width="416" height="435">
+  <g transform="translate(256 256) scale(1.36) translate(-256 -256)"><g transform="translate(-8.0 -5.0)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 150 140 L 262 118 L 330 160 L 384 150 L 400 250 L 368 330 L 390 382 L 250 404 L 170 370 L 128 280 L 146 220 Z" fill="#FEBFCA" stroke="#FEBFCA" stroke-width="30"/>
+    <path d="M 230 186 Q 252 236 214 270 M 300 214 Q 320 290 252 330" fill="none" stroke="#2B2B2B" stroke-width="36"/>
+  </g></g>
+</svg>

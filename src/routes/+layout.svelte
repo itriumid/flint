@@ -4,8 +4,7 @@
 	import { onNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import flintMark from '#lib/flint-mark.svg';
-	import flintMarkOnDark from '#lib/flint-mark-on-dark.svg';
+	import flintMark from '#lib/flint-mark-compact.svg';
 	import lockupOnDark from '#lib/itrium-lockup-on-dark.svg';
 	import lockupOnLight from '#lib/itrium-lockup-on-light.svg';
 	import ThemeChoice from '#lib/ThemeChoice.svelte';
@@ -96,15 +95,14 @@
 <header
 	class="mx-auto flex max-w-6xl items-center justify-between gap-x-4 px-5 py-6 sm:gap-x-6 sm:px-8"
 >
-	<!-- The mark is the same tile in either theme; on a page as dark as the tile, the one with a
-	     faint rim keeps its edge. -->
+	<!-- The mark has no tile, so the same file sits on either theme: the pink stone with its
+	     ripples cut in. At this size it's the compact one, its ripples heavier. -->
 	<a
 		href={resolve('/')}
 		aria-current={home ? 'page' : undefined}
 		class="flex shrink-0 items-center gap-2.5 text-xl font-bold tracking-tight"
 	>
-		<img src={flintMark} alt="" width="40" height="40" class="size-10 dark:hidden" />
-		<img src={flintMarkOnDark} alt="" width="40" height="40" class="hidden size-10 dark:block" />
+		<img src={flintMark} alt="" width="34" height="36" class="h-9 w-auto" />
 		<!-- On the narrowest phones the name gives way to the tools; the mark still says Flint. -->
 		<span class="max-[23rem]:sr-only {home ? 'underline decoration-2 underline-offset-[6px]' : ''}"
 			>{NAME}</span
