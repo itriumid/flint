@@ -14,8 +14,8 @@
 	const { title, introduction, width, essential = false }: Props = $props();
 </script>
 
-<!-- The top of a tool page, drawn as a place on the index's map: the place's dot beside the tool's
-     name, and what the tool does under it. No band and nothing above the title, so the tool's first
+<!-- The top of a tool page, drawn as a place on a map (the index's look before the two halves):
+     a dot beside the tool's name, and what the tool does under it. No band and nothing above the title, so the tool's first
      field stays on a phone's first screen. -->
 <section class="px-5 sm:px-8">
 	<div class="mx-auto {width} pt-4 pb-2 sm:pt-8">

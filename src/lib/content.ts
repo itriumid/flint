@@ -50,11 +50,11 @@ export const UPDATE = {
 /** The header's links between the tools, on every page. */
 export const NAV = { label: 'Tools', splitBill: 'Split bill', whatsapp: 'WhatsApp' };
 
-// The index as a rantang, a stacked food carrier: each tool a latched tier, and what leaves a tier
-// said on it, before anyone presses its start. The base tier says what never leaves.
+// The index as two halves, one per tool: what each does and what leaves it, said before anyone
+// presses its start. Under the halves, what never leaves.
 export const INDEX = {
 	intro: 'Free tools that work on your device and keep what you type there.',
-	/** The pink starts, one on each tool's tier: equal, since the tools are peers. */
+	/** The pink starts, one in each tool's half: equal, since the tools are peers. */
 	starts: { splitBill: 'Split a bill', whatsapp: 'Chat with a number' },
 	leavesHeading: 'What leaves it',
 	leaves: {
@@ -93,7 +93,7 @@ export const WHATSAPP = {
 	description:
 		'Make a WhatsApp click-to-chat link from any phone number, with a message already typed if you like. Spaces and symbols are removed for you.',
 	introduction: 'Paste a phone number as it is, and get a link that opens a chat with it.',
-	/** On the index, what the tool does, on its tier. */
+	/** On the index, what the tool does, in its half. */
 	line: 'Message a number without saving it.',
 	hint: 'A number that starts with + or 00 already has its country, so we use it as it is.',
 	/**
@@ -162,7 +162,7 @@ export const SPLIT_BILL = {
 		'Split a bill fairly: add the people and the items, tag who had what, add tax and service, and share the result as a short link. Shared bills are encrypted, and only people with the link can open them.',
 	introduction:
 		'Tag who had what, and we work out a fair share for each person, tax and service included.',
-	/** On the index, what the tool does, on its tier. */
+	/** On the index, what the tool does, in its half. */
 	line: 'Tag who had what; tax and service included.',
 	privacy:
 		"A shared bill waits on our server for 30 days after it was last shared, encrypted with a key that is only in the link, so we can't read it. Whoever shared it can update it or delete it, on the same device.",

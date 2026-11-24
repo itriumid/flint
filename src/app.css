@@ -20,25 +20,11 @@
 	--accent-text: #febfca;
 }
 
-/*
- * The index's rantang: graphite enamel in both themes. On a dark page the tiers step up to the
- * palette's elevated gray so they still read as an object; the frame (handle and rails) and the
- * rim along each tier's top edge are a step above the tier.
- */
-:root {
-	--tier: #3e3e3e;
-	--tier-rim: #575757;
-	--frame: #575757;
-}
-
 /* Light: the device's setting, unless Dark was chosen in the footer. */
 @media (prefers-color-scheme: light) {
 	:root:not([data-theme='dark']) {
 		--control-border: #767676;
 		--accent-text: #a84d60;
-		--tier: #2b2b2b;
-		--tier-rim: #474747;
-		--frame: #2b2b2b;
 	}
 }
 
@@ -46,20 +32,50 @@
 :root[data-theme='light'] {
 	--control-border: #767676;
 	--accent-text: #a84d60;
-	--tier: #2b2b2b;
-	--tier-rim: #474747;
-	--frame: #2b2b2b;
 }
 
 /*
- * Inside a tier: dark mode's colors whatever the theme, since the enamel is graphite either way.
- * On the lighter tier of dark mode (#3E3E3E): text 12.5:1, muted 4.6:1, pink 8.0:1, the control
- * edge 3.1:1, the pink focus outline 8.0:1.
+ * The index's Split bill half: the inverse of the page, so the two halves always meet on a strong
+ * line. On a dark page it is the light theme's elevated paper (#F1F1F1: text 12.5:1, muted 4.7:1,
+ * rose text 4.8:1, control edge 4.0:1); on a light page it is graphite (text 13.0:1, muted 6.2:1,
+ * pink 9.4:1, control edge 3.7:1, the pink focus outline 9.4:1).
  */
-.enamel {
-	--bg: var(--tier);
-	--surface: var(--tier);
-	--border: var(--tier-rim);
+.inverse-field {
+	--bg: #f1f1f1;
+	--surface: #ffffff;
+	--border: #e4e4e4;
+	--text: #2b2b2b;
+	--muted: #6b6b6b;
+	--accent: #febfca;
+	--on-accent: #2b2b2b;
+	--accent-edge: #c46475;
+	--accent-text: #a84d60;
+	--focus: #2b2b2b;
+	--control-border: #767676;
+	background-color: var(--bg);
+	color: var(--text);
+}
+
+@media (prefers-color-scheme: light) {
+	:root:not([data-theme='dark']) .inverse-field {
+		--bg: #2b2b2b;
+		--surface: #2b2b2b;
+		--border: #474747;
+		--text: #f2f2f2;
+		--muted: #aaaaaa;
+		--accent: #febfca;
+		--on-accent: #2b2b2b;
+		--accent-edge: #febfca;
+		--accent-text: #febfca;
+		--focus: #febfca;
+		--control-border: #8a8a8a;
+	}
+}
+
+:root[data-theme='light'] .inverse-field {
+	--bg: #2b2b2b;
+	--surface: #2b2b2b;
+	--border: #474747;
 	--text: #f2f2f2;
 	--muted: #aaaaaa;
 	--accent: #febfca;
@@ -68,8 +84,6 @@
 	--accent-text: #febfca;
 	--focus: #febfca;
 	--control-border: #8a8a8a;
-	background-color: var(--bg);
-	color: var(--text);
 }
 
 /* `dark:` follows the theme in use, not only the device: dark by the device's setting unless Light
@@ -98,9 +112,6 @@
 	--color-accent-edge: var(--accent-edge);
 	--color-accent-text: var(--accent-text);
 	--color-control-border: var(--control-border);
-	--color-tier: var(--tier);
-	--color-tier-rim: var(--tier-rim);
-	--color-frame: var(--frame);
 }
 
 html {
@@ -164,7 +175,7 @@ html {
 }
 
 /*
- * A band: the title at the top of a tool page, and the error page. It follows the theme, a
+ * A band: the error page's panel. It follows the theme, a
  * step off the page either way. In light mode it steps down to the palette's elevated off-white
  * (#F1F1F1), where every text and line color still passes: text 12.5:1, muted 4.7:1, rose text
  * 4.8:1, control edge 4.0:1, focus 12.5:1. It was graphite in both themes, like itrium.id's, until

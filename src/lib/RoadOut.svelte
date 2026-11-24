@@ -1,6 +1,6 @@
 <script lang="ts">
 	interface Props {
-		/** What leaves, said plainly: the same words as the road on the index's map. */
+		/** What leaves, said plainly: the same words as the index says under "What leaves it". */
 		label: string;
 		/** Where it goes. */
 		to: string;
@@ -9,7 +9,7 @@
 	const { label, to }: Props = $props();
 </script>
 
-<!-- A road out of the device, drawn as on the index's map, hanging from the control that takes it:
+<!-- A road out of the device, drawn as a road on a map, hanging from the control that takes it:
      a dashed line starting at the control's bottom edge, labelled with what it carries, to where it
      goes. Indented from the controls and with room before the next one, so it reads as a note on
      the control, not as another button. The line is a drawing; the label and the destination are
