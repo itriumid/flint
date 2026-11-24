@@ -6,8 +6,7 @@
 	import Check from '#lib/Check.svelte';
 	import Step from '#lib/Step.svelte';
 	import Seo from '#lib/Seo.svelte';
-	import RoadOut from '#lib/RoadOut.svelte';
-	import PlaceMark from '#lib/PlaceMark.svelte';
+	import ToolTitle from '#lib/ToolTitle.svelte';
 	import Toggletip from '#lib/Toggletip.svelte';
 	import {
 		readReceipt,
@@ -15,7 +14,7 @@
 		type ScannedAdjustment,
 		type ScannedReceipt
 	} from '#lib/receipt.js';
-	import { ROADS_OUT, SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
+	import { SITE_URL, SPLIT_BILL, TITLE_SUFFIX } from '#lib/content.js';
 	import { CURRENCIES, searchNames } from '#lib/countries.js';
 	import {
 		DEFAULT_CURRENCY_CODE,
@@ -64,8 +63,6 @@
 	import { clearDraft, draftToOpen, loadDraft, saveDraft } from '#lib/draft.js';
 	import {
 		besideField,
-		card,
-		cardHeading,
 		checkRow,
 		checkbox,
 		field,
@@ -182,8 +179,38 @@
 	 * form it was in closed, the row it was on removed), and focus left on nothing falls back to
 	 * the top of the page, for a keyboard or a screen reader in the middle of the bill.
 	 */
+	/* ─── Steps ─── */
+	// Below 1024px the bill is made in three steps, one on screen at a time: who's here, what they
+	// had, and everyone's share. From 1024px everything fits, the split in a column of its own, so
+	// the steps only show and hide; nothing is ever taken off the page, and the steps can be taken
+	// in any order. Each part of the page says its step (data-step).
+	type BillStep = 1 | 2 | 3;
+	let step = $state<BillStep>(1);
+	const stepHeadings: Record<BillStep, string> = {
+		1: 'people-heading',
+		2: 'bill-heading',
+		3: 'split-heading'
+	};
+
+	/** Goes to a step: its first heading takes focus, and the page goes back to its top. */
+	async function goToStep(next: BillStep) {
+		step = next;
+		await tick();
+		const heading =
+			document.getElementById(stepHeadings[next]) ?? document.getElementById('split-empty');
+		heading?.focus({ preventScroll: true });
+		window.scrollTo({ top: 0, behavior: 'instant' });
+	}
+
 	async function focusAfter(id: string, scroll: boolean | 'nearest' = false) {
 		await tick();
+		// Whatever focus goes to may be in another step: that step comes on screen first.
+		const holder = document.getElementById(id)?.closest<HTMLElement>('[data-step]');
+		const holds = Number(holder?.dataset.step) as BillStep;
+		if (holder && holds !== step) {
+			step = holds;
+			await tick();
+		}
 		const element = document.getElementById(id);
 		element?.focus({ preventScroll: !scroll });
 		if (scroll) element?.scrollIntoView({ block: scroll === 'nearest' ? 'nearest' : 'center' });
@@ -267,8 +294,15 @@
 	const removedAt = $derived(
 		removal?.from === 'items' && !removal.cleared ? (removal.index ?? -1) : -1
 	);
+	/**
+	 * A part of the bill: no card around it, a dividing line between it and the next. Below 1024px
+	 * People is a step on its own, so it has neither the line nor the space above it there, and the
+	 * receipt button leads straight into the items, with no line between.
+	 */
+	const part = 'py-8 first:pt-0 lg:py-10';
+	const partHeading = 'mb-4 text-2xl font-extrabold tracking-[-0.03em]';
 	const removedLine =
-		'flex min-h-11 flex-wrap items-center gap-x-3 rounded-xl border border-dashed border-border px-3 text-sm sm:px-4';
+		'flex min-h-11 flex-wrap items-center gap-x-3 rounded-lg bg-elevated px-3 text-sm sm:px-4 dark:bg-surface';
 
 	function undoable(from: Removal['from'], id: string, name: string, change: () => void) {
 		const before = {
@@ -957,6 +991,7 @@
 	/** Whoever opens a shared bill came for their share: take them to it. */
 	async function landOnSplit() {
 		viewing = !deletable && items.length > 0;
+		if (items.length) step = 3;
 		await tick();
 		if (!items.length) return;
 		// Seen on its own, the split is already at the top, under the line that says what this is.
@@ -967,6 +1002,7 @@
 	/** The editor, for someone who opened a shared bill and wants to change it. */
 	async function makeChanges() {
 		viewing = false;
+		step = 2;
 		await tick();
 		const heading = document.getElementById('bill-heading');
 		heading?.focus({ preventScroll: true });
@@ -994,6 +1030,8 @@
 			return;
 		}
 		open(draft);
+		// A bill in progress picks up where it most likely was: past the people, once there are some.
+		step = people.length ? 2 : 1;
 		if (code) deletable = sharedHere(code);
 		// The draft was this tab's own; the link it came with still says it didn't open.
 		if (isBrokenLink(location.hash)) status = { kind: 'broken' };
@@ -1145,21 +1183,9 @@
 		void focusAfter(`item-${unsharedItem}`, true);
 	}
 
-	// While the split itself is on screen, the bar that points to it has nothing to add: it steps
-	// aside, keeping its space, so the end of the page doesn't move.
-	let splitCard: HTMLElement | undefined = $state();
-	let splitInView = $state(false);
-	$effect(() => {
-		if (!splitCard) {
-			splitInView = false;
-			return;
-		}
-		const watcher = new IntersectionObserver(([entry]) => (splitInView = entry.isIntersecting));
-		watcher.observe(splitCard);
-		return () => watcher.disconnect();
-	});
-
-	function showSplit() {
+	async function showSplit() {
+		step = 3;
+		await tick();
 		const heading = document.getElementById('split-heading');
 		heading?.focus({ preventScroll: true });
 		// From 1024px the split has a column of its own and is already in view: scrolling would only
@@ -1211,10 +1237,11 @@
 	function confirmClear() {
 		clearEverything();
 		status = { kind: 'cleared' };
-		void focusAfter('bill-heading', true);
+		void focusAfter('people-heading', true);
 	}
 
 	function clearEverything() {
+		step = 1;
 		people = [];
 		items = [];
 		taxInput = DEFAULT_TAX_PERCENTAGE;
@@ -1261,17 +1288,43 @@
 	}}
 />
 
-<!-- For a friend who opened a link, the place mark says what this bill is, not how to make one. -->
-<PlaceMark
+<!-- For a friend who opened a link, the title says what this bill is, not how to make one. -->
+<ToolTitle
+	tool="split-bill"
 	title={SPLIT_BILL.name}
 	introduction={viewing
-		? SPLIT_BILL.sharedWithYou.placeMark(money(totals.grandTotal), payerName)
+		? SPLIT_BILL.sharedWithYou.introduction(money(totals.grandTotal), payerName)
 		: SPLIT_BILL.introduction}
 	essential={viewing}
 	width="max-w-2xl lg:max-w-6xl"
 />
 
 <section class="mx-auto max-w-2xl px-5 pt-6 pb-20 sm:px-8 lg:max-w-6xl">
+	<!-- The three steps, below 1024px: each a press away, in any order. A friend reading a shared bill
+	     sees only its split, so has none. -->
+	{#if !viewing}
+		<nav aria-label={SPLIT_BILL.steps.label} class="-mt-2 mb-6 lg:hidden">
+			<ol
+				class="flex justify-between gap-1 border-b border-border text-[0.8125rem] font-semibold whitespace-nowrap min-[400px]:text-sm"
+			>
+				{#each SPLIT_BILL.steps.names as name, index (name)}
+					{@const number = (index + 1) as BillStep}
+					<li>
+						<button
+							type="button"
+							onclick={() => goToStep(number)}
+							aria-current={step === number ? 'step' : undefined}
+							class="-mb-px flex min-h-11 items-center border-b-[3px] px-1 {step === number
+								? 'border-text text-text'
+								: 'border-transparent text-muted hover:text-text'}"
+						>
+							{name}
+						</button>
+					</li>
+				{/each}
+			</ol>
+		</nav>
+	{/if}
 	<div class="mb-6 {openedFromLink ? 'min-h-6' : 'empty:mb-0'}" role="status">
 		{#if status?.kind === 'opening'}
 			<p class="flex items-center gap-2">
@@ -1338,18 +1391,14 @@
 		aria-busy={opening}
 		inert={opening}
 	>
-		<div class="space-y-6 {viewing ? 'hidden' : ''}">
+		<div class="divide-y divide-border {viewing ? 'hidden' : ''}">
 			<!-- The bill: what's decided before any price is typed -->
-			<section class={card} aria-labelledby="bill-heading">
-				<h2 id="bill-heading" tabindex="-1" class={cardHeading}>The bill</h2>
-				<label for="currency" class={label}>Currency</label>
-				<SearchableSelect
-					id="currency"
-					choices={currencyChoices}
-					value={currencyCode}
-					onchange={changeCurrency}
-					placeholder="Type a currency or a country"
-				/>
+			<section
+				data-step="2"
+				class="{part} {step !== 2 ? 'max-lg:hidden' : ''} max-lg:border-b-0 max-lg:pb-2"
+				aria-labelledby="bill-heading"
+			>
+				<h2 id="bill-heading" tabindex="-1" class={partHeading}>The bill</h2>
 
 				{#if !scanning}
 					<!-- Until there's something on the bill, reading a receipt is the way to start: the pink
@@ -1645,8 +1694,12 @@
 			</section>
 
 			<!-- People -->
-			<section class={card} aria-labelledby="people-heading">
-				<h2 id="people-heading" class={cardHeading}>
+			<section
+				data-step="1"
+				class="{part} {step !== 1 ? 'max-lg:hidden' : ''} max-lg:border-b-0 max-lg:pt-0"
+				aria-labelledby="people-heading"
+			>
+				<h2 id="people-heading" tabindex="-1" class={partHeading}>
 					People {#if people.length}<span class="font-normal text-muted">({people.length})</span
 						>{/if}
 				</h2>
@@ -1795,7 +1848,11 @@
 			</section>
 
 			<!-- Items -->
-			<section class={card} aria-labelledby="items-heading">
+			<section
+				data-step="2"
+				class="{part} {step !== 2 ? 'max-lg:hidden' : ''}"
+				aria-labelledby="items-heading"
+			>
 				<!-- After a removal or a "Nobody" in this card: what changed, and the way back, shown where
 				     it happened. Scroll margins keep it clear of the bar at the bottom of a phone. -->
 				{#snippet undoItems()}
@@ -1809,24 +1866,24 @@
 							>{SPLIT_BILL.undo}</button
 						>{/if}
 				{/snippet}
-				<h2 id="items-heading" tabindex="-1" class={cardHeading}>
+				<h2 id="items-heading" tabindex="-1" class={partHeading}>
 					Items {#if items.length}<span class="font-normal text-muted">({items.length})</span>{/if}
 				</h2>
 
 				{#if items.length}
 					<!-- The list keeps the item being tagged still itself (holdStill), so the browser's own
 					     scroll anchoring is off here: the two would move it twice. -->
-					<ul class="mt-5 space-y-3 [overflow-anchor:none]">
+					<ul class="mt-2 divide-y divide-border [overflow-anchor:none]">
 						{#each items as item, position (item.id)}
 							{#if removedAt === position}<li class={removedLine}>{@render undoItems()}</li>{/if}
 							<li
 								id="item-{item.id}"
 								tabindex="-1"
 								onclickcapture={() => touchItem(item.id)}
-								class="rounded-xl border bg-bg p-3 transition-colors duration-500 sm:p-4 {pointedAt ===
+								class="py-4 outline-2 outline-offset-4 transition-colors duration-500 {pointedAt ===
 								item.id
-									? 'border-accent-edge'
-									: 'border-border'}"
+									? 'outline-accent-edge'
+									: 'outline-transparent'}"
 							>
 								{#if editing?.id === item.id}
 									<form
@@ -2205,8 +2262,12 @@
 			</section>
 
 			<!-- Charges and adjustments, in the order a receipt prints them: after the items -->
-			<section class={card} aria-labelledby="charges-heading">
-				<h2 id="charges-heading" class={cardHeading}>Charges and adjustments</h2>
+			<section
+				data-step="2"
+				class="{part} {step !== 2 ? 'max-lg:hidden' : ''}"
+				aria-labelledby="charges-heading"
+			>
+				<h2 id="charges-heading" class={partHeading}>Charges and adjustments</h2>
 				<div class="grid grid-cols-2 gap-4">
 					<div>
 						<label for="tax" class={label}>Tax (%)</label>
@@ -2479,11 +2540,26 @@
 						</form>
 					</div>
 				</details>
+				<!-- The currency, last: it's set once, if at all, and the receipt and the items are what
+				     people come to this step for. -->
+				<div class="mt-6">
+					<label for="currency" class={label}>Currency</label>
+					<SearchableSelect
+						id="currency"
+						choices={currencyChoices}
+						value={currencyCode}
+						onchange={changeCurrency}
+						placeholder="Type a currency or a country"
+					/>
+				</div>
 			</section>
 		</div>
 
 		<div
-			class="space-y-6 lg:sticky lg:top-6 lg:-m-2 lg:max-h-[calc(100dvh-3rem)] lg:overflow-y-auto lg:overscroll-contain lg:p-2"
+			data-step="3"
+			class="space-y-6 {step !== 3 && !viewing
+				? 'max-lg:hidden'
+				: ''} lg:sticky lg:top-6 lg:-m-2 lg:max-h-[calc(100dvh-3rem)] lg:overflow-y-auto lg:overscroll-contain lg:p-2"
 		>
 			<!-- For a friend opening the link: what this is, then straight to the split; changing it
 			     waits under it, so their own row is on a phone's first screen. -->
@@ -2492,8 +2568,8 @@
 			{/if}
 			<!-- The split -->
 			{#if items.length}
-				<section class={card} aria-labelledby="split-heading" bind:this={splitCard}>
-					<h2 id="split-heading" tabindex="-1" class={cardHeading}>The split</h2>
+				<section aria-labelledby="split-heading">
+					<h2 id="split-heading" tabindex="-1" class={partHeading}>The split</h2>
 					<!-- A removal changes the split, so it says so here too, with the way back: on a wide
 					     screen the card it was made in is in the other column. Not a second live region:
 					     the card's own line already announces it. -->
@@ -2519,7 +2595,38 @@
 					{/if}
 
 					{#if people.length}
-						<!-- What each person hands over comes first, and largest: it's what the table asked. -->
+						<!-- Who paid comes first: it decides who hands what to whom in the rows under it. The
+						     bill's maker's choice, so not shown to a friend reading the bill. -->
+						{#if !viewing}
+							<fieldset class="mb-4">
+								<legend class="mb-1 text-sm font-medium">{SPLIT_BILL.split.paidBy}</legend>
+								<div class="flex flex-wrap gap-x-5">
+									<label class={checkRow}>
+										<input
+											type="radio"
+											name="paid-by"
+											checked={!payerName}
+											onchange={() => (paidBy = undefined)}
+											class={checkbox}
+										/>
+										{SPLIT_BILL.split.nobody}
+									</label>
+									{#each people as person (person.id)}
+										<label class="{checkRow} break-all">
+											<input
+												type="radio"
+												name="paid-by"
+												checked={paidBy === person.id}
+												onchange={() => (paidBy = person.id)}
+												class={checkbox}
+											/>
+											{person.name}
+										</label>
+									{/each}
+								</div>
+							</fieldset>
+						{/if}
+						<!-- What each person hands over comes next, and largest: it's what the table asked. -->
 						<ul class="divide-y divide-border" aria-label="What each person owes">
 							{#each settledUp.settlements as settlement, index (settlement.personId)}
 								{@const share = totals.shares[index]}
@@ -2584,7 +2691,9 @@
 											>
 												{@render row()}
 											</summary>
-											<div class="mb-3 rounded-lg bg-bg p-3 text-sm tabular-nums">
+											<div
+												class="mb-3 rounded-lg bg-elevated p-3 text-sm tabular-nums dark:bg-surface"
+											>
 												<dl class="space-y-1">
 													{#each parts as part (part.itemId)}
 														<div class="flex justify-between gap-4">
@@ -2653,38 +2762,9 @@
 							{/each}
 						</ul>
 
-						<!-- Who paid and rounding are the bill's maker's choices: shown as their result in the
-						     rows above, and changed only after "Make changes". -->
+						<!-- Rounding is the bill's maker's choice too: shown as its result in the rows above. -->
 						{#if !viewing}
 							<fieldset class="mt-5">
-								<legend class="mb-1 text-sm font-medium">{SPLIT_BILL.split.paidBy}</legend>
-								<div class="flex flex-wrap gap-x-5">
-									<label class={checkRow}>
-										<input
-											type="radio"
-											name="paid-by"
-											checked={!payerName}
-											onchange={() => (paidBy = undefined)}
-											class={checkbox}
-										/>
-										{SPLIT_BILL.split.nobody}
-									</label>
-									{#each people as person (person.id)}
-										<label class="{checkRow} break-all">
-											<input
-												type="radio"
-												name="paid-by"
-												checked={paidBy === person.id}
-												onchange={() => (paidBy = person.id)}
-												class={checkbox}
-											/>
-											{person.name}
-										</label>
-									{/each}
-								</div>
-							</fieldset>
-
-							<fieldset class="mt-3">
 								<legend class="mb-1 text-sm font-medium">{SPLIT_BILL.split.roundUp}</legend>
 								<div class="flex flex-wrap gap-x-5">
 									<label class={checkRow}>
@@ -2746,12 +2826,18 @@
 								<strong>Not in anyone's share:</strong>
 								{SPLIT_BILL.untagged(unsharedItemNames(bill), money(totals.unshared))}
 								{#if payerName}{SPLIT_BILL.coversForNow(payerName)}{/if}
+								{#if unsharedItem}<button
+										type="button"
+										onclick={showUnshared}
+										class="min-h-9 font-medium underline underline-offset-4 hover:text-accent-text pointer-coarse:min-h-11"
+										>{SPLIT_BILL.sharing.showIt}</button
+									>{/if}
 							{/if}
 						</p>
 					{/if}
 
 					<dl
-						class="mt-5 space-y-2 rounded-xl border border-border bg-bg p-4 text-sm"
+						class="mt-5 space-y-2 border-t border-border pt-4 text-sm"
 						aria-label="How it adds up"
 					>
 						<div class="flex justify-between gap-4">
@@ -2795,7 +2881,7 @@
 					</dl>
 				</section>
 			{:else}
-				<p class="hidden rounded-2xl border border-border p-6 text-sm text-muted lg:block">
+				<p id="split-empty" tabindex="-1" class="text-muted">
 					{SPLIT_BILL.split.empty}
 				</p>
 			{/if}
@@ -2813,23 +2899,8 @@
 			     bill asked for the wrong next step. -->
 			{#if items.length}
 				<div>
-					<!-- Something in nobody's share, said where the bill is about to be sent: the note above the
-					     totals is easy to have scrolled past. -->
-					{#if !viewing && totals.unshared > 0}
-						<p class="mb-3 flex flex-wrap items-center gap-x-3 text-sm">
-							<span class="flex gap-2"
-								><Caution class="mt-0.5 shrink-0" />{SPLIT_BILL.sharing.unsharedYet(
-									money(totals.unshared)
-								)}</span
-							>
-							{#if unsharedItem}<button
-									type="button"
-									onclick={showUnshared}
-									class="min-h-9 font-medium underline underline-offset-4 hover:text-accent-text pointer-coarse:min-h-11"
-									>{SPLIT_BILL.sharing.showIt}</button
-								>{/if}
-						</p>
-					{/if}
+					<!-- What's in nobody's share is said once, in the split right above these buttons, with
+					     the way to it: on its own step, it's never scrolled past. -->
 					<!-- Each as wide as its words, sharing what's left over; a row too narrow for them all wraps a
 					     whole button, never its label. -->
 					<div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:flex-col">
@@ -2841,25 +2912,21 @@
 								>{SPLIT_BILL.sharedWithYou.copyLink}</button
 							>
 						{:else}
-							<!-- The link button with its road under it, as one piece: sharing a link is this tool's
-							     one road out of the device, drawn as on the index, and it hangs from this button
-							     alone, wherever the buttons wrap. Copy as text and Share hand text to the device's
-							     own apps and send nothing to us. -->
-							<div class="flex flex-col sm:grow-[2]">
-								<!-- aria-disabled while the server answers, not disabled: a disabled button loses focus,
-								     and a keyboard or screen reader's place with it. -->
-								<button
-									id="copy-link"
-									type="button"
-									onclick={copyLink}
-									aria-disabled={sharing || undefined}
-									class="{primaryButton} whitespace-nowrap aria-disabled:cursor-wait aria-disabled:opacity-50"
-									>{linkJustCopied
-										? SPLIT_BILL.sharing.copiedButton
-										: 'Copy a link to this bill'}</button
-								>
-								<RoadOut label={ROADS_OUT.share.label} to={ROADS_OUT.share.to} />
-							</div>
+							<!-- Copy as text and Share hand text to the device's own apps and send nothing to us;
+							     the link is the one thing that reaches our server, encrypted, as the note under
+							     the buttons says. -->
+							<!-- aria-disabled while the server answers, not disabled: a disabled button loses focus,
+							     and a keyboard or screen reader's place with it. -->
+							<button
+								id="copy-link"
+								type="button"
+								onclick={copyLink}
+								aria-disabled={sharing || undefined}
+								class="{primaryButton} whitespace-nowrap aria-disabled:cursor-wait aria-disabled:opacity-50 sm:grow-[2]"
+								>{linkJustCopied
+									? SPLIT_BILL.sharing.copiedButton
+									: 'Copy a link to this bill'}</button
+							>
 						{/if}
 						{#if items.length && people.length}
 							<button
@@ -2956,22 +3023,27 @@
 			{/if}
 		</div>
 
-		<!-- On a phone the split is far below the tagging: the total and what isn't in anyone's share
-		     stay at the bottom while the bill is made. It's sticky, not fixed, so it takes its own
-		     space at the end of the page and never sits over the last of it. Not while the split is
-		     seen on its own: it's already in view. Edge to edge at
-		     every width (50cqw is half the page's width, from the container on <main>), its contents
-		     in line with the column's. -->
-		{#if items.length && !viewing}
+		<!-- Below 1024px, the way on, at the bottom of the screen while a step is made: on the first
+		     step how many people are on the bill, on the second the total and what isn't in anyone's
+		     share yet (a press on that goes to the first item it comes from). Not on the last step,
+		     where the split itself is on screen, and not for a friend reading a shared bill. Fixed to
+		     the bottom of the screen, however short the step, with room kept under the page for it
+		     (src/app.css). Edge to edge, its contents in line with the column's. While a step's own
+		     work hasn't started (nobody added, nothing on the bill), or a receipt is being read, that
+		     work is the way on, so Next steps back to an outline. -->
+		{#if !viewing && step !== 3}
 			<section
 				aria-label="The bill so far"
 				data-running-total
-				class="sticky bottom-0 z-10 mx-[calc(50%-50cqw)] border-t border-border bg-surface px-[calc(50cqw-50%)] pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden {splitInView
-					? 'invisible'
-					: ''}"
+				class="graphite-bar fixed inset-x-0 bottom-0 z-10 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] lg:hidden"
 			>
-				<div class="flex items-center justify-between gap-3">
-					{#if unsharedItem && totals.unshared > 0}
+				<div class="mx-auto flex max-w-2xl items-center justify-between gap-3 px-5 sm:px-8">
+					{#if step === 1}
+						<p class="text-sm font-semibold">{SPLIT_BILL.steps.people(people.length)}</p>
+					{:else if !items.length}
+						<!-- Nothing on the bill yet: nothing to sum up, only the way on. -->
+						<span></span>
+					{:else if unsharedItem && totals.unshared > 0}
 						<!-- With something in nobody's share, the two lines are a way to it: a press goes to the
 						     first item it comes from. -->
 						<button
@@ -3005,8 +3077,11 @@
 					{/if}
 					<button
 						type="button"
-						onclick={showSplit}
-						class="{smallButton} shrink-0 pointer-coarse:min-h-11">See the split</button
+						onclick={() => goToStep(step === 1 ? 2 : 3)}
+						class="shrink-0 whitespace-nowrap {(step === 1 && !people.length) ||
+						(step === 2 && (!items.length || scanning))
+							? smallButton
+							: primaryButton}">{SPLIT_BILL.steps.next}</button
 					>
 				</div>
 			</section>

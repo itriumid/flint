@@ -38,12 +38,18 @@ typography:
     fontWeight: 800
     lineHeight: 1
     letterSpacing: '-0.04em'
-  headline:
+  tool-title:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
-    fontSize: '2.25rem'
-    fontWeight: 700
-    lineHeight: 1.1
-    letterSpacing: '-0.025em'
+    fontSize: '3rem'
+    fontWeight: 800
+    lineHeight: 0.95
+    letterSpacing: '-0.04em'
+  part-heading:
+    fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
+    fontSize: '1.5rem'
+    fontWeight: 800
+    lineHeight: 1.33
+    letterSpacing: '-0.03em'
   lead-line:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '1.5rem'
@@ -64,11 +70,11 @@ typography:
     fontSize: '1.125rem'
     fontWeight: 700
     lineHeight: 1.55
-  title:
+  step-tab:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
-    fontSize: '1.125rem'
+    fontSize: '0.875rem'
     fontWeight: 600
-    lineHeight: 1.55
+    lineHeight: 1.43
   nav:
     fontFamily: "'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, sans-serif"
     fontSize: '1rem'
@@ -123,6 +129,9 @@ spacing:
   gutter-wide: '2rem'
   card: '1.25rem'
   card-wide: '1.5rem'
+  part: '2rem'
+  part-wide: '2.5rem'
+  bar-clearance: '6.5rem'
   half-top-phone: '2.5rem'
   half-top: '2.5rem'
   half-seam-gutter: '3rem'
@@ -132,6 +141,8 @@ spacing:
   section: '5rem'
   dot: '1rem'
   symbol-nav: '1.25rem'
+  symbol-title-phone: '1.75rem'
+  symbol-title: '2rem'
   symbol-half-phone: '2rem'
   symbol-half: '2.5rem'
   node-width: '7rem'
@@ -236,11 +247,21 @@ components:
   panel-light:
     backgroundColor: '{colors.paper-elevated}'
     textColor: '{colors.graphite}'
-  place-mark:
+  tool-title:
     textColor: '{colors.graphite}'
-    typography: '{typography.headline}'
-  place-mark-dark:
+    typography: '{typography.tool-title}'
+  tool-title-dark:
     textColor: '{colors.off-white}'
+  part:
+    padding: '{spacing.part} 0'
+    typography: '{typography.part-heading}'
+  step-tab:
+    textColor: '{colors.muted-gray-on-light}'
+    padding: '0 0.25rem'
+    height: '{spacing.touch-target}'
+    typography: '{typography.step-tab}'
+  step-tab-current:
+    textColor: '{colors.graphite}'
   update-notice:
     backgroundColor: '{colors.graphite-surface}'
     textColor: '{colors.off-white}'
@@ -250,9 +271,13 @@ components:
   update-notice-light:
     backgroundColor: '{colors.paper-surface}'
     textColor: '{colors.graphite}'
-  running-total:
-    backgroundColor: '{colors.graphite-surface}'
+  bottom-bar:
+    backgroundColor: '{colors.graphite}'
+    textColor: '{colors.off-white}'
     padding: '0.75rem 1.25rem'
+  bottom-bar-dark:
+    backgroundColor: '{colors.graphite-surface}'
+    textColor: '{colors.off-white}'
   skip-link:
     backgroundColor: '{colors.pastel-pink}'
     textColor: '{colors.graphite}'
@@ -281,16 +306,24 @@ page, so the seam reads strongly in both themes. Each half carries its tool's sy
 poster scale, what it does, what leaves it, and one large pink start. Flint's name and its line sit
 above the halves, a step below the tools' names, and what never leaves sits on the page below them.
 It replaced the Rantang (#73), which replaced the Device Map (#71), which replaced the line-item
-strip (#70). A tool page keeps the same plain header and, below it, the place mark and the road out
-from the Device Map: the person using it is at a restaurant table with a phone in one hand and a
-group waiting. Whether the tool pages follow the index is an open decision for the owner.
+strip (#70).
+
+A tool page follows the index. It opens with the tool's title, said as its half says it: the
+tool's symbol and its name in the same extra-bold type, the introduction under it. Split bill is
+the first tool redrawn in this world (the owner's three-step round, 2026-11-24): no cards, its
+parts divided by plain lines under extra-bold headings, items as rows between lines, and below
+1024px the bill made in three steps, one on screen at a time, with a graphite bar fixed to the
+bottom of the screen holding the step's count or total and the way on. The person using it is at a
+restaurant table with a phone in one hand and a group waiting, so they do one job at a time and the
+answer is one tap away. WhatsApp click-to-chat has the new title but still its card and its road
+out, from the Device Map, until its own design round; that page is open.
 
 Components are soft and sure-footed, and tactile without being playful. Every control has a round,
 generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see
 (3:1 against the page and the card). They feel good to press but never perform. Density on the
 index is bold and wide; inside a tool it is calm and working: forms sit in a narrow column of 36 to
-42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at
-the bottom of a phone's screen while the bill is made.
+42rem, and the few things that really are boxes (receipt lines, the adjustments list, a note) sit
+one step back with a hairline round them.
 
 Light and dark are equal. Each follows the visitor's system unless the footer says otherwise, and
 neither is a courtesy version of the other: every new pairing is designed and checked in both. The
@@ -300,7 +333,7 @@ pink, and small labels above headings. It refuses what only a tool can get wrong
 the tool off a phone screen, and state shown by color alone. And on the index it refuses what the
 owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper
 monochrome, a narrow column, rows of entries), any metaphor (a map, a food carrier), and a column of
-stacked rounded boxes.
+stacked rounded boxes. On Split bill the owner turned down the same stack: "too many boxes".
 
 **Key Characteristics:**
 
@@ -312,8 +345,10 @@ stacked rounded boxes.
 - The tools' names lead the page at every width, a step above Flint's own name.
 - Each tool has one fixed symbol, drawn in the text color, the same in the header and in its half.
 - Pink only at the two starts on the index (equal starts), and at one primary action per tool view.
-- A tool page opens with a place mark, then the tool, with its one road out drawn under the control
-  that takes it.
+- A tool page opens with its title: the tool's symbol and its name in extra-bold type, as in its
+  half, and the introduction under it.
+- Split bill has no cards: parts between plain lines, items as rows, three steps below 1024px with a
+  graphite bar at the bottom, and two columns from 1024px.
 - Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
   footer.
 - Flat surfaces with tonal steps. The only shadow is under the open searchable list.
@@ -328,7 +363,8 @@ tokens live in `src/app.css`: the palette's `--bg`, `--surface`, `--elevated`, `
 `--muted`, `--accent`, `--on-accent`, `--accent-edge` and `--focus` from `@itrium/palettes`, and the
 site's own `--control-border` and `--accent-text`. Each swaps value between dark and light, by the
 device's setting unless the footer's choice says otherwise. The `.inverse-field` scope sets them
-again for Split bill's half, from the other theme. The binding rules are in the handbook's
+again for Split bill's half, from the other theme, and the `.graphite-bar` scope sets them to dark
+mode's for Split bill's bottom bar on a light page. The binding rules are in the handbook's
 `itrium/brand.md`.
 
 ### Primary
@@ -348,10 +384,11 @@ again for Split bill's half, from the other theme. The binding rules are in the 
 ### Neutral
 
 - **Graphite** (`graphite`): the dark page, the field fill and inset lists in dark mode, light
-  mode's text, and the text on pink, always. On a light page it is also Split bill's half.
+  mode's text, and the text on pink, always. On a light page it is also Split bill's half and Split
+  bill's bottom bar.
 - **Graphite surface** (`graphite-surface`) and **graphite border** (`graphite-border`): cards and
-  their dividing lines in dark mode, the running total's bar, the error page's panel in dark mode,
-  and WhatsApp's half on a dark page.
+  their dividing lines in dark mode, Split bill's bottom bar on a dark page, the error page's panel
+  in dark mode, and WhatsApp's half on a dark page.
 - **Graphite raised** (`graphite-raised`, the palette's elevated gray) and **graphite raised
   border** (`graphite-raised-border`): inside the error page's panel in dark mode, what steps up
   from it and its dividing lines. The raised border (#4f4f4f) is the one structural gray outside the
@@ -369,10 +406,11 @@ again for Split bill's half, from the other theme. The binding rules are in the 
   text and line color still passes on it: text 12.5:1, muted 4.7:1, rose text 4.8:1, control edge
   4.0:1.
 - **Paper** (`paper`), **paper surface** (`paper-surface`) and **paper border** (`paper-border`):
-  light mode's page (and field fill, and the fill of a road out's box), cards, and dividing lines.
-- **A tool page's map lines** are in the text color: the place mark's dot and the road out's 3 px
-  dashed line. The box a road reaches is outlined in muted gray, since it is outside the device and
-  not ours.
+  light mode's page (and field fill, and the fill of a road out's box), cards, and dividing lines,
+  including the lines between Split bill's parts and items and under its step bar.
+- **The text color as a line:** the current step's 3 px underline, and WhatsApp click-to-chat's
+  road out (a 3 px dashed line). The box a road reaches is outlined in muted gray, since it is
+  outside the device and not ours.
 
 ### Named Rules
 
@@ -381,8 +419,10 @@ onward. If you can't say what a pink element marks, it should be gray. Pink mean
 time, which is not the same as one element. In a tool, one pink button per view. On the index, one
 pink start in each tool's half, the two tools' equal starts ("Split a bill", "Chat with a number"):
 one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their
-way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool page's place
-mark and its road out are never pink.
+way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool's title, the
+step bar and a road out are never pink. On Split bill below 1024px the bar's "Next" counts toward
+the view: it is outlined until the step's own work has started (nobody added on step 1, nothing on
+the bill on step 2), so the step's own pink action ("Scan or paste a receipt") isn't doubled.
 
 **The Inverse Field Rule.** Split bill's half (the `.inverse-field` scope) takes the colors of the
 theme the page is not in, every one of them: on a light page graphite, with off-white text, muted
@@ -393,6 +433,12 @@ the light control edge. Nothing inside it reads the page's own colors. The owner
 reads strongly in both themes. The contrast for each pairing is in the comment above the scope in
 `src/app.css`.
 
+**The Graphite Bar Rule.** Split bill's bar at the bottom of a phone's screen is graphite on a light
+page, with every color inside it from dark mode (the `.graphite-bar` scope: off-white text, pink
+focus and edges, the dark control edge), like Split bill's half. On a dark page it does not invert:
+it stays dark, a step up to graphite surface, because a bright band held under the thumb at a dim
+table is too much.
+
 **The Two Borders Rule.** `--border` is for lines nothing depends on, such as card edges and
 dividers. Anything a person has to find in order to use it gets `--control-border`.
 
@@ -400,7 +446,7 @@ dividers. Anything a person has to find in order to use it gets `--control-borde
 is rose text and pink lines are deep rose. Pastel pink is never text or a line there.
 
 **The Every-Surface Rule.** Contrast is checked on every surface text sits on: page, card, inset
-list, note, running total, update notice, the error page's panel, and each half in both themes.
+list, note, the bottom bar, update notice, the error page's panel, and each half in both themes.
 Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split
 bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).
 
@@ -423,8 +469,12 @@ served from the site itself.
 - **Index name** (`index-name`): "Flint", the index's `h1`, extra-bold at -0.04em, always one step
   below the tools' names: 2.25rem (36px) on phones, 3rem (48px) from 640 px, 2.25rem (36px) from
   768 px, 3rem (48px) from 1024 px, and the token size (60px) from 1280 px.
-- **Headline** (`headline`): a tool's title in its place mark, 1rem right of the place's 1rem dot,
-  with the introduction under it. 1.875rem on phones, the token size from 640 px.
+- **Tool title** (`tool-title`): a tool's name at the top of its page, the `h1`, extra-bold at
+  -0.04em and 0.95 line height like its name in its half, 0.75rem under its symbol, with the
+  introduction 0.75rem under it. 2.25rem (36px) on phones, the token size (48px) from 640 px.
+- **Part heading** (`part-heading`): the heading of each of Split bill's parts ("The bill",
+  "People", "Items", "Charges and adjustments", "The split"), extra-bold at -0.03em, 1rem above
+  the part. A count beside it ("People (4)") is muted and regular weight.
 - **Lead line** (`lead-line`): Flint's muted line beside its name (under it when they don't fit),
   at most 36rem wide; and what a tool does, in its half. 1.125rem on phones, the token size from
   640 px.
@@ -433,23 +483,24 @@ served from the site itself.
 - **Fact** (`fact`): what leaves a tool, in its half, at most 28rem wide, and the three facts under
   the halves. 1rem on phones, the token size from 640 px.
 - **Start** (`start`): the label of a half's pink start, bold, never wrapping.
-- **Title** (`title`): a section card's heading inside a tool (`cardHeading`), semibold.
+- **Step tab** (`step-tab`): the three steps' names in Split bill's step bar, semibold, never
+  wrapping, 0.8125rem (13px) below 400 px so the three fit on the narrowest phones.
 - **Nav** (`nav`): the header's links to the tools, semibold, each with its symbol.
 - **Minor heading** (`minor-heading`): the heading of the tools on sites of their own, under the
   facts, bold at body size.
-- **Body** (`body`): a tool's introduction (at 1.625 line height under the place mark, muted, or in
+- **Body** (`body`): a tool's introduction (at 1.625 line height under its title, muted, or in
   the text color at medium weight in a friend's view of a shared bill), and running prose.
 - **Leaves heading** (`leaves-heading`): "What leaves it", bold and muted at 0.875rem, heading the
   fact it sits over in each tool's half.
-- **Control** (`control`): field text, chips, notes, hints, amounts, a road out's box and the shared
-  bill's line in Split bill's half, at 0.875rem. On touch screens field text rises to 1rem
-  (`pointer-coarse:text-base`) so iOS Safari doesn't zoom the page.
-- **Road label** (`road-label`): what a road out carries, semibold beside its line under a tool's
-  control, at most 18rem wide (`road-label-width-tool`).
+- **Control** (`control`): field text, chips, notes, hints, amounts, the bottom bar's lines, a road
+  out's box and the shared bill's line in Split bill's half, at 0.875rem. On touch screens field
+  text rises to 1rem (`pointer-coarse:text-base`) so iOS Safari doesn't zoom the page.
+- **Road label** (`road-label`): what a road out carries, semibold beside its line under WhatsApp
+  click-to-chat's "Open in WhatsApp", at most 18rem wide (`road-label-width-tool`).
 - **Label** (`label`): field labels, secondary and small button labels.
 - **Button** (`button`): the primary button's label, semibold.
 
-Amounts that line up or change in place (counts, the running total) use tabular figures.
+Amounts that line up or change in place (counts, the bottom bar's total, the shares) use tabular figures.
 
 ### Named Rules
 
@@ -459,7 +510,7 @@ load a font from another domain.
 **The Tools Lead Rule.** On the index, the tools' names are the largest type at every width, and
 Flint's own name steps down with them: 40 over 36 on phones, 60 over 48 from 640 px, 48 over 36
 from 768 px, 64 over 48 from 1024 px, 72 over 60 from 1280 px. A new size for one is a new size for
-the other.
+the other. On a tool page the tool's title is the largest type, in the same extra-bold voice.
 
 **The No Kicker Rule.** A heading is the first thing in its block. No eyebrow, category label,
 small uppercase heading or back link sits above it. Nothing here is set in uppercase. A line that
@@ -474,8 +525,9 @@ above the tool's name, but it is the tool's picture, not a label.
   (`form-width`) for a single form like WhatsApp click-to-chat, 42rem (`tool-width`) for Split bill.
 - **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`).
 - **Rhythm:** a tool page ends with 5rem of space (`section`); the index with 4rem on phones and
-  6rem from 1024 px. Within a tool, cards stack 1.25 to 1.5rem apart, and fields and their hints
-  step in 0.5rem to 1rem.
+  6rem from 1024 px. Split bill's parts are 2rem above and below their dividing line (`part`),
+  2.5rem from 1024 px (`part-wide`), the first with none above; WhatsApp click-to-chat's card is one
+  card. Fields and their hints step in 0.5rem to 1rem.
 - **The halves (index):** two fields, one per tool, Split bill first. On phones they stack full
   width, edge to edge, with no gap between them. From 768 px they sit side by side in two equal
   columns, at least 35rem tall (`half-height`), meeting on the seam. The fields run to the screen's
@@ -503,18 +555,30 @@ above the tool's name, but it is the tool's picture, not a label.
   halves with both starts are on the first screen. On a phone, Split bill's start is. At 1024 by 768
   the starts end at 746 px, on the first screen too; Flint and its line sit tighter from 1024 px
   (1rem above, 2rem below) to make room.
-- **Tool page:** the header, then a place mark (the dot, the title and the introduction, nothing
-  else), lined up with the tool's own column, 1rem under the header on phones and 2rem from 640 px,
-  then the tool 1.5rem under it. No closing panel, because the running total owns the bottom of the
-  screen.
-- **Split bill from 1024 px:** two columns in the 72rem width. The bill on the left; the split on
+- **Tool page:** the header, then the tool's title (its symbol, its name and the introduction,
+  nothing else), its padding inside the tool's own width so it lines up with the header and the
+  tool, 0.5rem under the header on phones and 1.5rem from 640 px, then the tool 1.5rem under it. No
+  closing panel.
+- **Split bill below 1024 px:** three steps, one on screen at a time: "Who's here" (People), "What
+  you had" (The bill's receipt button, Items, then Charges and adjustments, the currency last), and
+  "Everyone's share" (the split, who paid on top, and the share buttons). Under the title, the step
+  bar; at the bottom of the screen, the bar with the way on. Each part says its step
+  (`data-step`) and the others are only hidden (`max-lg:hidden`): nothing leaves the page, so a
+  field keeps what's typed in it across steps. Within step 2 the receipt button leads straight into
+  the items, with no line between. A step shows from its top: going to one focuses its first
+  heading and scrolls to the top.
+- **Split bill from 1024 px:** two columns in the 72rem width, no step bar and no bottom bar. The
+  bill on the left (The bill, People, Items, Charges and adjustments, between lines); the split on
   the right in a 26rem column that stays in view (sticky, scrolling on its own when it's taller than
   the screen) and updates as the bill changes. Before any item, the column holds one muted line
-  saying the split will show there. Below 1024 px it follows the bill in one column.
+  saying the split will show there.
+- **A friend's view:** someone opening a bill shared with them sees only the split, with no steps
+  and no bars, at every width.
 - **Phones:** every control is at least 2.75rem tall on touch screens (`touch-target`), and
-  2.25rem (`control-compact`) with a fine pointer. Split bill's running total is sticky (not
-  fixed) at the bottom below 1024 px, padded for the home indicator, and the page scrolls focused
-  fields clear of it (`scroll-padding-bottom: 6rem`).
+  2.25rem (`control-compact`) with a fine pointer. Split bill's bottom bar is fixed below 1024 px,
+  padded for the home indicator; the body keeps 6.5rem under the page for it (`bar-clearance`), so
+  it never sits over the last of the page, and the page scrolls focused fields clear of it
+  (`scroll-padding-bottom: 6rem`).
 - **Breakpoints:** Tailwind's defaults, 640, 768, 1024 and 1280 px, plus `pointer-coarse` for touch
   sizing.
 
@@ -527,23 +591,30 @@ column of boxes.
 a tool does keeps two lines, 2.75em; the shared bill's line keeps 3rem, `kept-line`, in both halves),
 so nothing moves under a finger when it appears.
 
-**The Slab Rule, for tools.** A tool page has no slab at either end: it opens with a place mark,
-a dot and the tool's name, and never closes with a panel. On a phone, the tool comes before the
-frame.
+**The Slab Rule, for tools.** A tool page has no slab at either end: it opens with the tool's
+title, its symbol and its name, and never closes with a panel. On a phone, the tool comes before
+the frame.
+
+**The One Job Rule.** Below 1024px Split bill shows one step at a time, and the steps are free: any
+tab, in any order. Whatever a control sends focus to brings its own step on screen first
+(`focusAfter`), so "Show it" from the split lands on the item in step 2. A step is a view, not a
+gate: nothing is removed from the page, and nothing is checked before moving on.
 
 **The First Screen Rule.** On a phone, the first field of a tool is visible without scrolling, and
 on the index Split bill's start is. If a new element would push either down, it belongs lower on
 the page.
 
 **The Answer In Reach Rule.** Wherever a tool is being filled in, its answer is one glance or one
-tap away: the running total below 1024 px, the split's own column above. Someone opening a shared
+tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above. Someone opening a shared
 result lands on it, not on the form that made it.
 
 ## Elevation & Depth
 
 Surfaces are flat. Depth comes from tonal steps (page, then card, then an inset list or note one
 step back down inside the card, then raised inside a panel) and from borders. The index has no
-depth at all: its halves are two flat fields side by side, told apart by tone. The one shadow is
+depth at all: its halves are two flat fields side by side, told apart by tone. Split bill has
+almost none: its parts lie on the page between hairlines, and its bottom bar is told apart by tone
+alone (graphite, or graphite surface on a dark page), with no line and no shadow over the page. The one shadow is
 the floating list of the searchable select, which genuinely sits above the content and has to be
 read against it. There are no glows, in either theme.
 
@@ -556,15 +627,16 @@ read against it. There are no glows, in either theme.
 ### Named Rules
 
 **The Only Floating Things Cast Shadows Rule.** Halves, cards, buttons, chips, the error page's
-panel, the road boxes and the running total never get a drop shadow. A control responds by filling
+panel, the road boxes and the bottom bar never get a drop shadow. A control responds by filling
 with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.
 
 ## Shapes
 
 Soft and rounded, with the radius growing with the size of the object, on the same scale as
 itrium.id. Buttons, starts, chips and the info button are pills (`full`). Fields, notes and
-floating lists get 0.5rem (`sm`), and options inside a list a little less (0.375rem). Inset lists,
-receipt lines and the receipt photo get 0.75rem (`md`). Cards and the update notice get 1rem (`lg`).
+floating lists get 0.5rem (`sm`), and so do the undo line and the inset under an opened share;
+options inside a list a little less (0.375rem). Inset lists, receipt lines and the receipt photo
+get 0.75rem (`md`). WhatsApp click-to-chat's card and the update notice get 1rem (`lg`).
 The error page's panel gets 1.5rem (`xl`). The focus outline is 2 px at 4 px radius (`focus`), 3 px
 away from the element. Headings and cards that the page itself moves focus to (`tabindex="-1"`)
 show none: focus still moves and is announced, but a ring there read as a stray selection box. Edges
@@ -577,13 +649,18 @@ change of tone is the line. The detector runs with no ignores (`.impeccable/conf
 Each tool has one symbol, drawn as a 4-unit stroke on a 40-unit square in the text color: a circle
 with its left half filled for Split bill, a speech mark for WhatsApp click-to-chat
 (`src/lib/ToolSymbol.svelte`). 1.25rem in the header, 2rem in a half on phones and 2.5rem from
-640 px. It repeats the tool's name, so it's hidden from screen readers.
+640 px, and 1.75rem over a tool's title on phones, 2rem from 640 px (`symbol-title-phone`,
+`symbol-title`). It repeats the tool's name, so it's hidden from screen readers.
 
-On a tool page, a place mark's dot is a 1rem filled circle in the text color, and a road out is a 3
-px dashed line in the text color to a 7 by 3rem box (`node-width`, `node-height-tool`) with 0.5rem
-corners, a 2 px muted-gray outline and the page's fill. Dashed lines elsewhere in a tool mean
-something else: the place a removed item was, and an empty state in WhatsApp click-to-chat. The
-index has no dashed line.
+Split bill is drawn with lines, not boxes: 1 px `--border` hairlines between its parts and between
+its items, a hairline on top of "How it adds up", and the step bar's hairline with the current
+step's 3 px underline sitting on it. An item that "Show it" points to takes a 2 px deep-rose
+outline, 4 px out, for three seconds. Split bill has no dashed line.
+
+WhatsApp click-to-chat, until its own round, keeps the Device Map's road out: a 3 px dashed line in
+the text color to a 7 by 3rem box (`node-width`, `node-height-tool`) with 0.5rem corners, a 2 px
+muted-gray outline and the page's fill, and a dashed edge round its empty state. The index has no
+dashed line.
 
 The arrow is drawn, not typed: one SVG, the same as itrium.id's `Arrow.svelte`, with a 2-unit
 round-capped stroke in the current color, sized to the text beside it. A selected chip carries a
@@ -602,9 +679,10 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   0.5rem gap.
 - **Primary:** pastel pink with graphite text, semibold, and a 1 px `--accent-edge` border: deep
   rose in light mode, where pastel pink alone is 1.5:1 on paper and the pill had no shape, and the
-  fill itself in dark mode, where it doesn't show. One per view in a tool: "Read the receipt", "Add
-  to the bill", "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link"
-  beside it is secondary).
+  fill itself in dark mode, where it doesn't show. One per view in a tool: "Scan or paste a
+  receipt" on an empty bill, "Read the receipt", "Add to the bill", "Next" in Split bill's bottom
+  bar once the step's work has started and no receipt is being read, "Copy a link to this bill", "Open in WhatsApp" (messaging a
+  number is the job most people come for; "Copy link" beside it is secondary).
 - **Start:** the primary button at the scale of its half, 1rem by 1.75rem of padding and bold
   1.125rem (`start`), never wrapping, at the bottom of the half from 768 px. One per half: "Split a
   bill" (or "Continue your bill") and "Chat with a number". Its edge follows the half's ground, not
@@ -613,7 +691,8 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   action beside the primary. On the page itself ("Read the source") it fills with the elevated
   step on hover.
 - **Small:** the secondary's look at 2.25rem tall with 1rem of padding (2.75rem on touch screens).
-  For actions inside a card, the running total and the update notice.
+  For actions inside a part or a card, "Next" before a step's work has started, and the update
+  notice.
 - **Hover:** the primary and the start fade to 85% opacity. Secondary and small fill with the page
   color.
 - **Disabled:** a not-allowed cursor, with a line beside it saying why (`SPLIT_BILL.missing`).
@@ -621,7 +700,8 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   "Add person" and "Add item" while they're unavailable (`aria-disabled`); fading them to 50% took
   the words down to 3:1. The primary and secondary still fade to 50%.
 - **Focus:** a 2 px outline 3 px away, pastel pink on graphite and graphite on light backgrounds,
-  by the ground the button sits on (so in Split bill's half, the inverse of the page's).
+  by the ground the button sits on (so in Split bill's half, the inverse of the page's, and in the
+  bottom bar, pink).
 - **Text actions:** small actions that aren't the point, such as "Everyone", "Nobody" and
   "Remove", are muted, underlined 4 px below the text, and turn to the text color on hover. They
   keep the touch target height.
@@ -644,8 +724,8 @@ The people on a bill, tapped to say who had what.
 
 ### Fields
 
-- **Style:** a 1 px control-edge border, 0.5rem radius (`sm`), filled with the page color, so a
-  field sits one step back inside a card. 0.625rem by 0.75rem of padding, and 0.875rem text that
+- **Style:** a 1 px control-edge border, 0.5rem radius (`sm`), filled with the page color: one
+  step back inside a card, and on the page itself (Split bill) shaped by its edge alone. 0.625rem by 0.75rem of padding, and 0.875rem text that
   rises to 1rem on touch screens.
 - **Label:** above, medium weight, 0.375rem away.
 - **Feedback:** what we read or why we can't goes under the field, muted, as it's typed
@@ -667,13 +747,17 @@ nothing to say why ("uk" in "Luksemburg").
 
 ### Cards
 
-- **Section cards (in a tool):** 1rem radius (`lg`), the surface color with a 1 px `--border`
-  edge, 1.25rem of padding (1.5rem from 640 px), and a title-size heading 1rem above the content.
-  They don't respond to hover, because they aren't links. Cards belong to the tools; the index
-  has none.
-- **Inset lists and receipt lines:** one tonal step back inside a card (page color), 0.75rem
-  radius (`md`), divided by hairlines. A receipt line we couldn't check takes a pink edge and a
-  "Check this" mark with an icon, not just the color.
+- **WhatsApp click-to-chat's card (open):** its form in one card, 1rem radius (`lg`), the surface
+  color with a 1 px `--border` edge, 1.25rem of padding (1.5rem from 640 px). It doesn't respond
+  to hover, because it isn't a link. It stays until that page's own design round; the index and
+  Split bill have no cards.
+- **Split bill's parts:** no card. Each part is a stretch of the page under a part heading, 2rem
+  above and below the hairline that divides it from the next (2.5rem from 1024 px). Items are rows
+  between hairlines, 1rem above and below each, not boxes.
+- **Inset lists and receipt lines:** the boxes that remain, because they are lists to check line by
+  line: the receipt review's lines and the adjustments list. Page color with a 1 px `--border`
+  edge, 0.75rem radius (`md`), divided by hairlines. A receipt line we couldn't check takes a pink
+  edge and a "Check this" mark with an icon, not just the color.
 
 ### Two halves (signature, the index)
 
@@ -704,12 +788,13 @@ legend or a list apart from the tools they concern.
 Neither tool is a hero over the other; the inverse field gives Split bill the stronger tone only so
 the seam shows, not to rank it.
 
-### Road out (on a tool page)
+### Road out (WhatsApp click-to-chat, open)
 
-Each tool's one way out of the device, drawn under the control that takes it, saying the same fact
+The tool's one way out of the device, drawn under the control that takes it, saying the same fact
 as "What leaves it" in the tool's half on the index (`src/lib/RoadOut.svelte`, words from
-`ROADS_OUT`). It is the Device Map's road, kept on the tool pages as they are; whether they follow
-the index is the owner's open decision.
+`ROADS_OUT`). It is the Device Map's road, kept on WhatsApp click-to-chat until that page's own
+design round. Split bill's was removed with its words (the owner approved, 2026-11-24): the privacy
+note under the share buttons says it in full.
 
 - **Place:** indented 1.5rem from the controls (`road-out-indent`), with about 1.5rem before the
   next control, so it reads as a note on the control, not as another button.
@@ -719,18 +804,18 @@ the index is the owner's open decision.
   line.
 - **Box:** under the label, 7 by 3rem, the page's fill, a 2 px muted-gray outline at 0.5rem
   corners, its name centered in muted control type ("Our server", "WhatsApp").
-- **Where:** under "Copy a link to this bill" in Split bill, and under "Open in WhatsApp" in
-  WhatsApp click-to-chat. The line is hidden from screen readers; the label and the box are read.
+- **Where:** under "Open in WhatsApp" only. The line is hidden from screen readers; the label and
+  the box are read.
 
-**The Hanging Road Rule.** A road out hangs from the one control that takes it, and only where the
-site really makes the connection. A friend's "Copy the link" copies the link they opened, which
-goes nowhere new, so no road is drawn under it.
+**The Hanging Road Rule.** Where a road out is drawn, it hangs from the one control that takes it,
+and only where the site really makes the connection.
 
 ### Notes
 
-A tinted aside for what someone should know right now: an unchecked receipt, a total that doesn't
-match. Page color, 0.5rem radius, 0.75rem of padding, and a 1 px pink edge all round (deep rose on
-light backgrounds), the same edge an unsure receipt line takes. An explanation opened from a
+An aside for what someone should know right now: an unchecked receipt, a total that doesn't
+match, what's in nobody's share. Page color, 0.5rem radius, 0.75rem of padding, and a 1 px pink
+edge all round (deep rose on light backgrounds), the same edge an unsure receipt line takes; on the
+page itself the edge is what makes it a box, and it stays one because it asks for attention. An explanation opened from a
 toggletip uses the same form with a gray hairline.
 
 **The Whole Edge Rule.** A note is marked by its whole edge, never by a thick bar down one side.
@@ -778,19 +863,34 @@ with a "Leave the message out of the code" checkbox: a shop printing one code fo
 want one customer's message on it, and a shorter link makes a coarser code that scans better. After Save, a line under it names the file ("Look for whatsapp-6281234567890.png in your
 downloads."), since a download can land with nothing on screen saying so.
 
-### Running total (signature)
+### Step bar (signature, Split bill)
 
-Split bill's bar at the bottom of a phone screen while items exist: the surface color, a hairline
-on top, the total in semibold, and what isn't in anyone's share yet (semibold when it isn't zero,
-muted when it is), with a small "See the split" button. While something is in nobody's share, the
-two lines are one button, with the drawn arrow after the amount: it goes to the first item that
-amount comes from, the way through a long list of items on a big table. Sticky, not fixed, so it never hides the
-end of the page. While the split itself is on screen it steps aside (invisible, keeping its space), since it has
-nothing to add there. Hidden from 1024 px, where the split has its own column.
+Three plain tabs under the tool's title, below 1024 px: "Who's here", "What you had", "Everyone's
+share" (`SPLIT_BILL.steps`), in a list named "Steps". One row, never wrapping, spread across the
+column, step-tab type (13px below 400 px). Each is a button at least 2.75rem tall with 0.25rem of
+side padding; the current one is in the text color with a 3 px underline in the text color, sitting
+on the row's 1 px `--border` line, and carries `aria-current="step"`; the others are muted and turn
+to the text color on hover. No numbers, no pink, no check marks: the steps can be taken in any
+order, so none is "done". A friend reading a shared bill has none. Hidden from 1024 px.
+
+### Bottom bar (signature, Split bill)
+
+The way on, fixed to the bottom of a phone's screen on steps 1 and 2, edge to edge, its contents in
+line with the column: graphite on a light page, graphite surface on a dark one (The Graphite Bar
+Rule), padded 0.75rem on top and for the home indicator below. On the left, the step's own count:
+"4 people" on step 1; on step 2 the total in semibold and what isn't in anyone's share yet
+(semibold when it isn't zero, muted when it is), and nothing while the bill is empty. While
+something is in nobody's share, the two lines are one button, with the drawn arrow after the
+amount: it goes to the first item that amount comes from. On the right, "Next", never wrapping:
+the small outlined button until the step's own work has started (nobody added, nothing on the
+bill), then the pink primary. Not on step 3, where the split is the answer, not for a friend
+reading a shared bill, and not from 1024 px.
 
 ### The split (signature)
 
-What each person hands over comes first and largest: one row per person, the name in medium weight
+"Who paid?" comes first, a radio group above the rows, since it decides who hands what to whom
+(not shown to a friend reading the bill). Then what each person hands over, largest: one row per
+person, the name in medium weight
 with a muted line under it ("To Budi", or what they ordered), and the amount in bold 1.5rem tabular
 figures, right-aligned. Whoever paid hands nothing over, so their big number is what comes back to
 them, labelled "comes back" beside it (on the same line, so choosing who paid never makes the row
@@ -803,14 +903,14 @@ tagged, and pink once tagging has begun and something is still left out, and it 
 total with tax and service, adding who covers them once someone's paid ("Budi covers it for now.").
 A friend reading the bill gets the items and the fact, with the warning sign and a gray edge, no
 pink ("2× Kerupuk and Jus Alpukat (Rp 37.400) aren't in anyone's share: Budi covers them for
-now."), and the copied text names them on a line under its own, as it does each person's. By the
-share buttons one line says it again, with "Show it", which gives the item it goes to a pink edge
-for three seconds: a state isn't an error
-before anyone has started. The two lines under the rounding choice are kept even when empty, so
-picking a step never shifts what's below it. Then two radio groups, "Who paid?" and "Round shares
-up" (to two steps people actually hand over, Rp 500 and Rp 1.000 for rupiah), with a muted line
-saying what rounding added and who gets it back. The breakdown (subtotal, charges, total)
-comes last, in an inset list: it's how the answer was reached, not the answer. Each row with something
+now."), and the copied text names them on a line under its own, as it does each person's. The
+note, said once, carries "Show it", which brings step 2 on screen and gives the item it goes to a
+2 px deep-rose outline for three seconds; the note is gray before anyone has started, since a state
+isn't an error then. Under the rows, "Round shares up" (to two steps people actually hand over, Rp
+500 and Rp 1.000 for rupiah), with a muted line saying what rounding added and who gets it back;
+the two lines under it are kept even when empty, so picking a step never shifts what's below it.
+The breakdown, "How it adds up" (subtotal, charges, total), comes last, a plain list under a
+hairline: it's how the answer was reached, not the answer. Each row with something
 tagged opens, tapping anywhere on it, to what's in that share, in an inset: the items with the
 person's part of each ("Es Teh, ½", "Jus, 3 of 4") and what they come to, then "Charges and
 adjustments" and, when rounding added to it, "Rounded up", adding up to the big number. For whoever paid, the row shows the subtraction: "Rounding from the others" as a minus, "Not in
@@ -823,21 +923,21 @@ with the split's heading focused, scrolled to on a phone.
 ### A bill shared with you
 
 Someone who opens a shared bill that wasn't shared from their own device sees the split on its own,
-centered. The introduction under the place mark says what this bill is instead of how to make one ("A bill shared with you:
+centered, with no step bar and no bottom bar. The introduction under the tool's title says what this bill is instead of how to make one ("A bill shared with you:
 Rp 459.250 in all, paid by Budi."), in the text color at medium weight, not muted: for someone
 who arrived from a link, it's the only context there is, and one line above the split says where to look ("Find your
 name, and tap it to see what's in your share."). A small "Make changes", with a muted note that
 changes stay on the device until the bill is shared again, waits under the split, so the friend's own
-row is on a phone's first screen. Who paid and rounding show only as their result in the rows;
-there's no running total, since the split is already in view. "Copy the link", which copies the
-link they opened, is secondary and has no road under it: reading their row and paying is the
-friend's job, and there's no pink on the page. The note on what sharing keeps on our server is left out, since a long link keeps
-nothing there. "Make changes" brings back the whole editor, focused on its first card. Whoever shared
-the bill gets the editor straight away, as before.
+row is on a phone's first screen. Who paid and rounding show only as their result in the rows.
+"Copy the link", which copies the link they opened, is secondary: reading their row and paying is
+the friend's job, and there's no pink on the page. The note on what sharing keeps on our server is
+left out, since a long link keeps nothing there. "Make changes" brings back the whole editor, on
+step 2 below 1024 px, focused on "The bill". Whoever shared the bill gets the editor straight away,
+as before.
 
 ### More on the receipt
 
-The Charges card shows the two rates. What only some receipts say (prices that include tax or
+"Charges and adjustments" shows the two rates, and ends with the currency, set once if at all. What only some receipts say (prices that include tax or
 service, tax on service, discounts and rounding) waits behind a disclosure, "More on the receipt",
 with the drawn arrow turning down when open. It opens itself when a scan, a link or a choice puts
 any of it on the bill, and only then: tax on service counts only when there's service and it isn't
@@ -847,24 +947,26 @@ the currency's usual way.
 
 After removing a person or an item, or clearing who had an item with "Nobody" ("Cleared who had
 Nasi Goreng."), one line says so, "Removed Citra.", with an underlined "Undo" beside it at
-touch-target height. For a person it ends the People card. For an item it's where the change was:
-a removed item leaves a dashed line in its place, and "Nobody" puts it inside the item, since on a
-phone the end of a long list is screens away; a region that's always there announces it. It stays until the bill
-changes some other way. There's no countdown and no confirmation dialog: one tap took it, one
-tap brings it back. The split repeats the line, with its Undo, under its heading, since a removal
-changes it and on a wide screen it's in the other column; only the card's own line is a live
-region, so it's announced once. The split's copy is only for 1024px and up, where the split has a column of
-its own; below that the card's line is right above it. Removing someone who had items alone says what's no longer in
+touch-target height. For a person it ends the People part. For an item it's where the change was:
+a removed item leaves the line in its place, at least 2.75rem tall, rounded 0.5rem on the elevated
+gray (graphite surface on a dark page), and "Nobody" puts it inside the item, since on a phone the
+end of a long list is screens away; a region that's always there announces it. It stays until the
+bill changes some other way. There's no countdown and no confirmation dialog: one tap took it, one
+tap brings it back. From 1024 px the split repeats the line, with its Undo, under its heading,
+since a removal changes it and it's in the other column; only the part's own line is a live
+region, so it's announced once. Removing someone who had items alone says what's no longer in
 anyone's share, as an amount: money leaving the split is the one thing that line must not hide.
 
 ### Where focus goes
 
 A press that removes or replaces the control it was made on never leaves focus on nothing (which
-drops a keyboard or a screen reader at the top of the page). Opening the scan form focuses its
+drops a keyboard or a screen reader at the top of the page). Below 1024 px, wherever focus goes
+first brings its step on screen (`focusAfter`), and a step bar tab or "Next" focuses the step's
+first heading at the top of the page. Opening the scan form focuses its
 first field, reading the receipt its review heading, adding it the People field when there's nobody
 yet (scrolled to), or else the Items heading; removing focuses the Undo, and Undo the person or item brought back, each scrolled to the nearest
 edge of the screen, clear of the bar at the bottom. "Copy a link to this bill" keeps focus while it
-works (it's aria-disabled, not disabled, which would drop it) and says "Copied" for three seconds. "Yes, clear" takes the card it was in with it: focus goes to "The bill", and the
+works (it's aria-disabled, not disabled, which would drop it) and says "Copied" for three seconds. "Yes, clear" takes the line it was in with it and goes back to step 1: focus goes to "People", and the
 line at the top of the page says "Cleared.". Asking ("Clear everything", "Delete the shared copy") focuses
 its "Yes, …", "Keep it" focuses the button that asked, and a deleted copy leaves focus on "Copy a
 link to this bill". "Clear everything" itself sits apart from the share
@@ -873,7 +975,7 @@ buttons, under a hairline, as a quiet underlined button.
 ### Adding an item
 
 An empty bill leads with "Scan or paste a receipt" as the pink primary, under a one-sentence
-introduction; once there are items it steps back to secondary. With no items, the Items card is the form. Once there are items, they come first, and the form
+introduction; once there are items it steps back to secondary. With no items, the Items part is the form. Once there are items, they come first, and the form
 waits under them behind "Add an item by hand": after a receipt is read, the items are what's next,
 not an empty form above them. Items typed in by hand keep the form open under the list, with focus back in its Item field
 for the next. With a quantity over one, the price asked for is for one, and the line under it says
@@ -899,16 +1001,15 @@ that's gone or a server out of reach, carry the warning sign in medium weight. A
 one that opened in the same tab clears the bill it showed, so the old one isn't left under the
 error still headed as shared; someone's own bill stays.
 
-### Place mark and panel
+### Tool title and panel
 
-A tool page's title is a place mark (`src/lib/PlaceMark.svelte`): the place's 1rem dot in the text
-color beside the tool's name in headline type, and the introduction under it, 0.5rem down and at
-most 36rem wide, muted, or in the text color at medium weight in a friend's view of a shared bill.
-It lines up with the tool's column: 42rem for Split bill (72rem from 1024 px, where the split has
-its own column) and 36rem for WhatsApp click-to-chat. No band, no fill and nothing above the name.
-Tool pages had a title band until the owner chose to carry the Device Map onto them (2026-11-19).
-The index has moved on twice since; the place mark stays on the tool pages until the owner decides
-whether they follow it.
+A tool page's title (`src/lib/ToolTitle.svelte`, used by both tools) says the tool as its half on
+the index does: its symbol in the text color, then its name in tool-title type 0.75rem under it,
+then the introduction 0.75rem under that, at most 36rem wide, muted, or in the text color at
+medium weight in a friend's view of a shared bill. Its padding sits inside the tool's width, so the
+title lines up with the header and the content: 42rem for Split bill (72rem from 1024 px, where the
+split has its own column) and 36rem for WhatsApp click-to-chat. No band, no fill and nothing above
+the symbol. It replaced the place mark, the Device Map's dot beside a smaller bold name.
 
 The `.band` panel remains only on the error page, a step off the page in either theme: graphite
 surface in dark mode (what steps up inside it is graphite raised, divided by graphite raised
@@ -981,8 +1082,15 @@ it's announced once.
   page cross-fades, the theme cross-fade (a view transition, when someone picks a theme or the
   device switches under System), the 4 px arrow nudge, and the loading spinner. Nothing rises or
   reveals as it scrolls.
-- **Do** open a tool page with its place mark, and hang the tool's road out from the control that
-  takes it, saying the same fact as its half on the index.
+- **Do** open a tool page with its title: its symbol, its name in extra-bold tool-title type, and
+  the introduction under it, lined up with the header and the tool.
+- **Do** divide a tool's parts with plain hairlines under extra-bold part headings, and set items
+  as rows between lines; keep a box only for a list checked line by line or a note asking for
+  attention.
+- **Do** keep every step of Split bill in the page, shown or hidden by its step, and bring a step on
+  screen before focusing anything in it.
+- **Do** count the bottom bar's "Next" in a view's one pink action: outlined until the step's own
+  work has started.
 - **Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`,
   never raw hex values in markup.
 
@@ -1005,7 +1113,11 @@ it's announced once.
   reason, and a color change otherwise belongs in `@itrium/palettes`.
 - **Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.
 - **Don't** type arrows or chevrons as characters.
-- **Don't** give halves, cards, buttons, chips, the error panel or the running total a drop shadow.
+- **Don't** give halves, cards, buttons, chips, the error panel or the bottom bar a drop shadow.
+- **Don't** put Split bill's parts back in cards, or stack rounded boxes in a tool: the owner turned
+  that down as "too many boxes".
+- **Don't** gate Split bill's steps, number them, or mark one done: they are free, in any order.
+- **Don't** invert the bottom bar on a dark page: it stays dark.
 - **Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.
 - **Don't** put pastel pink text or lines on a light background, including Split bill's half on a
   dark page; or rose text and deep-rose lines on graphite, including that half on a light page.
