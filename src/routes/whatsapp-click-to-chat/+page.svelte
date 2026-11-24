@@ -3,11 +3,10 @@
 	import SearchableSelect, { type Choice } from '#lib/SearchableSelect.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import ToolTitle from '#lib/ToolTitle.svelte';
-	import { SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
+	import { QR_CODE, SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
 	import { COUNTRIES, DEFAULT_COUNTRY_NAME, searchNames } from '#lib/countries.js';
 	import {
-		checkbox,
-		checkRow,
+		actionLine,
 		field,
 		label,
 		primaryButton,
@@ -22,7 +21,8 @@
 		withoutDoubledCode
 	} from '#lib/whatsapp.js';
 	import Caution from '#lib/Caution.svelte';
-	import { drawnSize, qrFileName, qrModules, qrPath } from '#lib/qr.js';
+	import { resolve } from '$app/paths';
+	import Arrow from '#lib/Arrow.svelte';
 
 	// Chosen by name, since countries share codes: the United States and Canada are both +1, and
 	// people look for their country, not its code.
@@ -99,71 +99,19 @@
 	// again. Focus goes to "Add a message", where the field was, rather than back to the page's top.
 	async function removeMessage() {
 		message = '';
-		messageOutOfCode = false;
 		messageShown = false;
 		await tick();
 		document.getElementById('add-message')?.focus();
 	}
-	// A message goes into the code too, unless the person leaves it out: a shop printing one code
-	// for everyone may not want one customer's message on it, and a shorter link scans better.
-	let messageOutOfCode = $state(false);
 	const hasMessage = $derived(message.trim() !== '');
-	const codeLink = $derived(
-		target && hasMessage && messageOutOfCode ? chatLink(target.number) : target?.link
+	// The link, handed to the QR code tool after the #, which stays in the browser and never reaches
+	// a server: the code is made there, raw, to save as PNG or SVG. Without the message: a printed
+	// code is for everyone who scans it, not the one customer a message was typed for.
+	const qrHandOff = $derived(
+		target
+			? `${resolve(QR_CODE.path)}#text=${encodeURIComponent(chatLink(target.number))}`
+			: undefined
 	);
-	// Drawn as the number is typed, so the code on screen is always the one Save hands over.
-	const modules = $derived(codeLink ? qrModules(codeLink) : undefined);
-
-	/**
-	 * The code as a PNG, drawn on a canvas here and handed over as a file: nothing is uploaded.
-	 * Under it, below its white margin (which scanners need clear), what it's for and the number,
-	 * so a printed code can be checked by eye and used by someone without a camera.
-	 */
-	// The file last handed to the browser: said under Save, since a download can land unseen
-	// (Safari asks first, phones file it away). It's said only while the number is the same.
-	let savedFile: string | undefined = $state();
-	const savedNow = $derived(
-		target && savedFile === qrFileName(target.number) ? savedFile : undefined
-	);
-
-	async function saveQr() {
-		if (!modules || !target) return;
-		const scale = 24;
-		const width = drawnSize(modules) * scale;
-		const labelHeight = 176;
-		const canvas = document.createElement('canvas');
-		canvas.width = width;
-		canvas.height = width + labelHeight;
-		const context = canvas.getContext('2d');
-		if (!context) return;
-		const font = 'Plus Jakarta Sans Variable';
-		await Promise.all([
-			document.fonts.load(`600 40px "${font}"`),
-			document.fonts.load(`700 60px "${font}"`)
-		]);
-		context.fillStyle = '#ffffff';
-		context.fillRect(0, 0, canvas.width, canvas.height);
-		context.fillStyle = '#2b2b2b';
-		context.textAlign = 'center';
-		context.font = `600 40px "${font}", sans-serif`;
-		// Both lines below the code's white margin (the image's top `width` pixels), which scanners
-		// need clear: the first line's capitals start about 10px under it.
-		context.fillText(WHATSAPP.qr.printLabel, width / 2, width + 40);
-		context.font = `700 60px "${font}", sans-serif`;
-		context.fillText(target.display, width / 2, width + 120, width - 2 * scale);
-		// The path is in modules; each module is `scale` pixels.
-		context.scale(scale, scale);
-		context.fill(new Path2D(qrPath(modules)));
-		const name = qrFileName(target.number);
-		canvas.toBlob((blob) => {
-			if (!blob) return;
-			const url = URL.createObjectURL(blob);
-			const link = Object.assign(document.createElement('a'), { href: url, download: name });
-			link.click();
-			savedFile = name;
-			setTimeout(() => URL.revokeObjectURL(url), 1000);
-		}, 'image/png');
-	}
 
 	async function copyLink() {
 		if (!target) return;
@@ -301,85 +249,38 @@
 		{/if}
 	</div>
 
-	<!-- The answer, shown as what it becomes: the code as it will print, beside what the link is
-	     for; then anything to check, and the two actions. Everything about the answer sits right
-	     under the fields it comes from, so nothing floats over it on a short phone. -->
+	<!-- The answer: what the link is for, anything to check, the way to a printed code (the QR code
+	     tool, with this link in it), then the two actions. Everything about the answer sits
+	     right under the fields it comes from, so nothing floats over it on a short phone. -->
 	<section
 		aria-labelledby="result-heading"
 		class="border-t border-border pt-5 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-16"
 	>
-		<div class="flex items-start gap-5 lg:gap-8">
-			<!-- The print: what Save hands over, drawn the same way. White with graphite in both
-			     themes: scanners read dark on light, and it's what prints. Empty, it holds its place,
-			     so nothing moves when the first number reads as one, and in dark mode it waits in the
-			     page's raised gray rather than glaring white. -->
-			<div
-				class="w-36 shrink-0 border border-border px-2 pt-2 pb-3 text-center sm:w-44 lg:w-56 {target
-					? 'bg-white text-on-accent'
-					: 'bg-white text-on-accent dark:bg-surface dark:text-muted'}"
-			>
-				{#if modules && target}
-					<svg
-						viewBox="0 0 {drawnSize(modules)} {drawnSize(modules)}"
-						role="img"
-						aria-label={WHATSAPP.qr.alt(target.display)}
-						shape-rendering="crispEdges"
-						class="block w-full"
-					>
-						<path d={qrPath(modules)} fill="currentColor" />
-					</svg>
-				{:else}
-					<div class="m-[7%] aspect-square bg-black/5 dark:bg-white/5"></div>
-				{/if}
-				<!-- The saved image's two lines, said here for the eye: the code above is already named. -->
-				<div aria-hidden="true">
-					<p class="text-xs font-semibold">{WHATSAPP.qr.printLabel}</p>
-					<p
-						class="min-h-4 text-xs leading-tight font-extrabold break-words tabular-nums lg:min-h-5 lg:text-sm"
-					>
-						{target?.display ?? ''}
-					</p>
-				</div>
-			</div>
-
-			<div class="min-w-0">
-				<h2 id="result-heading" class="mb-2 text-2xl font-extrabold tracking-[-0.03em]">
-					{WHATSAPP.result.heading}
-				</h2>
-				{#if target}
-					{#if notes.length}
-						<ul class="mb-3 space-y-1.5 text-sm font-medium">
-							{#each notes as note (note)}
-								<li class="flex gap-2"><Caution class="mt-0.5" />{note}</li>
-							{/each}
-						</ul>
-					{/if}
-					<!-- For someone making a link for their own number: where it goes, and a check before
-					     it's printed, since a printed mistake can't be fixed. -->
-					<p class="text-sm leading-relaxed text-muted">{WHATSAPP.result.useIt}</p>
-					<button type="button" onclick={() => void saveQr()} class="{smallButtonOnPage} mt-3"
-						>{WHATSAPP.qr.save}</button
-					>
-				{:else}
-					<p class="text-sm leading-relaxed text-muted">{WHATSAPP.result.empty}</p>
-				{/if}
-			</div>
-		</div>
+		<h2 id="result-heading" class="mb-2 text-2xl font-extrabold tracking-[-0.03em]">
+			{WHATSAPP.result.heading}
+		</h2>
+		{#if target}
+			{#if notes.length}
+				<ul class="mb-3 space-y-1.5 text-sm font-medium">
+					{#each notes as note (note)}
+						<li class="flex gap-2"><Caution class="mt-0.5" />{note}</li>
+					{/each}
+				</ul>
+			{/if}
+			<p class="text-sm leading-relaxed text-muted">{WHATSAPP.result.useIt}</p>
+			<!-- For a shop's counter or a card: the QR code tool, with this link already in it. -->
+			{#if qrHandOff}
+				<a href={qrHandOff} class="group mt-1 min-h-9 text-sm pointer-coarse:min-h-11 {actionLine}"
+					>{WHATSAPP.result.makeQr}<Arrow
+						class="transition-transform duration-200 motion-safe:group-hover:translate-x-1"
+					/></a
+				>
+			{/if}
+		{:else}
+			<p class="text-sm leading-relaxed text-muted">{WHATSAPP.result.empty}</p>
+		{/if}
 
 		{#if target}
-			{#if hasMessage}
-				<!-- The box first and what the code holds under it, in one line either way, so ticking
-				     it moves nothing under the finger. -->
-				<div class="mt-5">
-					<label class={checkRow}>
-						<input type="checkbox" bind:checked={messageOutOfCode} class={checkbox} />
-						{WHATSAPP.qr.leaveMessageOut}
-					</label>
-					<p class="text-sm text-muted">
-						{messageOutOfCode ? WHATSAPP.qr.leavesMessageOut : WHATSAPP.qr.includesMessage}
-					</p>
-				</div>
-			{/if}
 			<!-- Side by side, each as wide as its words need, with less padding than a button on its
 			     own (px-4! wins over the shared px-6) so both fit a phone; on the narrowest phones
 			     Copy moves under Open rather than either breaking onto two lines. -->
@@ -411,10 +312,9 @@
 			</div>
 		{/if}
 		<p class="mt-3 text-sm empty:mt-0" role="status">
-			<!-- What a press did, under the buttons, where nothing below it can be pushed away: a copy,
-			     or a code handed to the browser, which can land with nothing on screen saying so. -->
+			<!-- What a press did, under the buttons, where nothing below it can be pushed away. -->
 			{#if copied === 'yes'}{WHATSAPP.result.linkCopied}{:else if copied === 'failed'}{WHATSAPP
-					.result.copyFailed}{:else if savedNow}{WHATSAPP.qr.saved(savedNow)}{/if}
+					.result.copyFailed}{/if}
 		</p>
 		<!-- The link itself, only when copying it failed: to select and copy by hand. -->
 		{#if target && copied === 'failed'}

@@ -1,6 +1,8 @@
 // Everything the site says, in one place, so the copy can be reviewed without reading markup.
 // It's public copy in Itrium's voice: "we", plain words, no abbreviations. See the brand brief.
 
+import type { Does, Kind, Problem } from './qr-code';
+
 export const SITE_URL = 'https://flint.itrium.id';
 export const MAIN_SITE_URL = 'https://itrium.id';
 export const EMAIL = 'hello@itrium.id';
@@ -48,25 +50,41 @@ export const UPDATE = {
 };
 
 /** The header's links between the tools, on every page. */
-export const NAV = { label: 'Tools', splitBill: 'Split bill', whatsapp: 'WhatsApp' };
+export const NAV = {
+	label: 'Tools',
+	allTools: 'All tools',
+	/** "All tools", opened: its heading, its search and what it says when nothing matches. */
+	menuHeading: 'All tools',
+	close: 'Close',
+	search: 'Find a tool, or what you need done',
+	recent: 'Opened lately',
+	aToZ: 'A to Z',
+	noMatch: (typed: string) => `No tool for \u201c${typed}\u201d yet.`,
+	/** Pressed from the keyboard: "/" opens "All tools" on any page. */
+	shortcut: 'Press / on any page to open this list.',
+	splitBill: 'Split bill',
+	whatsapp: 'WhatsApp',
+	qrCode: 'QR code'
+};
 
-// The index as two halves, one per tool: what each does and what leaves it, said before anyone
-// presses its start. Under the halves, what never leaves.
+// The index leads with its featured tools, one full-width field each: what each does and what
+// leaves it, said before anyone presses its start. Under them, what never leaves.
 export const INDEX = {
 	intro: 'Free tools that work on your device and keep what you type there.',
-	/** The pink starts, one in each tool's half: equal, since the tools are peers. */
-	starts: { splitBill: 'Split a bill', whatsapp: 'Chat with a number' },
+	/** The pink starts, one in each featured tool's field: equal, since the tools are peers. */
+	starts: { splitBill: 'Split a bill', whatsapp: 'Chat with a number', qrCode: 'Make a code' },
 	leavesHeading: 'What leaves it',
 	leaves: {
 		splitBill: 'Only a bill you share, encrypted. Deleted 30 days after the last share.',
-		whatsapp: 'A chat you open, sent to WhatsApp with the number and message you typed.'
+		whatsapp: 'A chat you open, sent to WhatsApp with the number and message you typed.',
+		qrCode: 'Nothing. The code is made on your device, and the file stays there.'
 	},
 	stays: {
 		heading: 'Nothing else leaves',
 		facts: [
-			'What you type, your bill in progress and your theme stay on this device.',
+			'What you type, your bill in progress, your theme and the tools you opened lately stay on this device.',
 			'No cookies, no analytics, no trackers.',
-			'With no connection, both tools still open.'
+			'With no connection, every tool still opens.'
 		]
 	}
 };
@@ -84,7 +102,7 @@ export const WHATSAPP = {
 	description:
 		'Make a WhatsApp click-to-chat link from any phone number, with a message already typed if you like. Spaces and symbols are removed for you.',
 	introduction: 'Paste a phone number as it is, and get a link that opens a chat with it.',
-	/** On the index, what the tool does, in its half. */
+	/** On the index and in "All tools": what the tool does. */
 	line: 'Message a number without saving it.',
 	hint: 'A number that starts with + or 00 already has its country, so we use it as it is.',
 	/**
@@ -124,23 +142,101 @@ export const WHATSAPP = {
 		extension: (extension: string) =>
 			`We left off the extension (${extension}): WhatsApp can't dial one.`,
 		short: "That's shorter than most numbers there. Check you have every digit.",
-		useIt: 'Opens a chat with this number. Scan the code once before you print it.'
-	},
-	// The link as a QR code, drawn here, for a shop's counter or a card.
-	qr: {
-		heading: 'QR code to print',
-		save: 'Save the QR code',
-		/** Under Save once pressed: a download can land without anything on screen saying so. */
-		saved: (file: string) => `Look for ${file} in your downloads.`,
-		/** Printed under the code in the saved image, above the number. */
-		printLabel: 'Chat on WhatsApp',
-		includesMessage: 'This code includes your message: whoever scans it starts with it typed.',
-		/** In the same line once the box is ticked, so nothing under it moves. */
-		leavesMessageOut:
-			'This code leaves your message out: whoever scans it starts a chat with nothing typed.',
-		leaveMessageOut: 'Leave the message out of the code',
-		alt: (number: string) => `QR code that opens a chat with ${number}`
+		useIt: 'Opens a chat with this number.',
+		/** Under it: the chat link without any message, handed to the QR code tool to print. */
+		makeQr: 'Make a QR code for this number'
 	}
+};
+
+/** What scanning a code does, in one sentence: under "Your code", and the code's name. */
+function codeDoes(does: Does): string {
+	switch (does.kind) {
+		case 'website':
+			return `Opens the website ${does.host}.`;
+		case 'text':
+			return 'Shows this text.';
+		case 'wifi':
+			return does.open
+				? `Joins the Wi-Fi network ${does.name}, which has no password.`
+				: `Joins the Wi-Fi network ${does.name}, password included.`;
+		case 'contact':
+			return `Saves ${does.name} as a contact.`;
+		case 'email':
+			return `Starts an email to ${does.address}.`;
+		case 'phone':
+			return `Calls ${does.number}.`;
+	}
+}
+
+export const QR_CODE = {
+	path: '/qr-code' as const,
+	name: 'QR code',
+	description:
+		'Make a QR code from a link or any text, or for a Wi-Fi network, a contact, an email or a phone call. Made on your device, saved as PNG or SVG, and it never expires.',
+	introduction:
+		'Paste a link or any text, and get a code that opens it. It holds exactly what you typed, so it never expires.',
+	/** On the index and in "All tools": what the tool does. */
+	line: 'A code for a link, a Wi-Fi network or a contact.',
+	/** Each kind's name, on the shelf and over its fields. */
+	kinds: {
+		text: 'A link or text',
+		wifi: 'Wi-Fi network',
+		contact: 'Contact',
+		email: 'Email',
+		phone: 'Phone call'
+	} satisfies Record<Kind, string>,
+	/** Beside each kind on the shelf: what its code is for. */
+	kindsFor: {
+		text: 'A website, a menu, a note',
+		wifi: 'Guests join without typing',
+		contact: 'Saves you to their phone',
+		email: 'Starts an email to you',
+		phone: 'Calls a number'
+	} satisfies Record<Kind, string>,
+	/** Over the shelf, while a link or text is the code, and while another kind is. */
+	shelf: 'Something other than a link',
+	shelfElse: 'Something else',
+	fields: {
+		text: 'Link or text',
+		wifiName: 'Network name',
+		wifiPassword: 'Password',
+		wifiPasswordHint: 'Leave it empty for a network without one.',
+		contactName: 'Name',
+		contactPhone: 'Phone number',
+		contactEmail: 'Email',
+		contactWebsite: 'Website',
+		emailAddress: 'Email address',
+		emailSubject: 'Subject',
+		emailBody: 'Message',
+		phoneNumber: 'Phone number',
+		phoneHint: 'Put the country code in front, like +62, if it may be called from abroad.'
+	},
+	optional: '(optional)',
+	/** Under the field before anything's typed: what phones do with what's in a code. */
+	hint: 'Phones open a link in their browser, and show anything else as text.',
+	/** Under a web address typed without https://: phones show it as text, or search for it. */
+	noScheme: 'Phones show this as text, not a website, without https:// in front.',
+	useScheme: 'Add https://',
+	problems: {
+		'too-long': (over: number) =>
+			`That's more than one code can hold, by about ${over.toLocaleString('en')} characters. Shorten it, or put it on a web page and make a code for the link.`,
+		'not-an-email':
+			"That isn't an email address yet: it needs a name, an @ and a domain, like name@example.com.",
+		'not-a-phone-number':
+			"That isn't a phone number: use digits, with spaces or dashes if you like."
+	} satisfies Record<Problem, unknown>,
+	heading: 'Your code',
+	empty: 'Your code appears here as you type.',
+	/** In its place while what's typed has a problem: said beside the empty code. */
+	blocked: 'Your code appears here once the problem above is fixed.',
+	does: codeDoes,
+	check: 'Scan it once before you print it.',
+	savePng: 'Save as PNG',
+	saveSvg: 'Save as SVG',
+	saved: (file: string) => `Look for ${file} in your downloads.`,
+	/** Under the saves, when one is pressed before there's a code. */
+	nothingYet: "There's no code to save yet: type what it should open first.",
+	alt: (does: Does) => `QR code. ${codeDoes(does)}`
 };
 
 /** Items by name: up to three, then how many more. */
@@ -169,7 +265,7 @@ export const SPLIT_BILL = {
 		'Split a bill fairly: add the people and the items, tag who had what, add tax and service, and share the result as a short link. Shared bills are encrypted, and only people with the link can open them.',
 	introduction:
 		'Tag who had what, and we work out a fair share for each person, tax and service included.',
-	/** On the index, what the tool does, in its half. */
+	/** On the index and in "All tools": what the tool does. */
 	line: 'Tag who had what; tax and service included.',
 	privacy:
 		"A shared bill waits on our server for 30 days after it was last shared, encrypted with a key that is only in the link, so we can't read it. Whoever shared it can update it or delete it, on the same device.",
