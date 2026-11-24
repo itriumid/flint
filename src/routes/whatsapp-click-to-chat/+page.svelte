@@ -2,7 +2,7 @@
 	import SearchableSelect, { type Choice } from '#lib/SearchableSelect.svelte';
 	import Seo from '#lib/Seo.svelte';
 	import RoadOut from '#lib/RoadOut.svelte';
-	import PlaceMark from '#lib/PlaceMark.svelte';
+	import ToolTitle from '#lib/ToolTitle.svelte';
 	import { ROADS_OUT, SITE_URL, TITLE_SUFFIX, WHATSAPP } from '#lib/content.js';
 	import { COUNTRIES, DEFAULT_COUNTRY_NAME, searchNames } from '#lib/countries.js';
 	import {
@@ -182,7 +182,12 @@
 	}}
 />
 
-<PlaceMark title={WHATSAPP.name} introduction={WHATSAPP.introduction} width="max-w-xl" />
+<ToolTitle
+	tool="whatsapp"
+	title={WHATSAPP.name}
+	introduction={WHATSAPP.introduction}
+	width="max-w-xl"
+/>
 
 <section class="mx-auto max-w-xl px-5 pt-6 pb-20 sm:px-8">
 	<form class="{card} space-y-5" onsubmit={(event) => event.preventDefault()}>

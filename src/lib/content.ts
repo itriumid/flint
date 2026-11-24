@@ -72,12 +72,8 @@ export const INDEX = {
 };
 export const SOURCE_LABEL = 'Read the source';
 
-// On a tool page, the one way out of the device, hanging from the control that takes it.
+// On WhatsApp click-to-chat, its one way out of the device, hanging from the control that takes it.
 export const ROADS_OUT = {
-	share: {
-		label: 'A bill you share, encrypted. Deleted 30 days after the last share.',
-		to: 'Our server'
-	},
 	chat: { label: 'A chat you open, with the number and message you typed.', to: 'WhatsApp' }
 };
 
@@ -158,6 +154,16 @@ function itemList(names: string[]): string {
 export const SPLIT_BILL = {
 	path: '/split-bill' as const,
 	name: 'Split bill',
+	/**
+	 * Below 1024px the bill is made in three steps, one on screen at a time: their names in the bar
+	 * at the top, and the plain way on at the bottom. Calm words: nobody "owes" anyone here.
+	 */
+	steps: {
+		label: 'Steps',
+		names: ["Who's here", 'What you had', "Everyone's share"],
+		next: 'Next',
+		people: (count: number) => `${count} ${count === 1 ? 'person' : 'people'}`
+	},
 	description:
 		'Split a bill fairly: add the people and the items, tag who had what, add tax and service, and share the result as a short link. Shared bills are encrypted, and only people with the link can open them.',
 	introduction:
@@ -178,7 +184,6 @@ export const SPLIT_BILL = {
 			"This link looks incomplete, so we can't open the bill. Ask whoever sent it to copy it again.",
 		retry: 'Try again',
 		/** By the share buttons, while something's untagged, with "Show it" to go to it. */
-		unsharedYet: (amount: string) => `${amount} isn't in anyone's share yet.`,
 		showIt: 'Show it',
 		startNew: 'Start a new bill',
 		/** On the button itself for a few seconds after a press: where the press was. */
@@ -199,8 +204,8 @@ export const SPLIT_BILL = {
 	},
 	// For someone who opened a bill shared with them: their share first, the editor one press away.
 	sharedWithYou: {
-		/** In the place mark, in place of how to make a bill: what this one is. */
-		placeMark: (total: string, payer?: string) =>
+		/** Under the title, in place of how to make a bill: what this one is. */
+		introduction: (total: string, payer?: string) =>
 			`A bill shared with you: ${total} in all${payer ? `, paid by ${payer}` : ''}.`,
 		line: "Find your name, and tap it to see what's in your share.",
 		makeChanges: 'Make changes',
