@@ -23,6 +23,10 @@ The jobs are:
 - **WhatsApp click-to-chat:** someone who wants to message a phone number without saving it as
   a contact, or who needs a link that opens a chat with their own number (for a shop, a profile,
   a printed card).
+- **QR code:** someone who needs a code that opens something when scanned, mostly a link or a
+  piece of text (a menu, a poster, a slide), sometimes a Wi-Fi network for guests, a contact, an
+  email or a phone call; saved as a PNG or an SVG to post or print. The code is static and holds
+  exactly what was typed, so nothing counts its scans and it never expires.
 
 ## Product Purpose
 
@@ -55,7 +59,7 @@ not just taken on trust.
 
 ## Capabilities and Constraints
 
-- Pages: `/` (the index of tools), `/split-bill`, `/whatsapp-click-to-chat`. Bigger tools from
+- Pages: `/` (the index of tools), `/split-bill`, `/whatsapp-click-to-chat`, `/qr-code`. Bigger tools from
   Itrium that run in the browser, such as Amber, get sites of their own and are linked from
   the index, not built here.
 - Shared bills are kept for 30 days after they were last shared, at most 64 KB, and can be
