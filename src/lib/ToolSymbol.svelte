@@ -1,7 +1,7 @@
 <script lang="ts">
 	interface Props {
 		/** Which tool: each has one symbol, the same wherever it appears. */
-		tool: 'split-bill' | 'whatsapp' | 'qr-code';
+		tool: 'split-bill' | 'whatsapp' | 'qr-code' | 'images';
 		class?: string;
 	}
 
@@ -9,7 +9,8 @@
 </script>
 
 <!-- A tool's symbol: a circle shared in half for Split bill, a speech mark for WhatsApp
-     click-to-chat, and a code's three corner squares and a module for QR code. Drawn in the text
+     click-to-chat, and a code's three corner squares and a module for QR code,
+     and a picture's frame, hills and sun for Resize and convert images. Drawn in the text
      color; it repeats the tool's name, so screen readers skip it. -->
 <svg
 	viewBox="0 0 40 40"
@@ -22,6 +23,10 @@
 	{#if tool === 'split-bill'}
 		<circle cx="20" cy="20" r="16" />
 		<path d="M20 4a16 16 0 0 0 0 32Z" fill="currentColor" />
+	{:else if tool === 'images'}
+		<rect x="5" y="7" width="30" height="26" rx="3" />
+		<path d="M5 28l9-9 7 7 5-5 9 9" stroke-linejoin="round" />
+		<circle cx="27" cy="15" r="2.5" fill="currentColor" stroke="none" />
 	{:else if tool === 'qr-code'}
 		<rect x="5" y="5" width="12" height="12" rx="2" />
 		<rect x="23" y="5" width="12" height="12" rx="2" />

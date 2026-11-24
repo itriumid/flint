@@ -65,7 +65,8 @@ export const NAV = {
 	shortcut: 'Press / on any page to open this list.',
 	splitBill: 'Split bill',
 	whatsapp: 'WhatsApp',
-	qrCode: 'QR code'
+	qrCode: 'QR code',
+	images: 'Resize images'
 };
 
 // The index leads with its featured tools, one full-width field each: what each does and what
@@ -73,12 +74,18 @@ export const NAV = {
 export const INDEX = {
 	intro: 'Free tools that work on your device and keep what you type there.',
 	/** The pink starts, one in each featured tool's field: equal, since the tools are peers. */
-	starts: { splitBill: 'Split a bill', whatsapp: 'Chat with a number', qrCode: 'Make a code' },
+	starts: {
+		splitBill: 'Split a bill',
+		whatsapp: 'Chat with a number',
+		qrCode: 'Make a code',
+		images: 'Resize an image'
+	},
 	leavesHeading: 'What leaves it',
 	leaves: {
 		splitBill: 'Only a bill you share, encrypted. Deleted 30 days after the last share.',
 		whatsapp: 'A chat you open, sent to WhatsApp with the number and message you typed.',
-		qrCode: 'Nothing. The code is made on your device, and the file stays there.'
+		qrCode: 'Nothing. The code is made on your device, and the file stays there.',
+		images: 'Nothing. Your images are changed on your device and saved there.'
 	},
 	stays: {
 		heading: 'Nothing else leaves',
@@ -478,3 +485,68 @@ export const ELSEWHERE = [
 		label: 'Open Amber'
 	}
 ];
+
+export const IMAGES = {
+	path: '/resize-and-convert-images' as const,
+	name: 'Resize and convert images',
+	description:
+		'Make photos smaller to fit a limit, like under 200 KB, or change their format to JPEG, WebP or PNG. Several at once, on your device: nothing is uploaded, and location details are left out.',
+	introduction:
+		'Make photos smaller to fit a limit, or change their format. Nothing is uploaded: your images are changed on this device.',
+	/** On the index and in "All tools": what the tool does. */
+	line: 'Make a photo smaller, or change its format.',
+	target: {
+		label: 'Make each image under',
+		hint: 'The size the form or site asks for. Leave it empty to keep each image as large as it is.',
+		units: { KB: 'KB', MB: 'MB' },
+		unitsLabel: 'Unit'
+	},
+	format: {
+		label: 'Save as',
+		jpeg: 'JPEG',
+		webp: 'WebP',
+		png: 'PNG',
+		same: 'Keep the format'
+	},
+	details: {
+		keep: 'Keep location and camera details',
+		/** Under the box, saying what that means either way, in one line so nothing moves. */
+		removed: 'Left out: where and when each photo was taken, and the camera.',
+		kept: 'Kept as they were, location included: anyone you send these to can see them.'
+	},
+	more: {
+		label: 'More control: width, height, quality',
+		width: 'Width at most',
+		height: 'Height at most',
+		pixels: 'pixels',
+		quality: 'Quality',
+		/** In place of the quality slider while there's a size to fit: the quality is found. */
+		qualityFound: 'With a size to fit, the quality is worked out for each image.'
+	},
+	images: {
+		heading: 'Your images',
+		add: 'Add images',
+		addMore: 'Add more',
+		empty: 'Add one or more images: photos, screenshots, scans. They stay on this device.',
+		drop: 'Or drop them here.',
+		working: 'Working…',
+		remove: 'Remove',
+		save: 'Save',
+		/** The one pink action: "Save it" for one image, "Save all 3" for more. */
+		saveAll: (count: number) => (count === 1 ? 'Save it' : `Save all ${count}`),
+		/** For a screen reader, what each row is. */
+		row: (name: string) => `${name}`
+	},
+	notes: {
+		tooBig: (size: string) => `The smallest it would go is ${size}.`,
+		transparent: 'Its see-through parts are white in a JPEG.',
+		larger: 'This copy is larger than the original.',
+		notOpened: "This browser can't open this file as an image.",
+		noDetails: 'It had no location or camera details to keep.'
+	},
+	saved: (name: string) => `Look for ${name} in your downloads.`,
+	savedAll: (count: number) => `Look for the ${count} images in your downloads.`,
+	/** Under Save all, before it's pressed, where it opens the share sheet. */
+	shareHint: 'Save all opens the share sheet: choose Save Images to keep them in your photos.',
+	shared: 'Shared.'
+};
