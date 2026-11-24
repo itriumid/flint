@@ -3,7 +3,9 @@
 // phones read when they scan it. Every code is static: it holds exactly what was typed, and nothing
 // in between can count scans or point it somewhere else later.
 
+import { COUNTRIES, DEFAULT_COUNTRY_NAME } from './countries';
 import { bytesIn, QR_CAPACITY } from './qr';
+import { chatTarget, waitsForTyping as numberWaits, type ChatProblem } from './whatsapp';
 
 /** The kinds of code: a link or any text first, the rest offered under it. */
 export const KINDS = ['text', 'wifi', 'contact', 'email', 'phone'] as const;
@@ -13,17 +15,17 @@ export type Kind = (typeof KINDS)[number];
 export interface Entries {
 	text: string;
 	wifi: { name: string; password: string };
-	contact: { name: string; phone: string; email: string; website: string };
+	contact: { name: string; country: string; phone: string; email: string; website: string };
 	email: { address: string; subject: string; body: string };
-	phone: { number: string };
+	phone: { country: string; number: string };
 }
 
 export const emptyEntries = (): Entries => ({
 	text: '',
 	wifi: { name: '', password: '' },
-	contact: { name: '', phone: '', email: '', website: '' },
+	contact: { name: '', country: DEFAULT_COUNTRY_NAME, phone: '', email: '', website: '' },
 	email: { address: '', subject: '', body: '' },
-	phone: { number: '' }
+	phone: { country: DEFAULT_COUNTRY_NAME, number: '' }
 });
 
 /** What scanning the code does, for the line that says so: content.ts turns it into words. */
@@ -35,10 +37,12 @@ export type Does =
 	| { kind: 'email'; address: string }
 	| { kind: 'phone'; number: string };
 
-export type Problem = 'too-long' | 'not-an-email' | 'not-a-phone-number';
+/** What's wrong: too long for a code, not an email address, or a phone number that can't be one. */
+export type Problem = 'too-long' | 'not-an-email' | 'phone';
 
 export type CodeFor =
-	{ data: string; does: Does; fileStem: string } | { problem: Problem; bytes?: number };
+	| { data: string; does: Does; fileStem: string }
+	| { problem: Problem; bytes?: number; phone?: ChatProblem };
 
 /** A web address, with its scheme: the only text phones open as a website without asking. */
 function website(text: string): string | undefined {
@@ -65,10 +69,20 @@ export function withScheme(text: string): string | undefined {
 const escapeWifi = (text: string) => text.replace(/([\\;,:"])/g, '\\$1');
 const escapeVcard = (text: string) => text.replace(/([\\;,])/g, '\\$1').replace(/\r?\n/g, '\\n');
 
-/** A phone number as a phone dials it: a leading + and the digits, nothing between them. */
-function dialable(number: string): string | undefined {
-	const cleaned = number.trim().replace(/[\s().-]/g, '');
-	return /^\+?\d{3,15}$/.test(cleaned) ? cleaned : undefined;
+/**
+ * A phone number read the way WhatsApp click-to-chat reads one, in the country chosen: "0812 …" in
+ * Indonesia is +62 812 …, and a number with its own + or 00 keeps its country. A code dials it in
+ * full, country code first, so it works whoever scans it, wherever they are.
+ */
+export function phoneNumber(
+	country: string,
+	typed: string
+): { number: string; display: string; countryCode: string } | { phone: ChatProblem } | undefined {
+	const code = COUNTRIES.find((found) => found.name === country)?.phoneCode ?? '';
+	const read = chatTarget(code, typed, '');
+	if (!read) return undefined;
+	if ('problem' in read) return { phone: read.problem };
+	return { number: `+${read.number}`, display: read.display, countryCode: read.countryCode };
 }
 
 const looksLikeEmail = (address: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(address);
@@ -150,12 +164,13 @@ function make(kind: Kind, entries: Entries): CodeFor | undefined {
 			const site = contact.website.trim();
 			if (!name && !phone && !email && !site) return undefined;
 			if (email && !looksLikeEmail(email)) return { problem: 'not-an-email' };
-			if (phone && !dialable(phone)) return { problem: 'not-a-phone-number' };
+			const read = phone ? phoneNumber(contact.country, phone) : undefined;
+			if (read && 'phone' in read) return { problem: 'phone', phone: read.phone };
 			const lines = ['BEGIN:VCARD', 'VERSION:3.0'];
 			// The whole name as the given name: splitting it into first and last guesses wrong for
 			// the many names that don't have one of each.
 			lines.push(`N:;${escapeVcard(name)};;;`, `FN:${escapeVcard(name)}`);
-			if (phone) lines.push(`TEL;TYPE=CELL:${dialable(phone)}`);
+			if (read) lines.push(`TEL;TYPE=CELL:${read.number}`);
 			if (email) lines.push(`EMAIL:${escapeVcard(email)}`);
 			if (site) lines.push(`URL:${escapeVcard(withScheme(site) ?? site)}`);
 			lines.push('END:VCARD');
@@ -181,21 +196,22 @@ function make(kind: Kind, entries: Entries): CodeFor | undefined {
 			};
 		}
 		case 'phone': {
-			const typed = entries.phone.number.trim();
-			if (!typed) return undefined;
-			const number = dialable(typed);
-			if (!number) return { problem: 'not-a-phone-number' };
+			const read = phoneNumber(entries.phone.country, entries.phone.number);
+			if (!read) return undefined;
+			if ('phone' in read) return { problem: 'phone', phone: read.phone };
 			return {
-				data: `tel:${number}`,
-				does: { kind: 'phone', number: typed },
-				fileStem: number.replace('+', '')
+				data: `tel:${read.number}`,
+				does: { kind: 'phone', number: read.display },
+				fileStem: read.number.replace('+', '')
 			};
 		}
 	}
 }
 
 /** Problems that every entry has halfway through typing it wait until the typing stops. */
-export const waitsForTyping = (problem: Problem) => problem !== 'too-long';
+export const waitsForTyping = (made: { problem: Problem; phone?: ChatProblem }) =>
+	made.problem === 'not-an-email' ||
+	(made.problem === 'phone' && made.phone !== undefined && numberWaits(made.phone));
 
 /**
  * A link handed over in the address, after the #, as WhatsApp click-to-chat does: "#text=…".

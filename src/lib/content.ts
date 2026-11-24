@@ -2,6 +2,7 @@
 // It's public copy in Itrium's voice: "we", plain words, no abbreviations. See the brand brief.
 
 import type { Does, Kind, Problem } from './qr-code';
+import type { ChatProblem } from './whatsapp';
 
 export const SITE_URL = 'https://flint.itrium.id';
 export const MAIN_SITE_URL = 'https://itrium.id';
@@ -209,7 +210,7 @@ export const QR_CODE = {
 		emailSubject: 'Subject',
 		emailBody: 'Message',
 		phoneNumber: 'Phone number',
-		phoneHint: 'Put the country code in front, like +62, if it may be called from abroad.'
+		country: 'Country'
 	},
 	optional: '(optional)',
 	/** Under the field before anything's typed: what phones do with what's in a code. */
@@ -222,8 +223,8 @@ export const QR_CODE = {
 			`That's more than one code can hold, by about ${over.toLocaleString('en')} characters. Shorten it, or put it on a web page and make a code for the link.`,
 		'not-an-email':
 			"That isn't an email address yet: it needs a name, an @ and a domain, like name@example.com.",
-		'not-a-phone-number':
-			"That isn't a phone number: use digits, with spaces or dashes if you like."
+		/** A phone number that can't be one: said as WhatsApp click-to-chat says it. */
+		phone: (reason: ChatProblem) => WHATSAPP.problems[reason]
 	} satisfies Record<Problem, unknown>,
 	heading: 'Your code',
 	empty: 'Your code appears here as you type.',

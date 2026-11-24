@@ -46,10 +46,14 @@
 			return;
 		}
 		return new Promise((done) => {
-			document.startViewTransition(async () => {
-				done();
-				await navigation.complete;
-			});
+			// A fade the browser drops halfway (the window resized) rejects `ready`; the page still
+			// changes, so that's caught rather than reported as an error.
+			document
+				.startViewTransition(async () => {
+					done();
+					await navigation.complete;
+				})
+				.ready.catch(() => {});
 		});
 	});
 </script>
