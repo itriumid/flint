@@ -13,7 +13,7 @@
  */
 :root {
 	/* The edge of a field or button, which people need to see to find it: 3:1 against both the page
-	   and a card. The softer --border is for dividing lines that nothing depends on. */
+	   and a band. The softer --border is for dividing lines that nothing depends on. */
 	--control-border: #8a8a8a;
 	/* Pink as text: pastel on graphite, rose on light backgrounds (5.2:1 on the page, 5.4:1 on white,
 	   4.8:1 on a band). */
@@ -171,7 +171,7 @@ html {
 }
 
 @layer base {
-	/* In the base layer, so an element's own rounding (a pill, a card) wins over the 4px here: the
+	/* In the base layer, so an element's own rounding (a pill, a field) wins over the 4px here: the
 	   outline follows the element's shape instead of squaring it off. */
 	:focus-visible {
 		outline: 2px solid var(--focus);
@@ -179,7 +179,7 @@ html {
 		border-radius: 4px;
 	}
 
-	/* Headings and cards the page moves focus to itself (tabindex="-1"), so a keyboard or a screen
+	/* Headings and parts the page moves focus to itself (tabindex="-1"), so a keyboard or a screen
 	   reader carries on from there: no ring around them, which looked like a stray selection box
 	   (pink in dark mode) on a bill opened from a link. Focus still moves and is still announced. */
 	[tabindex='-1']:focus-visible {
@@ -226,8 +226,8 @@ html {
  * (#F1F1F1), where every text and line color still passes: text 12.5:1, muted 4.7:1, rose text
  * 4.8:1, control edge 4.0:1, focus 12.5:1. It was graphite in both themes, like itrium.id's, until
  * that made light mode's heaviest shape on every page the title. In dark mode it steps up to the
- * palette's surface, and cards on it step up again to its elevated gray: muted gray on them
- * (#3E3E3E) is 4.6:1, and the control edge 3.1:1. The palette's values are taken at the root
+ * palette's surface, and anything raised on it steps up again to its elevated gray: muted gray
+ * there (#3E3E3E) is 4.6:1, and the control edge 3.1:1. The palette's values are taken at the root
  * (--band-bg, --band-raised), since a band can't read --surface while redefining it.
  */
 :root {

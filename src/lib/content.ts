@@ -72,11 +72,6 @@ export const INDEX = {
 };
 export const SOURCE_LABEL = 'Read the source';
 
-// On WhatsApp click-to-chat, its one way out of the device, hanging from the control that takes it.
-export const ROADS_OUT = {
-	chat: { label: 'A chat you open, with the number and message you typed.', to: 'WhatsApp' }
-};
-
 export const NO_TRACKING =
 	'This site has no cookies, no analytics and no trackers. What you type stays in your browser.';
 // On Split bill, where sharing a bill is the one thing that reaches us.
@@ -109,6 +104,8 @@ export const WHATSAPP = {
 		several: 'That looks like more than one number. Make a link for one at a time.',
 		'no-digits': "There's no number here yet. Type the phone number's digits."
 	},
+	/** Where the message field goes, until it's asked for: most people don't send one. */
+	addMessage: 'Add a message',
 	/** Under a number typed with its country code twice: puts it in once. */
 	useFixed: (number: string) => `Use ${number}`,
 	/** Under the field, as soon as the number reads as one: the number, as the link will have it. */
@@ -119,14 +116,13 @@ export const WHATSAPP = {
 		copied: 'Copied',
 		/** Under the result, for screen readers as much as anyone: what pressing Copy link did. */
 		linkCopied: 'Link copied.',
-		copyFailed: "We couldn't copy it. Select the link above and copy it yourself.",
+		copyFailed: "We couldn't copy it. Here's the link to select and copy yourself:",
 		empty: 'Enter a phone number and the link appears here.',
 		lettersDropped: 'We left out the letters and kept the digits: check this is the number.',
 		extension: (extension: string) =>
 			`We left off the extension (${extension}): WhatsApp can't dial one.`,
 		short: "That's shorter than most numbers there. Check you have every digit.",
-		useIt:
-			'Put the link in a profile or a message, or print the QR code. Scan it once before you print, to check it opens this chat.'
+		useIt: 'Opens a chat with this number. Scan the code once before you print it.'
 	},
 	// The link as a QR code, drawn here, for a shop's counter or a card.
 	qr: {
@@ -137,6 +133,9 @@ export const WHATSAPP = {
 		/** Printed under the code in the saved image, above the number. */
 		printLabel: 'Chat on WhatsApp',
 		includesMessage: 'This code includes your message: whoever scans it starts with it typed.',
+		/** In the same line once the box is ticked, so nothing under it moves. */
+		leavesMessageOut:
+			'This code leaves your message out: whoever scans it starts a chat with nothing typed.',
 		leaveMessageOut: 'Leave the message out of the code',
 		alt: (number: string) => `QR code that opens a chat with ${number}`
 	}
