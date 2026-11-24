@@ -305,6 +305,22 @@ components:
     textColor: '{colors.graphite}'
     rounded: '{rounded.sm}'
     padding: '0.5rem 1rem'
+  segmented-pill:
+    textColor: '{colors.muted-gray-on-light}'
+    rounded: '{rounded.full}'
+    padding: '0 0.875rem'
+    height: '2.25rem'
+  segmented-pill-chosen:
+    backgroundColor: '{colors.graphite}'
+    textColor: '{colors.paper}'
+    rounded: '{rounded.full}'
+  image-row:
+    padding: '0.75rem 0'
+    height: '7.25rem'
+  image-tile:
+    backgroundColor: '{colors.paper-elevated}'
+    rounded: '0.375rem'
+    size: '3.5rem'
 ---
 
 # Design System: flint.itrium.id
@@ -328,7 +344,8 @@ page, paper elevated on a dark one), the second a tonal step off the page, and t
 itself, held between the row's two hairlines. Each field carries its tool's symbol, its name at
 poster scale, what it does, what leaves it, and one large pink start. Flint's name, its line and a
 search for a tool sit above them, a step below the tools' names, and what never leaves sits on the
-page below. Once there are more tools than fields, every tool follows A to Z, under its initial.
+page below. Once there are more tools than fields, every tool follows A to Z: a plain list while
+each letter holds one tool, under initials once a letter holds two.
 It replaced Two halves (two tools, one seam), which replaced the Rantang (#73), the Device Map
 (#71) and the line-item strip (#70).
 
@@ -338,7 +355,7 @@ lately on this device first. Switching tools stays one press and a word away how
 are.
 
 A tool page follows the index. It opens with the tool's title, said as its field says it: the
-tool's symbol and its name in the same extra-bold type, the introduction under it. All three tools
+tool's symbol and its name in the same extra-bold type, the introduction under it. All four tools
 are drawn in this world, with no cards. Split bill's parts are divided by plain lines under
 extra-bold headings, items as rows between lines, and below 1024px the bill is made in three steps,
 one on screen at a time, with a graphite bar fixed to the bottom of the screen holding the step's
@@ -348,7 +365,10 @@ click-to-chat is the fields, then under a plain line the answer: "Your link", wh
 to make a QR code for the number, and "Open in WhatsApp" and "Copy link". QR code is a link or any
 text, then under a plain line the bare code beside "Your code", redrawn as it's typed, its two
 saves, and a short shelf of other kinds (Wi-Fi, contact, email, phone call) whose fields take the
-first part's place when picked. From 1024px each tool's answer has its own column.
+first part's place when picked. Resize and convert images is the settings (a size to fit, a
+format, whether to keep a photo's details, and more control folded away), then under a plain line
+"Your images", each a row between hairlines with what it was and what it became, and one pink
+"Save all". From 1024px each tool's answer has its own column.
 
 Components are soft and sure-footed, and tactile without being playful. Every control has a round,
 generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see
@@ -386,8 +406,9 @@ stacked rounded boxes. On Split bill the owner turned down the same stack: "too 
   field, and the introduction under it.
 - Split bill has no cards: parts between plain lines, items as rows, three steps below 1024px with a
   graphite bar at the bottom, and two columns from 1024px.
-- WhatsApp click-to-chat and QR code have no card: the fields, a plain line, then the answer, in its
-  own column beside a vertical line from 1024px. Only QR code draws a code, bare, on a white sheet.
+- WhatsApp click-to-chat, QR code and Resize and convert images have no card: the fields, a plain
+  line, then the answer, in its own column beside a vertical line from 1024px. Only QR code draws a
+  code, bare, on a white sheet.
 - Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
   footer.
 - Flat surfaces with tonal steps. The only shadow is under the open searchable list; "All tools"
@@ -550,8 +571,8 @@ served from the site itself.
 - **Nav** (`nav`): the header's links to the tools, semibold, each with its symbol; and a tool's
   name in a row of tools (the index's search, "All tools") and a kind's name on QR code's shelf.
 - **Initial** (no token): the letter over each group in an A-to-Z list, extra-bold, 1.25rem in
-  "All tools" and 1.875rem at -0.04em on the index; hidden from screen readers, since the names
-  under it say it.
+  "All tools" and 1.875rem at -0.04em on the index, where it appears only once a letter holds two
+  tools; hidden from screen readers, since the names under it say it.
 - **Minor heading** (`minor-heading`): the heading of the tools on sites of their own, under the
   facts, bold at body size.
 - **Body** (`body`): a tool's introduction (at 1.625 line height under its title, muted, or in
@@ -589,9 +610,9 @@ above the names it groups, and is hidden from screen readers.
 - **Widths:** the header, the footer, Flint's name above the fields and the facts below them sit in
   the 72rem content column (`content-width`). The error page's panel is the same width, inset from
   the viewport by 0.75 to 1.25rem (`gutter-panel`). Below 1024 px a tool sits in a narrow working
-  column: 36rem (`form-width`) for WhatsApp click-to-chat and QR code, 42rem (`tool-width`) for
-  Split bill. From 1024 px all three take the 72rem column, the answer in its own column beside the
-  form.
+  column: 36rem (`form-width`) for WhatsApp click-to-chat, QR code and Resize and convert images,
+  42rem (`tool-width`) for Split bill. From 1024 px all four take the 72rem column, the answer in its
+  own column beside the form.
 - **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`).
 - **Header:** one row in the 72rem column, 1.5rem above and below: the mark and "Flint" on the
   left; on the right the featured tools' links, 2rem apart, from 1024 px only, then "All tools".
@@ -624,9 +645,11 @@ above the names it groups, and is hidden from screen readers.
   they don't fit; the search sits under them, at most 36rem wide. From 1024 px the search sits
   beside them on the right, 24rem wide (`search-width`), held at the top of the row, so the field
   stays put and its answers only ever grow downward.
-- **Below the fields:** once there are more tools than `FEATURED_COUNT`, "All tools", every tool A
-  to Z under its initial, in two columns from 768 px and three from 1024 px, each group under a
-  hairline; it is not rendered while every tool is featured. Then "Nothing else leaves" and its
+- **Below the fields:** once there are more tools than `FEATURED_COUNT` (four tools, three
+  featured, today), "All tools", every tool A to Z, in two columns from 768 px and three from
+  1024 px. While each letter holds one tool it is a plain list, each entry under a hairline; once a
+  letter holds two (`needsLetters` in `src/lib/tools.ts`), each letter's group sits under a hairline
+  and its initial. It is not rendered while every tool is featured. Then "Nothing else leaves" and its
   three facts, in three columns from 768 px, 2.5rem apart; then, past a hairline, the tools on
   sites of their own and "Read the source", side by side and wrapping.
 - **What the browser remembers:** read after the page loads from what the browser already keeps,
@@ -671,6 +694,13 @@ above the names it groups, and is hidden from screen readers.
   the shelf starts above the fold. From 1024 px, two equal columns, as on WhatsApp click-to-chat:
   the first part and the shelf on the left, the code at 16rem (`code-width`) with 2rem to "Your
   code", its saves and the status line on the right.
+- **Resize and convert images:** below 1024 px, in the 36rem column, the settings 1.25rem apart
+  (the size to fit, "Save as", the details box and its line, "More control"), then a hairline, then
+  "Your images" with "Add images" beside it, the rows, the pink "Save all" full width, and the
+  status line. From 1024 px, two equal columns as on WhatsApp click-to-chat: the settings on the
+  left, 4rem clear of a vertical hairline, the images on the right, 4rem in from it. Every row is at
+  least 7.25rem tall (7.75rem on touch screens), room for its Save, its Remove and one note, so a row
+  keeps its height when its image is done or redone; the status line keeps 2.5rem.
 - **A friend's view:** someone opening a bill shared with them sees only the split, with no steps
   and no bars, at every width.
 - **Phones:** every control is at least 2.75rem tall on touch screens (`touch-target`), and
@@ -693,6 +723,9 @@ side every field keeps both), so nothing moves under a finger when it appears. T
 a tool: the code's empty sheet keeps its place, the line under a number and the note under "Link or
 text" keep two lines (`note-slot`), Save as PNG and Save as SVG are there before there's a code,
 the status line under them keeps two lines, and "Copy link" keeps its width when it says "Copied".
+On Resize and convert images, the details box's line is one line either way, a row's Save is there
+from its first frame, every row keeps room for one note, and the status line is kept before
+anything is saved.
 
 **The Slab Rule, for tools.** A tool page has no slab at either end: it opens with the tool's
 title, its symbol and its name, and never closes with a panel. On a phone, the tool comes before
@@ -759,7 +792,9 @@ above and below the row. The detector runs with no ignores (`.impeccable/config.
 
 Each tool has one symbol, drawn as a 4-unit stroke on a 40-unit square in the text color: a circle
 with its left half filled for Split bill, a speech mark for WhatsApp click-to-chat, and a code's
-three corner squares (2-unit corners) with a filled module for QR code (`src/lib/ToolSymbol.svelte`).
+three corner squares (2-unit corners) with a filled module for QR code, and a picture's frame
+(3-unit corners), hills and a filled sun for Resize and convert images
+(`src/lib/ToolSymbol.svelte`).
 1.25rem in the header and in a row of tools, 2rem in a field on phones and 2.5rem from 640 px
 (`symbol-field-phone`, `symbol-field`), and 1.75rem over a tool's title on phones, 2rem from 640 px
 (`symbol-title-phone`, `symbol-title`). It repeats the tool's name, so it's hidden from screen
@@ -803,7 +838,8 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   receipt" on an empty bill, "Read the receipt", "Add to the bill", "Next" in Split bill's bottom
   bar once the step's work has started and no receipt is being read, "Copy a link to this bill",
   "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link" beside it is
-  secondary), and "Save as PNG" on QR code ("Save as SVG" beside it is secondary).
+  secondary), "Save as PNG" on QR code ("Save as SVG" beside it is secondary), and "Save all 3"
+  (or "Save it") on Resize and convert images.
 - **A pair of answer actions:** on WhatsApp click-to-chat and QR code the primary and the secondary
   sit side by side, each growing to share the row, at 1rem text with 0.875rem of padding above and
   below and 1rem at the sides, neither ever breaking onto two lines (on the narrowest phones the
@@ -915,9 +951,11 @@ line-item strip (#70), both turned down as receipt-like.
   as it's typed: rows between hairlines, each the tool's symbol, its name in semibold (underlined
   on hover) and what it does, muted; "No tool for "…" yet." when nothing answers; Enter opens the
   best one. Nothing pink.
-- **The rest:** once there are more tools than fields, "All tools", every tool A to Z, under
-  extra-bold initials, each with its name in bold, what it does and what leaves it. Not rendered
-  while every tool is featured.
+- **The rest:** once there are more tools than fields, "All tools", every tool A to Z, each entry
+  its symbol (1.25rem), its name in bold 1.125rem (underlined on hover), what it does, and what
+  leaves it, muted. A plain list, an entry under each hairline, while every letter holds one tool:
+  a letter per tool would weigh more than the names. Under extra-bold initials, a group under each
+  hairline, once a letter holds two (`needsLetters`). Not rendered while every tool is featured.
 - **Under the fields:** "Nothing else leaves" in stays-heading type, then three facts: what you
   type, your bill in progress, your theme and the tools you opened lately stay on this device; no
   cookies, no analytics, no trackers; with no connection, every tool still opens.
@@ -947,8 +985,9 @@ backdrop or Escape closes it too, and so does going to a tool.
   that's open: recency, not frequency, so the list never reshuffles under a thumb. Only the ids are
   kept, in this browser (`flint-recent-tools`), and nothing when storage is blocked. Hidden while
   something is typed.
-- **A to Z:** every tool under its initial, the letter in extra-bold 1.25rem in a narrow column on
-  the left, each group under a hairline. The tool you're on is underlined, 2 px
+- **A to Z:** every tool, as on the index: a plain list between hairlines while each letter holds
+  one tool, and under its initial once a letter holds two (`needsLetters`), the letter in
+  extra-bold 1.25rem in a narrow column on the left, each group under a hairline. The tool you're on is underlined, 2 px
   (`aria-current="page"`).
 - **Rows:** at least 3rem tall (`row`): the symbol, the name in semibold, what it does under it in
   muted small text. The name underlines on hover.
@@ -1202,6 +1241,70 @@ that's gone or a server out of reach, carry the warning sign in medium weight. A
 one that opened in the same tab clears the bill it showed, so the old one isn't left under the
 error still headed as shared; someone's own bill stays.
 
+### Size and format (Resize and convert images)
+
+The settings of `src/routes/resize-and-convert-images/+page.svelte`, in the 36rem column, each a
+field the system already has, plus one choice it borrows from the footer.
+
+- **The size to fit:** "Make each image under", a field at most 10rem wide with tabular figures,
+  and beside it KB or MB. The hint under it says what it's for and that empty keeps each image's
+  size. 1 KB is 1,000 bytes, so what fits here fits a form counting either way.
+- **Segmented pills:** KB or MB, and "Save as" (JPEG, WebP, PNG, Keep the format), are radio
+  buttons drawn as the footer's theme choice: options in one pill-edged group with a control-edge
+  border and 0.25rem inside it, each option 2.25rem tall (2.75rem on touch screens), 0.875rem
+  across (0.625rem below 25rem, so four fit at 360 px). The chosen one is filled in the text color
+  with the page's color for its words, semibold, so it shows by more than color. Never pink: pink
+  stays for "Save all". The format group wraps, its corners easing to 1.5rem when it does. WebP is
+  offered only where this browser's canvas really makes WebP.
+- **Details:** a checkbox, "Keep location and camera details", unticked by default, and under it
+  one muted line that swaps with it: what is left out, or that what's kept includes the location.
+  Both are one line, so ticking it moves nothing.
+- **More control:** a native `<details>`, "More control: width, height, quality", its summary
+  underlined small text at medium weight, 2.25rem tall (2.75rem on touch). Inside, "Width at most"
+  and "Height at most" side by side, then Quality: a slider in the text color with its percentage
+  beside it, only without a size to fit; with one, a muted line says the quality is worked out for
+  each image.
+
+### Your images (Resize and convert images)
+
+The images part, under a hairline below 1024 px and beside a vertical one from 1024 px: "Your
+images" in part-heading type, with "Add images" ("Add more" once there are some), a small button
+on the page holding the file input, beside it. With a fine pointer, images can be dropped anywhere
+in the part, which takes the focus outline while one is dragged over it.
+
+- **Empty:** one muted line saying what to add and that it stays on the device; with a fine
+  pointer, "Or drop them here."
+- **Rows:** a list between hairlines, each row at least 7.25rem tall (7.75rem on touch screens):
+  the image as a 3.5rem tile with 0.375rem corners on paper elevated (an empty tile when the
+  browser can't open the file, never a broken-image icon); the name in semibold, cut short with an
+  ellipsis; "before → after · W × H" in muted tabular small text with the after in semibold in the
+  text color; then the notes. On the right, Save (a small button 2rem tall, there from the first
+  frame whenever there's more than one image, `aria-disabled` until its image is done) and Remove
+  (a text action).
+- **Notes:** shown only for a finished row, since a note about the old settings would mislead.
+  Something to check (the smallest it would go, see-through parts turned white, a copy larger
+  than the original, a file the browser can't open) is small text at medium weight with the drawn
+  warning sign. That there were no details to keep is a plain muted line, without the sign: it is
+  a fact, not a problem.
+- **Working:** any change to a setting puts every row to "Working…" at once, in place of the
+  after, and redoes them all; nothing else on the row moves.
+- **Save all:** one pink primary button, full width, 1rem text, under the rows: "Save all 3",
+  counting the images that didn't fail, or "Save it" for one. `aria-disabled` while any image is
+  working. On a touch screen that can share files it opens the share sheet, where "Save Images"
+  puts them in the phone's photos; elsewhere, one download each.
+- **Status line:** small text under Save all, 2.5rem kept for it, a status region. It says where a
+  save went ("Look for the 3 images in your downloads."), and on a touch screen that can share
+  files, before the tap, that Save all opens the share sheet.
+- **What it does to a file:** it fits a size by keeping the highest quality that fits at the
+  largest scale, scaling down (to a quarter at most) only when the lowest quality doesn't fit; it
+  never enlarges; an image kept in its format never grows past its own size; a saved file keeps
+  its name's stem, numbered when two clash (`src/lib/images.ts`). Kept details are copied into the
+  new file with the orientation reset, since the page draws photos upright (`src/lib/metadata.ts`).
+
+**The One Pink Save Rule.** On Resize and convert images the only pink is "Save all". The size's
+unit, the format, a row's Save and "Add images" are graphite or outlined, however much they're
+used.
+
 ### Tool title and panel
 
 A tool page's title (`src/lib/ToolTitle.svelte`, used by every tool) says the tool as its field
@@ -1209,7 +1312,8 @@ on the index does: its symbol in the text color, then its name in tool-title typ
 then the introduction 0.75rem under that, at most 36rem wide, muted, or in the text color at
 medium weight in a friend's view of a shared bill. Its padding sits inside the tool's width, so the
 title lines up with the header and the content: 42rem for Split bill and 36rem for WhatsApp
-click-to-chat and QR code on phones and tablets, and 72rem for all three from 1024 px, where each
+click-to-chat, QR code and Resize and convert images on phones and tablets, and 72rem for all four
+from 1024 px, where each
 tool's answer has its own column. No band, no fill and nothing above
 the symbol. It replaced the place mark, the Device Map's dot beside a smaller bold name.
 
@@ -1294,6 +1398,10 @@ it's announced once.
   level AA.
 - **Do** hand a value from one tool to another after the `#`, which never reaches a server, and
   take it out of the address once it's read.
+- **Do** draw a choice among a few short options (a unit, a format, the theme) as the footer's
+  segmented pills: one pill-edged group, the chosen option filled in the text color.
+- **Do** keep a row's height steady while its work is redone: room for its actions and one note
+  from the first frame, and "Working…" in place of the result, not a spinner over it.
 - **Do** use the drawn arrow wherever a link points onward.
 - **Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`:
   page cross-fades, the theme cross-fade (a view transition, when someone picks a theme or the
@@ -1341,6 +1449,8 @@ it's announced once.
   show its link as raw monospace text.
 - **Don't** put QR code's kinds in tabs above the main job, add words to the saved image, route a
   code through anything in between, or hide the code behind a disclosure.
+- **Don't** fill a chosen segmented pill in pink, show a note for settings that are being
+  redone, or put the warning sign on a fact that isn't a problem ("no details to keep").
 - **Don't** gate Split bill's steps, number them, or mark one done: they are free, in any order.
 - **Don't** invert the bottom bar on a dark page: it stays dark.
 - **Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.
