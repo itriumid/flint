@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 2,
-	"generatedAt": "2026-11-24T00:00:00.000Z",
+	"generatedAt": "2026-11-24T12:00:00.000Z",
 	"title": "Design System: flint.itrium.id",
 	"extensions": {
 		"colorMeta": {
@@ -273,10 +273,6 @@
 				"displayName": "Index name",
 				"purpose": "Flint, the index's h1, one step below the tools' names: 36px on phones, 48 from 640, 36 from 768, 48 from 1024, 60 from 1280."
 			},
-			"headline": {
-				"displayName": "Headline",
-				"purpose": "A tool's title in its place mark, beside the place's dot."
-			},
 			"lead-line": {
 				"displayName": "Lead line",
 				"purpose": "Flint's muted line beside its name, and what a tool does, in its half."
@@ -292,10 +288,6 @@
 			"start": {
 				"displayName": "Start",
 				"purpose": "The label of a half's pink start, bold, never wrapping."
-			},
-			"title": {
-				"displayName": "Title",
-				"purpose": "A section card's heading inside a tool."
 			},
 			"nav": {
 				"displayName": "Nav",
@@ -328,6 +320,18 @@
 			"button": {
 				"displayName": "Button",
 				"purpose": "The primary button's label."
+			},
+			"tool-title": {
+				"displayName": "Tool title",
+				"purpose": "A tool's name at the top of its page, extra-bold at -0.04em like its name in its half: 36px on phones, 48 from 640, under the tool's symbol."
+			},
+			"part-heading": {
+				"displayName": "Part heading",
+				"purpose": "The heading of each of Split bill's parts, extra-bold at -0.03em, 1rem above the part. A count beside it is muted and regular weight."
+			},
+			"step-tab": {
+				"displayName": "Step tab",
+				"purpose": "The three steps' names in Split bill's step bar, semibold, never wrapping; 13px below 400 px wide."
 			}
 		},
 		"shadows": [
@@ -352,6 +356,16 @@
 				"name": "page-cross-fade",
 				"value": "document.startViewTransition on navigation, no-preference only",
 				"purpose": "Between pages, as on itrium.id."
+			},
+			{
+				"name": "theme-cross-fade",
+				"value": "document.startViewTransition on a theme change, no-preference only",
+				"purpose": "When someone picks a theme in the footer, or the device switches under System."
+			},
+			{
+				"name": "show-it-outline",
+				"value": "2px deep-rose outline, 4px out, for 3s; colors 500ms",
+				"purpose": "The item \"Show it\" points to in Split bill, then fades back."
 			}
 		],
 		"breakpoints": [
@@ -406,8 +420,8 @@
 			"name": "Small Button",
 			"kind": "button",
 			"refersTo": "button-small",
-			"description": "Actions inside a card or the running total.",
-			"html": "<button class=\"ds-btn-small\">See the split</button>",
+			"description": "Actions inside a part or a card, \"Next\" before a step's work has started, and the update notice.",
+			"html": "<button class=\"ds-btn-small\">Next</button>",
 			"css": ".ds-btn-small{display:inline-flex;align-items:center;justify-content:center;min-height:2.25rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:var(--text);padding:0 1rem;font:500 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:background-color .15s}.ds-btn-small:hover{background:var(--bg)}.ds-btn-small:focus-visible{outline:2px solid var(--focus);outline-offset:3px}@media (pointer:coarse){.ds-btn-small{min-height:2.75rem}}"
 		},
 		{
@@ -443,6 +457,14 @@
 			"css": ".ds-syms{display:flex;gap:1.5rem;color:var(--text)}.ds-syms .ds-sym{width:2.5rem;height:2.5rem}"
 		},
 		{
+			"name": "Part",
+			"kind": "card",
+			"refersTo": "part",
+			"description": "A part of Split bill, with no card: an extra-bold heading, its content on the page, and a hairline to the next part. Items are rows between hairlines.",
+			"html": "<div class=\"ds-parts\"><section class=\"ds-part\"><h2 class=\"ds-part-h\">Items <span>(2)</span></h2><ul class=\"ds-rows\"><li>Nasi Goreng <span>Rp 45.000</span></li><li>Es Teh <span>Rp 12.000</span></li></ul></section><section class=\"ds-part\"><h2 class=\"ds-part-h\">Charges and adjustments</h2></section></div>",
+			"css": ".ds-parts{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-part{padding:2rem 0}.ds-part:first-child{padding-top:0}.ds-part+.ds-part{border-top:1px solid var(--border)}.ds-part-h{margin:0 0 1rem;font-size:1.5rem;font-weight:800;line-height:1.33;letter-spacing:-.03em}.ds-part-h span{font-weight:400;color:var(--muted)}.ds-rows{margin:.5rem 0 0;padding:0;list-style:none}.ds-rows li{display:flex;justify-content:space-between;padding:1rem 0;font-size:.875rem}.ds-rows li+li{border-top:1px solid var(--border)}"
+		},
+		{
 			"name": "Note",
 			"kind": "custom",
 			"refersTo": "card",
@@ -451,26 +473,34 @@
 			"css": ".ds-note{border:1px solid var(--accent-edge);border-radius:.5rem;background:var(--bg);color:var(--text);padding:.75rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}"
 		},
 		{
-			"name": "Running Total",
-			"kind": "custom",
-			"refersTo": "running-total",
-			"description": "Split bill's bar at the bottom of a phone screen while the bill is made.",
-			"html": "<div class=\"ds-total\"><dl><div><dt>Total</dt><dd><b>Rp 486.200</b></dd></div><div><dt>Not in anyone's share yet</dt><dd><b>Rp 35.000</b></dd></div></dl><button class=\"ds-total-btn\">See the split</button></div>",
-			"css": ".ds-total{display:flex;align-items:center;justify-content:space-between;gap:.75rem;border-top:1px solid var(--border);background:var(--surface);color:var(--text);padding:.75rem 1.25rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-total dl{margin:0}.ds-total dl div{display:flex;flex-wrap:wrap;gap:0 .375rem}.ds-total dd{margin:0;font-variant-numeric:tabular-nums}.ds-total-btn{min-height:2.25rem;border:1px solid var(--control-border);border-radius:9999px;background:transparent;color:var(--text);padding:0 1rem;font:inherit;font-weight:500;cursor:pointer}.ds-total-btn:hover{background:var(--bg)}"
+			"name": "Step Bar",
+			"kind": "nav",
+			"refersTo": "step-tab",
+			"description": "Split bill's three plain tabs below 1024px. The current one is in the text color with a 3px underline in the text color on a 1px hairline; the others are muted. aria-current=\"step\"; any order, no numbers, no pink.",
+			"html": "<nav aria-label=\"Steps\"><ol class=\"ds-steps\"><li><button class=\"ds-step\">Who's here</button></li><li><button class=\"ds-step\" aria-current=\"step\">What you had</button></li><li><button class=\"ds-step\">Everyone's share</button></li></ol></nav>",
+			"css": ".ds-steps{display:flex;justify-content:space-between;gap:.25rem;margin:0;padding:0;list-style:none;border-bottom:1px solid var(--border);white-space:nowrap;font:600 .8125rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-step{display:flex;align-items:center;min-height:2.75rem;margin-bottom:-1px;padding:0 .25rem;border:0;border-bottom:3px solid transparent;background:none;color:var(--muted);font:inherit;cursor:pointer}.ds-step:hover{color:var(--text)}.ds-step[aria-current=step]{color:var(--text);border-bottom-color:var(--text)}.ds-step:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}@media (min-width:400px){.ds-steps{font-size:.875rem}}"
 		},
 		{
-			"name": "Place Mark",
+			"name": "Bottom Bar",
 			"kind": "custom",
-			"refersTo": "place-mark",
-			"description": "A tool page's title: the 1rem dot in the text color beside the tool's name, the introduction under it. No band. Kept on the tool pages as they are; whether they follow the index is the owner's open decision.",
-			"html": "<section class=\"ds-place-mark\"><span class=\"ds-pm-dot\" aria-hidden=\"true\"></span><div><h1 class=\"ds-pm-title\">WhatsApp click-to-chat</h1><p class=\"ds-pm-intro\">Paste a phone number as it is, and get a link that opens a chat with it.</p></div></section>",
-			"css": ".ds-place-mark{display:flex;gap:1rem;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-pm-dot{width:1rem;height:1rem;flex-shrink:0;border-radius:9999px;background:var(--text);margin-top:.75rem}.ds-pm-title{margin:0;font-size:1.875rem;font-weight:700;line-height:1.1;letter-spacing:-.025em}.ds-pm-intro{margin:.5rem 0 0;max-width:36rem;line-height:1.625;color:var(--muted)}@media (min-width:640px){.ds-pm-title{font-size:2.25rem}.ds-pm-dot{margin-top:1rem}}"
+			"refersTo": "bottom-bar",
+			"description": "Split bill's bar fixed to the bottom of a phone's screen on steps 1 and 2: graphite with dark mode's colors on a light page, graphite surface on a dark one. The step's count or the total and what's in nobody's share, and \"Next\", outlined until the step's work has started, then pink.",
+			"html": "<div class=\"ds-bar\"><dl><div><dt>Total</dt><dd><b>Rp 486.200</b></dd></div><div><dt>Not in anyone's share yet</dt><dd><b>Rp 35.000</b></dd></div></dl><button class=\"ds-bar-next\">Next</button></div>",
+			"css": ".ds-bar{--surface:#2b2b2b;--bg:#2b2b2b;--border:#474747;--text:#f2f2f2;--muted:#aaaaaa;--accent:#febfca;--on-accent:#2b2b2b;--accent-edge:#febfca;--focus:#febfca;--control-border:#8a8a8a;display:flex;align-items:center;justify-content:space-between;gap:.75rem;background:var(--surface);color:var(--text);padding:.75rem 1.25rem;font:400 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif}.ds-bar dl{margin:0}.ds-bar dl div{display:flex;flex-wrap:wrap;gap:0 .375rem}.ds-bar dd{margin:0;font-variant-numeric:tabular-nums}.ds-bar-next{flex-shrink:0;white-space:nowrap;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer;transition:opacity .15s}.ds-bar-next:hover{opacity:.85}.ds-bar-next:focus-visible{outline:2px solid var(--focus);outline-offset:3px}"
+		},
+		{
+			"name": "Tool Title",
+			"kind": "custom",
+			"refersTo": "tool-title",
+			"description": "A tool page's title, said as its half on the index says it: the tool's symbol, its name in extra-bold tool-title type, and the introduction under it. No band, nothing above the symbol. Used by both tools.",
+			"html": "<section class=\"ds-tool-title\"><svg class=\"ds-tt-sym\" viewBox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" aria-hidden=\"true\"><circle cx=\"20\" cy=\"20\" r=\"16\"/><path d=\"M20 4a16 16 0 0 0 0 32Z\" fill=\"currentColor\"/></svg><h1 class=\"ds-tt-name\">Split bill</h1><p class=\"ds-tt-intro\">Tag who had what, and we work out a fair share for each person, tax and service included.</p></section>",
+			"css": ".ds-tool-title{font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-tt-sym{display:block;width:1.75rem;height:1.75rem}.ds-tt-name{margin:.75rem 0 0;font-size:2.25rem;font-weight:800;line-height:.95;letter-spacing:-.04em}.ds-tt-intro{margin:.75rem 0 0;max-width:36rem;line-height:1.625;color:var(--muted)}@media (min-width:640px){.ds-tt-sym{width:2rem;height:2rem}.ds-tt-name{font-size:3rem}}"
 		},
 		{
 			"name": "Road Out",
 			"kind": "custom",
 			"refersTo": "road-out-label",
-			"description": "A tool's one road out of the device, hanging from the control that takes it: a dashed line from the control's bottom edge, its label (the same fact as \"What leaves it\" in the tool's half on the index), and the box it reaches. Tool pages only.",
+			"description": "WhatsApp click-to-chat's one road out of the device, hanging from \"Open in WhatsApp\": a dashed line from the button's bottom edge, its label, and the box it reaches. Kept from the Device Map until that page's own design round (open); Split bill no longer has one.",
 			"html": "<div class=\"ds-ro-wrap\"><button class=\"ds-ro-btn\">Open in WhatsApp</button><div class=\"ds-road-out\"><div class=\"ds-ro-row\"><span class=\"ds-ro-col\" aria-hidden=\"true\"><span class=\"ds-ro-line\"></span></span><p class=\"ds-ro-label\">A chat you open, with the number and message you typed.</p></div><p class=\"ds-ro-node\">WhatsApp</p></div></div>",
 			"css": ".ds-ro-wrap{display:flex;flex-direction:column;font-family:'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;color:var(--text)}.ds-ro-btn{display:inline-flex;justify-content:center;border:1px solid var(--accent-edge);border-radius:9999px;background:var(--accent);color:var(--on-accent);padding:.75rem 1.5rem;font:600 .875rem/1.43 'Plus Jakarta Sans Variable',ui-sans-serif,system-ui,sans-serif;cursor:pointer}.ds-ro-btn:hover{opacity:.85}.ds-ro-btn:focus-visible{outline:2px solid var(--focus);outline-offset:3px}.ds-road-out{margin:0 0 .75rem 1.5rem}.ds-ro-row{display:flex;gap:.75rem}.ds-ro-col{display:flex;flex-direction:column;align-items:center;width:1rem;flex-shrink:0}.ds-ro-line{flex:1;border-left:3px dashed var(--text)}.ds-ro-label{margin:0;max-width:18rem;padding:.5rem 0;font-size:.875rem;font-weight:600;line-height:1.43}.ds-ro-node{display:flex;align-items:center;justify-content:center;width:7rem;height:3rem;margin:0;border:2px solid var(--muted);border-radius:.5rem;background:var(--bg);color:var(--muted);font-size:.875rem}"
 		},
@@ -493,7 +523,7 @@
 	],
 	"narrative": {
 		"northStar": "The Rhodonite Specimen, put to work",
-		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way.\n\nThe index is Two halves: the two tools, split edge to edge, one half of the screen each. No metaphor, no cards, no rounded boxes: the halves are the page. Two full-bleed fields with square edges meet on one vertical seam. Split bill's half is always the inverse of the page (graphite on a light page, paper elevated on a dark one), and WhatsApp click-to-chat's half is a tonal step off the page, so the seam reads strongly in both themes. Each half carries its tool's symbol, its name at poster scale, what it does, what leaves it, and one large pink start. Flint's name and its line sit above the halves, a step below the tools' names, and what never leaves sits on the page below them. It replaced the Rantang (#73), which replaced the Device Map (#71), which replaced the line-item strip (#70). A tool page keeps the same plain header and, below it, the place mark and the road out from the Device Map: the person using it is at a restaurant table with a phone in one hand and a group waiting. Whether the tool pages follow the index is an open decision for the owner.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density on the index is bold and wide; inside a tool it is calm and working: forms sit in a narrow column of 36 to 42rem, inset lists and notes nest one tonal step down inside cards, and the running total stays at the bottom of a phone's screen while the bill is made.\n\nLight and dark are equal. Each follows the visitor's system unless the footer says otherwise, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone. And on the index it refuses what the owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper monochrome, a narrow column, rows of entries), any metaphor (a map, a food carrier), and a column of stacked rounded boxes.",
+		"overview": "The tools are cut from the same stone as itrium.id. That site is The Rhodonite Specimen (`DESIGN.md` in the `website` repository): a graphite matrix with a pink vein, where gray is the body and pink marks what a visitor should find. Here the specimen leaves the display case and goes onto the workbench. The world is the same: Plus Jakarta Sans for everything, graphite and paper, pastel pink with its two deepenings, flat tonal surfaces, pills and soft corners, one drawn arrow. Only the job changes. itrium.id persuades; a tool gets out of the way.\n\nThe index is Two halves: the two tools, split edge to edge, one half of the screen each. No metaphor, no cards, no rounded boxes: the halves are the page. Two full-bleed fields with square edges meet on one vertical seam. Split bill's half is always the inverse of the page (graphite on a light page, paper elevated on a dark one), and WhatsApp click-to-chat's half is a tonal step off the page, so the seam reads strongly in both themes. Each half carries its tool's symbol, its name at poster scale, what it does, what leaves it, and one large pink start. Flint's name and its line sit above the halves, a step below the tools' names, and what never leaves sits on the page below them. It replaced the Rantang (#73), which replaced the Device Map (#71), which replaced the line-item strip (#70).\n\nA tool page follows the index. It opens with the tool's title, said as its half says it: the tool's symbol and its name in the same extra-bold type, the introduction under it. Split bill is the first tool redrawn in this world (the owner's three-step round, 2026-11-24): no cards, its parts divided by plain lines under extra-bold headings, items as rows between lines, and below 1024px the bill made in three steps, one on screen at a time, with a graphite bar fixed to the bottom of the screen holding the step's count or total and the way on. The person using it is at a restaurant table with a phone in one hand and a group waiting, so they do one job at a time and the answer is one tap away. WhatsApp click-to-chat has the new title but still its card and its road out, from the Device Map, until its own design round; that page is open.\n\nComponents are soft and sure-footed, and tactile without being playful. Every control has a round, generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see (3:1 against the page and the card). They feel good to press but never perform. Density on the index is bold and wide; inside a tool it is calm and working: forms sit in a narrow column of 36 to 42rem, and the few things that really are boxes (receipt lines, the adjustments list, a note) sit one step back with a hairline round them.\n\nLight and dark are equal. Each follows the visitor's system unless the footer says otherwise, and neither is a courtesy version of the other: every new pairing is designed and checked in both. The system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows, invented numbers), drop shadows on anything but a floating list, pure black and white, decorative pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes the tool off a phone screen, and state shown by color alone. And on the index it refuses what the owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper monochrome, a narrow column, rows of entries), any metaphor (a map, a food carrier), and a column of stacked rounded boxes. On Split bill the owner turned down the same stack: \"too many boxes\".",
 		"keyCharacteristics": [
 			"One stone with itrium.id: the same tokens, typeface, radii, button shapes and arrow.",
 			"The index is two full-bleed halves, square-edged, meeting on one vertical seam from 768 px, their content lined up with the header's 72rem column.",
@@ -501,7 +531,8 @@
 			"The tools' names lead the page at every width, a step above Flint's own name.",
 			"Each tool has one fixed symbol, drawn in the text color, the same in the header and in its half.",
 			"Pink only at the two starts on the index (equal starts), and at one primary action per tool view.",
-			"A tool page opens with a place mark, then the tool, with its one road out drawn under the control that takes it.",
+			"A tool page opens with its title: the tool's symbol and its name in extra-bold type, as in its half, and the introduction under it.",
+			"Split bill has no cards: parts between plain lines, items as rows, three steps below 1024px with a graphite bar at the bottom, and two columns from 1024px.",
 			"Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the footer.",
 			"Flat surfaces with tonal steps. The only shadow is under the open searchable list.",
 			"Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch screens, and 16px text on touch screens so iOS doesn't zoom.",
@@ -510,12 +541,17 @@
 		"rules": [
 			{
 				"name": "The Vein Rule",
-				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a time, which is not the same as one element. In a tool, one pink button per view. On the index, one pink start in each tool's half, the two tools' equal starts (\"Split a bill\", \"Chat with a number\"): one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool page's place mark and its road out are never pink.",
+				"body": "Pink marks something: the primary action, focus, what's selected, or the way onward. If you can't say what a pink element marks, it should be gray. Pink means one thing at a time, which is not the same as one element. In a tool, one pink button per view. On the index, one pink start in each tool's half, the two tools' equal starts (\"Split a bill\", \"Chat with a number\"): one meaning, two pills. Rose-text action lines serve the tools elsewhere and a shared bill as their way onward, and nothing else is pink. The seam, the fields, the tool symbols, a tool's title, the step bar and a road out are never pink. On Split bill below 1024px the bar's \"Next\" counts toward the view: it is outlined until the step's own work has started (nobody added on step 1, nothing on the bill on step 2), so the step's own pink action (\"Scan or paste a receipt\") isn't doubled.",
 				"section": "colors"
 			},
 			{
 				"name": "The Inverse Field Rule",
 				"body": "Split bill's half (the `.inverse-field` scope) takes the colors of the theme the page is not in, every one of them: on a light page graphite, with off-white text, muted gray on dark, pink focus, pink edges and pink text, and the dark control edge; on a dark page paper elevated, with graphite text, muted gray on light, deep-rose edges, rose text, graphite focus, and the light control edge. Nothing inside it reads the page's own colors. The owner chose this on 2026-11-24 and accepted its cost: a bright band across a dark page, in exchange for a seam that reads strongly in both themes. The contrast for each pairing is in the comment above the scope in `src/app.css`.",
+				"section": "colors"
+			},
+			{
+				"name": "The Graphite Bar Rule",
+				"body": "Split bill's bar at the bottom of a phone's screen is graphite on a light page, with every color inside it from dark mode (the `.graphite-bar` scope: off-white text, pink focus and edges, the dark control edge), like Split bill's half. On a dark page it does not invert: it stays dark, a step up to graphite surface, because a bright band held under the thumb at a dim table is too much.",
 				"section": "colors"
 			},
 			{
@@ -530,7 +566,7 @@
 			},
 			{
 				"name": "The Every-Surface Rule",
-				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, running total, update notice, the error page's panel, and each half in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).",
+				"body": "Contrast is checked on every surface text sits on: page, card, inset list, note, the bottom bar, update notice, the error page's panel, and each half in both themes. Text needs 4.5:1. Focus outlines, control edges and state lines need 3:1. The tightest are Split bill's half on a light page (control edge 3.7:1) and on a dark page (muted 4.7:1, rose text 4.8:1).",
 				"section": "colors"
 			},
 			{
@@ -540,7 +576,7 @@
 			},
 			{
 				"name": "The Tools Lead Rule",
-				"body": "On the index, the tools' names are the largest type at every width, and Flint's own name steps down with them: 40 over 36 on phones, 60 over 48 from 640 px, 48 over 36 from 768 px, 64 over 48 from 1024 px, 72 over 60 from 1280 px. A new size for one is a new size for the other.",
+				"body": "On the index, the tools' names are the largest type at every width, and Flint's own name steps down with them: 40 over 36 on phones, 60 over 48 from 640 px, 48 over 36 from 768 px, 64 over 48 from 1024 px, 72 over 60 from 1280 px. A new size for one is a new size for the other. On a tool page the tool's title is the largest type, in the same extra-bold voice.",
 				"section": "typography"
 			},
 			{
@@ -560,7 +596,12 @@
 			},
 			{
 				"name": "The Slab Rule, for tools",
-				"body": "A tool page has no slab at either end: it opens with a place mark, a dot and the tool's name, and never closes with a panel. On a phone, the tool comes before the frame.",
+				"body": "A tool page has no slab at either end: it opens with the tool's title, its symbol and its name, and never closes with a panel. On a phone, the tool comes before the frame.",
+				"section": "layout"
+			},
+			{
+				"name": "The One Job Rule",
+				"body": "Below 1024px Split bill shows one step at a time, and the steps are free: any tab, in any order. Whatever a control sends focus to brings its own step on screen first (`focusAfter`), so \"Show it\" from the split lands on the item in step 2. A step is a view, not a gate: nothing is removed from the page, and nothing is checked before moving on.",
 				"section": "layout"
 			},
 			{
@@ -570,12 +611,12 @@
 			},
 			{
 				"name": "The Answer In Reach Rule",
-				"body": "Wherever a tool is being filled in, its answer is one glance or one tap away: the running total below 1024 px, the split's own column above. Someone opening a shared result lands on it, not on the form that made it.",
+				"body": "Wherever a tool is being filled in, its answer is one glance or one tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above. Someone opening a shared result lands on it, not on the form that made it.",
 				"section": "layout"
 			},
 			{
 				"name": "The Only Floating Things Cast Shadows Rule",
-				"body": "Halves, cards, buttons, chips, the error page's panel, the road boxes and the running total never get a drop shadow. A control responds by filling with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.",
+				"body": "Halves, cards, buttons, chips, the error page's panel, the road boxes and the bottom bar never get a drop shadow. A control responds by filling with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.",
 				"section": "elevation"
 			},
 			{
@@ -595,7 +636,7 @@
 			},
 			{
 				"name": "The Hanging Road Rule",
-				"body": "A road out hangs from the one control that takes it, and only where the site really makes the connection. A friend's \"Copy the link\" copies the link they opened, which goes nowhere new, so no road is drawn under it.",
+				"body": "Where a road out is drawn, it hangs from the one control that takes it, and only where the site really makes the connection.",
 				"section": "components"
 			},
 			{
@@ -605,36 +646,42 @@
 			}
 		],
 		"dos": [
-			"Do take tokens, radii, button shapes, the arrow and type roles from itrium.id's DESIGN.md before inventing anything. A difference between the two sites needs a reason a tool has and a page doesn't.",
-			"Do add to the index as a half: a new tool is a new full-bleed field with square edges, its symbol, its name, what it does, what leaves it, and its own pink start, its content on the header's 72rem column.",
-			"Do keep Split bill's half the inverse of the page in both themes, with every color inside it from the other theme (`.inverse-field`), and check each pairing in it when one is added.",
-			"Do keep the tools' names a step above Flint's at every width, and each name two lines tall side by side, so the rows meet across the seam.",
-			"Do give every tool one symbol and use it wherever the tool is named in the frame: the header and its half.",
-			"Do keep a tool's first field, and Split bill's start on the index, on the first phone screen, and both starts on the first screen at 1280 by 800 and 1440 by 900.",
-			"Do give every field, button and chip a `--control-border` edge and a touch target at least 2.75rem tall on touch screens.",
-			"Do show every state in two ways: a check mark with the pink fill, words with the pink edge, an underline on the current page's link, and the reason a button can't be pressed yet, said under it when someone presses or reaches it (not at rest, and not read out again after every add).",
-			"Do design and check every new pairing in light and dark, on every surface it sits on.",
-			"Do use the drawn arrow wherever a link points onward.",
-			"Do keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the 4 px arrow nudge, and the loading spinner. Nothing rises or reveals as it scrolls.",
-			"Do open a tool page with its place mark, and hang the tool's road out from the control that takes it, saying the same fact as its half on the index.",
-			"Do use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`, never raw hex values in markup."
+			"**Do** take tokens, radii, button shapes, the arrow and type roles from itrium.id's DESIGN.md before inventing anything. A difference between the two sites needs a reason a tool has and a page doesn't.",
+			"**Do** add to the index as a half: a new tool is a new full-bleed field with square edges, its symbol, its name, what it does, what leaves it, and its own pink start, its content on the header's 72rem column.",
+			"**Do** keep Split bill's half the inverse of the page in both themes, with every color inside it from the other theme (`.inverse-field`), and check each pairing in it when one is added.",
+			"**Do** keep the tools' names a step above Flint's at every width, and each name two lines tall side by side, so the rows meet across the seam.",
+			"**Do** give every tool one symbol and use it wherever the tool is named in the frame: the header and its half.",
+			"**Do** keep a tool's first field, and Split bill's start on the index, on the first phone screen, and both starts on the first screen at 1280 by 800 and 1440 by 900.",
+			"**Do** give every field, button and chip a `--control-border` edge and a touch target at least 2.75rem tall on touch screens.",
+			"**Do** show every state in two ways: a check mark with the pink fill, words with the pink edge, an underline on the current page's link, and the reason a button can't be pressed yet, said under it when someone presses or reaches it (not at rest, and not read out again after every add).",
+			"**Do** design and check every new pairing in light and dark, on every surface it sits on.",
+			"**Do** use the drawn arrow wherever a link points onward.",
+			"**Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`: page cross-fades, the theme cross-fade (a view transition, when someone picks a theme or the device switches under System), the 4 px arrow nudge, and the loading spinner. Nothing rises or reveals as it scrolls.",
+			"**Do** open a tool page with its title: its symbol, its name in extra-bold tool-title type, and the introduction under it, lined up with the header and the tool.",
+			"**Do** divide a tool's parts with plain hairlines under extra-bold part headings, and set items as rows between lines; keep a box only for a list checked line by line or a note asking for attention.",
+			"**Do** keep every step of Split bill in the page, shown or hidden by its step, and bring a step on screen before focusing anything in it.",
+			"**Do** count the bottom bar's \"Next\" in a view's one pink action: outlined until the step's own work has started.",
+			"**Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`, never raw hex values in markup."
 		],
 		"donts": [
-			"Don't make the index read as a receipt, on any cue: no dashed lines, no gray-on-paper monochrome, no narrow column, no rows of entries. The owner turned down the line-item strip (#70) and the Device Map (#71) for exactly this.",
-			"Don't give the index a metaphor: no map, no food carrier, no object for the tools to sit in. The owner turned down the Device Map (#71) and the Rantang (#73) for this.",
-			"Don't draw the index as a column of stacked rounded boxes, or put cards, a legend or a hero over the halves.",
-			"Don't round the halves, inset them from the screen's edges, or draw an arc, rail, rim, dash or shadow on the index.",
-			"Don't use pink as decoration, or give pink two meanings in one view: a tool has one pink button, and the index's two starts are both the primary action, one in each half. The seam, the fields and the symbols are never pink.",
-			"Don't add a structural gray outside the palette. Its one exception, the error panel's raised border in dark mode (#4f4f4f), is a structural step above a palette gray; a new one needs the same reason, and a color change otherwise belongs in `@itrium/palettes`.",
-			"Don't put a small uppercase heading, eyebrow, kicker or back link above a heading.",
-			"Don't type arrows or chevrons as characters.",
-			"Don't give halves, cards, buttons, chips, the error panel or the running total a drop shadow.",
-			"Don't use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.",
-			"Don't put pastel pink text or lines on a light background, including Split bill's half on a dark page; or rose text and deep-rose lines on graphite, including that half on a light page.",
-			"Don't use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
-			"Don't add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
-			"Don't set field text below 16px on touch screens.",
-			"Don't put a band behind a tool's title: the band is the error page's alone."
+			"**Don't** make the index read as a receipt, on any cue: no dashed lines, no gray-on-paper monochrome, no narrow column, no rows of entries. The owner turned down the line-item strip (#70) and the Device Map (#71) for exactly this.",
+			"**Don't** give the index a metaphor: no map, no food carrier, no object for the tools to sit in. The owner turned down the Device Map (#71) and the Rantang (#73) for this.",
+			"**Don't** draw the index as a column of stacked rounded boxes, or put cards, a legend or a hero over the halves.",
+			"**Don't** round the halves, inset them from the screen's edges, or draw an arc, rail, rim, dash or shadow on the index.",
+			"**Don't** use pink as decoration, or give pink two meanings in one view: a tool has one pink button, and the index's two starts are both the primary action, one in each half. The seam, the fields and the symbols are never pink.",
+			"**Don't** add a structural gray outside the palette. Its one exception, the error panel's raised border in dark mode (#4f4f4f), is a structural step above a palette gray; a new one needs the same reason, and a color change otherwise belongs in `@itrium/palettes`.",
+			"**Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.",
+			"**Don't** type arrows or chevrons as characters.",
+			"**Don't** give halves, cards, buttons, chips, the error panel or the bottom bar a drop shadow.",
+			"**Don't** put Split bill's parts back in cards, or stack rounded boxes in a tool: the owner turned that down as \"too many boxes\".",
+			"**Don't** gate Split bill's steps, number them, or mark one done: they are free, in any order.",
+			"**Don't** invert the bottom bar on a dark page: it stays dark.",
+			"**Don't** use `#000000` or pure white text on pink. Graphite is `#2b2b2b`.",
+			"**Don't** put pastel pink text or lines on a light background, including Split bill's half on a dark page; or rose text and deep-rose lines on graphite, including that half on a light page.",
+			"**Don't** use a native `<select>`, inline styles, `data:` URLs, or anything from another domain.",
+			"**Don't** add gradient text, icon-card rows, invented numbers, or a hero that pushes the tool off a phone screen.",
+			"**Don't** set field text below 16px on touch screens.",
+			"**Don't** put a band behind a tool's title: the band is the error page's alone."
 		]
 	}
 }
