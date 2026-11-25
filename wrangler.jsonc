@@ -7,13 +7,11 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "itrium-website-flint",
-	"main": ".svelte-kit/cloudflare/_worker.js",
 	"compatibility_date": "2026-10-07",
 	"compatibility_flags": ["nodejs_compat"],
-	"assets": {
-		"binding": "ASSETS",
-		"directory": ".svelte-kit/cloudflare"
-	},
+	// The adapter sets the Worker's entry and where its files are, in the configuration it writes
+	// for the build (`.svelte-kit/cloudflare/worker/wrangler.json`), which Wrangler deploys from.
+	"assets": { "binding": "ASSETS" },
 	// Creates the DNS record for flint.itrium.id.
 	"routes": [{ "pattern": "flint.itrium.id", "custom_domain": true }],
 	// The share Worker, which has no address of its own. Previews don't inherit bindings, so they
