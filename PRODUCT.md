@@ -31,6 +31,12 @@ The jobs are:
   size someone else set (a form's "max 200 KB", a site's upload limit), or needs it in another
   format (JPEG, WebP, PNG), often several at once, on a phone. Nothing is uploaded, and location
   and camera details are left out unless they choose to keep them.
+- **Combine and shrink PDFs:** someone who has to send scans, photos and PDFs as one PDF, often
+  under a size a form set ("max 1 MB"), usually on a phone; or take pages out, turn or reorder
+  them. Scans and photos are saved again as pictures only when the size needs it, and photos inside
+  typed pages are made smaller with their text kept; a locked PDF is opened with its password on
+  the device. The files' details are left out, and the saved file has no password, unless they
+  choose otherwise. Nothing is uploaded.
 
 ## Product Purpose
 
@@ -63,7 +69,8 @@ not just taken on trust.
 
 ## Capabilities and Constraints
 
-- Pages: `/` (the index of tools), `/split-bill`, `/whatsapp-click-to-chat`, `/qr-code`, `/resize-and-convert-images`. Bigger tools from
+- Pages: `/` (the index of tools), `/split-bill`, `/whatsapp-click-to-chat`, `/qr-code`, `/resize-and-convert-images`,
+  `/combine-and-shrink-pdfs`. Bigger tools from
   Itrium that run in the browser, such as Amber, get sites of their own and are linked from
   the index, not built here.
 - Shared bills are kept for 30 days after they were last shared, at most 64 KB, and can be

@@ -66,7 +66,8 @@ export const NAV = {
 	splitBill: 'Split bill',
 	whatsapp: 'WhatsApp',
 	qrCode: 'QR code',
-	images: 'Resize images'
+	images: 'Resize images',
+	pdf: 'Combine PDFs'
 };
 
 // The index leads with its featured tools, one full-width field each: what each does and what
@@ -78,14 +79,16 @@ export const INDEX = {
 		splitBill: 'Split a bill',
 		whatsapp: 'Chat with a number',
 		qrCode: 'Make a code',
-		images: 'Resize an image'
+		images: 'Resize an image',
+		pdf: 'Combine PDFs'
 	},
 	leavesHeading: 'What leaves it',
 	leaves: {
 		splitBill: 'Only a bill you share, encrypted. Deleted 30 days after the last share.',
 		whatsapp: 'A chat you open, sent to WhatsApp with the number and message you typed.',
 		qrCode: 'Nothing. The code is made on your device, and the file stays there.',
-		images: 'Nothing. Your images are changed on your device and saved there.'
+		images: 'Nothing. Your images are changed on your device and saved there.',
+		pdf: 'Nothing. Your files are put together on your device and saved there.'
 	},
 	stays: {
 		heading: 'Nothing else leaves',
@@ -548,5 +551,110 @@ export const IMAGES = {
 	savedAll: (count: number) => `Look for the ${count} images in your downloads.`,
 	/** Under Save all, before it's pressed, where it opens the share sheet. */
 	shareHint: 'Save all opens the share sheet: choose Save Images to keep them in your photos.',
+	shared: 'Shared.'
+};
+
+export const PDF = {
+	path: '/combine-and-shrink-pdfs' as const,
+	name: 'Combine and shrink PDFs',
+	description:
+		'Put PDFs, scans and photos into one PDF, turn, move or remove pages, and make it fit a limit, like under 1 MB. On your device: nothing is uploaded.',
+	introduction:
+		'Put PDFs and photos into one file, change the pages, and make it smaller. Nothing is uploaded: your files are put together on this device.',
+	/** On the index and in "All tools": what the tool does. */
+	line: 'Put PDFs and photos into one file, and make it smaller.',
+	target: {
+		label: 'Make it under',
+		/** With each page saved on its own, the size is for each file. */
+		labelEach: 'Make each page under',
+		hint: 'The size the form or site asks for. Leave it empty to keep every page as it is.',
+		units: { KB: 'KB', MB: 'MB' },
+		unitsLabel: 'Unit'
+	},
+	saveAs: {
+		label: 'Save as',
+		one: 'One PDF',
+		each: 'Each page on its own'
+	},
+	details: {
+		keep: "Keep the files' details",
+		/** Under the box, saying what that means either way, in one line so nothing moves. */
+		removed:
+			'Left out: titles, authors, dates, the apps that made them, and where photos were taken.',
+		kept: 'Kept from the first PDF and each photo, location included: anyone you send it to can see them.'
+	},
+	password: {
+		label: 'Password to open it',
+		none: 'None',
+		keep: 'The one it had',
+		new: 'A new one',
+		field: 'New password',
+		hints: {
+			none: 'Anyone with the file can open it.',
+			keep: (name: string) => `It opens with the password ${name} had.`,
+			new: "Only this password opens it. It never leaves this device, so we can't recover it for you.",
+			empty: 'Type the new password first.'
+		}
+	},
+	pages: {
+		heading: 'Your pages',
+		add: 'Add PDFs or photos',
+		addMore: 'Add more',
+		empty: 'Add PDFs, scans or photos, in any order. They stay on this device.',
+		drop: 'Or drop them here.',
+		reading: 'Reading…',
+		turn: 'Turn',
+		remove: 'Remove',
+		/** What a page is, for a screen reader: its place, and the file it came from. */
+		page: (number: number, file: string) => `Page ${number}, from ${file}`,
+		/** Pressing a page lifts it, to be put down before another. */
+		lift: 'Press to move it.',
+		/** Over the pages, while none is lifted. */
+		howToMove: 'Press a page to move it.',
+		/** While a page is lifted: what each other page and the end do. */
+		moving: (number: number) => `Now press where page ${number} goes.`,
+		putBefore: (number: number) => `Put it before page ${number}`,
+		putAtEnd: 'Put it at the end',
+		cancel: 'Cancel'
+	},
+	locked: {
+		/** A PDF that needs a password, where its pages would be. */
+		needs: (name: string) => `${name} needs its password.`,
+		label: 'Password',
+		open: 'Open',
+		wrong: "That password didn't open it.",
+		note: "It's used on this device only. The saved PDF has no password unless you give it one."
+	},
+	notes: {
+		notOpened: (name: string) => `This browser can't open ${name} as a PDF or a photo.`,
+		damaged: (name: string) => `${name} is damaged: its pages go in as pictures.`,
+		/** With a size to fit: which pages became pictures, typed pages being left as they are. */
+		pictures: (pages: string) => `Going in as pictures, to make it smaller: ${pages}.`,
+		/** Typed pages whose photos were made smaller: their text is kept. */
+		photos: (pages: string) => `Photos made smaller, the text kept as it is: ${pages}.`,
+		typedOnly: "Its pages are typed text, which can't be made smaller here.",
+		failed: "These pages couldn't be put into one file. Try removing the last file you added."
+	},
+	/** "pages 2, 3 and 5", for the note above. */
+	pageList: (numbers: number[]) =>
+		numbers.length === 1
+			? `page ${numbers[0]}`
+			: `pages ${numbers.slice(0, -1).join(', ')} and ${numbers.at(-1)}`,
+	result: {
+		pages: (count: number) => (count === 1 ? '1 page' : `${count} pages`),
+		files: (count: number) => (count === 1 ? '1 file' : `${count} files`),
+		was: (size: string) => `Was ${size}.`,
+		/** In place of "Was", when even the smallest it would go is over the limit. */
+		over: (limit: string, size: string) => `Over ${limit}: the smallest it would go is ${size}.`,
+		working: 'Working…',
+		save: 'Save',
+		saveEach: (count: number) => (count === 1 ? 'Save it' : `Save all ${count}`)
+	},
+	/** Added to the first file's name when several are put into one: "surat-combined.pdf". */
+	combined: 'combined',
+	saved: (name: string) => `Look for ${name} in your downloads.`,
+	savedAll: (count: number) => `Look for the ${count} PDFs in your downloads.`,
+	/** Under Save, before it's pressed, where it opens the share sheet. */
+	shareHint: 'Save opens the share sheet: choose Save to Files to keep it.',
 	shared: 'Shared.'
 };

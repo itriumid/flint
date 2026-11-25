@@ -2,10 +2,10 @@
 // read from here, so a new tool is added once. The words are in content.ts; this file decides the
 // order, which tools the index leads with, and how a search finds them.
 
-import { IMAGES, INDEX, NAV, QR_CODE, SPLIT_BILL, WHATSAPP } from './content';
+import { IMAGES, INDEX, NAV, PDF, QR_CODE, SPLIT_BILL, WHATSAPP } from './content';
 import { matchChoices } from './search';
 
-export type ToolId = 'split-bill' | 'whatsapp' | 'qr-code' | 'images';
+export type ToolId = 'split-bill' | 'whatsapp' | 'qr-code' | 'images' | 'pdf';
 
 export interface Tool {
 	id: ToolId;
@@ -65,6 +65,17 @@ export const TOOLS: Tool[] = [
 		start: INDEX.starts.images,
 		searchTerms:
 			'image photo picture compress shrink reduce resize smaller kb mb size jpg jpeg png webp heic convert format exif location metadata'
+	},
+	{
+		id: 'pdf',
+		path: PDF.path,
+		name: PDF.name,
+		short: NAV.pdf,
+		line: PDF.line,
+		leaves: INDEX.leaves.pdf,
+		start: INDEX.starts.pdf,
+		searchTerms:
+			'pdf merge join combine scan document compress shrink reduce smaller kb mb size split extract pages rotate turn reorder delete password'
 	}
 ];
 
@@ -109,7 +120,16 @@ export function findTools(typed: string, tools: Tool[] = TOOLS): Tool[] {
 		label: tool.name,
 		searchTerms: `${tool.line} ${tool.searchTerms}`
 	}));
-	return matchChoices(searchable, typed).map((match) => match.tool);
+	const found = matchChoices(searchable, typed).map((match) => match.tool);
+	// A tool named by what's typed comes before one that only lists it among its words: "split"
+	// finds Split bill before the PDF tool, which can split a PDF.
+	const query = typed.trim().toLowerCase();
+	const named = (tool: Tool) =>
+		tool.name
+			.toLowerCase()
+			.split(/[\s-]+/)
+			.includes(query);
+	return [...found.filter(named), ...found.filter((tool) => !named(tool))];
 }
 
 // The tools opened last on this device, for the top of "All tools": their ids only, newest first,

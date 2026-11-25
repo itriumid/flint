@@ -146,6 +146,7 @@ spacing:
   control-compact: '2.25rem'
   touch-target: '2.75rem'
   search-width: '24rem'
+  settings-width: '22rem'
   menu-width: '32rem'
   form-width: '36rem'
   tool-width: '42rem'
@@ -321,6 +322,30 @@ components:
     backgroundColor: '{colors.paper-elevated}'
     rounded: '0.375rem'
     size: '3.5rem'
+  page-sheet:
+    backgroundColor: '{colors.paper-surface}'
+    rounded: '{rounded.none}'
+  page-sheet-waiting:
+    backgroundColor: '{colors.paper-elevated}'
+  page-number:
+    backgroundColor: '{colors.graphite}'
+    textColor: '{colors.off-white}'
+    rounded: '{rounded.full}'
+    padding: '0 0.5rem'
+  page-number-dark:
+    backgroundColor: '{colors.graphite-surface}'
+    textColor: '{colors.off-white}'
+  page-control:
+    backgroundColor: 'transparent'
+    rounded: '{rounded.full}'
+    size: '{spacing.control-compact}'
+  save-bar:
+    backgroundColor: '{colors.paper}'
+    textColor: '{colors.graphite}'
+    padding: '0.875rem 0 1rem'
+  save-bar-dark:
+    backgroundColor: '{colors.graphite}'
+    textColor: '{colors.off-white}'
 ---
 
 # Design System: flint.itrium.id
@@ -355,7 +380,7 @@ lately on this device first. Switching tools stays one press and a word away how
 are.
 
 A tool page follows the index. It opens with the tool's title, said as its field says it: the
-tool's symbol and its name in the same extra-bold type, the introduction under it. All four tools
+tool's symbol and its name in the same extra-bold type, the introduction under it. All five tools
 are drawn in this world, with no cards. Split bill's parts are divided by plain lines under
 extra-bold headings, items as rows between lines, and below 1024px the bill is made in three steps,
 one on screen at a time, with a graphite bar fixed to the bottom of the screen holding the step's
@@ -368,7 +393,10 @@ saves, and a short shelf of other kinds (Wi-Fi, contact, email, phone call) whos
 first part's place when picked. Resize and convert images is the settings (a size to fit, a
 format, whether to keep a photo's details, and more control folded away), then under a plain line
 "Your images", each a row between hairlines with what it was and what it became, and one pink
-"Save all". From 1024px each tool's answer has its own column.
+"Save all". Combine and shrink PDFs is the same settings (a size to fit, one PDF or each page on
+its own, the files' details, a password), then under a plain line "Your pages", every page a white
+sheet in a grid, pressed to lift it and pressed again where it goes, with the size and one pink
+Save held at the bottom of the pages. From 1024px each tool's answer has its own column.
 
 Components are soft and sure-footed, and tactile without being playful. Every control has a round,
 generous target that a thumb finds the first time (2.75rem on touch screens) and an edge you can see
@@ -381,7 +409,7 @@ one step back with a hairline round them.
 Light and dark are equal. Each follows the visitor's system unless the footer says otherwise, and
 neither is a courtesy version of the other: every new pairing is designed and checked in both. The
 system refuses what itrium.id refuses: generic SaaS ornament (gradient text, icon-card rows,
-invented numbers), drop shadows on anything but a floating list, pure black and white, decorative
+invented numbers), drop shadows on anything but what floats (an open list, a lifted page), pure black and white, decorative
 pink, and small labels above headings. It refuses what only a tool can get wrong: a hero that pushes
 the tool off a phone screen, and state shown by color alone. And on the index it refuses what the
 owner has turned down four times over: anything that reads as a receipt (dashed lines, gray-on-paper
@@ -406,13 +434,13 @@ stacked rounded boxes. On Split bill the owner turned down the same stack: "too 
   field, and the introduction under it.
 - Split bill has no cards: parts between plain lines, items as rows, three steps below 1024px with a
   graphite bar at the bottom, and two columns from 1024px.
-- WhatsApp click-to-chat, QR code and Resize and convert images have no card: the fields, a plain
-  line, then the answer, in its own column beside a vertical line from 1024px. Only QR code draws a
-  code, bare, on a white sheet.
+- WhatsApp click-to-chat, QR code, Resize and convert images and Combine and shrink PDFs have no
+  card: the fields, a plain line, then the answer, in its own column beside a vertical line from
+  1024px. White sheets are for what is printed or sent: QR code's code, and the PDF tool's pages.
 - Light and dark are equal. Both follow the system, unless System, Light or Dark is chosen in the
   footer.
-- Flat surfaces with tonal steps. The only shadow is under the open searchable list; "All tools"
-  is set apart by its backdrop, not a shadow.
+- Flat surfaces with tonal steps. The only shadows are under the open searchable list and a page
+  lifted to be moved; "All tools" is set apart by its backdrop, not a shadow.
 - Every control has a 3:1 edge (`--control-border`), a target at least 2.75rem tall on touch
   screens, and 16px text on touch screens so iOS doesn't zoom.
 - Motion is CSS only and off under reduced motion.
@@ -482,6 +510,12 @@ sets them to dark mode's for Split bill's bottom bar on a light page. The bindin
   the one white surface on the site, because scanners read dark on light and that is what prints.
   Until there is a code, in dark mode it waits in graphite surface (`code-sheet-empty-dark`) with a
   square in paper elevated (graphite raised in dark mode) where the code will be.
+- **The pages' sheets:** on Combine and shrink PDFs every page is drawn on a white sheet
+  (`page-sheet`) in both themes, for the same reason: it is the document as it will be sent. Until
+  its picture is drawn, a sheet waits in `--elevated` (`page-sheet-waiting`). The page's number on
+  it stays dark in both themes, since it sits on the white sheet, not on the page: it takes Split
+  bill's bar's `.graphite-bar` scope, graphite with off-white numerals on a light page
+  (`page-number`) and graphite surface on a dark one (`page-number-dark`).
 - **The text color as a line:** the current step's 3 px underline, and the underline under the
   current page's link.
 
@@ -493,8 +527,9 @@ time, which is not the same as one element. In a tool, one pink button per view.
 pink start in each featured field, the tools' equal starts ("Split a bill", "Chat with a number",
 "Make a code"): one meaning, three pills. Rose-text action lines serve the tools elsewhere, a shared
 bill and WhatsApp's hand-off to QR code as their way onward, and nothing else is pink but the mark.
-The fields, the search, "All tools", the tool symbols, a tool's title, the step bar, the shelf and
-the code are never pink. On Split bill below 1024px the bar's "Next" counts toward
+The fields, the search, "All tools", the tool symbols, a tool's title, the step bar, the shelf,
+the code, and the PDF tool's sheets, their numbers and the places to put a lifted page are never
+pink. On Split bill below 1024px the bar's "Next" counts toward
 the view: it is outlined until the step's own work has started (nobody added on step 1, nothing on
 the bill on step 2), so the step's own pink action ("Scan or paste a receipt") isn't doubled.
 
@@ -554,7 +589,8 @@ served from the site itself.
   introduction 0.75rem under it. 2.25rem (36px) on phones, the token size (48px) from 640 px.
 - **Part heading** (`part-heading`): the heading of each of Split bill's parts ("The bill",
   "People", "Items", "Charges and adjustments", "The split"), "Your link" on WhatsApp
-  click-to-chat, "Your code" and a picked kind's name on QR code, and "All tools" over its
+  click-to-chat, "Your code" and a picked kind's name on QR code, "Your pages" on Combine and
+  shrink PDFs, and "All tools" over its
   dialog, extra-bold at -0.03em, 1rem above the part (0.5rem above "Your link" and "Your code"). A
   count beside it ("People (4)") is muted and regular weight. QR code's shelf takes the same voice
   a size down (1.125rem, -0.02em): it's an offer, not a part.
@@ -573,6 +609,9 @@ served from the site itself.
 - **Initial** (no token): the letter over each group in an A-to-Z list, extra-bold, 1.25rem in
   "All tools" and 1.875rem at -0.04em on the index, where it appears only once a letter holds two
   tools; hidden from screen readers, since the names under it say it.
+- **Page number** (no token): the number on each of the PDF tool's sheets, bold 0.75rem tabular
+  figures on its graphite pill, turned back upright when the sheet is turned; hidden from screen
+  readers, since each page's name says it.
 - **Minor heading** (`minor-heading`): the heading of the tools on sites of their own, under the
   facts, bold at body size.
 - **Body** (`body`): a tool's introduction (at 1.625 line height under its title, muted, or in
@@ -586,7 +625,8 @@ served from the site itself.
 - **Label** (`label`): field labels, secondary and small button labels.
 - **Button** (`button`): the primary button's label, semibold.
 
-Amounts that line up or change in place (counts, the bottom bar's total, the shares) use tabular figures.
+Amounts that line up or change in place (counts, the bottom bar's total, the shares, the PDF
+tool's pages and size) use tabular figures.
 
 ### Named Rules
 
@@ -610,9 +650,9 @@ above the names it groups, and is hidden from screen readers.
 - **Widths:** the header, the footer, Flint's name above the fields and the facts below them sit in
   the 72rem content column (`content-width`). The error page's panel is the same width, inset from
   the viewport by 0.75 to 1.25rem (`gutter-panel`). Below 1024 px a tool sits in a narrow working
-  column: 36rem (`form-width`) for WhatsApp click-to-chat, QR code and Resize and convert images,
-  42rem (`tool-width`) for Split bill. From 1024 px all four take the 72rem column, the answer in its
-  own column beside the form.
+  column: 36rem (`form-width`) for WhatsApp click-to-chat, QR code, Resize and convert images and
+  Combine and shrink PDFs, 42rem (`tool-width`) for Split bill. From 1024 px all five take the 72rem
+  column, the answer in its own column beside the form.
 - **Gutters:** 1.25rem on phones (`gutter-phone`), 2rem from 640 px (`gutter-wide`).
 - **Header:** one row in the 72rem column, 1.5rem above and below: the mark and "Flint" on the
   left; on the right the featured tools' links, 2rem apart, from 1024 px only, then "All tools".
@@ -645,7 +685,7 @@ above the names it groups, and is hidden from screen readers.
   they don't fit; the search sits under them, at most 36rem wide. From 1024 px the search sits
   beside them on the right, 24rem wide (`search-width`), held at the top of the row, so the field
   stays put and its answers only ever grow downward.
-- **Below the fields:** once there are more tools than `FEATURED_COUNT` (four tools, three
+- **Below the fields:** once there are more tools than `FEATURED_COUNT` (five tools, three
   featured, today), "All tools", every tool A to Z, in two columns from 768 px and three from
   1024 px. While each letter holds one tool it is a plain list, each entry under a hairline; once a
   letter holds two (`needsLetters` in `src/lib/tools.ts`), each letter's group sits under a hairline
@@ -701,6 +741,16 @@ above the names it groups, and is hidden from screen readers.
   left, 4rem clear of a vertical hairline, the images on the right, 4rem in from it. Every row is at
   least 7.25rem tall (7.75rem on touch screens), room for its Save, its Remove and one note, so a row
   keeps its height when its image is done or redone; the status line keeps 2.5rem.
+- **Combine and shrink PDFs:** below 1024 px, in the 36rem column, the settings 1.25rem apart ("Make
+  it under", "Save as", the details box and its line, "Password to open it"), then a hairline, then
+  "Your pages" with "Add more" beside it, one muted line over the grid, the grid, the notes, the
+  save bar and the status line. The grid is three sheets across on phones, four from 640 px and five
+  from 1280 px, 0.75rem apart across and 1.25rem down. From 1024 px the settings take a 22rem column
+  (`settings-width`) that stays in view (sticky, 1.5rem from the top), 3rem clear of a vertical
+  hairline, and the pages take the rest, 3rem in from it: the pages need the width, the settings
+  don't. Once the first files are read, the page scrolls "Your pages" to the top of the screen, once
+  (smoothly unless motion is reduced), so a phone shows the pages and their controls rather than
+  the settings. The status line under the bar keeps 2.5rem.
 - **A friend's view:** someone opening a bill shared with them sees only the split, with no steps
   and no bars, at every width.
 - **Phones:** every control is at least 2.75rem tall on touch screens (`touch-target`), and
@@ -725,7 +775,9 @@ text" keep two lines (`note-slot`), Save as PNG and Save as SVG are there before
 the status line under them keeps two lines, and "Copy link" keeps its width when it says "Copied".
 On Resize and convert images, the details box's line is one line either way, a row's Save is there
 from its first frame, every row keeps room for one note, and the status line is kept before
-anything is saved.
+anything is saved. On Combine and shrink PDFs, the details line and the line over the grid are one
+line either way, the save bar's second line is kept when it says nothing, and "Was …" and "Over
+…" take the same place.
 
 **The Slab Rule, for tools.** A tool page has no slab at either end: it opens with the tool's
 title, its symbol and its name, and never closes with a panel. On a phone, the tool comes before
@@ -743,7 +795,8 @@ would push any of them down, it belongs lower on the page.
 **The Answer In Reach Rule.** Wherever a tool is being filled in, its answer is one glance or one
 tap away: the step bar and the bottom bar's total below 1024 px, the split's own column above; on
 WhatsApp click-to-chat, the line reading the number back under its field, and the answer right
-under the fields, nothing floating over it. Someone opening a shared
+under the fields, nothing floating over it; on Combine and shrink PDFs, the size and Save held at
+the bottom of the pages column while the pages scroll. Someone opening a shared
 result lands on it, not on the form that made it.
 
 ## Elevation & Depth
@@ -756,20 +809,25 @@ hairline, and QR code's sheet is flat with a hairline edge. Split bill has almos
 lie on the page between hairlines, and its bottom bar is told apart by tone alone (graphite, or
 graphite surface on a dark page), with no line and no shadow over the page. "All tools" sits over
 the page with no shadow either: the backdrop fades what's behind it into the page's own color (85%),
-and from 640 px its panel steps up to the surface with a hairline edge. The one shadow is the floating list of the searchable select, which
-genuinely sits above the content and has to be read against it. There are no glows, in either
-theme.
+and from 640 px its panel steps up to the surface with a hairline edge. Combine and shrink PDFs'
+sheets lie flat with a hairline edge, and its save bar is the page's own color with a hairline on
+top. Two things cast a shadow, because they genuinely sit above the content: the floating list of
+the searchable select, and a page of the PDF tool while it is lifted to be moved. There are no
+glows, in either theme.
 
 ### Shadow Vocabulary
 
 - **Floating list** (`box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)`):
-  the open option list of `SearchableSelect`, and anything else that floats over the page. Nothing
-  else.
+  the open option list of `SearchableSelect`, and anything else that floats over the page.
+- **Lifted page** (`box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)`):
+  a page of Combine and shrink PDFs while it is lifted to be moved, with its tilt. It goes when
+  the page is put down. Nothing else.
 
 ### Named Rules
 
 **The Only Floating Things Cast Shadows Rule.** Featured fields, buttons, chips, the "All tools"
-panel, the error page's panel, the code's sheet and the bottom bar never get a drop shadow. A control responds by filling
+panel, the error page's panel, the code's sheet, a page's sheet at rest, the bottom bar and the
+save bar never get a drop shadow. A control responds by filling
 with the next tonal step, a header link by its underline, and an arrow by moving 4 px on.
 
 ## Shapes
@@ -793,7 +851,8 @@ above and below the row. The detector runs with no ignores (`.impeccable/config.
 Each tool has one symbol, drawn as a 4-unit stroke on a 40-unit square in the text color: a circle
 with its left half filled for Split bill, a speech mark for WhatsApp click-to-chat, and a code's
 three corner squares (2-unit corners) with a filled module for QR code, and a picture's frame
-(3-unit corners), hills and a filled sun for Resize and convert images
+(3-unit corners), hills and a filled sun for Resize and convert images, and two sheets with a
+folded corner each, one over the other, two lines on the front one, for Combine and shrink PDFs
 (`src/lib/ToolSymbol.svelte`).
 1.25rem in the header and in a row of tools, 2rem in a field on phones and 2.5rem from 640 px
 (`symbol-field-phone`, `symbol-field`), and 1.75rem over a tool's title on phones, 2rem from 640 px
@@ -814,8 +873,16 @@ outline, 4 px out, for three seconds.
 
 WhatsApp click-to-chat and QR code are drawn with lines too: a 1 px `--border` hairline between
 the fields and the answer below 1024 px, turning into a vertical one between the two columns from
-1024 px. Lists of tools and QR code's shelf are rows between hairlines, never boxes. Nothing on the
-site is dashed.
+1024 px. Lists of tools and QR code's shelf are rows between hairlines, never boxes. Nothing at
+rest is dashed: the one dash on the site is the PDF tool's places to put a lifted page, a 2 px
+control-edge outline 2 px out, there only while a page is lifted.
+
+Combine and shrink PDFs' pages are sheets in their own shape: A4 upright (210 by 297), A4 on its
+side, or square, by the page's proportions, with square corners and a 1 px `--border` edge, set in
+an upright A4 cell so every row lines up. The page's number sits on the sheet, bottom left, in a
+pill. Under each sheet, two round outlined controls, Turn and Remove (2.25rem, 2.75rem on touch
+screens), each with a drawn icon: a turning arrow and a cross, 2-unit round-capped strokes on a
+20-unit square, 1rem, in the current color.
 
 The arrow is drawn, not typed: one SVG, the same as itrium.id's `Arrow.svelte`, with a 2-unit
 round-capped stroke in the current color, sized to the text beside it. A selected chip carries a
@@ -839,7 +906,8 @@ Pressable pills, soft and sure-footed. There are three kinds, and pink is the ma
   bar once the step's work has started and no receipt is being read, "Copy a link to this bill",
   "Open in WhatsApp" (messaging a number is the job most people come for; "Copy link" beside it is
   secondary), "Save as PNG" on QR code ("Save as SVG" beside it is secondary), and "Save all 3"
-  (or "Save it") on Resize and convert images.
+  (or "Save it") on Resize and convert images, and "Save" (or "Save all 4", "Save it" for each page
+  on its own) in Combine and shrink PDFs' save bar, at 1rem with 0.875rem by 1.75rem of padding.
 - **A pair of answer actions:** on WhatsApp click-to-chat and QR code the primary and the secondary
   sit side by side, each growing to share the row, at 1rem text with 0.875rem of padding above and
   below and 1rem at the sides, neither ever breaking onto two lines (on the narrowest phones the
@@ -915,8 +983,8 @@ nothing to say why ("uk" in "Luksemburg").
 
 ### Cards
 
-No page has a card. The index's featured fields, Split bill's parts, and WhatsApp
-click-to-chat's and QR code's forms and answers all lie on the page.
+No page has a card. The index's featured fields, Split bill's parts, and every other tool's
+settings and answers lie on the page.
 
 - **WhatsApp click-to-chat and QR code:** no card. The fields, a hairline, then the answer, as
   Split bill's parts are; from 1024 px a vertical hairline between them instead.
@@ -950,7 +1018,8 @@ line-item strip (#70), both turned down as receipt-like.
   tools", by name or by what someone wants done ("wifi" finds QR code). Its answers come under it
   as it's typed: rows between hairlines, each the tool's symbol, its name in semibold (underlined
   on hover) and what it does, muted; "No tool for "…" yet." when nothing answers; Enter opens the
-  best one. Nothing pink.
+  best one. A tool whose name holds the word typed comes before one that only lists it among its
+  words: "split" finds Split bill before Combine and shrink PDFs. Nothing pink.
 - **The rest:** once there are more tools than fields, "All tools", every tool A to Z, each entry
   its symbol (1.25rem), its name in bold 1.125rem (underlined on hover), what it does, and what
   leaves it, muted. A plain list, an entry under each hairline, while every letter holds one tool:
@@ -1301,9 +1370,78 @@ in the part, which takes the focus outline while one is dragged over it.
   its name's stem, numbered when two clash (`src/lib/images.ts`). Kept details are copied into the
   new file with the orientation reset, since the page draws photos upright (`src/lib/metadata.ts`).
 
-**The One Pink Save Rule.** On Resize and convert images the only pink is "Save all". The size's
-unit, the format, a row's Save and "Add images" are graphite or outlined, however much they're
-used.
+### Settings (Combine and shrink PDFs)
+
+The settings of `src/routes/combine-and-shrink-pdfs/+page.svelte`, each a field the system already
+has, in the 36rem column below 1024 px and a 22rem column from it.
+
+- **Make it under:** the images tool's size to fit: a number at most 10rem wide with KB or MB
+  as segmented pills beside it, and a muted hint under it. With each page saved on its own it says
+  "Make each page under".
+- **Save as:** segmented pills, "One PDF" or "Each page on its own".
+- **Details:** a checkbox, "Keep the files' details", unticked by default, with one muted line
+  under it that swaps with it: what is left out, or that what's kept includes where photos were
+  taken. One line either way.
+- **Password to open it:** segmented pills, "None", "The one it had" (only once a locked PDF has
+  been opened) and "A new one". A new one shows a password field at most 18rem wide under the
+  pills; a muted line under them says what the choice means.
+
+### Your pages (signature, Combine and shrink PDFs)
+
+The pages part, under a hairline below 1024 px and beside a vertical one from 1024 px: "Your pages"
+in part-heading type, with "Add more", a small button on the page holding the file input, beside it
+once there are files. Files can be dropped anywhere in the part with a fine pointer; it takes the
+focus outline while one is dragged over it.
+
+- **Empty:** one muted line saying what to add and that it stays on the device ("Or drop them
+  here." with a fine pointer), and one large "Add PDFs or photos", a secondary button on the page,
+  full width, at 1rem.
+- **The line over the grid:** muted, one line kept, saying how to move a page ("Press a page to
+  move it."), "Reading…" while files are read, or, while a page is lifted, where to press next. A
+  live region.
+- **Sheets:** an ordered list, each page a white sheet in its own shape (see Shapes), its number on
+  it, and its picture drawn from the file on the device. Turned, the whole sheet turns and its number
+  turns back upright.
+- **Turn and Remove:** under each sheet, the two round outlined controls (`page-control`), filling
+  with the elevated step on hover (the surface in dark mode); named for screen readers with the
+  page and the file it came from.
+- **A locked or unreadable file:** said where its pages would be, under a hairline, with the drawn
+  warning sign in medium weight: its name, a password field and a small "Open", and a muted line
+  under them ("That password didn't open it." in medium weight). A file the browser can't open is
+  one such line.
+- **Notes:** under the grid, small text at medium weight with the drawn warning sign, as on Resize
+  and convert images: which pages go in as pictures, photos made smaller, a damaged file.
+
+The signature is moving a page with one hand. Pressing a sheet lifts it: it rises 0.375rem, tilts
+3 degrees to the left and casts the lifted page's shadow. Every other sheet becomes a place to put
+it, outlined in a dashed control edge, with "Put it at the end" as one more place after the last
+and "Cancel", an underlined text action, under it. Pressing a place puts the page down before that
+one; pressing the lifted page again puts it back. The pages glide to their new places (220 ms, none
+under reduced motion), and the numbers follow. With a mouse a sheet can be dragged as well. A sheet
+is a button with `aria-pressed`, and its name says what a press does.
+
+### Save bar (Combine and shrink PDFs)
+
+What will be saved, held at the bottom of the screen while the pages scroll: sticky at the bottom
+of the pages column, the page's own color (`save-bar`) with a `--border` hairline on top, edge to
+edge of the column on phones, padded 0.875rem on top and at least 1rem below (more for the home
+indicator). Not graphite: unlike Split bill's bar it isn't fixed over the whole screen, and it
+belongs to the pages it counts.
+
+- **Left:** the count and the size in bold tabular figures ("10 pages · 787 KB", or "4 files"),
+  "Working…" in place of the size while it's being made again; under it, one line kept, muted "Was
+  3.1 MB." when it got smaller, or, when even the smallest it would go is over the size to fit, in
+  the text color at medium weight, "Over 1 MB: the smallest it would go is 1.9 MB." A live region.
+- **Right:** the one pink Save, `aria-disabled` while it's working, while a new password hasn't
+  been typed, or with nothing to save.
+- **Status line:** under the bar, small text, 2.5rem kept, a status region: where the file went
+  ("Look for … in your downloads."), or on a touch screen that can share files, before the tap,
+  that Save opens the share sheet.
+
+**The One Pink Save Rule.** On Resize and convert images the only pink is "Save all"; on Combine and
+shrink PDFs it is Save. The size's unit, the format, a row's Save, "Add images", "Add more", the
+pages' sheets and numbers, Turn and Remove and the places to put a lifted page are graphite,
+white or outlined, however much they're used.
 
 ### Tool title and panel
 
@@ -1312,8 +1450,8 @@ on the index does: its symbol in the text color, then its name in tool-title typ
 then the introduction 0.75rem under that, at most 36rem wide, muted, or in the text color at
 medium weight in a friend's view of a shared bill. Its padding sits inside the tool's width, so the
 title lines up with the header and the content: 42rem for Split bill and 36rem for WhatsApp
-click-to-chat, QR code and Resize and convert images on phones and tablets, and 72rem for all four
-from 1024 px, where each
+click-to-chat, QR code, Resize and convert images and Combine and shrink PDFs on phones and
+tablets, and 72rem for all five from 1024 px, where each
 tool's answer has its own column. No band, no fill and nothing above
 the symbol. It replaced the place mark, the Device Map's dot beside a smaller bold name.
 
@@ -1405,7 +1543,8 @@ it's announced once.
 - **Do** use the drawn arrow wherever a link points onward.
 - **Do** keep motion in CSS, gated on `motion-safe` or `prefers-reduced-motion: no-preference`:
   page cross-fades, the theme cross-fade (a view transition, when someone picks a theme or the
-  device switches under System), the 4 px arrow nudge, and the loading spinner. Nothing rises or
+  device switches under System), the 4 px arrow nudge, the loading spinner, and a PDF page's lift
+  and glide (Svelte's own `animate:flip`, 220 ms, none under reduced motion). Nothing rises or
   reveals as it scrolls.
 - **Do** open a tool page with its title: its symbol, its name in extra-bold tool-title type, and
   the introduction under it, lined up with the header and the tool.
@@ -1416,6 +1555,10 @@ it's announced once.
   screen before focusing anything in it.
 - **Do** count the bottom bar's "Next" in a view's one pink action: outlined until the step's own
   work has started.
+- **Do** draw what will be printed or sent (a code, a document's pages) on a white sheet with a
+  hairline edge in both themes, and anything set on that sheet in fixed colors that read on white.
+- **Do** let a page be moved with one hand: a press lifts it, a press where it goes puts it down,
+  with a way to cancel, and dragging only as an extra for a mouse.
 - **Do** use Tailwind classes with the theme tokens and the shared classes in `src/lib/styles.ts`,
   never raw hex values in markup.
 
@@ -1440,8 +1583,10 @@ it's announced once.
   reason, and a color change otherwise belongs in `@itrium/palettes`.
 - **Don't** put a small uppercase heading, eyebrow, kicker or back link above a heading.
 - **Don't** type arrows or chevrons as characters.
-- **Don't** give featured fields, buttons, chips, the "All tools" panel, the code's sheet, the
-  error panel or the bottom bar a drop shadow.
+- **Don't** give featured fields, buttons, chips, the "All tools" panel, the code's sheet, a page's
+  sheet at rest, the error panel, the bottom bar or the save bar a drop shadow.
+- **Don't** dash anything at rest: the one dash is a place to put a lifted page, there only while
+  one is lifted.
 - **Don't** put Split bill's parts back in cards, or stack rounded boxes in a tool: the owner turned
   that down as "too many boxes".
 - **Don't** put WhatsApp click-to-chat back in a card, draw a code on it again (it hands its link
@@ -1449,7 +1594,7 @@ it's announced once.
   show its link as raw monospace text.
 - **Don't** put QR code's kinds in tabs above the main job, add words to the saved image, route a
   code through anything in between, or hide the code behind a disclosure.
-- **Don't** fill a chosen segmented pill in pink, show a note for settings that are being
+- **Don't** fill a chosen segmented pill, a page's number or a place to put a page in pink, show a note for settings that are being
   redone, or put the warning sign on a fact that isn't a problem ("no details to keep").
 - **Don't** gate Split bill's steps, number them, or mark one done: they are free, in any order.
 - **Don't** invert the bottom bar on a dark page: it stays dark.
