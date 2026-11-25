@@ -147,8 +147,8 @@ Cloudflare Workers through `@sveltejs/adapter-cloudflare`. Cloudflare's Workers 
 - **Colors come from `@itrium/palettes`,** pinned to an exact version, imported at the top of
   `src/app.css`: Rhodonite, the same as itrium.id's and every Itrium application's. The site adds
   only `--control-border` and `--accent-text`. `src/palettes.test.ts` runs the package's checker
-  on them in every theme state; it normalizes our single-quoted selectors first, and checks
-  Tailwind's pink line classes itself, since the checker reads neither. A color change belongs in
+  on them in every theme state, including the pink lines drawn with Tailwind classes (since
+  0.3.0 it reads single-quoted selectors and those classes itself). A color change belongs in
   the package, then a version bump here. Pink marks the primary action and focus, nothing else.
 - **`static/.well-known/security.txt` expires.** A test fails a month before its `Expires` date;
   push it out another year when it does.

@@ -1368,13 +1368,13 @@
 			<!-- When the server can't be reached, trying again is the way forward: the bill is still
 			     there. Starting a new one is for a bill that's gone, or a link that can't open one. -->
 			{#if status.kind === 'unreachable'}
-				<button type="button" onclick={readLink} class={smallButton}
-					>{SPLIT_BILL.sharing.retry}</button
-				>
+				<button type="button" onclick={readLink} class={smallButton}>
+					{SPLIT_BILL.sharing.retry}
+				</button>
 			{:else}
-				<button type="button" onclick={clearEverything} class={smallButton}
-					>{SPLIT_BILL.sharing.startNew}</button
-				>
+				<button type="button" onclick={clearEverything} class={smallButton}>
+					{SPLIT_BILL.sharing.startNew}
+				</button>
 			{/if}
 		</div>
 	{/if}
@@ -1408,8 +1408,9 @@
 						type="button"
 						onclick={startScan}
 						class="{items.length ? secondaryButton : primaryButton} mt-4 w-full"
-						>{SPLIT_BILL.scanning.open}</button
 					>
+						{SPLIT_BILL.scanning.open}
+					</button>
 				{:else if !scanned}
 					<form
 						class="mt-5 border-t border-border pt-5"
@@ -1448,12 +1449,12 @@
 							class={field}></textarea>
 						<div class="mt-3 flex flex-wrap gap-3">
 							<!-- Reading the receipt is this form's one main action, so it's the pink one. -->
-							<button type="submit" disabled={!receiptText.trim()} class={primaryButton}
-								>{SPLIT_BILL.scanning.read}</button
-							>
-							<button type="button" onclick={cancelScan} class={secondaryButton}
-								>{SPLIT_BILL.scanning.cancel}</button
-							>
+							<button type="submit" disabled={!receiptText.trim()} class={primaryButton}>
+								{SPLIT_BILL.scanning.read}
+							</button>
+							<button type="button" onclick={cancelScan} class={secondaryButton}>
+								{SPLIT_BILL.scanning.cancel}
+							</button>
 						</div>
 					</form>
 				{:else}
@@ -1513,9 +1514,9 @@
 												oninput={() => (line.unsure = false)}
 												class="{field} col-span-2 sm:col-span-1"
 											/>
-											<label for="review-price-{line.id}" class="sr-only"
-												>Price of item {index + 1}</label
-											>
+											<label for="review-price-{line.id}" class="sr-only">
+												Price of item {index + 1}
+											</label>
 											<input
 												id="review-price-{line.id}"
 												type="text"
@@ -1678,16 +1679,18 @@
 								type="button"
 								onclick={addScan}
 								disabled={pricesMissing || reviewLines.length === 0}
-								class={primaryButton}>{SPLIT_BILL.scanning.add}</button
+								class={primaryButton}
 							>
+								{SPLIT_BILL.scanning.add}
+							</button>
 							{#if pricesMissing && reviewLines.length}
-								<button type="button" onclick={removeUnpriced} class={secondaryButton}
-									>{SPLIT_BILL.scanning.removeUnpriced}</button
-								>
+								<button type="button" onclick={removeUnpriced} class={secondaryButton}>
+									{SPLIT_BILL.scanning.removeUnpriced}
+								</button>
 							{/if}
-							<button type="button" onclick={cancelScan} class={secondaryButton}
-								>{SPLIT_BILL.scanning.cancel}</button
-							>
+							<button type="button" onclick={cancelScan} class={secondaryButton}>
+								{SPLIT_BILL.scanning.cancel}
+							</button>
 						</div>
 					</div>
 				{/if}
@@ -1700,8 +1703,9 @@
 				aria-labelledby="people-heading"
 			>
 				<h2 id="people-heading" tabindex="-1" class={partHeading}>
-					People {#if people.length}<span class="font-normal text-muted">({people.length})</span
-						>{/if}
+					People {#if people.length}<span class="font-normal text-muted">
+							({people.length})
+						</span>{/if}
 				</h2>
 				<form
 					class="flex items-end gap-2"
@@ -1725,8 +1729,10 @@
 						aria-disabled={!newPerson.trim()}
 						aria-describedby="add-person-reason"
 						onfocus={() => (explainPerson = !newPerson.trim())}
-						class={`${smallButton} ${besideField} ${unavailable}`}>Add person</button
+						class={`${smallButton} ${besideField} ${unavailable}`}
 					>
+						Add person
+					</button>
 				</form>
 				<p id="add-person-reason" role="status" class="mt-2 text-sm text-muted empty:mt-0">
 					{#if explainPerson && !newPerson.trim()}{SPLIT_BILL.missing.personName}{/if}
@@ -1754,12 +1760,12 @@
 											aria-describedby="rename-person-reason"
 											class="{field} min-w-0 flex-1 basis-40"
 										/>
-										<button type="submit" disabled={!renaming.name.trim()} class={smallButton}
-											>Save</button
-										>
-										<button type="button" onclick={() => stopRenaming(false)} class={smallButton}
-											>Cancel</button
-										>
+										<button type="submit" disabled={!renaming.name.trim()} class={smallButton}>
+											Save
+										</button>
+										<button type="button" onclick={() => stopRenaming(false)} class={smallButton}>
+											Cancel
+										</button>
 									</form>
 									<p
 										id="rename-person-reason"
@@ -1842,8 +1848,9 @@
 							type="button"
 							onclick={undoRemoval}
 							class="min-h-11 scroll-mt-24 scroll-mb-32 font-medium underline underline-offset-4 hover:text-accent-text"
-							>{SPLIT_BILL.undo}</button
-						>{/if}
+						>
+							{SPLIT_BILL.undo}
+						</button>{/if}
 				</p>
 			</section>
 
@@ -1863,8 +1870,9 @@
 							type="button"
 							onclick={undoRemoval}
 							class="min-h-11 scroll-mt-24 scroll-mb-32 font-medium underline underline-offset-4 hover:text-accent-text"
-							>{SPLIT_BILL.undo}</button
-						>{/if}
+						>
+							{SPLIT_BILL.undo}
+						</button>{/if}
 				{/snippet}
 				<h2 id="items-heading" tabindex="-1" class={partHeading}>
 					Items {#if items.length}<span class="font-normal text-muted">({items.length})</span>{/if}
@@ -1920,9 +1928,9 @@
 											/>
 										</div>
 										<div>
-											<label for="edit-item-price" class={label}
-												>{quantityOf(editing.quantity) > 1 ? 'Price each' : 'Price'}</label
-											>
+											<label for="edit-item-price" class={label}>
+												{quantityOf(editing.quantity) > 1 ? 'Price each' : 'Price'}
+											</label>
 											<input
 												id="edit-item-price"
 												type="text"
@@ -1958,11 +1966,13 @@
 												type="submit"
 												disabled={!canSaveEdit}
 												aria-describedby="edit-item-reason edit-item-price-note"
-												class={smallButton}>Save</button
+												class={smallButton}
 											>
-											<button type="button" onclick={() => stopEditing(false)} class={smallButton}
-												>Cancel</button
-											>
+												Save
+											</button>
+											<button type="button" onclick={() => stopEditing(false)} class={smallButton}>
+												Cancel
+											</button>
 										</div>
 									</form>
 								{:else if folded(item)}
@@ -1972,11 +1982,13 @@
 										onclick={() => unfold(item.id)}
 										class="-my-1 flex min-h-11 w-full items-center justify-between gap-3 text-left"
 									>
-										<span class="min-w-0 break-words"
-											><span class="sr-only">{`${SPLIT_BILL.changeWhoHad} `}</span><span
-												class="font-medium">{nameWithQuantity(item)}</span
-											><span class="text-muted">{` · ${whoHad(item)}`}</span></span
-										>
+										<span class="min-w-0 break-words">
+											<span class="sr-only">{`${SPLIT_BILL.changeWhoHad} `}</span><span
+												class="font-medium"
+											>
+												{nameWithQuantity(item)}
+											</span><span class="text-muted">{` · ${whoHad(item)}`}</span>
+										</span>
 										<!-- With a muted pencil: the line opens to change who had it. -->
 										<span class="flex shrink-0 items-center gap-2 text-sm text-muted tabular-nums">
 											{money(item.price)}
@@ -2079,24 +2091,27 @@
 															onclick={() => changeCount(item, person.id, -1)}
 															aria-label="One fewer for {person.name}"
 															class="ml-1.5 inline-flex size-8 items-center justify-center rounded-full text-base hover:bg-on-accent/10 pointer-coarse:size-11"
-															><Step kind="fewer" /></button
 														>
+															<Step kind="fewer" />
+														</button>
 														<span class="min-w-5 text-center tabular-nums">{count}</span>
 														<button
 															type="button"
 															onclick={() => changeCount(item, person.id, 1)}
 															aria-label="One more for {person.name}"
 															class="inline-flex size-8 items-center justify-center rounded-full text-base hover:bg-on-accent/10 pointer-coarse:size-11"
-															><Step kind="more" /></button
 														>
+															<Step kind="more" />
+														</button>
 													</span>
 												{:else}
 													<button
 														type="button"
 														onclick={() => changeCount(item, person.id, 1)}
 														class="min-h-9 rounded-full border border-control-border px-3.5 text-sm transition-colors hover:bg-surface pointer-coarse:min-h-11"
-														>{person.name}</button
 													>
+														{person.name}
+													</button>
 												{/if}
 											{/each}
 										</div>
@@ -2109,8 +2124,9 @@
 											type="button"
 											onclick={() => stopCounting(item)}
 											class="mt-1 min-h-9 text-sm text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-											>Share evenly instead</button
 										>
+											Share evenly instead
+										</button>
 									</fieldset>
 								{:else if people.length}
 									<fieldset class="mt-2 sm:mt-3">
@@ -2150,8 +2166,9 @@
 													type="button"
 													onclick={() => startCounting(item)}
 													class="min-h-9 text-sm text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-													>Count who had how many</button
 												>
+													Count who had how many
+												</button>
 												<Toggletip
 													label="About counting who had how many"
 													text={SPLIT_BILL.explanations.counting}
@@ -2220,9 +2237,9 @@
 							</div>
 							<div>
 								<!-- People know a menu's price for one, so with several it asks for that. -->
-								<label for="price" class={label}
-									>{quantityOf(newQuantity) > 1 ? 'Price each' : 'Price'}</label
-								>
+								<label for="price" class={label}>
+									{quantityOf(newQuantity) > 1 ? 'Price each' : 'Price'}
+								</label>
 								<input
 									id="price"
 									type="text"
@@ -2240,8 +2257,9 @@
 								aria-describedby="add-item-reason price-note"
 								onfocus={() => (explainItem = !canAddItem)}
 								class="{smallButton} {besideField} {unavailable} col-span-2 sm:col-span-1"
-								>Add item</button
 							>
+								Add item
+							</button>
 						</form>
 						<p
 							id="price-note"
@@ -2255,9 +2273,9 @@
 						</p>
 					</div>
 				{:else}
-					<button type="button" onclick={startAddingByHand} class="{secondaryButton} mt-5 w-full"
-						>{SPLIT_BILL.addByHand}</button
-					>
+					<button type="button" onclick={startAddingByHand} class="{secondaryButton} mt-5 w-full">
+						{SPLIT_BILL.addByHand}
+					</button>
 				{/if}
 			</section>
 
@@ -2420,16 +2438,18 @@
 													type="button"
 													onclick={() => shareWithEveryone(adjustment)}
 													class="mt-1 min-h-9 text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-													>Share with everyone again</button
 												>
+													Share with everyone again
+												</button>
 											</fieldset>
 										{:else if people.length}
 											<button
 												type="button"
 												onclick={() => (choosing = [...choosing, adjustment.id])}
 												class="min-h-9 text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-												>Just for some people</button
 											>
+												Just for some people
+											</button>
 										{/if}
 									</li>
 								{/each}
@@ -2534,8 +2554,10 @@
 								<button
 									type="submit"
 									disabled={!canAddAdjustment}
-									class="{smallButton} {besideField}">Add adjustment</button
+									class="{smallButton} {besideField}"
 								>
+									Add adjustment
+								</button>
 							</div>
 						</form>
 					</div>
@@ -2589,8 +2611,9 @@
 								type="button"
 								onclick={undoRemoval}
 								class="min-h-11 font-medium underline underline-offset-4 hover:text-accent-text"
-								>{SPLIT_BILL.undo}</button
 							>
+								{SPLIT_BILL.undo}
+							</button>
 						</p>
 					{/if}
 
@@ -2638,11 +2661,11 @@
 									<!-- The arrow follows the name rather than coming before it: an indent would take the width the
 									     muted line under it needs ("Paid the bill", beside "comes back" and the amount). -->
 									<span class="min-w-0">
-										<span class="block font-medium break-words"
-											>{nameOf(settlement.personId)}{#if opens}<Arrow
+										<span class="block font-medium break-words">
+											{nameOf(settlement.personId)}{#if opens}<Arrow
 													class="ml-1.5 align-[-0.125em] text-muted group-open/share:rotate-90 motion-safe:transition-transform"
-												/>{/if}</span
-										>
+												/>{/if}
+										</span>
 										<!-- Every row keeps one short line here, even an empty one, so choosing who paid
 											     never changes a row's height and moves the choices below. -->
 										<span class="block min-h-5 text-sm text-muted">
@@ -2658,16 +2681,16 @@
 									<!-- Whoever paid hands nothing over: their big number is what comes back, and says so
 									     beside it, on the same line, so choosing who paid never makes the row taller. -->
 									<span class="flex shrink-0 items-baseline gap-2">
-										{#if settlement.paidTheBill}<span class="text-sm text-muted"
-												>{SPLIT_BILL.split.comesBack}</span
-											>{/if}
+										{#if settlement.paidTheBill}<span class="text-sm text-muted">
+												{SPLIT_BILL.split.comesBack}
+											</span>{/if}
 										<!-- What comes back to whoever paid is set apart from what everyone else hands
 										     over: a plus, a size smaller and muted, so a quick read of the column never
 										     takes it for the biggest debt. -->
 										{#if settlement.paidTheBill}
-											<span class="text-xl font-semibold tracking-tight text-muted tabular-nums"
-												>+{money(settledUp.back)}</span
-											>
+											<span class="text-xl font-semibold tracking-tight text-muted tabular-nums">
+												+{money(settledUp.back)}
+											</span>
 										{:else}
 											<span
 												class="text-2xl font-bold tracking-tight tabular-nums {settlement.amount ===
@@ -2698,9 +2721,9 @@
 													{#each parts as part (part.itemId)}
 														<div class="flex justify-between gap-4">
 															<dt class="min-w-0 break-words">
-																{part.name}{#if part.part}<span class="text-muted"
-																		>, {part.part}</span
-																	>{/if}
+																{part.name}{#if part.part}<span class="text-muted">
+																		, {part.part}
+																	</span>{/if}
 															</dt>
 															<dd class="shrink-0">{money(part.amount)}</dd>
 														</div>
@@ -2830,8 +2853,9 @@
 										type="button"
 										onclick={showUnshared}
 										class="min-h-9 font-medium underline underline-offset-4 hover:text-accent-text pointer-coarse:min-h-11"
-										>{SPLIT_BILL.sharing.showIt}</button
-									>{/if}
+									>
+										{SPLIT_BILL.sharing.showIt}
+									</button>{/if}
 							{/if}
 						</p>
 					{/if}
@@ -2888,9 +2912,9 @@
 
 			{#if viewing}
 				<div>
-					<button type="button" onclick={makeChanges} class={smallButton}
-						>{SPLIT_BILL.sharedWithYou.makeChanges}</button
-					>
+					<button type="button" onclick={makeChanges} class={smallButton}>
+						{SPLIT_BILL.sharedWithYou.makeChanges}
+					</button>
 					<p class="mt-2 text-sm text-muted">{SPLIT_BILL.sharedWithYou.note}</p>
 				</div>
 			{/if}
@@ -2909,8 +2933,9 @@
 								type="button"
 								onclick={copyOpenedLink}
 								class="{secondaryButton} whitespace-nowrap sm:grow-[2]"
-								>{SPLIT_BILL.sharedWithYou.copyLink}</button
 							>
+								{SPLIT_BILL.sharedWithYou.copyLink}
+							</button>
 						{:else}
 							<!-- Copy as text and Share hand text to the device's own apps and send nothing to us;
 							     the link is the one thing that reaches our server, encrypted, as the note under
@@ -2923,23 +2948,26 @@
 								onclick={copyLink}
 								aria-disabled={sharing || undefined}
 								class="{primaryButton} whitespace-nowrap aria-disabled:cursor-wait aria-disabled:opacity-50 sm:grow-[2]"
-								>{linkJustCopied
-									? SPLIT_BILL.sharing.copiedButton
-									: 'Copy a link to this bill'}</button
 							>
+								{linkJustCopied ? SPLIT_BILL.sharing.copiedButton : 'Copy a link to this bill'}
+							</button>
 						{/if}
 						{#if items.length && people.length}
 							<button
 								type="button"
 								onclick={copyText}
-								class="{secondaryButton} whitespace-nowrap sm:grow">Copy as text</button
+								class="{secondaryButton} whitespace-nowrap sm:grow"
 							>
+								Copy as text
+							</button>
 							{#if canShare}
 								<button
 									type="button"
 									onclick={shareText}
-									class="{secondaryButton} whitespace-nowrap sm:grow">Share</button
+									class="{secondaryButton} whitespace-nowrap sm:grow"
 								>
+									Share
+								</button>
 							{/if}
 						{/if}
 					</div>
@@ -2970,12 +2998,17 @@
 						{#if confirmingDelete}
 							<div class="mt-2 flex flex-wrap items-center gap-2" role="group" aria-label="Delete">
 								<span class="text-sm">{SPLIT_BILL.sharing.deleteQuestion}</span>
-								<button id="confirm-delete" type="button" onclick={deleteShared} class={smallButton}
-									>Yes, delete</button
+								<button
+									id="confirm-delete"
+									type="button"
+									onclick={deleteShared}
+									class={smallButton}
 								>
-								<button type="button" onclick={() => askToDelete(false)} class={smallButton}
-									>Keep it</button
-								>
+									Yes, delete
+								</button>
+								<button type="button" onclick={() => askToDelete(false)} class={smallButton}>
+									Keep it
+								</button>
 							</div>
 						{:else}
 							<button
@@ -2983,8 +3016,9 @@
 								id="delete-open"
 								onclick={() => askToDelete(true)}
 								class="mt-2 min-h-9 text-sm text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-								>Delete the shared copy</button
 							>
+								Delete the shared copy
+							</button>
 						{/if}
 					{/if}
 					<!-- What sharing keeps on our server: for whoever shares, not for a friend reading a
@@ -3002,12 +3036,12 @@
 								aria-label="Clear everything?"
 							>
 								<span class="text-sm">Clear everything?</span>
-								<button id="confirm-clear" type="button" onclick={confirmClear} class={smallButton}
-									>Yes, clear</button
-								>
-								<button type="button" onclick={() => askToClear(false)} class={smallButton}
-									>Keep it</button
-								>
+								<button id="confirm-clear" type="button" onclick={confirmClear} class={smallButton}>
+									Yes, clear
+								</button>
+								<button type="button" onclick={() => askToClear(false)} class={smallButton}>
+									Keep it
+								</button>
 							</div>
 						{:else}
 							<button
@@ -3015,8 +3049,9 @@
 								id="clear-open"
 								onclick={() => askToClear(true)}
 								class="min-h-9 text-sm text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-								>Clear everything</button
 							>
+								Clear everything
+							</button>
 						{/if}
 					</div>
 				</div>
@@ -3057,9 +3092,9 @@
 							</span>
 							<span class="flex flex-wrap items-center gap-x-1.5">
 								<span>Not in anyone's share yet</span>
-								<span class="inline-flex items-center gap-1 font-semibold"
-									>{money(totals.unshared)}<Arrow /></span
-								>
+								<span class="inline-flex items-center gap-1 font-semibold">
+									{money(totals.unshared)}<Arrow />
+								</span>
 							</span>
 							<span class="sr-only">{SPLIT_BILL.goToUnshared}</span>
 						</button>
@@ -3081,8 +3116,10 @@
 						class="shrink-0 whitespace-nowrap {(step === 1 && !people.length) ||
 						(step === 2 && (!items.length || scanning))
 							? smallButton
-							: primaryButton}">{SPLIT_BILL.steps.next}</button
+							: primaryButton}"
 					>
+						{SPLIT_BILL.steps.next}
+					</button>
 				</div>
 			</section>
 		{/if}

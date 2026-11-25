@@ -102,8 +102,9 @@
 			<span class="min-w-0">
 				<span
 					class="block font-semibold underline-offset-4 group-hover:underline group-aria-[current=page]:underline group-aria-[current=page]:decoration-2"
-					>{tool.name}</span
 				>
+					{tool.name}
+				</span>
 				<span class="block text-sm text-muted">{tool.line}</span>
 			</span>
 		</a>
@@ -124,8 +125,10 @@
 		stroke-width="2"
 		stroke-linecap="round"
 		aria-hidden="true"
-		class="size-4 shrink-0"><circle cx="8.5" cy="8.5" r="5.5" /><path d="m13 13 4 4" /></svg
-	>{NAV.allTools}
+		class="size-4 shrink-0"
+	>
+		<circle cx="8.5" cy="8.5" r="5.5" /><path d="m13 13 4 4" />
+	</svg>{NAV.allTools}
 </button>
 
 <!-- Full screen on a phone, a panel over the page from 640px. No shadow and no black: the page
@@ -141,9 +144,9 @@
 			<h2 id="tools-heading" tabindex="-1" class="text-2xl font-extrabold tracking-[-0.03em]">
 				{NAV.menuHeading}
 			</h2>
-			<button type="button" onclick={() => dialog?.close()} class={smallButtonOnPage}
-				>{NAV.close}</button
-			>
+			<button type="button" onclick={() => dialog?.close()} class={smallButtonOnPage}>
+				{NAV.close}
+			</button>
 		</div>
 		<form class="mt-4" onsubmit={go} role="search">
 			<label for="tools-search" class="sr-only">{NAV.search}</label>

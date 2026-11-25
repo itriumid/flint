@@ -28,7 +28,7 @@
 	// then. A bill in progress is said in Split bill's field, since it lives on the device; a bill
 	// shared from this device is what left it, so it is said under what leaves.
 	let draft: string | undefined = $state();
-	let shared: { text: string; action: string; href: string } | undefined = $state();
+	let shared: { text: string; action: string; bill: string } | undefined = $state();
 	onMount(() => {
 		const kept = loadDraft();
 		if (kept) {
@@ -43,7 +43,7 @@
 			shared = {
 				text: IN_PROGRESS.shared(ids.length),
 				action: ids.length === 1 ? IN_PROGRESS.openIt : IN_PROGRESS.openLatest,
-				href: `${resolve('/split-bill')}#bill=${ids[0]}`
+				bill: ids[0]
 			};
 		}
 	});
@@ -124,9 +124,9 @@
 					<a href={resolve(tool.path as '/')} class="group flex min-h-12 items-start gap-3 py-2.5">
 						<ToolSymbol tool={tool.id} class="mt-0.5 size-5 shrink-0" />
 						<span>
-							<span class="block font-semibold underline-offset-4 group-hover:underline"
-								>{tool.name}</span
-							>
+							<span class="block font-semibold underline-offset-4 group-hover:underline">
+								{tool.name}
+							</span>
 							<span class="block text-sm text-muted">{tool.line}</span>
 						</span>
 					</a>
@@ -177,19 +177,21 @@
 			>
 				{#if tool.id === 'split-bill' && shared}
 					{shared.text}
-					<a href={shared.href} class="group/shared {actionLine}"
-						>{shared.action}<Arrow
+					<a href={resolve(`/split-bill#bill=${shared.bill}`)} class="group/shared {actionLine}">
+						{shared.action}<Arrow
 							class="transition-transform duration-200 motion-safe:group-hover/shared:translate-x-1"
-						/></a
-					>
+						/>
+					</a>
 				{/if}
 			</p>
 			<a
 				href={resolve(tool.path as '/')}
 				class="{tool.id === 'split-bill'
 					? 'mt-2'
-					: 'mt-14'} self-start whitespace-nowrap lg:mt-auto {start}">{tool.start}</a
+					: 'mt-14'} self-start whitespace-nowrap lg:mt-auto {start}"
 			>
+				{tool.start}
+			</a>
 		</section>
 	{/each}
 </div>
@@ -229,9 +231,9 @@
 	<a href={resolve(tool.path as '/')} class="group flex items-start gap-3">
 		<ToolSymbol tool={tool.id} class="mt-1 size-5 shrink-0" />
 		<span>
-			<span class="block text-lg font-bold underline-offset-4 group-hover:underline"
-				>{tool.name}</span
-			>
+			<span class="block text-lg font-bold underline-offset-4 group-hover:underline">
+				{tool.name}
+			</span>
 			<span class="block text-sm">{tool.line}</span>
 			<span class="block text-sm text-muted">{tool.leaves}</span>
 		</span>
@@ -257,15 +259,15 @@
 			<h2 class="font-bold">{ELSEWHERE_HEADING}</h2>
 			{#each ELSEWHERE as app (app.url)}
 				<p class="mt-2">
-					<a href={app.url} rel="external" class="group {actionLine}"
-						>{app.label}<Arrow class={arrowMove} /></a
-					>
+					<a href={app.url} rel="external" class="group {actionLine}">
+						{app.label}<Arrow class={arrowMove} />
+					</a>
 					<span class="block text-sm text-muted">{new URL(app.url).host}</span>
 				</p>
 			{/each}
 		</div>
-		<a href={SOURCE_URL} rel="external" class="group {secondaryButtonOnPage}"
-			>{SOURCE_LABEL}<Arrow class={arrowMove} /></a
-		>
+		<a href={SOURCE_URL} rel="external" class="group {secondaryButtonOnPage}">
+			{SOURCE_LABEL}<Arrow class={arrowMove} />
+		</a>
 	</div>
 </div>

@@ -522,15 +522,17 @@
 									onclick={() => saveOne(item)}
 									aria-disabled={item.state !== 'done'}
 									class="{smallButtonOnPage} h-8! aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
-									>{IMAGES.images.save}<span class="sr-only"> {item.file.name}</span></button
 								>
+									{IMAGES.images.save}<span class="sr-only"> {item.file.name}</span>
+								</button>
 							{/if}
 							<button
 								type="button"
 								onclick={() => remove(item.id)}
 								class="min-h-9 text-sm font-medium text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-								>{IMAGES.images.remove}<span class="sr-only"> {item.file.name}</span></button
 							>
+								{IMAGES.images.remove}<span class="sr-only"> {item.file.name}</span>
+							</button>
 						</div>
 					</li>
 				{/each}
