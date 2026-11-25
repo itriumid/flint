@@ -31,8 +31,9 @@
 				/>
 				<span
 					class="flex min-h-8 items-center rounded-full px-3 text-sm transition-colors peer-checked:bg-text peer-checked:font-semibold peer-checked:text-bg peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-(--focus) hover:text-text motion-reduce:transition-none pointer-coarse:min-h-11"
-					>{each.label}</span
 				>
+					{each.label}
+				</span>
 			</label>
 		{/each}
 	</div>

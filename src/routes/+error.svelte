@@ -28,10 +28,11 @@
 						<a
 							href={destination.href}
 							class="group flex min-h-11 items-center justify-between gap-4 rounded-xl px-3 py-4 text-xl font-bold tracking-tight transition-colors hover:bg-surface"
-							>{destination.name}<Arrow
-								class="text-accent-text transition-transform duration-200 motion-safe:group-hover:translate-x-1"
-							/></a
 						>
+							{destination.name}<Arrow
+								class="text-accent-text transition-transform duration-200 motion-safe:group-hover:translate-x-1"
+							/>
+						</a>
 					</li>
 				{/each}
 			</ul>

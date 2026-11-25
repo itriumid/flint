@@ -73,11 +73,13 @@
 				<button
 					type="button"
 					class="inline-flex min-h-9 items-center rounded-full px-3 font-medium text-muted hover:text-text pointer-coarse:min-h-11"
-					onclick={() => (updates.later = true)}>{UPDATE.later}</button
+					onclick={() => (updates.later = true)}
 				>
-				<button type="button" class={smallButton} onclick={() => updates.apply()}
-					>{UPDATE.action}</button
-				>
+					{UPDATE.later}
+				</button>
+				<button type="button" class={smallButton} onclick={() => updates.apply()}>
+					{UPDATE.action}
+				</button>
 			</div>
 		</div>
 	{/if}
@@ -113,8 +115,10 @@
 					<a
 						href={resolve(tool.path as '/')}
 						aria-current={page.url.pathname === resolve(tool.path as '/') ? 'page' : undefined}
-						class={toolLink}><ToolSymbol tool={tool.id} class="size-5 shrink-0" />{tool.short}</a
+						class={toolLink}
 					>
+						<ToolSymbol tool={tool.id} class="size-5 shrink-0" />{tool.short}
+					</a>
 				</li>
 			{/each}
 		</ul>
@@ -134,7 +138,7 @@
 	>
 		<div class="space-y-4">
 			<!-- Who makes Flint: Itrium's lockup, drawn for whichever theme is in use. -->
-			<a href={MAIN_SITE_URL} class="inline-block" aria-label={MADE_BY}>
+			<a href={MAIN_SITE_URL} rel="external" class="inline-block" aria-label={MADE_BY}>
 				<img src={lockupOnLight} alt="" width="131" height="40" class="h-10 w-auto dark:hidden" />
 				<img
 					src={lockupOnDark}
@@ -152,7 +156,7 @@
 		</div>
 		<!-- Itrium's site, here rather than in the header, which holds the tools. -->
 		<ul class="flex shrink-0 flex-wrap gap-x-5 gap-y-2 sm:flex-col sm:gap-2 sm:text-right">
-			<li><a href={MAIN_SITE_URL} class={link}>{ABOUT_ITRIUM}</a></li>
+			<li><a href={MAIN_SITE_URL} rel="external" class={link}>{ABOUT_ITRIUM}</a></li>
 			<li><a href="mailto:{EMAIL}" class={link}>{EMAIL}</a></li>
 			<li>
 				<a href={GITHUB_URL} rel="external" class={link}>GitHub</a>

@@ -107,11 +107,7 @@
 	// The link, handed to the QR code tool after the #, which stays in the browser and never reaches
 	// a server: the code is made there, raw, to save as PNG or SVG. Without the message: a printed
 	// code is for everyone who scans it, not the one customer a message was typed for.
-	const qrHandOff = $derived(
-		target
-			? `${resolve(QR_CODE.path)}#text=${encodeURIComponent(chatLink(target.number))}`
-			: undefined
-	);
+	const qrHandOff = $derived(target ? encodeURIComponent(chatLink(target.number)) : undefined);
 
 	async function copyLink() {
 		if (!target) return;
@@ -219,9 +215,9 @@
 		{#if messageShown || hasMessage}
 			<div>
 				<div class="mb-1.5 flex items-center justify-between gap-3">
-					<label for="message" class="{label} mb-0!"
-						>Message <span class="text-muted">(optional)</span></label
-					>
+					<label for="message" class="{label} mb-0!">
+						Message <span class="text-muted">(optional)</span>
+					</label>
 					<button
 						type="button"
 						onclick={() => void removeMessage()}
@@ -270,11 +266,14 @@
 			<p class="text-sm leading-relaxed text-muted">{WHATSAPP.result.useIt}</p>
 			<!-- For a shop's counter or a card: the QR code tool, with this link already in it. -->
 			{#if qrHandOff}
-				<a href={qrHandOff} class="group mt-1 min-h-9 text-sm pointer-coarse:min-h-11 {actionLine}"
-					>{WHATSAPP.result.makeQr}<Arrow
-						class="transition-transform duration-200 motion-safe:group-hover:translate-x-1"
-					/></a
+				<a
+					href={resolve(`${QR_CODE.path}#text=${qrHandOff}`)}
+					class="group mt-1 min-h-9 text-sm pointer-coarse:min-h-11 {actionLine}"
 				>
+					{WHATSAPP.result.makeQr}<Arrow
+						class="transition-transform duration-200 motion-safe:group-hover:translate-x-1"
+					/>
+				</a>
 			{/if}
 		{:else}
 			<p class="text-sm leading-relaxed text-muted">{WHATSAPP.result.empty}</p>
@@ -301,12 +300,12 @@
 					<!-- Says it worked where the press was, and in the line under it for screen readers.
 					     Both words share one cell, so the button keeps its width when they swap. -->
 					<span class="grid">
-						<span class="invisible col-start-1 row-start-1" aria-hidden="true"
-							>{WHATSAPP.result.copy}</span
-						>
-						<span class="col-start-1 row-start-1"
-							>{copied === 'yes' ? WHATSAPP.result.copied : WHATSAPP.result.copy}</span
-						>
+						<span class="invisible col-start-1 row-start-1" aria-hidden="true">
+							{WHATSAPP.result.copy}
+						</span>
+						<span class="col-start-1 row-start-1">
+							{copied === 'yes' ? WHATSAPP.result.copied : WHATSAPP.result.copy}
+						</span>
 					</span>
 				</button>
 			</div>

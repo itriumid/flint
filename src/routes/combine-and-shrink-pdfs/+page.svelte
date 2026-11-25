@@ -764,8 +764,10 @@
 						<button
 							type="button"
 							onclick={() => file.tryPassword?.(file.typed ?? '')}
-							class={smallButtonOnPage}>{PDF.locked.open}</button
+							class={smallButtonOnPage}
 						>
+							{PDF.locked.open}
+						</button>
 					</div>
 					<p class="mt-1.5 text-sm {file.wrong ? 'font-medium' : 'text-muted'}" aria-live="polite">
 						{file.wrong ? PDF.locked.wrong : PDF.locked.note}
@@ -848,8 +850,10 @@
 									class="graphite-bar absolute bottom-1 left-1 rounded-full px-2 text-xs font-bold tabular-nums {counter[
 										page.turn
 									]}"
-									aria-hidden="true">{at + 1}</span
+									aria-hidden="true"
 								>
+									{at + 1}
+								</span>
 							</span>
 						</button>
 						<div class="mt-2 flex gap-2">
@@ -896,8 +900,9 @@
 							type="button"
 							onclick={() => (lifted = undefined)}
 							class="mt-2 min-h-9 text-sm font-medium text-muted underline underline-offset-4 hover:text-text pointer-coarse:min-h-11"
-							>{PDF.pages.cancel}</button
 						>
+							{PDF.pages.cancel}
+						</button>
 					</li>
 				{/if}
 			</ol>

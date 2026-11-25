@@ -223,9 +223,9 @@
 				/>
 			</div>
 			<div>
-				<label for="wifi-password" class={label}
-					>{QR_CODE.fields.wifiPassword} <span class={optional}>{QR_CODE.optional}</span></label
-				>
+				<label for="wifi-password" class={label}>
+					{QR_CODE.fields.wifiPassword} <span class={optional}>{QR_CODE.optional}</span>
+				</label>
 				<!-- Shown as typed: it's being put into a code for others to read, and a typo here
 				     means a code that doesn't join. -->
 				<input
@@ -262,9 +262,9 @@
 				/>
 			</div>
 			<div>
-				<label for="contact-phone" class={label}
-					>{QR_CODE.fields.contactPhone} <span class={optional}>{QR_CODE.optional}</span></label
-				>
+				<label for="contact-phone" class={label}>
+					{QR_CODE.fields.contactPhone} <span class={optional}>{QR_CODE.optional}</span>
+				</label>
 				<input
 					id="contact-phone"
 					type="tel"
@@ -280,17 +280,17 @@
 				<!-- Always here, so a screen reader hears the problem when it comes; until then, the number
 				     as the code will dial it, to check against what was typed. -->
 				<p id="contact-phone-problem" class="mt-1.5 flex gap-2 text-sm empty:hidden" role="status">
-					{#if problem?.problem === 'phone'}<span class="flex gap-2 font-medium"
-							><Caution class="mt-0.5 shrink-0" />{problemText}</span
-						>{:else if contactRead}<span class="text-muted tabular-nums"
-							>{WHATSAPP.reads(contactRead.display, countryOf(contactRead))}</span
-						>{/if}
+					{#if problem?.problem === 'phone'}<span class="flex gap-2 font-medium">
+							<Caution class="mt-0.5 shrink-0" />{problemText}
+						</span>{:else if contactRead}<span class="text-muted tabular-nums">
+							{WHATSAPP.reads(contactRead.display, countryOf(contactRead))}
+						</span>{/if}
 				</p>
 			</div>
 			<div>
-				<label for="contact-email" class={label}
-					>{QR_CODE.fields.contactEmail} <span class={optional}>{QR_CODE.optional}</span></label
-				>
+				<label for="contact-email" class={label}>
+					{QR_CODE.fields.contactEmail} <span class={optional}>{QR_CODE.optional}</span>
+				</label>
 				<input
 					id="contact-email"
 					type="email"
@@ -314,9 +314,9 @@
 				</p>
 			</div>
 			<div>
-				<label for="contact-website" class={label}
-					>{QR_CODE.fields.contactWebsite} <span class={optional}>{QR_CODE.optional}</span></label
-				>
+				<label for="contact-website" class={label}>
+					{QR_CODE.fields.contactWebsite} <span class={optional}>{QR_CODE.optional}</span>
+				</label>
 				<input
 					id="contact-website"
 					type="url"
@@ -352,15 +352,15 @@
 				</p>
 			</div>
 			<div>
-				<label for="email-subject" class={label}
-					>{QR_CODE.fields.emailSubject} <span class={optional}>{QR_CODE.optional}</span></label
-				>
+				<label for="email-subject" class={label}>
+					{QR_CODE.fields.emailSubject} <span class={optional}>{QR_CODE.optional}</span>
+				</label>
 				<input id="email-subject" bind:value={entries.email.subject} class={field} />
 			</div>
 			<div>
-				<label for="email-body" class={label}
-					>{QR_CODE.fields.emailBody} <span class={optional}>{QR_CODE.optional}</span></label
-				>
+				<label for="email-body" class={label}>
+					{QR_CODE.fields.emailBody} <span class={optional}>{QR_CODE.optional}</span>
+				</label>
 				<textarea id="email-body" bind:value={entries.email.body} rows="3" class="{field} resize-y"
 				></textarea>
 			</div>
@@ -392,11 +392,11 @@
 				<!-- Always here, so a screen reader hears the problem when it comes; until then, the number
 				     as the code will dial it, to check against what was typed. -->
 				<p id="phone-first-problem" class="mt-1.5 flex gap-2 text-sm empty:hidden" role="status">
-					{#if problem?.problem === 'phone'}<span class="flex gap-2 font-medium"
-							><Caution class="mt-0.5 shrink-0" />{problemText}</span
-						>{:else if phoneRead}<span class="text-muted tabular-nums"
-							>{WHATSAPP.reads(phoneRead.display, countryOf(phoneRead))}</span
-						>{/if}
+					{#if problem?.problem === 'phone'}<span class="flex gap-2 font-medium">
+							<Caution class="mt-0.5 shrink-0" />{problemText}
+						</span>{:else if phoneRead}<span class="text-muted tabular-nums">
+							{WHATSAPP.reads(phoneRead.display, countryOf(phoneRead))}
+						</span>{/if}
 				</p>
 			</div>
 		{/if}
@@ -406,17 +406,18 @@
 		     or that it's too long. The code under it doesn't move when one gives way to another. -->
 		{#if kind === 'text'}
 			<p id="text-note" class="-mt-2.5 flex min-h-10 gap-2 text-sm" role="status">
-				{#if problemText}<span class="flex gap-2 font-medium"
-						><Caution class="mt-0.5 shrink-0" />{problemText}</span
-					>{:else if schemed}<span class="text-muted"
-						>{QR_CODE.noScheme}
+				{#if problemText}<span class="flex gap-2 font-medium">
+						<Caution class="mt-0.5 shrink-0" />{problemText}
+					</span>{:else if schemed}<span class="text-muted">
+						{QR_CODE.noScheme}
 						<button
 							type="button"
 							onclick={useScheme}
 							class="-my-2 min-h-9 font-medium text-text underline underline-offset-4 pointer-coarse:min-h-11"
-							>{QR_CODE.useScheme}</button
-						></span
-					>{:else}<span class="text-muted">{QR_CODE.hint}</span>{/if}
+						>
+							{QR_CODE.useScheme}
+						</button>
+					</span>{:else}<span class="text-muted">{QR_CODE.hint}</span>{/if}
 			</p>
 		{/if}
 	</div>
@@ -499,9 +500,9 @@
 						onclick={() => void pick(other)}
 						class="group flex min-h-12 w-full items-center justify-between gap-4 py-2 text-left"
 					>
-						<span class="font-semibold underline underline-offset-4 group-hover:decoration-2"
-							>{QR_CODE.kinds[other]}</span
-						>
+						<span class="font-semibold underline underline-offset-4 group-hover:decoration-2">
+							{QR_CODE.kinds[other]}
+						</span>
 						<span class="text-right text-sm text-muted">{QR_CODE.kindsFor[other]}</span>
 					</button>
 				</li>
