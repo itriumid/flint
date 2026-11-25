@@ -1,9 +1,10 @@
 <script lang="ts">
+	import type { ToolId } from '#lib/tools.js';
 	import ToolSymbol from '#lib/ToolSymbol.svelte';
 
 	interface Props {
 		/** Which tool: its symbol, the same as in the header and on the index. */
-		tool: 'split-bill' | 'whatsapp' | 'qr-code' | 'images';
+		tool: ToolId;
 		title: string;
 		introduction: string;
 		/** The width of the tool under the title, so the title lines up with it: a max-w-* class. */
